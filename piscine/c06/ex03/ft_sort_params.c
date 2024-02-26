@@ -60,12 +60,18 @@ char	**ft_sort_params(int num, char **s)
 int	main(int argc, char **argv)
 {
 	int	i;
-
-	i = 1;
+	char ** s;
+	
+	s = ft_sort_params(argc, argv);
+	i = 0;
+	
 	while (i < argc)
 	{
-		ft_putstr(ft_sort_params(argc - 1, argv)[i]);
-		ft_putstr("\n");
+		if (s[i] != argv[0])
+		{
+			ft_putstr(s[i]);
+			ft_putstr("\n");
+		}
 		i++;
 	}
 }
