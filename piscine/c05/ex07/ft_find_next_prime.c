@@ -20,7 +20,7 @@ int	ft_find_next_prime(int nb)
 	i = 2;
 	if (nb > 1)
 	{
-		while (i < nb)
+		while (i * i <= nb)
 		{
 			if (nb % i == 0)
 				return (ft_find_next_prime(nb + 1));
@@ -30,7 +30,7 @@ int	ft_find_next_prime(int nb)
 	}
 	return (2);
 }
-/*
+
 int	main(int argc, char **argv)
 {
 	int	i;
@@ -43,4 +43,3 @@ int	main(int argc, char **argv)
 		i++;
 	}
 }
-*/
