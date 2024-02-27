@@ -10,35 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <stdlib.h>
 #include <stdio.h>
 
 int	ft_ultimate_range(int **range, int min, int max)
 {
 	int	i;
+	int	*r;
 
 	if (min >= max)
+	{
+		*range = NULL;
 		return (0);
+	}
+	r = malloc(sizeof(int) * (max - min));
+	if (r == NULL)
+		return (-1);
 	i = 0;
-	while (range[1] <= max)
+	while (i < max - min)
+	{
+		r[i] = min + i;
 		i++;
-	return (i);
+	}
+	*range = r;
+	return (max - min);
 }
-
+/*
 int	main(int argc, char **argv)
 {
-	int	i;
+	int	*range;
 
 	if (argc == 3)
-	{
-		i = 0;
-		while (i < atoi(argv[2]) - atoi(argv[1]))
-		{
-			printf("%d ", ft_range(atoi(argv[1]), atoi(argv[2]))[i]);
-			i++;
-		}
-	}
+		printf("%d", ft_ultimate_range(&range, atoi(argv[1]), atoi(argv[2])));
 	else
-		printf("Enter two numbers after ./a.out to get the range between them");
+		printf("Enter two numbers after ./a.out ");
 }*/

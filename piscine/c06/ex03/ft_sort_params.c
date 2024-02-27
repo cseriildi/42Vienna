@@ -59,12 +59,11 @@ char	**ft_sort_params(int num, char **s)
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	char ** s;
+	int		i;
+	char	**s;
 	
 	s = ft_sort_params(argc, argv);
 	i = 0;
-	
 	while (i < argc)
 	{
 		if (s[i] != argv[0])
