@@ -6,8 +6,11 @@
 /*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:32:30 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/27 16:32:31 by icseri           ###   ########.fr       */
+/*   Updated: 2024/02/28 12:37:38 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+#ifndef FT_ABS_H
+# define FT_ABS_H
+# define ABS(Value) (Value * ((Value >= 0) - (Value < 0)))
+#endif
