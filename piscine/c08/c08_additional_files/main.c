@@ -1,45 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_prime.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 11:22:21 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/23 11:54:40 by icseri           ###   ########.fr       */
+/*   Created: 2024/02/29 16:28:46 by icseri            #+#    #+#             */
+/*   Updated: 2024/02/29 16:28:57 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include "ft_stock_str.h"
 
-int	ft_is_prime(int nb)
-{
-	int	i;
+struct s_stock_str	*ft_strs_to_tab(int ac, char **av);
 
-	i = 2;
-	if (nb > 1)
-	{
-		while (i * i <= nb && i <= 46340)
-		{
-			if (nb % i == 0)
-				return (0);
-			i++;
-		}
-		return (1);
-	}
-	return (0);
-}
-/*
+void	ft_show_tab(struct s_stock_str *par);
+
 int	main(int argc, char **argv)
 {
+	struct s_stock_str	*result = ft_strs_to_tab(argc, argv);
 	int	i;
 
-	i = 1;
-	while (i < argc)
+	if (result == NULL)
+		printf("Memory allocation failed\n");
+	ft_show_tab(result);
+	i = 0;
+	while (result[i].str != NULL)
 	{
-		printf("\nIs %s", argv[i]);
-		printf(" a prime? %d", ft_is_prime(atoi(argv[i])));
+		free(result[i].copy);
 		i++;
 	}
-}*/
+	free(result);
+}
