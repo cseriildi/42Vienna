@@ -1,45 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_prime.c                                      :+:      :+:    :+:   */
+/*   ft_stock_str.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 11:22:21 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/23 11:54:40 by icseri           ###   ########.fr       */
+/*   Created: 2024/02/28 13:05:12 by icseri            #+#    #+#             */
+/*   Updated: 2024/02/28 13:05:52 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef FT_STOCK_STR_H
+# define FT_STOCK_STR_H
 
-int	ft_is_prime(int nb)
+typedef struct	s_stock_str
 {
-	int	i;
+	int	size;
+	char	*str;
+	char	*copy;
+}	t_stock_str;
 
-	i = 2;
-	if (nb > 1)
-	{
-		while (i * i <= nb && i <= 46340)
-		{
-			if (nb % i == 0)
-				return (0);
-			i++;
-		}
-		return (1);
-	}
-	return (0);
-}
-/*
-int	main(int argc, char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (i < argc)
-	{
-		printf("\nIs %s", argv[i]);
-		printf(" a prime? %d", ft_is_prime(atoi(argv[i])));
-		i++;
-	}
-}*/
+#endif

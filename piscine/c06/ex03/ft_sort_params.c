@@ -61,12 +61,14 @@ int	main(int argc, char **argv)
 {
 	int		i;
 	char	**s;
-	
+	char	*filename;
+
+	filename = argv[0];
 	s = ft_sort_params(argc, argv);
 	i = 0;
 	while (i < argc)
 	{
-		if (s[i] != argv[0])
+		if (ft_strcmp(s[i], filename) != 0)
 		{
 			ft_putstr(s[i]);
 			ft_putstr("\n");
