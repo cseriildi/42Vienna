@@ -21,4 +21,4 @@
 |Exam00|50%|
 |Exam01|50%|
 |Exam02|90%|
-|Final Exam|In the future|
+|Final Exam|72%|
