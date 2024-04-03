@@ -3,34 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:00:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/19 10:06:29 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:16:24 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-int	ft_strlen(char *str)
-{
-	int	i;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
+#include "libft.h"
 
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	unsigned int	i;
+	size_t	i;
 
 	i = 0;
 	if (size == 0)
 		return (ft_strlen(src));
-	while (i < size - 1 && src[i] != '\0')
+	while (i < size - 1 && src[i])
 	{
-		dest[i] = src[i];
+		dst[i] = src[i];
 		i++;
 	}
-	dest[i] = '\0';
+	dst[i] = '\0';
 	return (ft_strlen(src));
 }
+/*
+int	main(void)
+{
+	char		dest[50];
+	const char	*src = "42Vienna";
+	size_t		size = 5;
+
+	printf("Original function: %zu \n", strlcpy(dest, src, size));
+	printf("My function: %zu \n", ft_strlcpy(dest, src, size));
+}*/

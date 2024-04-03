@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlowcase.c                                    :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 18:00:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/18 18:04:02 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:16:10 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strlowcase(char *str)
-{
-	int	i;
+#include "libft.h"
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] >= 65 && str[i] <= 90)
-		{
-			str[i] = str[i] + 32;
-		}
-		i++;
-	}
-	return (str);
+int	ft_tolower(int c)
+{
+	if (c >= 65 && c <= 90)
+		c += 32;
+	return (c);
 }
+/*
+int	main(int argc, char **argv)
+{
+	(void)argc;
+	printf("Original function: %d \n", tolower(argv[1][0]));
+	printf("My function: %d \n", ft_tolower(argv[1][0]));
+}*/

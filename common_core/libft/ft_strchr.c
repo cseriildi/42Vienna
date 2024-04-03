@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 16:21:01 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 17:16:41 by icseri           ###   ########.fr       */
+/*   Created: 2024/04/03 13:55:15 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/03 17:16:31 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_strchr(const char *s, int c)
 {
-	char	*tmp1;
-	char	*tmp2;
-
-	tmp1 = (char *) s1;
-	tmp2 = (char *) s2;
-	while (n-- > 0 && (*tmp1 || *tmp2))
+	while (*s)
 	{
-		if (*tmp1 != *tmp2)
-			return (*tmp1 - *tmp2);
-		tmp1++;
-		tmp2++;
+		if (*s == c)
+			return ((char *) s);
+        s++;
 	}
+    if (c == '\0')
+        return ((char *) s);
 	return (0);
 }
 /*
 int	main(int argc, char **argv)
 {
 	(void)argc;
-	printf("Original function: %d \n", memcmp(argv[1], argv[2], atoi(argv[3])));
-	printf("My function: %d \n", ft_memcmp(argv[1], argv[2], atoi(argv[3])));
+	printf("Original function: %s \n", strchr(argv[1], argv[2][0]));
+	printf("My function: %s \n", ft_strchr(argv[1], argv[2][0]));
 }*/

@@ -3,34 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:17:48 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/21 17:27:39 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:15:45 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 
-int	ft_atoi(char *str)
+#include "libft.h"
+
+int ft_atoi(const char *nptr)
 {
-	int	sign;
-	int	nbr;
+	int sign;
+	int nbr;
 
 	nbr = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
+	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
 	sign = 1;
-	while (*str == '-' || *str == '+')
+	if (*nptr == '-' || *nptr == '+')
 	{
-		if (*str == '-')
+		if (*nptr == '-')
 			sign *= -1;
-		str++;
+		nptr++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (*nptr >= '0' && *nptr <= '9')
 	{
 		nbr *= 10;
-		nbr += *str - 48;
-		str++;
+		nbr += *nptr - 48;
+		nptr++;
 	}
 	return (sign * nbr);
 }
+/*
+int	main(void)
+{
+	const char *nbr = "  -123B32";
+
+	printf("Original function: %d \n", atoi(nbr));
+	printf("My function: %d \n", ft_atoi(nbr));
+}*/
