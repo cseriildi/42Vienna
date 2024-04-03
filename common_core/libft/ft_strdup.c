@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:34:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/26 13:37:07 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:21:08 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, const char *src)
 {
 	int	i;
 
 	i = 0;
-	while (src[i] != '\0')
+	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;
@@ -28,33 +26,17 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(char *src)
+char	*ft_strdup(const char *s)
 {
 	char	*duplicate;
 
-	duplicate = malloc(sizeof(char) * ft_strlen(src));
-	return (ft_strcpy(duplicate, src));
+	duplicate = malloc(sizeof(char) * ft_strlen(s));
+	return (ft_strcpy(duplicate, s));
 }
 /*
 int	main(int argc, char **argv)
 {
-	int	i;
-
-	i = 1;
-	while (i < argc)
-	{
-		printf("\n%s", ft_strdup(argv[i]));
-		printf("\n%s", strdup(argv[i]));
-		i++;
-	}
+	(void)argc;
+	printf("Original function: %s\n", strdup(argv[1]));
+	printf("My function: %s\n", ft_strdup(argv[1]));
 }*/

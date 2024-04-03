@@ -1,38 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/18 14:00:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 17:16:39 by icseri           ###   ########.fr       */
+/*   Created: 2024/04/03 14:27:12 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/03 18:00:54 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, void *src, size_t n)
+void	*ft_memmove(void *dest, void *src, size_t n)
 {
 	char	*tmp1;
 	char	*tmp2;
+    size_t  i;
 
 	tmp1 = (char *) dest;
 	tmp2 = (char *) src;
-	while (n--)
-		tmp1[n] = tmp2[n];
+    i = 0;
+	
+    if (tmp1 > tmp2)
+    {
+        while (n-- > 0)
+            tmp1[n] = tmp2[n];
+    }
+    else
+    {
+        while (i < n)
+        {
+            tmp1[i] = tmp2[i];
+            i++;
+        }
+    }
 	return (dest);
 }
 /*
 int main() 
 {
-	char str1[50] = "98Vienna";
-	char str2[50] = "98Vienna";
-	char str3[2] = "42";
+	char str1[50] = "42Vienna";
+	char str2[50] = "42Vienna";
 	int n = 2;
 
-	memcpy(str1, str3, n);
+	memmove(str1, str1 + 2, n);
 	printf("Original function: %s\n", str1);
-	ft_memcpy(str2, str3, n);
+	ft_memmove(str2, str2 + 2 , n);
 	printf("My function: %s\n", str2);
 }*/
