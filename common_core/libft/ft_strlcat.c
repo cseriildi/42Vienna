@@ -3,49 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.your42network>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:21:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/02/25 14:06:13 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/03 17:16:03 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 
-unsigned int	ft_strlen(char *str)
+#include "libft.h"
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	unsigned int	i;
+	size_t	i;
+	size_t	j;
+	size_t	dst_len;	
+	size_t	src_len;
 
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size)
-{
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	dest_len;	
-	unsigned int	src_len;
-
-	dest_len = ft_strlen(dest);
+	dst_len = ft_strlen(dst);
 	src_len = ft_strlen(src);
-	i = dest_len;
+	i = dst_len;
 	j = 0;
-	if (size <= dest_len)
+	if (size <= dst_len)
 		return (src_len + size);
 	while (src[j] && i < size - 1)
-	{
-		dest[i++] = src[j++];
-	}
-	dest[i] = '\0';
-	return (dest_len + src_len);
+		dst[i++] = src[j++];
+	dst[i] = '\0';
+	return (dst_len + src_len);
 }
 /*
-int	main(int argc, char **argv)
+int	main(void)
 {
-	(void)argc;
-	printf("%d", ft_strlcat(argv[1], argv[2], atoi(argv[3])));
+	char		dest1[50] = "42";
+	char		dest2[50] = "42";
+	const char	*src = "Vienna";
+	size_t		size = 5;
+
+	printf("Original function: %zu \n", strlcat(dest1, src, size));
+	printf("My function: %zu \n", ft_strlcat(dest2, src, size));
 }*/

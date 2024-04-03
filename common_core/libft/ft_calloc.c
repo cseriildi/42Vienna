@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 16:21:01 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 17:16:41 by icseri           ###   ########.fr       */
+/*   Created: 2024/04/03 15:43:29 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/03 17:16:56 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*tmp1;
-	char	*tmp2;
+	char	*arr;
+    void    *p;
 
-	tmp1 = (char *) s1;
-	tmp2 = (char *) s2;
-	while (n-- > 0 && (*tmp1 || *tmp2))
-	{
-		if (*tmp1 != *tmp2)
-			return (*tmp1 - *tmp2);
-		tmp1++;
-		tmp2++;
-	}
-	return (0);
+    p = malloc(nmemb * size);
+	arr = (char *) p;
+	while (nmemb--)
+		*arr++ = 0;
+	return (p);
 }
 /*
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	(void)argc;
-	printf("Original function: %d \n", memcmp(argv[1], argv[2], atoi(argv[3])));
-	printf("My function: %d \n", ft_memcmp(argv[1], argv[2], atoi(argv[3])));
+	printf("Original function: %s\n", (char *)calloc(atoi(argv[1]), atoi(argv[2])));
+	printf("My function: %s\n", (char *)ft_calloc(atoi(argv[1]), atoi(argv[2])));
 }*/
