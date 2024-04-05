@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:31:33 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/04 16:33:50 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/05 10:32:46 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *str, char c);
 char	*ft_itoa(int nb);
-//char *ft_strmapi(char const *s, char (*f)(unsigned int, char));
-//void ft_striteri(char *s, void (*f)(unsigned int, char*));
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
