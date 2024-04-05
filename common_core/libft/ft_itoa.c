@@ -6,13 +6,13 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 12:52:33 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/04 16:37:43 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/05 10:40:17 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_nbrlen(unsigned int n)
+static int	ft_nbrlen(unsigned int n)
 {
 	int	i;
 

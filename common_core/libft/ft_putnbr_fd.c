@@ -6,13 +6,13 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:51:53 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/04 15:13:30 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/05 10:41:03 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_nbr_len(int n)
+static int	ft_nbrlen(int n)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ void	ft_putnbr_fd(int nb, int fd)
 			ft_putstr_fd("-", fd);
 			nb *= -1;
 		}
-		i = ft_nbr_len(nb);
+		i = ft_nbrlen(nb);
 		nbr_as_str[i + 1] = '\0';
 		while (nb > 0)
 		{
