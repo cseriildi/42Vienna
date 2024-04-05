@@ -1,45 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 16:34:51 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/05 10:50:24 by icseri           ###   ########.fr       */
+/*   Created: 2024/04/05 11:37:13 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/05 15:41:36 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+t_list	*ft_lstnew(void *content)
 {
-	char	*new_s;
-	int		i;
+	t_list	*new_node;
 
-	new_s = malloc(ft_strlen(s) + 1);
-	if (new_s == NULL)
+	new_node = malloc(sizeof(t_list));
+	if (new_node == NULL)
 		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		new_s[i] = f(i, s[i]);
-		i++;
-	}
-	new_s[i] = '\0';
-	return (new_s);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
 }
-
-/* char	test_function(unsigned int x, char c)
+/* 
+int	main(void)
 {
-	if (c >= 'a' && c <= 'z')
-		return (c - 32);
-	return (c);
-}
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	printf("%s \n", ft_strmapi(argv[1], test_function));
+    t_list	*node;
+	
+	node = ft_lstnew("Hello, world!");
+    if (node)
+        printf("Content of the node: %s\n", (char *)node -> content);
+	else
+        printf("Error creating node\n");
+    free(node);
 }
  */

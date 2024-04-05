@@ -6,13 +6,13 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 08:55:08 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/04 17:04:10 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/05 14:46:12 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	occ(char c, char const *str)
+static int	occ(char c, char const *str)
 {
 	int		counter;
 	char	prev;
@@ -28,11 +28,12 @@ int	occ(char c, char const *str)
 	return (counter);
 }
 
-char	**create_empty_array(char const *str, char c)
+static char	**create_empty_array(char const *str, char c)
 {
 	int		count;
 	int		i;
 	char	**words;
+	int		len;
 
 	count = occ(c, str);
 	words = malloc(sizeof(char *) * (count + 1));
@@ -42,13 +43,16 @@ char	**create_empty_array(char const *str, char c)
 			free(words[count--]);
 		return (free(words), NULL);
 	}
-	i = 0;
-	while (i <= count)
+	i = -1;
+	while (++i < count)
 	{
 		words[i] = malloc(ft_strlen(str) + 1);
 		if (words[i] == NULL)
-			return (NULL);
-		i++;
+		{
+			while (i >= 0)
+				free(words[i--]);
+			return (free(words), NULL);
+		}
 	}
 	return (words);
 }
@@ -80,7 +84,7 @@ char	**ft_split(char const *str, char c)
 	words[i] = NULL;
 	return (words);
 }
-/*
+/* 
 int	main(int argc, char **argv)
 {
 	char	**words;
@@ -96,4 +100,4 @@ int	main(int argc, char **argv)
 		free(words[i++]);
 	free(words);
 }
-*/
+ */
