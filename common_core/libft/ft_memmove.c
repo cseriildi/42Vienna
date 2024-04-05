@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:27:12 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 18:00:54 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/04 16:30:57 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,24 @@ void	*ft_memmove(void *dest, void *src, size_t n)
 {
 	char	*tmp1;
 	char	*tmp2;
-    size_t  i;
+	size_t	i;
 
 	tmp1 = (char *) dest;
 	tmp2 = (char *) src;
-    i = 0;
-	
-    if (tmp1 > tmp2)
-    {
-        while (n-- > 0)
-            tmp1[n] = tmp2[n];
-    }
-    else
-    {
-        while (i < n)
-        {
-            tmp1[i] = tmp2[i];
-            i++;
-        }
-    }
+	i = 0;
+	if (tmp1 > tmp2)
+	{
+		while (n-- > 0)
+			tmp1[n] = tmp2[n];
+	}
+	else
+	{
+		while (i < n)
+		{
+			tmp1[i] = tmp2[i];
+			i++;
+		}
+	}
 	return (dest);
 }
 /*

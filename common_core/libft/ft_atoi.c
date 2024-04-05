@@ -6,16 +6,16 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:17:48 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 17:15:45 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/04 16:21:47 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
-	int sign;
-	int nbr;
+	int	sign;
+	int	nbr;
 
 	nbr = 0;
 	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))

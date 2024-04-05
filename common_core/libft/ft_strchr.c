@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:55:15 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 17:16:31 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/04 11:36:44 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	*ft_strchr(const char *s, int c)
 	{
 		if (*s == c)
 			return ((char *) s);
-        s++;
+		s++;
 	}
-    if (c == '\0')
-        return ((char *) s);
+	if (c == '\0')
+		return ((char *) s);
 	return (0);
 }
 /*

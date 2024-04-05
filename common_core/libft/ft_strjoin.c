@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 13:55:15 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/04 16:29:47 by icseri           ###   ########.fr       */
+/*   Created: 2024/02/27 11:54:20 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/04 10:13:54 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len;
+	char	*joined_str;
+	int		i;
 
-	len = ft_strlen(s) - 1;
-	while (len >= 0)
-	{
-		if (s[len] == c)
-			return ((char *) s + len);
-		len--;
-	}
-	return (0);
+	i = 0;
+	joined_str = malloc(ft_strlen(s1) + ft_strlen(s2)) + 1;
+	if (joined_str == NULL)
+		return (NULL);
+	while (*s1)
+		joined_str[i++] = *s1++;
+	while (*s2)
+		joined_str[i++] = *s2++;
+	joined_str[i] = '\0';
+	return (joined_str);
 }
 /*
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	printf("Original function: %s \n", strrchr(argv[1], argv[2][0]));
-	printf("My function: %s \n", ft_strrchr(argv[1], argv[2][0]));
+	printf("%s\n", ft_strjoin(argv[1], argv[2]));
 }*/
