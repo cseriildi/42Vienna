@@ -6,32 +6,21 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:34:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/05 10:43:44 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/08 17:56:03 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_strcpy(char *dest, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
 char	*ft_strdup(const char *s)
 {
 	char	*duplicate;
 
-	duplicate = malloc(sizeof(char) * ft_strlen(s));
-	return (ft_strcpy(duplicate, s));
+	duplicate = malloc(ft_strlen(s) + 1);
+	if (duplicate == NULL)
+		return (NULL);
+	ft_memcpy(duplicate, s, ft_strlen(s) + 1);
+	return (duplicate);
 }
 /*
 int	main(int argc, char **argv)

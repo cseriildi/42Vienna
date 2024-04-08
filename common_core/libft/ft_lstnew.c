@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/18 11:23:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/08 17:02:19 by icseri           ###   ########.fr       */
+/*   Created: 2024/04/05 11:37:13 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/05 15:41:36 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+t_list	*ft_lstnew(void *content)
 {
-	while (n-- > 0 && (*s1 || *s2))
-	{
-		if ((unsigned char)*s1 != (unsigned char)*s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		s1++;
-		s2++;
-	}
-	return (0);
+	t_list	*new_node;
+
+	new_node = malloc(sizeof(t_list));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
 }
-/*
-int	main(int argc, char **argv)
+/* 
+int	main(void)
 {
-	(void)argc;
-	printf("Original function: %d \n", strncmp(argv[1], argv[2], atoi(argv[3])));
-	printf("My function: %d \n", ft_strncmp(argv[1], argv[2], atoi(argv[3])));
+    t_list	*node;
+	
+	node = ft_lstnew("Hello, world!");
+    if (node)
+        printf("Content of the node: %s\n", (char *)node -> content);
+	else
+        printf("Error creating node\n");
+    free(node);
 }
-*/
+ */

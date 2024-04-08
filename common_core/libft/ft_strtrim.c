@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:40:00 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/05 10:56:21 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/08 19:27:56 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ static int	is_in_set(char c, char const *set)
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*trimmed;
-	int		len;
 	int		i;
 
-	len = ft_strlen(s1);
-	i = 0;
-	trimmed = malloc(len + 1);
-	if (trimmed == NULL)
-		return (NULL);
+	if (!s1 || !set)
+		return (0);
 	while (*s1 && is_in_set(*s1, set) == 1)
 		s1++;
+	trimmed = malloc(ft_strlen(s1) + 1);
+	if (trimmed == NULL)
+		return (NULL);
+	i = 0;
 	while (*s1)
 		trimmed[i++] = *s1++;
-	trimmed[i] = '\0';
-	while (--i >= 0 && is_in_set(trimmed[i], set) == 1)
-		trimmed[i] = '\0';
+	trimmed[i--] = '\0';
+	while (i >= 0 && is_in_set(trimmed[i], set) == 1)
+		trimmed[i--] = '\0';
 	return (trimmed);
 }
 
