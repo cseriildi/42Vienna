@@ -6,18 +6,20 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:27:12 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/04 16:30:57 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/08 13:52:15 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, void *src, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	char	*tmp1;
 	char	*tmp2;
 	size_t	i;
 
+	if (dest == NULL && src == NULL)
+		return (0);
 	tmp1 = (char *) dest;
 	tmp2 = (char *) src;
 	i = 0;

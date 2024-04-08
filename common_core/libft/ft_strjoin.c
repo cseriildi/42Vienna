@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 11:54:20 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/04 10:13:54 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/08 15:04:16 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 
 	i = 0;
-	joined_str = malloc(ft_strlen(s1) + ft_strlen(s2)) + 1;
+	joined_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (joined_str == NULL)
 		return (NULL);
 	while (*s1)
