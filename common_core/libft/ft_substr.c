@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:14:16 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/09 10:54:02 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/09 13:30:49 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (start >= str_len)
 		len = 0;
 	else if (str_len - start < len)
-		len = str_len;
+		len = str_len - start;
 	substr = malloc(len + 1);
 	if (substr == NULL)
 		return (NULL);
