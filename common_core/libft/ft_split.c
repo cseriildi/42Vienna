@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 08:55:08 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/08 20:46:38 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/09 11:54:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ static void	ft_free(char **arr)
 
 	i = 0;
 	while (arr[i])
-		free(arr[i++]);
-	free(arr[i]);
+	{
+		free(arr[i]);
+		i++;
+	}
 	free(arr);
 }
 
@@ -97,14 +99,13 @@ int	main(int argc, char **argv)
 {
 	char	**words;
 	int		i;
-	char *s = "      split       this for   me  !       ";
 
 	(void)argc;
-	words = ft_split(s, ' ');
-//	words = ft_split(argv[1], argv[2][0]);
+	words = ft_split(argv[1], argv[2][0]);
 	i = 0;
 	while (words[i])
-		printf("%s\n", words[i++]);
-	i = 0;
+		printf("[%s]\n", words[i++]);
+	printf("[%s]\n", words[i]);
 	ft_free(words);
-} */
+}
+*/
