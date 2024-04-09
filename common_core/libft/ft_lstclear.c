@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/05 11:37:13 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/05 15:41:36 by icseri           ###   ########.fr       */
+/*   Created: 2024/04/09 09:58:33 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/09 10:06:45 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*new_node;
+	t_list	*current;
 
-	new_node = malloc(sizeof(t_list));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	if (lst && del)
+	{
+		while (*lst)
+		{
+			current = (*lst)->next;
+			ft_lstdelone(*lst, del);
+			*lst = current;
+		}
+	}
+	*lst = NULL;
 }
-/* 
-int	main(void)
-{
-    t_list	*node;
-	
-	node = ft_lstnew("Hello, world!");
-    if (node)
-        printf("Content of the node: %s\n", (char *)node -> content);
-	else
-        printf("Error creating node\n");
-    free(node);
-}
- */
