@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:23:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 17:16:17 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:42:26 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	j;
 
 	i = 0;
+	if (big == NULL && little != NULL && len == 0)
+		return (NULL);
 	if (little[0] == '\0')
 		return ((char *) big);
 	while (big[i])
@@ -31,12 +33,13 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
-/*
+/* 
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	printf("Original function: %s\n", strnstr(argv[1], argv[2], atoi(argv[3])));
 	printf("My function: %s\n", ft_strnstr(argv[1], argv[2], atoi(argv[3])));
-}*/
+}
+ */

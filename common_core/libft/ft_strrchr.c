@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:55:15 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/08 19:22:04 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:32:11 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strrchr(const char *s, int c)
 			return ((char *)&s[len]);
 		len--;
 	}
-	return (0);
+	return (NULL);
 }
 /*
 int	main(int argc, char **argv)

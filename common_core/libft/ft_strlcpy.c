@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:00:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/03 17:16:24 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/10 18:40:37 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	dst[i] = '\0';
 	return (ft_strlen(src));
 }
-/*
-int	main(void)
+/* 
+int	main(int argc, char **argv)
 {
 	char		dest[50];
-	const char	*src = "42Vienna";
-	size_t		size = 5;
 
-	printf("Original function: %zu \n", strlcpy(dest, src, size));
-	printf("My function: %zu \n", ft_strlcpy(dest, src, size));
-}*/
+	printf("Original function: %zu \n", strlcpy(dest, argv[1], atoi(argv[2])));
+	printf("My function: %zu \n", ft_strlcpy(dest, argv[1], atoi(argv[2])));
+}
+ */
