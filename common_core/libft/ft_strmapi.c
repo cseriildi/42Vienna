@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 16:34:51 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/05 10:50:24 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/10 17:02:27 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char	*new_s;
 	int		i;
 
-	new_s = malloc(ft_strlen(s) + 1);
+	if (f == NULL || s == NULL)
+		return (NULL);
+	new_s = ft_calloc((ft_strlen(s) + 1), 1);
 	if (new_s == NULL)
 		return (NULL);
 	i = 0;
@@ -26,7 +28,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		new_s[i] = f(i, s[i]);
 		i++;
 	}
-	new_s[i] = '\0';
 	return (new_s);
 }
 
