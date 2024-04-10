@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:43:29 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/08 17:44:39 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/10 19:14:02 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*p;
 
+	if (size != 0 && nmemb != ((nmemb * size) / size))
+		return (NULL);
 	p = malloc(nmemb * size);
 	if (p == NULL)
 		return (NULL);
