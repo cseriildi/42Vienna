@@ -6,7 +6,7 @@
 #    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 10:47:29 by icseri            #+#    #+#              #
-#    Updated: 2024/04/09 09:57:54 by icseri           ###   ########.fr        #
+#    Updated: 2024/04/10 13:32:34 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,4 +47,4 @@ fclean:
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
