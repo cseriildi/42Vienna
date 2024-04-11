@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 14:00:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/10 18:47:18 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/11 09:59:00 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	i = 0;
 	tmp1 = (char *) dest;
 	tmp2 = (char *) src;
-	if ((!tmp1 && !tmp2))
+	if (!tmp1 && !tmp2)
 		return (NULL);
 	while (n--)
 	{
