@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:51:53 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/11 10:49:37 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/11 16:04:49 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,59 @@
 
 static int	ft_nbrlen(int n)
 {
-	int	i;
+	int	digit;
 
-	i = 0;
-	if (n <= 0)
-		i++;
-	while (n != 0)
+	digit = 1;
+	if (n < 0)
+	{
+		if (n / -10 == 0)
+			return (digit);
+		else
+		{
+			n /= -10;
+			digit++;
+		}
+	}
+	while (n / 10 != 0)
 	{
 		n /= 10;
-		i++;
+		digit++;
 	}
-	return (i);
+	return (digit);
 }
 
-static int	is_neg(int n)
+static int	ft_power(int nb, int power)
 {
-	if (n <= 0)
-		return (-1);
-	return (1);
+	if (power < 0)
+		return (0);
+	else if (power == 0)
+		return (1);
+	else
+		return (nb * ft_power(nb, power - 1));
 }
 
 void	ft_putnbr_fd(int nb, int fd)
 {
-	char	nbr_as_str[12];
-	int		i;
+	int	dig;
+	int	curr;
+	int	sign;
 
-	i = ft_nbrlen(nb);
-	if (nb == 0)
-		nbr_as_str[0] = '0';
+	sign = 1;
 	if (nb < 0)
-		nbr_as_str[0] = '-';
-	nbr_as_str[i--] = '\0';
-	while (nb != 0)
+		sign = -1;
+	dig = ft_nbrlen(nb);
+	while (dig > 0)
 	{
-		nbr_as_str[i--] = ((nb % (10 * is_neg(nb))) * is_neg(nb)) + '0';
-		nb /= (10 * is_neg(nb));
+		if (sign == -1)
+			ft_putchar_fd('-', fd);
+		curr = nb / (ft_power(10, dig - 1) * sign);
+		ft_putchar_fd(curr + '0', fd);
+		if (curr == 0)
+			curr = 1;
+		nb = (nb % (curr * ft_power(10, dig - 1) * sign)) * sign;
+		dig--;
+		sign *= sign;
 	}
-	ft_putstr_fd(nbr_as_str, fd);
 }
 /* 
 int	main(int argc, char **argv)
