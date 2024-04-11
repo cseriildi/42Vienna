@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 08:55:08 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/09 14:02:53 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/11 10:09:17 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	**create_empty_array(char const *str, char c)
 	int		len;
 
 	count = occ(str, c);
-	words = malloc(sizeof(char *) * (count + 1));
+	words = ft_calloc(sizeof(char *) * (count + 1), 1);
 	if (words == NULL)
 		return (NULL);
 	i = -1;
@@ -64,7 +64,7 @@ static char	**create_empty_array(char const *str, char c)
 			str++;
 			len++;
 		}
-		words[i] = malloc(len + 1);
+		words[i] = ft_calloc(len + 1, 1);
 		if (words[i] == NULL)
 			return (ft_free(words), NULL);
 	}
@@ -77,6 +77,8 @@ char	**ft_split(char const *str, char c)
 	int		i;
 	int		j;
 
+	if (str == NULL)
+		return (NULL);
 	words = create_empty_array(str, c);
 	if (words == NULL)
 		return (NULL);
@@ -88,15 +90,12 @@ char	**ft_split(char const *str, char c)
 			words[i][j++] = *str;
 		else if (j != 0)
 		{
-			words[i][j] = '\0';
 			i++;
 			j = 0;
 		}
 		str++;
 	}
-	if (j != 0)
-		words[i++][j] = '\0';
-	words[i] = NULL;
+	words[i + (j != 0)] = NULL;
 	return (words);
 }
 

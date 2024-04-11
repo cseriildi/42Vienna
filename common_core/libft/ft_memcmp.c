@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 16:21:01 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/10 19:26:07 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/11 10:57:52 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,4 @@ int	main(int argc, char **argv)
 	printf("Original function: %d \n", memcmp(argv[1], argv[2], atoi(argv[3])));
 	printf("My function: %d \n", ft_memcmp(argv[1], argv[2], atoi(argv[3])));
 }
- */
+*/

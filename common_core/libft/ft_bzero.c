@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:44:23 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/10 16:17:31 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/11 10:00:40 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 void	*ft_bzero(void *s, size_t n)
 {
-	char	*tmp;
-
-	tmp = (char *) s;
-	while (n--)
-		*tmp++ = '\0';
+	ft_memset(s, 0, n);
 	return (s);
 }
 /*
