@@ -6,13 +6,13 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:44:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/12 19:14:28 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/12 21:31:08 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
 	write(1, s, ft_strlen(s));
 	return (ft_strlen(s));
