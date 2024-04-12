@@ -6,13 +6,13 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:51:53 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/12 19:16:36 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/12 22:21:14 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_nbrlen(int n, int base)
+static int	ft_nbrlen(long n, int base)
 {
 	int	digit;
 
@@ -35,7 +35,7 @@ static int	ft_nbrlen(int n, int base)
 	return (digit);
 }
 
-static int	ft_power(int nb, int power)
+static long	ft_power(long nb, long power)
 {
 	if (power < 0)
 		return (0);
@@ -45,7 +45,7 @@ static int	ft_power(int nb, int power)
 		return (nb * ft_power(nb, power - 1));
 }
 
-int	ft_putnbr_base(int nb, char *baseformat)
+int	ft_putnbr_base(long nb, char *baseformat)
 {
 	int	dig;
 	int	curr;
