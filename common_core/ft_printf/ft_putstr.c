@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:44:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/12 21:31:08 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/15 10:42:43 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 int	ft_putstr(char *s)
 {
-	write(1, s, ft_strlen(s));
-	return (ft_strlen(s));
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	else
+	{
+		write(1, s, ft_strlen(s));
+		return (ft_strlen(s));
+	}
 }
 /* 
 int	main(int argc, char **argv)
