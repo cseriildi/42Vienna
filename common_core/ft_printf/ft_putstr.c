@@ -6,11 +6,21 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:44:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/15 10:42:43 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/15 13:21:37 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}
 
 int	ft_putstr(char *s)
 {
