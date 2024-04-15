@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:55:15 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/15 11:52:09 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/15 13:22:07 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
-# include <bsd/string.h>
-# include <ctype.h>
 
-size_t	ft_strlen(const char *s);
 int		ft_putchar(char c);
 int		ft_putstr(char *s);
 int		ft_putnbr(int nb);
