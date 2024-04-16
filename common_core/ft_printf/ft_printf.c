@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:41:45 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/15 15:00:25 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/16 15:34:22 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,33 @@ int	ft_printf(const char *s, ...)
 
 	counter = 0;
 	if (s == NULL)
-		return (counter);
+		return (-1);
 	va_start(args, s);
 	while (*s)
 	{
 		if (*s != '%')
 			counter += ft_putchar(*s++);
-		else
+		else if (*s++ == '%')
 		{
-			if (is_in_str("cspdiuxX%%", *++s) == 1)
+			while (*s == ' ')
+				s++;
+			if (is_in_str("cspdiuxX%%", *s) == 1)
 				counter += write_args(args, *s++);
 			else
 			{
-				counter += ft_putchar(*(s - 1));
+				counter += ft_putchar('%');
 				counter += ft_putchar(*s++);
 			}
 		}
 	}
-	va_end(args);
-	return (counter);
-}
+	return (va_end(args), counter);
+/* }
 
+int	main(void)
+{
+	ft_printf("%d\n", ft_printf(NULL));
+} */
+/* 
 int	main(int argc, char **argv)
 {
 	int	x = -78;
@@ -89,21 +95,22 @@ int	main(int argc, char **argv)
 	void	*n = NULL;
 	p = &x;
 
-	ocount = printf("The printf prints this:\n[%c]\n[%s]\n[%p]\n[%d]\n[%i]\n[%u]\n[%x]\n[%X]\n[%%]\n",
-		y, str, p, 5.5, x, x, y, y);
-	mcount = ft_printf(" ft_printf prints this:\n[%c]\n[%s]\n[%p]\n[%d]\n[%i]\n[%u]\n[%x]\n[%X]\n[%%]\n",
+	ocount = 	printf("The printf prints this:
+	\n[%c]\n[%s]\n[%p]\n[%d]\n[%i]\n[%u]\n[%x]\n[%X]\n[%%]\n[%g]\n",
+		y, str, p, x, x, x, y, y);
+	mcount = ft_printf(" ft_printf prints this:
+	\n[%c]\n[%s]\n[%p]\n[%d]\n[%i]\n[%u]\n[%x]\n[%X]\n[%%]\n[%g]\n",
 		y, str, p, x, x, x, y, y);
 		
 	printf("The original printed %d characters\n", ocount);
-	printf("Mine printed %d characters\n", mcount);
-/* 	ocount = printf("The printf prints this:
+	printf("Mine printed %d characters\n", mcount); 
+  	ocount = printf("The printf prints this:
 	\n[%c]\n[%s]\n[%p]\n[%d]\n[%i]\n[%u]\n[%x]\n[%X]\n[%%]\n",
 		NULL, NULL, n, NULL, NULL, NULL, NULL, NULL);
 	mcount = ft_printf(" ft_printf prints this:
 	\n[%c]\n[%s]\n[%p]\n[%d]\n[%i]\n[%u]\n[%x]\n[%X]\n[%%]\n",
 		NULL, NULL, n, NULL, NULL, NULL, NULL, NULL);
-
-	printf("The original printed %d characters\n", ocount);
-	printf("Mine printed %d characters\n", mcount); */
-}
  
+	printf("The original printed %d characters\n", ocount);
+	printf("Mine printed %d characters\n", mcount); 
+} */
