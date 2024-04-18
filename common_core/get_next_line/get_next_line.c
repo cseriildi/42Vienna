@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:07 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/18 11:46:28 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/18 18:24:29 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,22 @@ char	*get_next_line(int fd)
 {
 	static char	*unused_chars;
 	char		*line;
+	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	unused_chars = read_file(fd, unused_chars);
-	if (!unused_chars || !unused_chars[0])
+	if (!unused_chars)
+		unused_chars = read_file(fd, unused_chars);
+	if (!unused_chars)
+		return (NULL);
+	if (!unused_chars[0])
 		return (free(unused_chars), NULL);
 	line = line_search(unused_chars);
-	unused_chars = ft_strchr(unused_chars, '\n');
+	tmp = remove_line(unused_chars, line);
+	free(unused_chars);
+	unused_chars = tmp;
+	if (!unused_chars)
+		free(unused_chars);
 	return (line);
 }
 /* 
@@ -42,6 +50,7 @@ int	main(void)
 		free(line);
 		line = get_next_line(fd);
 	}
+	printf("[%s]\n", line);
 	close(fd);
 }
  */

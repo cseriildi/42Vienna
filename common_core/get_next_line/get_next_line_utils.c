@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/18 11:41:49 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/18 18:23:57 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,23 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (joined_str);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*remove_line(char *unused_chars, char *line)
 {
-	if (!s)
+	char	*trimmed;
+	int		i;
+	int		j;
+
+	if (!unused_chars || !line)
 		return (NULL);
-	while (*s)
-	{
-		if (*s == c)
-		{
-			s++;
-			return (s);
-		}
-		s++;
-	}
-	if (c == '\0')
-		return (s);
-	return (NULL);
+	j = ft_strlen(line);
+	trimmed = malloc(ft_strlen(unused_chars) - j + 1);
+	if (trimmed == NULL)
+		return (NULL);
+	i = 0;
+	while (unused_chars[j])
+		trimmed[i++] = unused_chars[j++];
+	trimmed[i] = '\0';
+	return (trimmed);
 }
 
 char	*line_search(char *s)
@@ -98,22 +99,23 @@ char	*read_file(int fd, char *unused_chars)
 {
 	char	*buffer;
 	int		read_size;
+	char	*tmp;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (buffer == NULL)
 		return (NULL);
-	buffer[0] = '\0';
 	read_size = 1;
-	while (!ft_strchr(buffer, '\n') && read_size != 0)
+	while (read_size > 0)
 	{
 		read_size = read(fd, buffer, BUFFER_SIZE);
 		if (read_size == -1)
 			return (free(buffer), NULL);
 		buffer[read_size] = '\0';
-		unused_chars = ft_strjoin(unused_chars, buffer);
-		if (!unused_chars)
-			free(unused_chars);
+		tmp = ft_strjoin(unused_chars, buffer);
+		free(unused_chars);
+		unused_chars = tmp;
+		if (!unused_chars || !unused_chars[0])
+			return (free(unused_chars), free(buffer), NULL);
 	}
-	free(buffer);
-	return (unused_chars);
+	return (free(buffer), unused_chars);
 }
