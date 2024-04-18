@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:17 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/15 15:28:55 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/18 11:43:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,20 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdint.h>
 
-char *get_next_line(int fd);
+char	*get_next_line(int fd);
+char	*ft_strjoin(char *s1, char *s2);
+int		ft_strlen(char *s);
+char	*line_search(char *s);
+char	*ft_strchr(char *s, int c);
+char	*read_file(int fd, char *unused_chars);
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+
+# endif
 
 #endif
