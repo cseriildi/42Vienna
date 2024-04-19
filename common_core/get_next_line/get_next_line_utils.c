@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/18 18:23:57 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/19 15:59:10 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		j;
 	int		len;
 
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
 	len = 0;
 	if (s1)
 		len += ft_strlen(s1);
@@ -50,72 +48,66 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (joined_str);
 }
 
-char	*remove_line(char *unused_chars, char *line)
+int	is_nl(char *read_chars)
+{
+	if (!read_chars)
+		return (0);
+	while (*read_chars)
+	{
+		if (*read_chars == '\n')
+			return (1);
+		read_chars++;
+	}
+	return (0);
+}
+
+char	*line_search(char *read_chars)
+{
+	char	*line;
+	int		len;
+
+	if (!read_chars || !read_chars[0])
+		return (NULL);
+	len = 0;
+	while (read_chars[len] && read_chars[len] != '\n')
+		len++;
+	if (read_chars[len] == '\n')
+		len++;
+	if (len == 0)
+		return (NULL);
+	line = malloc(len + 1);
+	if (!line)
+		return (NULL);
+	line[len] = '\0';
+	while (--len >= 0)
+		line[len] = read_chars[len];
+	return (line);
+}
+
+char	*remove_line(char *read_chars)
 {
 	char	*trimmed;
 	int		i;
 	int		j;
-
-	if (!unused_chars || !line)
-		return (NULL);
-	j = ft_strlen(line);
-	trimmed = malloc(ft_strlen(unused_chars) - j + 1);
-	if (trimmed == NULL)
-		return (NULL);
-	i = 0;
-	while (unused_chars[j])
-		trimmed[i++] = unused_chars[j++];
-	trimmed[i] = '\0';
-	return (trimmed);
-}
-
-char	*line_search(char *s)
-{
-	char	*line;
-	int		i;
 	int		len;
 
-	if (!s)
-		return (NULL);
-	len = 0;
-	while (s[len] && s[len] != '\n')
-		len++;
-	if (s[len] == '\n')
-		len++;
-	line = malloc(len + 1);
-	if (line == NULL)
-		return (NULL);
+	if (!read_chars /* || !read_chars[0] */)
+		return (/* free(read_chars),  */NULL);
+	len = ft_strlen(read_chars);
 	i = 0;
-	while (i < len)
-	{
-		line[i] = s[i];
+	while (read_chars[i] && read_chars[i] != '\n')
 		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-
-char	*read_file(int fd, char *unused_chars)
-{
-	char	*buffer;
-	int		read_size;
-	char	*tmp;
-
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (buffer == NULL)
-		return (NULL);
-	read_size = 1;
-	while (read_size > 0)
-	{
-		read_size = read(fd, buffer, BUFFER_SIZE);
-		if (read_size == -1)
-			return (free(buffer), NULL);
-		buffer[read_size] = '\0';
-		tmp = ft_strjoin(unused_chars, buffer);
-		free(unused_chars);
-		unused_chars = tmp;
-		if (!unused_chars || !unused_chars[0])
-			return (free(unused_chars), free(buffer), NULL);
-	}
-	return (free(buffer), unused_chars);
+	if (read_chars[i] == '\n')
+		i++;
+	if (i == len)
+		return (free(read_chars), NULL);
+	trimmed = malloc(len - i + 1);
+	if (!trimmed)
+        return (NULL);
+	j = 0;
+	while (i < len)
+		trimmed[j++] = read_chars[i++];
+	trimmed[j] = '\0';
+	free(read_chars);
+	return (trimmed);
 }
