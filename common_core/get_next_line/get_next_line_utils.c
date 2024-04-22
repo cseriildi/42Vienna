@@ -6,18 +6,18 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/19 15:59:10 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/22 16:27:28 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(char *s)
+size_t	ft_strlen(char *s)
 {
-	int	len;
+	size_t	len;
 
 	len = 0;
-	while (s[len])
+	while (s && s[len])
 		len++;
 	return (len);
 }
@@ -30,6 +30,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		len;
 
 	len = 0;
+	if (!s1 && !s2)
+		return (NULL);
 	if (s1)
 		len += ft_strlen(s1);
 	if (s2)
@@ -50,9 +52,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 int	is_nl(char *read_chars)
 {
-	if (!read_chars)
-		return (0);
-	while (*read_chars)
+	while (read_chars && *read_chars)
 	{
 		if (*read_chars == '\n')
 			return (1);
@@ -66,7 +66,7 @@ char	*line_search(char *read_chars)
 	char	*line;
 	int		len;
 
-	if (!read_chars || !read_chars[0])
+	if (!read_chars)
 		return (NULL);
 	len = 0;
 	while (read_chars[len] && read_chars[len] != '\n')
@@ -84,30 +84,11 @@ char	*line_search(char *read_chars)
 	return (line);
 }
 
-char	*remove_line(char *read_chars)
+void	ft_free(char **p)
 {
-	char	*trimmed;
-	int		i;
-	int		j;
-	int		len;
-
-	if (!read_chars /* || !read_chars[0] */)
-		return (/* free(read_chars),  */NULL);
-	len = ft_strlen(read_chars);
-	i = 0;
-	while (read_chars[i] && read_chars[i] != '\n')
-		i++;
-	if (read_chars[i] == '\n')
-		i++;
-	if (i == len)
-		return (free(read_chars), NULL);
-	trimmed = malloc(len - i + 1);
-	if (!trimmed)
-        return (NULL);
-	j = 0;
-	while (i < len)
-		trimmed[j++] = read_chars[i++];
-	trimmed[j] = '\0';
-	free(read_chars);
-	return (trimmed);
+	if (p && *p)
+	{
+		free(*p);
+		*p = NULL;
+	}
 }
