@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:17 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/19 16:06:23 by icseri           ###   ########.fr       */
+/*   Updated: 2024/04/22 16:33:48 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-int		ft_strlen(char *s);
+size_t	ft_strlen(char *s);
 char	*line_search(char *s);
-char	*remove_line(char *s);
 int		is_nl(char *read_chars);
+void	ft_free(char **p);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
