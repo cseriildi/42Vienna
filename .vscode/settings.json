@@ -1,0 +1,20 @@
+{
+	"files.associations": {
+		"random": "c",
+		"ft_printf.h": "c",
+		"stat.h": "c",
+		"stdlib.h": "c",
+		"stdio.h": "c",
+		"array": "c",
+		"bitset": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"ranges": "c",
+		"utility": "c",
+		"get_next_line.h": "c",
+		"limits.h": "c",
+		"sstream": "c",
+		"unistd.h": "c"
+	},
+	"files.autoSave": "off"
+}
