@@ -6,39 +6,44 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:05:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 10:11:38 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 10:58:08 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	ft_free(char **p)
+{
+	if (p && *p)
+	{
+		free(*p);
+		*p = NULL;
+	}
+}
+
 int	check_input(int count, char **input)
 {
-	char	*orig_str;
-	char	*new_str;
-	char	*prev_str;
+	char	*orig;
+	char	*new;
+	char	*prev;
 	int		i;
 
 	while (--count > 0)
 	{
-		orig_str = input[count];
-		new_str = ft_itoa(ft_atoi(orig_str));
-		if (new_str == NULL)
-			return (0);
-		if (ft_strncmp(orig_str, new_str, ft_strlen(new_str))
-			&& ft_strncmp(orig_str, "-0", 2))
-			return (free(new_str), 0);
+		orig = input[count];
+		new = ft_itoa(ft_atoi(orig));
+		if (!new || ft_strncmp(orig, new, ft_strlen(new) + 1)
+			&& ft_strncmp(orig, "-0", 3))
+			return (ft_free(&new), 0);
 		i = count;
 		while (--i > 0)
 		{
-			prev_str = ft_itoa(ft_atoi(input[i]));
-			if (!prev_str)
-				return (free(new_str), 0);
-			if (!ft_strncmp(new_str, prev_str, ft_strlen(new_str) +1))
-				return (free(new_str), free(prev_str), 0);
-			free(prev_str);
+			prev = ft_itoa(ft_atoi(input[i]));
+			if (!prev || !ft_strncmp(new, prev, ft_strlen(new) + 1))
+				return (ft_free(&new), ft_free(&prev), 0);
+			ft_free(&prev);
 		}
-		free(new_str);
+		ft_free(&new);
 	}
 	return (1);
 }
@@ -47,43 +52,42 @@ t_clist	**create_stack(int count, int *numbers)
 {
 	t_clist	**stack_a;
 	t_clist	*current;
-	
 
 	stack_a = malloc(sizeof(t_clist *));
-	if (stack_a == NULL)
+	if (!stack_a)
 		return (NULL);
 	*stack_a = NULL;
 	while (--count >= 0)
 	{
 		current = ft_circ_lstnew(&(numbers[count]));
 		if (!current)
-            return (ft_circ_lstclear(stack_a), free(stack_a), NULL);
-        ft_circ_lstadd_front(stack_a, current);
- 	}
+			return (ft_circ_lstclear(stack_a), free(stack_a), NULL);
+		ft_circ_lstadd_front(stack_a, current);
+	}
 	return (stack_a);
 }
 
 int	push_swap(int count, int *numbers)
 {
-    t_clist **stack_a;
-    t_clist *head;
-    t_clist *current;
+	t_clist	**stack_a;
+	t_clist	*head;
+	t_clist	*current;
 	int		loop_count;
 
-    stack_a = create_stack(count, numbers);
-    if (!stack_a)
-        return (0);
-    head = *stack_a;
-    current = head;
-    loop_count = 0;
+	stack_a = create_stack(count, numbers);
+	if (!stack_a)
+		return (0);
+	head = *stack_a;
+	current = head;
+	loop_count = 0;
 	while (loop_count++ == 0 || current != head)
-    {
-        printf("%d\n", *(int *) current->content);
+	{
+		printf("%d\n", *(int *) current->content);
 		current = current->next;
-    }
-    ft_circ_lstclear(stack_a);
-    free(stack_a);
-    return (1);
+	}
+	ft_circ_lstclear(stack_a);
+	free(stack_a);
+	return (1);
 }
 
 int	main(int argc, char **argv)

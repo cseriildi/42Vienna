@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 10:48:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 10:06:49 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 11:00:01 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,34 +40,34 @@ void	ft_circ_lstadd_front(t_clist **lst, t_clist *new)
 	}
 }
 
-void ft_circ_lstdelone(t_clist **lst)
+void	ft_circ_lstdelone(t_clist **lst)
 {
-    if (lst && *lst)
-    {
-        (*lst)->previous->next = (*lst)->next;
-        (*lst)->next->previous = (*lst)->previous;
-        free(*lst);
-        *lst = NULL;
-    }
+	if (lst && *lst)
+	{
+		(*lst)->previous->next = (*lst)->next;
+		(*lst)->next->previous = (*lst)->previous;
+		free(*lst);
+		*lst = NULL;
+	}
 }
 
-void ft_circ_lstclear(t_clist **lst)
-{
-    t_clist *head;
-    t_clist *current;
-	t_clist *next;
+void	ft_circ_lstclear(t_clist **lst)
+	{
+	t_clist	*head;
+	t_clist	*current;
+	t_clist	*next;
 
-    if (lst && *lst)
-    {
-        head = *lst;
-        current = head->next;
-        while (current != head)
-        {
-            next = current->next;
-            ft_circ_lstdelone(&current);
-            current = next;
-        }
-        ft_circ_lstdelone(lst);
-    }
-    *lst = NULL;
+	if (lst && *lst)
+	{
+		head = *lst;
+		current = head->next;
+		while (current != head)
+		{
+			next = current->next;
+			ft_circ_lstdelone(&current);
+			current = next;
+		}
+		ft_circ_lstdelone(lst);
+	}
+	*lst = NULL;
 }
