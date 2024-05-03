@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:05:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/02 18:44:34 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 10:11:38 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int	push_swap(int count, int *numbers)
     loop_count = 0;
 	while (loop_count++ == 0 || current != head)
     {
-        current = current->next;
+        printf("%d\n", *(int *) current->content);
+		current = current->next;
     }
     ft_circ_lstclear(stack_a);
     free(stack_a);
