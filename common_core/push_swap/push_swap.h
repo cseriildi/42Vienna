@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 11:02:29 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 11:03:32 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	ft_circ_lstdelone(t_clist **lst);
 void	ft_circ_lstclear(t_clist **lst);
 
 void	ft_free(char **p);
-int	check_input(int count, char **input);
+int		check_input(int count, char **input);
 t_clist	**create_stack(int count, int *numbers);
-int	push_swap(int count, int *numbers);
+int		push_swap(int count, int *numbers);
 
 #endif
