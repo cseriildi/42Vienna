@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 11:03:32 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 11:44:46 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include "libft/libft.h"
+# include <stdint.h>
 
 typedef struct s_clist
 {
@@ -32,5 +33,23 @@ void	ft_free(char **p);
 int		check_input(int count, char **input);
 t_clist	**create_stack(int count, int *numbers);
 int		push_swap(int count, int *numbers);
+
+void	swap(t_clist **stack)
+{
+	t_clist	*head;
+	t_clist	*next;
+	int	*tmp;
+
+	head = *stack;
+	next = head->next;
+	tmp = head->content;
+	head->content = next->content;
+	next->content = tmp;
+}
+
+void	swap(t_clist **stack);
+void	push(t_clist **stack_src, t_clist **stack_dest);
+void	rotate(t_clist **head);
+void	rev_rotate(t_clist **head);
 
 #endif
