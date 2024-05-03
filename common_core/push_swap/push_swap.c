@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:05:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 11:06:27 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 14:13:07 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	check_input(int count, char **input)
 	{
 		orig = input[count];
 		new = ft_itoa(ft_atoi(orig));
-		if (!new || ft_strncmp(orig, new, ft_strlen(new) + 1)
-			&& ft_strncmp(orig, "-0", 3))
+		if (!new || (ft_strncmp(orig, new, ft_strlen(new) + 1)
+			&& ft_strncmp(orig, "-0", 3)))
 			return (ft_free(&new), 0);
 		i = count;
 		while (--i > 0)
