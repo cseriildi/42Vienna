@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:06:38 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 11:43:13 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 13:15:29 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	swap(t_clist **stack)
 {
 	t_clist	*head;
 	t_clist	*next;
-	int	*tmp;
+	int		*tmp;
 
 	head = *stack;
 	next = head->next;
@@ -46,7 +46,6 @@ void	rotate(t_clist **head)
 	if (*head != NULL)
 		*head = (*head)->next;
 }
-
 
 void	rev_rotate(t_clist **head)
 {
