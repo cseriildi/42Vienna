@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 10:48:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/02 18:55:32 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 10:06:49 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,12 @@ void ft_circ_lstclear(t_clist **lst)
     t_clist *head;
     t_clist *current;
 	t_clist *next;
-	int		loop_count;
-
 
     if (lst && *lst)
     {
         head = *lst;
-        current = head;
-        loop_count = 0;
-		while (loop_count++ == 0 || current != head)
+        current = head->next;
+        while (current != head)
         {
             next = current->next;
             ft_circ_lstdelone(&current);
