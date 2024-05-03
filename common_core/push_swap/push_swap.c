@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:05:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 14:13:07 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/03 16:46:22 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_input(int count, char **input)
 		orig = input[count];
 		new = ft_itoa(ft_atoi(orig));
 		if (!new || (ft_strncmp(orig, new, ft_strlen(new) + 1)
-			&& ft_strncmp(orig, "-0", 3)))
+				&& ft_strncmp(orig, "-0", 3)))
 			return (ft_free(&new), 0);
 		i = count;
 		while (--i > 0)
@@ -70,23 +70,25 @@ t_clist	**create_stack(int count, int *numbers)
 int	push_swap(int count, int *numbers)
 {
 	t_clist	**stack_a;
+	t_clist	**stack_b;
 	t_clist	*head;
 	t_clist	*current;
 	int		loop_count;
 
 	stack_a = create_stack(count, numbers);
 	if (!stack_a)
+		return (-1);
+	stack_b = malloc(sizeof(t_clist *));
+	if (!stack_b)
+		return (ft_circ_lstclear(stack_a), free(stack_a), -1);
+	*stack_b = NULL;
+	if (check_if_sorted(stack_a, stack_b))
 		return (0);
-	head = *stack_a;
-	current = head;
-	loop_count = 0;
-	while (loop_count++ == 0 || current != head)
-	{
-		printf("%d\n", *(int *) current->content);
-		current = current->next;
-	}
+	// implement the sorting algorithm here
 	ft_circ_lstclear(stack_a);
 	free(stack_a);
+	ft_circ_lstclear(stack_b);
+	free(stack_b);
 	return (1);
 }
 
@@ -105,7 +107,7 @@ int	main(int argc, char **argv)
 		i = -1;
 		while (++i < argc - 1)
 			numbers[i] = ft_atoi(argv[i + 1]);
-		if (!push_swap(argc - 1, numbers))
+		if (push_swap(argc - 1, numbers) == -1)
 			return (free(numbers), write(2, "Error\n", 6), -1);
 		free(numbers);
 	}
