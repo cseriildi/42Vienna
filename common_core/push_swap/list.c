@@ -6,13 +6,13 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 10:48:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 11:34:01 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/06 11:50:39 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_clist	*ft_circ_lstnew(void *content)
+t_clist	*ft_circ_lstnew(int content, int rank)
 {
 	t_clist	*new_node;
 
@@ -20,6 +20,7 @@ t_clist	*ft_circ_lstnew(void *content)
 	if (new_node == NULL)
 		return (NULL);
 	new_node->content = content;
+	new_node->rank = rank;
 	new_node->next = new_node;
 	new_node->previous = new_node;
 	return (new_node);

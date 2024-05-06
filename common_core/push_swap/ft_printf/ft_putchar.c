@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_bonus.h                                    :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 15:57:56 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 10:55:35 by icseri           ###   ########.fr       */
+/*   Created: 2024/04/04 13:53:53 by icseri            #+#    #+#             */
+/*   Updated: 2024/04/12 21:36:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_BONUS_H
-# define CHECKER_BONUS_H
+#include "ft_printf.h"
 
-# include "push_swap.h"
-# include "gnl/get_next_line.h"
-
-int	checker(t_clist	**stack_a);
-
-#endif
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+/* 
+int	main(int argc, char **argv)
+{
+	(void)argc;
+	ft_putchar(argv[1][0]);
+}
+ */

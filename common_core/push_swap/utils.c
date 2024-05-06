@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_bonus.h                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 15:57:56 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 10:55:35 by icseri           ###   ########.fr       */
+/*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
+/*   Updated: 2024/05/06 11:42:48 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_BONUS_H
-# define CHECKER_BONUS_H
+#include "push_swap.h"
 
-# include "push_swap.h"
-# include "gnl/get_next_line.h"
+void	ft_free(char **p)
+{
+	if (p && *p)
+	{
+		free(*p);
+		*p = NULL;
+	}
+}
 
-int	checker(t_clist	**stack_a);
+void	print_stack(t_clist **stack)
+{
+	t_clist	*head;
+	t_clist	*current;
+	int	loopcount;
 
-#endif
+	head = *stack;
+	current = head;
+	loopcount = 0;
+	while (loopcount++ == 0 || current != head)
+	{
+		ft_printf("%d\n", current->rank);
+		current = current->next;
+	}
+}
