@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:57:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 12:19:29 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/06 18:34:18 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	checker(t_clist	**stack_a)
 		step_counter++;
 		instruction = get_next_line(1);
 	}
-	if (check_if_sorted(stack_a, 0))
+	if (check_if_sorted(stack_a, 1))
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
