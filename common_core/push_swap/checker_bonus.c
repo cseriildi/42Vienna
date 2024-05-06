@@ -6,30 +6,32 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:57:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/03 16:56:37 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/06 12:19:29 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
 
-int	checker(int count, int *numbers, char **instructions)
+int	checker(t_clist	**stack_a)
 {
-	t_clist	**stack_a;
 	t_clist	**stack_b;
-	t_clist	*head;
-	t_clist	*current;
-	int		loop_count;
+	char	*instruction;
+	int		step_counter;
 
-	stack_a = create_stack(count, numbers);
-	if (!stack_a)
-		return (0);
 	stack_b = malloc(sizeof(t_clist *));
 	if (!stack_b)
-		return (ft_circ_lstclear(stack_a), free(stack_a), 0);
+		return (ft_circ_lstclear(stack_a), free(stack_a), -1);
 	*stack_b = NULL;
-	while (*instructions)
-		sorting(stack_a, stack_b, *instructions++);
-	if (check_if_sorted(stack_a, stack_b))
+	instruction = get_next_line(1);
+	step_counter = 0;
+	while (instruction)
+	{
+		sorting(stack_a, stack_b, instruction);
+		free(instruction);
+		step_counter++;
+		instruction = get_next_line(1);
+	}
+	if (check_if_sorted(stack_a, 0))
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
@@ -37,27 +39,23 @@ int	checker(int count, int *numbers, char **instructions)
 	free(stack_a);
 	ft_circ_lstclear(stack_b);
 	free(stack_b);
-	return (1);
+	ft_printf("%d\n", step_counter);
+	return (step_counter);
 }
 
-int	bonus_main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int		*numbers;
-	int		i;
-	char	**instructions;
+	t_clist	**stack_a;
 
 	if (argc > 1)
 	{
 		if (!check_input(argc, argv))
 			return (write(2, "Error\n", 6), -1);
-		numbers = malloc(sizeof(int) * (argc - 1));
-		if (!numbers)
+		stack_a = create_stack(argc - 1, argv + 1);
+		if (!stack_a)
 			return (write(2, "Error\n", 6), -1);
-		i = -1;
-		while (++i < argc - 1)
-			numbers[i] = ft_atoi(argv[i + 1]);
-		if (!checker(argc - 1, numbers))
-			return (free(numbers), write(2, "Error\n", 6), -1);
-		free(numbers);
+		if (checker(stack_a) == -1)
+			return (write(2, "Error\n", 6), -1);
 	}
+	return (1);
 }
