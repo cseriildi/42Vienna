@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 11:09:39 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:18:32 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_circ_lstclear(t_clist **lst);
 void	ft_free(char **p);
 int		check_input(int count, char **input);
 t_clist	**create_stack(int count, char **params);
-int		push_swap(t_clist	**stack_a);
+int		push_swap(t_clist	**stack_a, int count);
 
 //operations
 void	swap(t_clist **stack);
