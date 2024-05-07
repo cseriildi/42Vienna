@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 15:18:32 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/07 10:17:13 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
 # include <stdint.h>
+# include <stdbool.h>
 
 typedef struct s_clist
 {
