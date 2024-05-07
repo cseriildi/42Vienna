@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:11:45 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 18:36:02 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/07 13:22:40 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,23 @@ int	check_if_sorted(t_clist **stack, int direction)
 		return (1);
 	head = *stack;
 	current = head;
-	while (head != current->next)
+	if (direction == 1)
 	{
-		if (current->rank + direction != current->next->rank)
-			return (0);
-		current = current->next;
+		while (head != current->next)
+		{
+			if (current->rank < current->next->rank)
+				return (0);
+			current = current->next;
+		}
+	}
+	else
+	{
+		while (head != current->next)
+		{
+			if (current->rank > current->next->rank)
+				return (0);
+			current = current->next;
+		}
 	}
 	return (1);
 }
@@ -48,5 +60,6 @@ void	sorting(t_clist **stack_a, t_clist **stack_b, char *rule)
 		rev_rotate(stack_a);
 	if (!ft_strncmp(rule, "rrb\n", 4) || !ft_strncmp(rule, "rrr\n", 4))
 		rev_rotate(stack_b);
+	ft_printf("%s", rule);
 }
 
