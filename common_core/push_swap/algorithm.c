@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:51:16 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/08 12:31:12 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/08 12:48:50 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,14 @@ int	push_swap(t_clist **stack_a, int count)
 		return (ft_circ_lstclear(stack_a), free(stack_a), -1);
 	*stack_b = NULL;
 	if (count <= 3)
+	{
 		mini_sort(stack_a, stack_b, count);
+		ft_circ_lstclear(stack_a);
+		free(stack_a);
+		ft_circ_lstclear(stack_b);
+		free(stack_b);
+		return (1);
+	}
 	sort_push_b(stack_a, stack_b, count);
 	if (!check_if_sorted(stack_a, 1))
 		mini_sort(stack_a, stack_b, count);
