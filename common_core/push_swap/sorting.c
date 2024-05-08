@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:11:45 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/07 13:22:40 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/08 10:58:22 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_if_sorted(t_clist **stack, int direction)
 	{
 		while (head != current->next)
 		{
-			if (current->rank < current->next->rank)
+			if (current->rank > current->next->rank)
 				return (0);
 			current = current->next;
 		}
@@ -34,7 +34,7 @@ int	check_if_sorted(t_clist **stack, int direction)
 	{
 		while (head != current->next)
 		{
-			if (current->rank > current->next->rank)
+			if (current->rank < current->next->rank)
 				return (0);
 			current = current->next;
 		}

@@ -6,13 +6,13 @@
 #    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/05/06 12:20:19 by icseri           ###   ########.fr        #
+#    Updated: 2024/05/08 10:54:44 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRCS = main.c push_swap.c operations.c sorting.c list.c utils.c
+SRCS = main.c push_swap.c operations.c sorting.c list.c utils.c algorithm.c
 
 LIBFT_SRCS = ft_atoi.c ft_isdigit.c ft_memmove.c ft_split.c ft_strlcpy.c \
 ft_bzero.c ft_isprint.c ft_memset.c ft_strchr.c ft_strlen.c ft_substr.c \
