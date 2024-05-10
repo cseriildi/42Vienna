@@ -31,7 +31,7 @@ int	checker(t_clist	**stack_a)
 		step_counter++;
 		instruction = get_next_line(1);
 	}
-	if (check_if_sorted(stack_a, 1))
+	if (check_if_sorted(stack_a))
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);

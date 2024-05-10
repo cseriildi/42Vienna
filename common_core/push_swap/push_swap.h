@@ -23,6 +23,9 @@ typedef struct s_clist
 {
 	int			content;
 	int			rank;
+	int			r_index;
+	int			rr_index;
+	int			price;
 	struct s_clist	*next;
 	struct s_clist	*previous;
 }	t_clist;
@@ -46,7 +49,7 @@ void	rotate(t_clist **head);
 void	rev_rotate(t_clist **head);
 
 //sorting
-int		check_if_sorted(t_clist **stack, int direction);
+int		check_if_sorted(t_clist **stack);
 void	sorting(t_clist **stack_a, t_clist **stack_b, char *rule);
 
 
