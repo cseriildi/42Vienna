@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 		stack_a = create_stack(argc - 1, argv + 1);
 		if (!stack_a)
 			return (write(2, "Error\n", 6), -1);
-		if (check_if_sorted(stack_a, 1))
+		if (check_if_sorted(stack_a))
 			return (ft_circ_lstclear(stack_a), free(stack_a), 0);
 		if (push_swap(stack_a, argc - 1) == -1)
 			return (write(2, "Error\n", 6), -1);
