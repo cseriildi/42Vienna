@@ -21,6 +21,7 @@ t_clist	*ft_circ_lstnew(int content, int rank)
 		return (NULL);
 	new_node->content = content;
 	new_node->rank = rank;
+	new_node->price = 0;
 	new_node->next = new_node;
 	new_node->previous = new_node;
 	return (new_node);

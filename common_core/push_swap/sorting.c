@@ -12,32 +12,18 @@
 
 #include "push_swap.h"
 
-int	check_if_sorted(t_clist **stack, int direction)
+int	check_if_sorted(t_clist **stack)
 {
 	t_clist	*current;
 	t_clist	*head;
 
-	if (!*stack)
-		return (1);
 	head = *stack;
 	current = head;
-	if (direction == 1)
+	while (head != current->next)
 	{
-		while (head != current->next)
-		{
-			if (current->rank > current->next->rank)
-				return (0);
-			current = current->next;
-		}
-	}
-	else
-	{
-		while (head != current->next)
-		{
-			if (current->rank < current->next->rank)
-				return (0);
-			current = current->next;
-		}
+		if (current->content > current->next->content)
+			return (0);
+		current = current->next;
 	}
 	return (1);
 }
