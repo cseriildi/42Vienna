@@ -20,6 +20,7 @@ static void	ft_free(char **p)
 		*p = NULL;
 	}
 }
+
 static char	*read_fd(int fd, char *read_chars)
 {
 	char		*tmp;

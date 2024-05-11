@@ -20,13 +20,13 @@ int	checker(t_clist	**stack_a)
 
 	stack_b = malloc(sizeof(t_clist *));
 	if (!stack_b)
-		return (ft_circ_lstclear(stack_a), free(stack_a), -1);
+		return (-1);
 	*stack_b = NULL;
 	instruction = get_next_line(1);
 	step_counter = 0;
 	while (instruction)
 	{
-		sorting(stack_a, stack_b, instruction);
+		sorting(stack_a, stack_b, instruction, true);
 		free(instruction);
 		step_counter++;
 		instruction = get_next_line(1);
@@ -35,11 +35,8 @@ int	checker(t_clist	**stack_a)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
-	ft_circ_lstclear(stack_a);
-	free(stack_a);
 	ft_circ_lstclear(stack_b);
 	free(stack_b);
-	ft_printf("%d\n", step_counter);
 	return (step_counter);
 }
 
@@ -55,7 +52,12 @@ int	main(int argc, char **argv)
 		if (!stack_a)
 			return (write(2, "Error\n", 6), -1);
 		if (checker(stack_a) == -1)
-			return (write(2, "Error\n", 6), -1);
+		{
+			ft_circ_lstclear(stack_a);
+			free(stack_a);
+			write(2, "Error\n", 6);
+			return (-1);
+		}
 	}
 	return (1);
 }
