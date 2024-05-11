@@ -21,11 +21,25 @@ void	ft_free(char **p)
 	}
 }
 
+int	get_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+int	get_max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
 void	print_stack(t_clist **stack)
 {
 	t_clist	*head;
 	t_clist	*current;
-	int	loopcount;
+	int		loopcount;
 
 	head = *stack;
 	current = head;

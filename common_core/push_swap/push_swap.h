@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/07 10:17:13 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/11 15:53:18 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 typedef struct s_clist
 {
-	int			content;
-	int			rank;
-	int			r_index;
-	int			rr_index;
-	int			price;
+	int				content;
+	int				rank;
+	int				r_index;
+	int				rr_index;
+	int				price;
 	struct s_clist	*next;
 	struct s_clist	*previous;
 }	t_clist;
@@ -35,23 +35,30 @@ t_clist	*ft_circ_lstnew(int content, int rank);
 void	ft_circ_lstadd_front(t_clist **lst, t_clist *new);
 void	ft_circ_lstdelone(t_clist **lst);
 void	ft_circ_lstclear(t_clist **lst);
+int		ft_circ_lstsize(t_clist **lst);
 
-//push_swap
-void	ft_free(char **p);
-int		check_input(int count, char **input);
+//checks
+bool		is_valid_input(int count, char **input);
+bool		is_sorted(t_clist **stack);
+
+//parsing
 t_clist	**create_stack(int count, char **params);
-int		push_swap(t_clist	**stack_a, int count);
+
+//utils
+void	ft_free(char **p);
+int		get_min(int a, int b);
+int		get_max(int a, int b);
+void	print_stack(t_clist **stack);
+
+int		sort(t_clist	**stack_a, int count);
 
 //operations
 void	swap(t_clist **stack);
 void	push(t_clist **stack_src, t_clist **stack_dest);
 void	rotate(t_clist **head);
 void	rev_rotate(t_clist **head);
+void	exec_rule(t_clist **s_a, t_clist **s_b, char *rule, bool is_bonus);
 
 //sorting
-int		check_if_sorted(t_clist **stack);
-void	sorting(t_clist **stack_a, t_clist **stack_b, char *rule);
 
-
-void	print_stack(t_clist **stack);
 #endif
