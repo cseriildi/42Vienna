@@ -73,3 +73,23 @@ void	ft_circ_lstclear(t_clist **lst)
 	}
 	*lst = NULL;
 }
+
+int	ft_circ_lstsize(t_clist **lst)
+{
+	t_clist	*head;
+	t_clist	*current;
+	int		size;
+
+	if (lst && *lst)
+	{
+		size = 1;
+		head = *lst;
+		current = head->next;
+		while (current != head)
+		{
+			current = current->next;
+			size++;
+		}
+	}
+	return (size);
+}
