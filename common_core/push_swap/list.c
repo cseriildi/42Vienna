@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 10:48:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 11:50:39 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/12 11:28:34 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_clist	*ft_circ_lstnew(int content, int rank)
 	t_clist	*new_node;
 
 	new_node = malloc(sizeof(t_clist));
-	if (new_node == NULL)
+	if (!new_node)
 		return (NULL);
 	new_node->content = content;
 	new_node->rank = rank;

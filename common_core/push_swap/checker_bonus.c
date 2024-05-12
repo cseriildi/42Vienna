@@ -6,13 +6,13 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:57:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 09:06:13 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/12 11:14:52 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
 
-int	checker(t_clist	**stack_a)
+void	checker(t_clist	**stack_a)
 {
 	t_clist	**stack_b;
 	char	*instruction;
@@ -20,10 +20,10 @@ int	checker(t_clist	**stack_a)
 
 	stack_b = malloc(sizeof(t_clist *));
 	if (!stack_b)
-		return (-1);
+		malloc_failed(stack_a, NULL, NULL, NULL);
 	*stack_b = NULL;
-	instruction = get_next_line(1);
 	step_counter = 0;
+	instruction = get_next_line(1);
 	while (instruction)
 	{
 		exec_rule(stack_a, stack_b, instruction, true);
@@ -37,7 +37,7 @@ int	checker(t_clist	**stack_a)
 		ft_printf("KO\n");
 	ft_circ_lstclear(stack_b);
 	free(stack_b);
-	return (step_counter);
+	free(instruction);
 }
 
 int	main(int argc, char **argv)
@@ -50,14 +50,8 @@ int	main(int argc, char **argv)
 			return (write(2, "Error\n", 6), 1);
 		stack_a = create_stack(argc - 1, argv + 1);
 		if (!stack_a)
-			return (write(2, "Error\n", 6), 1);
-		if (checker(stack_a) == -1)
-		{
-			ft_circ_lstclear(stack_a);
-			free(stack_a);
-			write(2, "Error\n", 6);
-			return (1);
-		}
+			malloc_failed(NULL, NULL, NULL, NULL);
+		checker(stack_a);
 		ft_circ_lstclear(stack_a);
 		free(stack_a);
 	}
