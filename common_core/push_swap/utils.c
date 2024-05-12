@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 08:44:33 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/12 11:39:20 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ void	ft_free(char **p)
 		free(*p);
 		*p = NULL;
 	}
+}
+
+void	malloc_failed(void *stack_a, void *stack_b, void *p1, void *p2)
+{
+	ft_circ_lstclear(stack_a);
+	free(stack_a);
+	ft_circ_lstclear(stack_b);
+	free(stack_b);
+	free(p1);
+	free(p2);
+	write(2, "Error\n", 6);
+	exit(1);
 }
 
 int	min(int count, ...)

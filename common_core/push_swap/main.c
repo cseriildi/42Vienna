@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:01:22 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 08:15:14 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/12 11:32:12 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	sort(t_clist **a, int count)
 	{
 		b = malloc(sizeof(t_clist *));
 		if (!b)
-			return (-1);
+			malloc_failed(a, NULL, NULL, NULL);
 		*b = NULL;
 		sort_push_b(a, b, count);
 		mini_sort(a);
@@ -44,8 +44,8 @@ int	sort(t_clist **a, int count)
 		free(b);
 	}
 	if (is_sorted(a) == false)
-		return (-1);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -58,10 +58,10 @@ int	main(int argc, char **argv)
 			return (write(2, "Error\n", 6), 1);
 		stack_a = create_stack(argc - 1, argv + 1);
 		if (!stack_a)
-			return (write(2, "Error\n", 6), 1);
+			malloc_failed(NULL, NULL, NULL, NULL);
 		if (is_sorted(stack_a) == false)
 		{
-			if (sort(stack_a, argc - 1) == -1)
+			if (sort(stack_a, argc - 1) == 1)
 			{
 				ft_circ_lstclear(stack_a);
 				free(stack_a);
