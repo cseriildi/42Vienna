@@ -6,13 +6,15 @@
 #    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/05/11 15:54:41 by cseriildii       ###   ########.fr        #
+#    Updated: 2024/05/12 09:04:16 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRCS = main.c operations.c list.c utils.c algorithm.c checks.c input_parsing.c
+BONUS_NAME = checker
+
+SRCS = main.c list.c utils.c input_check_and_parsing.c operations.c sort_utils.c sort_part1.c sort_part2.c
 
 LIBFT_SRCS = ft_atoi.c ft_isdigit.c ft_memmove.c ft_split.c ft_strlcpy.c \
 ft_bzero.c ft_isprint.c ft_memset.c ft_strchr.c ft_strlen.c ft_substr.c \
@@ -28,7 +30,7 @@ ft_putnbr.c ft_putnbr_unsigned.c ft_putnbr_ptr.c
 
 GNL_SRCS = get_next_line.c get_next_line_utils.c
 
-BONUS_SRCS = checker_bonus.c push_swap.c operations.c sorting.c list.c utils.c
+BONUS_SRCS = checker_bonus.c list.c utils.c input_check_and_parsing.c operations.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -53,14 +55,14 @@ ${NAME}: ${OBJS} ${LIBFT_OBJS} ${FT_PRINTF_OBJS}
 	${COMP} ${CFLAGS} -o ${NAME} ${OBJS} ${LIBFT_OBJS} ${FT_PRINTF_OBJS}
 
 bonus: ${BONUS_OBJS} ${LIBFT_OBJS} ${FT_PRINTF_OBJS} ${GNL_OBJS}
-	${COMP} ${CFLAGS} -o ${NAME} ${BONUS_OBJS} ${LIBFT_OBJS} ${FT_PRINTF_OBJS} ${GNL_OBJS}
+	${COMP} ${CFLAGS} -o ${BONUS_NAME} ${BONUS_OBJS} ${GNL_OBJS} ${LIBFT_OBJS} ${FT_PRINTF_OBJS}
 
 clean: 
 	rm -f ${OBJS} ${BONUS_OBJS} ${LIBFT_OBJS} ${FT_PRINTF_OBJS} ${GNL_OBJS}
 
 fclean: 
 	@$(MAKE) clean
-	rm -f ${NAME}
+	rm -f ${NAME} ${BONUS_NAME}
 	
 re: fclean all
 

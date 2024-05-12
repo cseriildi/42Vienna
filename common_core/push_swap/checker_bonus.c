@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:57:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 18:34:18 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/12 09:06:13 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int	checker(t_clist	**stack_a)
 	step_counter = 0;
 	while (instruction)
 	{
-		sorting(stack_a, stack_b, instruction, true);
+		exec_rule(stack_a, stack_b, instruction, true);
 		free(instruction);
 		step_counter++;
 		instruction = get_next_line(1);
 	}
-	if (check_if_sorted(stack_a))
-		write(1, "OK\n", 3);
+	if (is_sorted(stack_a) == true && *stack_b == NULL)
+		ft_printf("OK\n");
 	else
-		write(1, "KO\n", 3);
+		ft_printf("KO\n");
 	ft_circ_lstclear(stack_b);
 	free(stack_b);
 	return (step_counter);
@@ -46,18 +46,20 @@ int	main(int argc, char **argv)
 
 	if (argc > 1)
 	{
-		if (!check_input(argc, argv))
-			return (write(2, "Error\n", 6), -1);
+		if (is_valid_input(argc, argv) == false)
+			return (write(2, "Error\n", 6), 1);
 		stack_a = create_stack(argc - 1, argv + 1);
 		if (!stack_a)
-			return (write(2, "Error\n", 6), -1);
+			return (write(2, "Error\n", 6), 1);
 		if (checker(stack_a) == -1)
 		{
 			ft_circ_lstclear(stack_a);
 			free(stack_a);
 			write(2, "Error\n", 6);
-			return (-1);
+			return (1);
 		}
+		ft_circ_lstclear(stack_a);
+		free(stack_a);
 	}
-	return (1);
+	return (0);
 }
