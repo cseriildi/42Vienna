@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 11:42:48 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/12 08:44:33 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,40 @@ void	ft_free(char **p)
 	}
 }
 
-int	get_min(int a, int b)
+int	min(int count, ...)
 {
-	if (a < b)
-		return (a);
-	return (b);
+	va_list	numbers;
+	int		min;
+	int		num;
+
+	va_start(numbers, count);
+	min = va_arg(numbers, int);
+	while (--count > 0)
+	{
+		num = va_arg(numbers, int);
+		if (num < min)
+			min = num;
+	}
+	va_end(numbers);
+	return (min);
 }
 
-int	get_max(int a, int b)
+int	max(int count, ...)
 {
-	if (a > b)
-		return (a);
-	return (b);
+	va_list	numbers;
+	int		max;
+	int		num;
+
+	va_start(numbers, count);
+	max = va_arg(numbers, int);
+	while (--count > 0)
+	{
+		num = va_arg(numbers, int);
+		if (num > max)
+			max = num;
+	}
+	va_end(numbers);
+	return (max);
 }
 
 void	print_stack(t_clist **stack)
