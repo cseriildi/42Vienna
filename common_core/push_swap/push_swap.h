@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 11:38:07 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/12 20:25:56 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_free(char **p);
 int		min(int count, ...);
 int		max(int count, ...);
 void	print_stack(t_clist **stack);
-void	malloc_failed(void *stack_a, void *stack_b, void *p1, void *p2);
+void	malloc_failed(t_clist **stack_a, t_clist **stack_b, void *p1, void *p2);
 
 //operations
 void	swap(t_clist **stack);

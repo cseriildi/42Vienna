@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 11:39:20 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/12 20:24:57 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_free(char **p)
 	}
 }
 
-void	malloc_failed(void *stack_a, void *stack_b, void *p1, void *p2)
+void	malloc_failed(t_clist **stack_a, t_clist **stack_b, void *p1, void *p2)
 {
 	ft_circ_lstclear(stack_a);
 	free(stack_a);
