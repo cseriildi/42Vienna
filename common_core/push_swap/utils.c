@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 20:24:57 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/14 11:07:38 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,20 @@ void	ft_free(char **p)
 
 void	malloc_failed(t_clist **stack_a, t_clist **stack_b, void *p1, void *p2)
 {
-	ft_circ_lstclear(stack_a);
-	free(stack_a);
-	ft_circ_lstclear(stack_b);
-	free(stack_b);
-	free(p1);
-	free(p2);
+	if (stack_a)
+	{
+		ft_circ_lstclear(stack_a);
+		free(stack_a);
+	}
+	if (stack_b)
+	{
+		ft_circ_lstclear(stack_b);
+		free(stack_b);
+	}
+	if (p1)
+		free(p1);
+	if (p2)
+		free(p2);
 	write(2, "Error\n", 6);
 	exit(1);
 }
