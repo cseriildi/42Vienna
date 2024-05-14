@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 10:48:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 11:28:34 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/14 09:48:06 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	ft_circ_lstsize(t_clist **lst)
 	t_clist	*current;
 	int		size;
 
+	size = 0;
 	if (lst && *lst)
 	{
 		size = 1;

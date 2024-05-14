@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_check_and_parsing.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:07:37 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/12 11:40:33 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/14 10:36:35 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
