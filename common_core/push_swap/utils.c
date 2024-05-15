@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/14 11:07:38 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/15 11:42:33 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,24 @@ int	max(int count, ...)
 	return (max);
 }
 
+int	number_count(char const *str, char c)
+{
+	int		counter;
+	char	prev;
+
+	prev = c;
+	counter = 0;
+	while (*str)
+	{
+		if (*str != c && prev == c)
+			counter++;
+		prev = *str;
+		str++;
+	}
+	return (counter);
+}
+
+/* 
 void	print_stack(t_clist **stack)
 {
 	t_clist	*head;
@@ -92,3 +110,4 @@ void	print_stack(t_clist **stack)
 		current = current->next;
 	}
 }
+ */
