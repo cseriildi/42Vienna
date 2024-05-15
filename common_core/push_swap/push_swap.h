@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 20:25:56 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/15 12:40:53 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_clist	**create_stack(int count, char **params);
 void	ft_free(char **p);
 int		min(int count, ...);
 int		max(int count, ...);
-void	print_stack(t_clist **stack);
 void	malloc_failed(t_clist **stack_a, t_clist **stack_b, void *p1, void *p2);
+int		number_count(char const *str, char c);
 
 //operations
 void	swap(t_clist **stack);

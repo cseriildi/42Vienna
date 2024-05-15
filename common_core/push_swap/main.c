@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:01:22 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 11:32:12 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/15 11:42:35 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,25 @@ int	sort(t_clist **a, int count)
 int	main(int argc, char **argv)
 {
 	t_clist	**stack_a;
+	char	**numbers;
 
-	if (argc > 1)
+	if (--argc > 0)
 	{
-		if (is_valid_input(argc, argv) == false)
+		numbers = ++argv;
+		if (argc == 1)
+		{
+			numbers = ft_split(argv[0], ' ');
+			argc = number_count(argv[0], ' ');
+		}
+		if (is_valid_input(argc, numbers) == false)
 			return (write(2, "Error\n", 6), 1);
-		stack_a = create_stack(argc - 1, argv + 1);
+		stack_a = create_stack(argc, numbers);
 		if (!stack_a)
 			malloc_failed(NULL, NULL, NULL, NULL);
-		if (is_sorted(stack_a) == false)
+		if (is_sorted(stack_a) == false && sort(stack_a, argc) == 1)
 		{
-			if (sort(stack_a, argc - 1) == 1)
-			{
-				ft_circ_lstclear(stack_a);
-				free(stack_a);
-				write(2, "Error\n", 6);
-				return (1);
-			}
+			write(2, "Error\n", 6);
+			return (ft_circ_lstclear(stack_a), free(stack_a), 1);
 		}
 		ft_circ_lstclear(stack_a);
 		free(stack_a);

@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:07:37 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/14 10:36:35 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/15 11:16:31 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	is_valid_input(int count, char **input)
 	char	*prev;
 	int		i;
 
-	while (--count > 0)
+	while (--count >= 0)
 	{
 		new = ft_itoa(ft_atoi(input[count]));
 		if (!new)
@@ -27,7 +27,7 @@ bool	is_valid_input(int count, char **input)
 			&& ft_strncmp(input[count], "-0", 3))
 			return (ft_free(&new), false);
 		i = count;
-		while (--i > 0)
+		while (--i >= 0)
 		{
 			prev = ft_itoa(ft_atoi(input[i]));
 			if (!prev)

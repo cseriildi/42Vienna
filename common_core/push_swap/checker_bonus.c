@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:57:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/14 12:41:17 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/15 12:41:05 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	checker(t_clist	**stack_a)
 	if (!stack_b)
 		malloc_failed(stack_a, NULL, NULL, NULL);
 	*stack_b = NULL;
-	instruction = get_next_line(1);
+	instruction = get_next_line(0);
 	while (instruction)
 	{
 		if (is_valid_rule(instruction) == false)
@@ -44,7 +44,7 @@ void	checker(t_clist	**stack_a)
 		}
 		exec_rule(stack_a, stack_b, instruction, true);
 		free(instruction);
-		instruction = get_next_line(1);
+		instruction = get_next_line(0);
 	}
 	if (is_sorted(stack_a) == true && *stack_b == NULL)
 		ft_printf("OK\n");
@@ -57,12 +57,19 @@ void	checker(t_clist	**stack_a)
 int	main(int argc, char **argv)
 {
 	t_clist	**stack_a;
+	char	**numbers;
 
-	if (argc > 1)
+	if (--argc > 0)
 	{
-		if (is_valid_input(argc, argv) == false)
+		numbers = ++argv;
+		if (argc == 1)
+		{
+			numbers = ft_split(argv[0], ' ');
+			argc = number_count(argv[0], ' ');
+		}
+		if (is_valid_input(argc, numbers) == false)
 			return (write(2, "Error\n", 6), 1);
-		stack_a = create_stack(argc - 1, argv + 1);
+		stack_a = create_stack(argc, numbers);
 		if (!stack_a)
 			malloc_failed(NULL, NULL, NULL, NULL);
 		checker(stack_a);
