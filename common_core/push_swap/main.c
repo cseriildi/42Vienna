@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:01:22 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/15 11:42:35 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/16 12:52:23 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 			argc = number_count(argv[0], ' ');
 		}
 		if (is_valid_input(argc, numbers) == false)
-			return (write(2, "Error\n", 6), 1);
+			return (write(STDERR_FILENO, "Error\n", 6), 1);
 		stack_a = create_stack(argc, numbers);
 		if (!stack_a)
 			malloc_failed(NULL, NULL, NULL, NULL);
