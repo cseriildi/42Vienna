@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/15 11:42:33 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/16 12:53:29 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	malloc_failed(t_clist **stack_a, t_clist **stack_b, void *p1, void *p2)
 		free(p1);
 	if (p2)
 		free(p2);
-	write(2, "Error\n", 6);
+	write(STDERR_FILENO, "Error\n", 6);
 	exit(1);
 }
 
