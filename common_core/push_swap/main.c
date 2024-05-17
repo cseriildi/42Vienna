@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:01:22 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/16 12:52:23 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/17 10:35:49 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,27 @@ int	sort(t_clist **a, int count)
 int	main(int argc, char **argv)
 {
 	t_clist	**stack_a;
-	char	**numbers;
+	char	**nums;
 
-	if (--argc > 0)
+	if (--argc <= 0)
+		return (0);
+	if (argc > 1)
+		nums = stack_to_heap(++argv, argc);
+	if (argc == 1)
 	{
-		numbers = ++argv;
-		if (argc == 1)
-		{
-			numbers = ft_split(argv[0], ' ');
-			argc = number_count(argv[0], ' ');
-		}
-		if (is_valid_input(argc, numbers) == false)
-			return (write(STDERR_FILENO, "Error\n", 6), 1);
-		stack_a = create_stack(argc, numbers);
-		if (!stack_a)
-			malloc_failed(NULL, NULL, NULL, NULL);
-		if (is_sorted(stack_a) == false && sort(stack_a, argc) == 1)
-		{
-			write(2, "Error\n", 6);
-			return (ft_circ_lstclear(stack_a), free(stack_a), 1);
-		}
-		ft_circ_lstclear(stack_a);
-		free(stack_a);
+		argc = number_count(argv[1], ' ');
+		nums = ft_split(argv[1], ' ');
 	}
-	return (0);
+	if (argc == 0 || is_valid_input(argc, nums) == false)
+		return (write(STDERR_FILENO, "Error\n", 6), array_free(&nums), 1);
+	stack_a = create_stack(argc, nums);
+	array_free(&nums);
+	if (!stack_a)
+		malloc_failed(NULL, NULL, NULL, NULL);
+	if (is_sorted(stack_a) == false && sort(stack_a, argc) == 1)
+	{
+		write(2, "Error\n", 6);
+		return (ft_circ_lstclear(stack_a), free(stack_a), 1);
+	}
+	return (ft_circ_lstclear(stack_a), free(stack_a), 0);
 }

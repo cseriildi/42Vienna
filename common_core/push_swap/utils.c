@@ -6,40 +6,11 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/16 12:53:29 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/17 10:22:56 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ft_free(char **p)
-{
-	if (p && *p)
-	{
-		free(*p);
-		*p = NULL;
-	}
-}
-
-void	malloc_failed(t_clist **stack_a, t_clist **stack_b, void *p1, void *p2)
-{
-	if (stack_a)
-	{
-		ft_circ_lstclear(stack_a);
-		free(stack_a);
-	}
-	if (stack_b)
-	{
-		ft_circ_lstclear(stack_b);
-		free(stack_b);
-	}
-	if (p1)
-		free(p1);
-	if (p2)
-		free(p2);
-	write(STDERR_FILENO, "Error\n", 6);
-	exit(1);
-}
 
 int	min(int count, ...)
 {
@@ -92,6 +63,26 @@ int	number_count(char const *str, char c)
 		str++;
 	}
 	return (counter);
+}
+
+char	**stack_to_heap(char **stack_array, int size)
+{
+	int		i;
+	char	**heap_array;
+
+	heap_array = malloc((size + 1) * sizeof(char *));
+	if (!heap_array)
+		malloc_failed(NULL, NULL, NULL, NULL);
+	i = 0;
+	while (i < size)
+	{
+		heap_array[i] = strdup(stack_array[i]);
+		if (!heap_array[i])
+			malloc_failed(NULL, heap_array, NULL, NULL);
+		i++;
+	}
+	heap_array[size] = NULL;
+	return (heap_array);
 }
 
 /* 
