@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:06:31 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/15 12:40:53 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/17 10:23:14 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ void	get_ranks(int count, char **params, int *numbers, int *ranks);
 t_clist	**create_stack(int count, char **params);
 
 //utils
-void	ft_free(char **p);
 int		min(int count, ...);
 int		max(int count, ...);
-void	malloc_failed(t_clist **stack_a, t_clist **stack_b, void *p1, void *p2);
+char	**stack_to_heap(char **stack_array, int size);
 int		number_count(char const *str, char c);
+//utils2
+void	ft_free(void **p);
+void	array_free(char ***arr);
+void	malloc_failed(t_clist **stack_a, char **arr, void *p1, void *p2);
 
 //operations
 void	swap(t_clist **stack);

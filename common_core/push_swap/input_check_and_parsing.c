@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:07:37 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/15 11:16:31 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/17 10:08:53 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ bool	is_valid_input(int count, char **input)
 	char	*prev;
 	int		i;
 
-	while (--count >= 0)
+	while (--count >= 0 && input)
 	{
 		new = ft_itoa(ft_atoi(input[count]));
 		if (!new)
-			malloc_failed(NULL, NULL, NULL, NULL);
+			malloc_failed(NULL, input, NULL, NULL);
 		if (ft_strncmp(input[count], new, ft_strlen(new) + 1)
 			&& ft_strncmp(input[count], "-0", 3))
-			return (ft_free(&new), false);
+			return (free(new), false);
 		i = count;
 		while (--i >= 0)
 		{
 			prev = ft_itoa(ft_atoi(input[i]));
 			if (!prev)
-				malloc_failed(NULL, NULL, new, NULL);
+				malloc_failed(NULL, input, new, NULL);
 			if (!ft_strncmp(new, prev, ft_strlen(new) + 1))
-				return (ft_free(&new), ft_free(&prev), false);
-			ft_free(&prev);
+				return (free(new), free(prev), false);
+			free(prev);
 		}
-		ft_free(&new);
+		free(new);
 	}
 	return (true);
 }
@@ -63,7 +63,7 @@ void	get_ranks(int count, char **params, int *numbers, int *ranks)
 	int	j;
 
 	i = -1;
-	while (++i < count)
+	while (++i < count && params)
 		numbers[i] = ft_atoi(params[i]);
 	i = 0;
 	while (i < count)
@@ -87,10 +87,10 @@ t_clist	**create_stack(int count, char **params)
 
 	numbers = malloc(sizeof(int) * count);
 	if (!numbers)
-		malloc_failed(NULL, NULL, NULL, NULL);
+		malloc_failed(NULL, params, NULL, NULL);
 	ranks = ft_calloc(sizeof(int), count);
 	if (!ranks)
-		malloc_failed(NULL, NULL, numbers, NULL);
+		malloc_failed(NULL, params, numbers, NULL);
 	get_ranks(count, params, numbers, ranks);
 	stack_a = malloc(sizeof(t_clist *));
 	if (!stack_a)
@@ -100,7 +100,7 @@ t_clist	**create_stack(int count, char **params)
 	{
 		current = ft_circ_lstnew(numbers[count], ranks[count]);
 		if (!current)
-			malloc_failed(stack_a, NULL, numbers, ranks);
+			malloc_failed(stack_a, params, numbers, ranks);
 		ft_circ_lstadd_front(stack_a, current);
 	}
 	return (free(numbers), free(ranks), stack_a);
