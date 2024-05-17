@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:06:38 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/15 11:26:50 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/16 17:50:37 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ void	push(t_clist **stack_src, t_clist **stack_dest)
 			next = NULL;
 		head_copy = ft_circ_lstnew(head->content, head->rank);
 		if (!head_copy)
-			malloc_failed(stack_src, stack_dest, NULL, NULL);
+		{
+			ft_circ_lstclear(stack_src);
+			free(stack_src);
+			malloc_failed(stack_dest, NULL, NULL, NULL);
+		}
 		ft_circ_lstadd_front(stack_dest, head_copy);
 		ft_circ_lstdelone(&head);
 		*stack_src = next;
