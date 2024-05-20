@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/17 10:22:56 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/20 11:06:08 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	**stack_to_heap(char **stack_array, int size)
 	i = 0;
 	while (i < size)
 	{
-		heap_array[i] = strdup(stack_array[i]);
+		heap_array[i] = ft_strdup(stack_array[i]);
 		if (!heap_array[i])
 			malloc_failed(NULL, heap_array, NULL, NULL);
 		i++;
