@@ -7,4 +7,5 @@
 |[get_next_line](https://github.com/cseriildi/42Vienna/tree/main/common_core/get_next_line)|101%|
 |[born2beroot](https://github.com/cseriildi/42Vienna/tree/main/common_core/born2beroot)|93%|
 |Exam Rank 02|100%|
-|[push_swap](https://github.com/cseriildi/42Vienna/tree/main/common_core/push_swap)|In progress|
+|[push_swap](https://github.com/cseriildi/42Vienna/tree/main/common_core/push_swap)|125%|
+|[pipex](https://github.com/cseriildi/42Vienna/tree/main/common_core/pipex)|In progress|
