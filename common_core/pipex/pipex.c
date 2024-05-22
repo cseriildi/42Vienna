@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/22 14:45:16 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/22 21:34:31 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,35 @@ void	exec_command(char *cmd, char **env)
 		i++;
 	path = ft_split(env[i] + 5, ':');
 	if (!path)
-		exit(3);
-	while (*path && *args)
 	{
-		tmp = ft_strjoin(*path, "/");
+		array_free(&args);
+		exit(3);
+	}
+	i = 0;
+	while (path[i] && *args)
+	{
+		tmp = ft_strjoin(path[i], "/");
 		if (!tmp)
+		{
+			array_free(&path);
+			array_free(&args);
 			exit(4);
+		}
 		full_path = ft_strjoin(tmp, args[0]);
 		if (!full_path)
 		{
+			array_free(&path);
+			array_free(&args);
 			free(tmp);
 			exit(4);
 		}
 		free(tmp);
 		execve(full_path, args, env);
-		//free(full_path);
-		path++;
+		free(full_path);
+		i++;
 	}
-	free(args);
-	free(path);
+	array_free(&args);
+	array_free(&path);
 	perror("Command does not exist\n");
 	exit(1);
 }
