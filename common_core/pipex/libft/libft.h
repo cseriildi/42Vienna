@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:31:33 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/10 16:45:41 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/23 22:02:27 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # include <string.h>
 # include <bsd/string.h>
 # include <ctype.h>
+# include <stdint.h>
+# include <stdarg.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -71,5 +77,18 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+int		ft_putchar(char c);
+int		ft_putstr(char *s);
+int		ft_putnbr(int nb);
+int		ft_putnbr_hex(unsigned int nb, char format);
+int		ft_putnbr_ptr(uintptr_t nb);
+int		ft_putnbr_unsigned(unsigned int nb);
+int		ft_printf(const char *str, ...);
+
+char	*get_next_line(int fd);
+char	*line_search(char *s);
+int		is_nl(char *read_chars);
+void	ft_free(char **p);
 
 #endif
