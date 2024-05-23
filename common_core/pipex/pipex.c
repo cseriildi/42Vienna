@@ -3,65 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/22 23:24:02 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/23 18:13:48 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	exec_command(char *cmd, char **env)
+void	set_path(t_cmd *command, char **env)
 {
 	char	**path;
-	char	**args;
-	char	*tmp;
-	char	*full_path;
 	int		i;
 
-	i = 0;
-	while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
-		i++;
-	if (!env[i])
-	{
-		perror("PATH not found");
-		exit(EXIT_FAILURE);
-	}
-	path = ft_split(env[i] + 5, ':');
+	while (*env && ft_strncmp(*env, "PATH=", 5) != 0)
+		env++;
+	if (!*env)
+		elegant_exit("PATH not found", NULL, NULL);
+	path = ft_split(*env + 5, ':');
 	if (!path)
-		exit(EXIT_FAILURE);
-	args = ft_split(cmd, ' ');
-	if (!args)
-	{
-		array_free(&path);
-		exit(EXIT_FAILURE);
-	}
+		elegant_exit("Memory allocation failed", NULL, NULL);
 	i = -1;
-	while (path[++i] && *args)
+	while (path[++i])
 	{
-		tmp = ft_strjoin(path[i], "/");
-		if (!tmp)
+		command->path = ft_strjoin_with_delimiter(path[i], command->cmd, "/");
+		if (!command->path)
+			elegant_exit("Memory allocation failed", path, NULL);
+		if (access(command->path, F_OK) == 0)
 		{
 			array_free(&path);
-			array_free(&args);
-			exit(EXIT_FAILURE);
+			return ;
 		}
-		full_path = ft_strjoin(tmp, args[0]);
-		free(tmp);
-		if (!full_path)
-		{
-			array_free(&path);
-			array_free(&args);
-			exit(EXIT_FAILURE);
-		}
-		execve(full_path, args, env);
-		free(full_path);
+		free(command->path);
 	}
-	array_free(&args);
-	array_free(&path);
-	perror("Command does not exist");
-	exit(EXIT_FAILURE);
+	elegant_exit("Command does not exist", command->args, NULL);
+}
+
+void	exec_command(char *cmd, char **env)
+{
+	t_cmd	*command;
+
+	command = malloc(sizeof(t_cmd));
+	if (!command)
+		elegant_exit("Memory allocation failed", NULL, NULL);
+	command->args = ft_split(cmd, ' ');
+	command->cmd = command->args[0];
+	if (!command->args)
+		elegant_exit("Memory allocation failed", NULL, NULL);
+	set_path(command, env);
+	execve(command->path, command->args, env);
+	free(command->path);
+	elegant_exit("Command could not be executed", command->args, NULL);
 }
 
 void	first_command(int *pipe_fd, char *infile, char *cmd, char **env)
@@ -70,22 +63,13 @@ void	first_command(int *pipe_fd, char *infile, char *cmd, char **env)
 
 	fd = open(infile, O_RDONLY, 0777);
 	if (fd == -1)
-	{
-		perror("Could not open file");
-		exit(EXIT_FAILURE);
-	}
+		elegant_exit("Could not open file", NULL, NULL);
 	close(pipe_fd[0]);
 	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		perror("Error while dup2");
-		exit(EXIT_FAILURE);
-	}
+		elegant_exit("Error while dup2", NULL, NULL);
 	close(fd);
 	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-	{
-		perror("Error while dup2");
-		exit(EXIT_FAILURE);
-	}
+		elegant_exit("Error while dup2", NULL, NULL);
 	close(pipe_fd[1]);
 	exec_command(cmd, env);
 }
@@ -96,22 +80,13 @@ void	last_command(int *pipe_fd, char *outfile, char *cmd, char **env)
 
 	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
-	{
-		perror("Could not open/create outfile");
-		exit(EXIT_FAILURE);
-	}
+		elegant_exit("Could not open/create outfile", NULL, NULL);
 	close(pipe_fd[1]);
 	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
-	{
-		perror("Error while dup2");
-		exit(EXIT_FAILURE);
-	}
+		elegant_exit("Error while dup2", NULL, NULL);
 	close(pipe_fd[0]);
 	if (dup2(fd, STDOUT_FILENO) == -1)
-	{
-		perror("Error while dup2");
-		exit(EXIT_FAILURE);
-	}
+		elegant_exit("Error while dup2", NULL, NULL);
 	close(fd);
 	exec_command(cmd, env);
 }
@@ -127,18 +102,19 @@ int	main(int argc, char **argv, char **env)
 		return (1);
 	}
 	if (pipe(pipe_fd) == -1)
-		return (perror("Could not open pipe"), 1);
+		elegant_exit("Could not open pipe", NULL, NULL);
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("Error occured while forking");
-		return (close(pipe_fd[0]), close(pipe_fd[1]), 1);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		elegant_exit("Error occured while forking", NULL, NULL);
 	}
 	else if (pid == 0)
 		first_command(pipe_fd, argv[1], argv[2], env);
 	else
 	{
-		wait(NULL);
+		wait(0);
 		last_command(pipe_fd, argv[argc - 1], argv[argc - 2], env);
 	}
 	return (0);

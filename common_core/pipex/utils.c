@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/22 21:32:21 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/23 18:02:17 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,29 @@ void	array_free(char ***arr)
 			free((*arr)[i++]);
 		free(*arr);
 	}
+}
+
+void	elegant_exit(char *error_msg, char **arr1_to_free, char **arr2_to_free)
+{
+	if (arr1_to_free)
+		array_free(&arr1_to_free);
+	if (arr2_to_free)
+		array_free(&arr2_to_free);
+	perror(error_msg);
+	exit(EXIT_FAILURE);
+}
+
+char	*ft_strjoin_with_delimiter(char *str1, char *str2, char *delimiter)
+{
+	char	*tmp;
+	char	*new_str;
+
+	tmp = ft_strjoin(str1, delimiter);
+	if (!tmp)
+		return (NULL);
+	new_str = ft_strjoin(tmp, str2);
+	free(tmp);
+	if (!new_str)
+		return (NULL);
+	return (new_str);
 }
