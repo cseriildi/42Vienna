@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/23 18:02:17 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/24 13:44:12 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	elegant_exit(char *error_msg, char **arr1_to_free, char **arr2_to_free)
 	exit(EXIT_FAILURE);
 }
 
-char	*ft_strjoin_with_delimiter(char *str1, char *str2, char *delimiter)
+char	*ft_strjoin2(char *str1, char *str2, char *delimiter)
 {
 	char	*tmp;
 	char	*new_str;
