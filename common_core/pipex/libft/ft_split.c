@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 08:55:08 by icseri            #+#    #+#             */
-/*   Updated: 2024/04/11 10:09:17 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/24 22:27:15 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,6 @@ static int	occ(char const *str, char c)
 		str++;
 	}
 	return (counter);
-}
-
-static void	ft_free(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
 }
 
 static char	**create_empty_array(char const *str, char c)
