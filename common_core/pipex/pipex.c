@@ -6,116 +6,127 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/23 18:13:48 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/24 13:51:56 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	set_path(t_cmd *command, char **env)
+void	set_path(t_var *data)
 {
-	char	**path;
 	int		i;
 
-	while (*env && ft_strncmp(*env, "PATH=", 5) != 0)
-		env++;
-	if (!*env)
+	while (data->env[i] && ft_strncmp(data->env[i], "PATH=", 5) != 0)
+		i++;
+	if (!data->env[i])
 		elegant_exit("PATH not found", NULL, NULL);
-	path = ft_split(*env + 5, ':');
-	if (!path)
+	data->path = ft_split(data->env[i] + 5, ':');
+	if (!data->path)
 		elegant_exit("Memory allocation failed", NULL, NULL);
+}
+
+char	*find_path(t_var *data, int cmd_index)
+{
+	int		i;
+	char	*abs_cmd;
+
 	i = -1;
-	while (path[++i])
+	while (data->path[++i])
 	{
-		command->path = ft_strjoin_with_delimiter(path[i], command->cmd, "/");
-		if (!command->path)
-			elegant_exit("Memory allocation failed", path, NULL);
-		if (access(command->path, F_OK) == 0)
-		{
-			array_free(&path);
-			return ;
-		}
-		free(command->path);
+		abs_cmd = ft_strjoin2(data->path[i], data->commands[cmd_index], "/");
+		if (!abs_cmd)
+			elegant_exit("Memory allocation failed", data->path, NULL);
+		if (access(abs_cmd, F_OK | X_OK) == 0)
+			return (abs_cmd);
+		free(abs_cmd);
 	}
-	elegant_exit("Command does not exist", command->args, NULL);
+	elegant_exit("Command does not exist", data->path, NULL);
 }
 
-void	exec_command(char *cmd, char **env)
+void	set_command(t_var *data, int cmd_index)
 {
-	t_cmd	*command;
-
-	command = malloc(sizeof(t_cmd));
-	if (!command)
+	data->args = ft_split(data->commands[cmd_index], ' ');
+	if (!data->args)
 		elegant_exit("Memory allocation failed", NULL, NULL);
-	command->args = ft_split(cmd, ' ');
-	command->cmd = command->args[0];
-	if (!command->args)
-		elegant_exit("Memory allocation failed", NULL, NULL);
-	set_path(command, env);
-	execve(command->path, command->args, env);
-	free(command->path);
-	elegant_exit("Command could not be executed", command->args, NULL);
+	data->cmd = data->args[0];
+	if (access(data->cmd, F_OK | X_OK) == 0)
+		data->absolut_cmd = data->cmd;
+	else
+		data->absolut_cmd = find_path(data, cmd_index);
 }
 
-void	first_command(int *pipe_fd, char *infile, char *cmd, char **env)
+void	first_command(t_var *data)
 {
-	int	fd;
-
-	fd = open(infile, O_RDONLY, 0777);
-	if (fd == -1)
+	data->infile_fd = open(data->infile, O_RDONLY, 0777);
+	if (data->infile_fd == -1)
 		elegant_exit("Could not open file", NULL, NULL);
-	close(pipe_fd[0]);
-	if (dup2(fd, STDIN_FILENO) == -1)
+	close(data->pipe_fd[0]);
+	if (dup2(data->infile_fd, STDIN_FILENO) == -1)
 		elegant_exit("Error while dup2", NULL, NULL);
-	close(fd);
-	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
+	close(data->infile_fd);
+	if (dup2(data->pipe_fd[1], STDOUT_FILENO) == -1)
 		elegant_exit("Error while dup2", NULL, NULL);
-	close(pipe_fd[1]);
-	exec_command(cmd, env);
+	close(data->pipe_fd[1]);
+	set_command(data, 0);
+	execve(data->absolut_cmd, data->args, data->env);
 }
 
-void	last_command(int *pipe_fd, char *outfile, char *cmd, char **env)
+void	last_command(t_var *data)
 {
-	int	fd;
-
-	fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (fd == -1)
+	data->outfile_fd = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (data->outfile_fd == -1)
 		elegant_exit("Could not open/create outfile", NULL, NULL);
-	close(pipe_fd[1]);
-	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
+	close(data->pipe_fd[1]);
+	if (dup2(data->pipe_fd[0], STDIN_FILENO) == -1)
 		elegant_exit("Error while dup2", NULL, NULL);
-	close(pipe_fd[0]);
-	if (dup2(fd, STDOUT_FILENO) == -1)
+	close(data->pipe_fd[0]);
+	if (dup2(data->outfile_fd, STDOUT_FILENO) == -1)
 		elegant_exit("Error while dup2", NULL, NULL);
-	close(fd);
-	exec_command(cmd, env);
+	close(data->outfile_fd);
+	set_command(data, data->cmd_count - 1);
+	execve(data->absolut_cmd, data->args, data->env);
+}
+
+void	parse_input(t_var *data, int count, char **params, char **env)
+{
+	int	i;
+
+	data->env = env;
+	set_path(data);
+	data->infile = params[1];
+	data->outfile = params[count - 1];
+	data->cmd_count = count - 3;
+	i = -1;
+	while (++i < data->cmd_count)
+		data->commands[i] = params[i + 2];
+	data->commands[i] = NULL;
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	pid_t	pid;
-	int		pipe_fd[2];
+	t_var *data;
 
 	if (argc != 5)
 	{
 		ft_putendl_fd("Number of parameters are incorrect", STDERR_FILENO);
 		return (1);
 	}
-	if (pipe(pipe_fd) == -1)
+	parse_input(data, argc, argv, env);
+	if (pipe(data->pipe_fd) == -1)
 		elegant_exit("Could not open pipe", NULL, NULL);
-	pid = fork();
-	if (pid == -1)
+	data->pid = fork();
+	if (data->pid == -1)
 	{
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
 		elegant_exit("Error occured while forking", NULL, NULL);
 	}
-	else if (pid == 0)
-		first_command(pipe_fd, argv[1], argv[2], env);
+	else if (data->pid == 0)
+		first_command(data);
 	else
 	{
 		wait(0);
-		last_command(pipe_fd, argv[argc - 1], argv[argc - 2], env);
+		last_command(data);
 	}
 	return (0);
 }
