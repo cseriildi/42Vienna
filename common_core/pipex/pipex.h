@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/24 13:44:19 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/24 18:23:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@
 
 # include "libft/libft.h"
 
-void	exec_command(char *cmd, char **env);
-void	array_free(char ***arr);
-char	*ft_strjoin2(char *str1, char *str2, char *delimiter);
-void	elegant_exit(char *error_msg, char **arr1_to_free, char **arr2_to_free);
-void	first_command(int *pipe_fd, char *infile, char *cmd, char **env);
-void	last_command(int *pipe_fd, char *outfile, char *cmd, char **env);
-
 typedef struct s_var
 {
 	pid_t	pid;
@@ -38,15 +31,28 @@ typedef struct s_var
 	int		infile_fd;
 	char	*outfile;
 	int		outfile_fd;
-	char 	**commands;
+	char	**commands;
 	int		cmd_count;
 	char	*absolut_cmd;
 	char	*cmd;
 	char	**args;
 	char	**path;
-	char 	**env;
-
+	char	**env;
 
 }	t_var;
+
+//utils
+void	array_free(char ***arr);
+char	*ft_strjoin2(char *str1, char *str2, char *delimiter);
+void	elegant_exit(char *error_msg, t_var *data);
+
+//parsing
+void	set_command(t_var *data, int cmd_index);
+void	find_path(t_var *data, int cmd_index);
+void	parse_input(t_var *data, int count, char **params, char **env);
+
+//main
+void	first_command(t_var *data);
+void	last_command(t_var *data);
 
 #endif
