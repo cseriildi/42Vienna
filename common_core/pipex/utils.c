@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/23 18:02:17 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/24 18:12:22 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void	array_free(char ***arr)
 	}
 }
 
-void	elegant_exit(char *error_msg, char **arr1_to_free, char **arr2_to_free)
+void	elegant_exit(char *error_msg, t_var *data)
 {
-	if (arr1_to_free)
-		array_free(&arr1_to_free);
-	if (arr2_to_free)
-		array_free(&arr2_to_free);
+	if (data && data->pipe_fd[0] != -1)
+		close(data->pipe_fd[0]);
+	if (data && data->pipe_fd[1] != -1)
+		close(data->pipe_fd[1]);
 	perror(error_msg);
 	exit(EXIT_FAILURE);
 }
 
-char	*ft_strjoin_with_delimiter(char *str1, char *str2, char *delimiter)
+char	*ft_strjoin2(char *str1, char *str2, char *delimiter)
 {
 	char	*tmp;
 	char	*new_str;
