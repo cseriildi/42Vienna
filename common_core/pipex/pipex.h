@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/26 15:20:27 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/26 18:41:10 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_var
 	pid_t	pid;
 	int		pipe_fd[2];
 	char	*infile;
+	char 	*limiter;
 	int		infile_fd;
 	char	*outfile;
 	int		outfile_fd;

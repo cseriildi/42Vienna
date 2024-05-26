@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:15:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/26 15:22:31 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/26 18:44:29 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@ void	parse_input(t_var *data, int count, char **params, char **env)
 {
 	int		i;
 
-	data->infile = params[1];
+	i = 1;
+	data->infile = params[i++];
 	data->outfile = params[count - 1];
 	data->cmd_count = count - 3;
-	data->commands = params + 2;
+	if (ft_strncmp(data->infile, "here_doc", 9) == 0)
+	{
+		data->limiter = params[i++];
+		data->cmd_count--;
+	}
+	data->commands = params + i;
 	data->commands[data->cmd_count] = NULL;
 	data->absolut_cmd = NULL;
 	data->pipe_fd[0] = -1;
