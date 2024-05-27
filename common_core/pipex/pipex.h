@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/26 18:41:10 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/27 14:37:45 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ typedef struct s_var
 	pid_t	pid;
 	int		pipe_fd[2];
 	char	*infile;
-	char 	*limiter;
 	int		infile_fd;
+	char	*limiter;
+	int		here_doc_fd[2];
 	char	*outfile;
 	int		outfile_fd;
 	char	**commands;
@@ -44,7 +45,7 @@ typedef struct s_var
 }	t_var;
 
 //utils
-void	array_free(char ***arr);
+void	array_free(char **arr);
 char	*ft_strjoin2(char *str1, char *str2, char *delimiter);
 char	*error_message(int code);
 void	elegant_exit(t_var *data, int error_code);
@@ -69,6 +70,7 @@ void	last_command(t_var *data);
 # define PIPE_FAIL 6  // pipe() system call failure
 # define DUP2_FAIL 7  // dup2() system call failure
 # define FORK_FAIL 8  // fork() system call failure
+# define UNLINK_FAIL 9 // unlink() fails
 
 # define ERROR_CANNOT_EXECUTE 126  // Command found but is not executable
 # define COMMAND_NOT_FOUND 127  // Command not found

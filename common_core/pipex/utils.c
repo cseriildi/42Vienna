@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/25 20:08:48 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/27 14:51:20 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	array_free(char ***arr)
+void	array_free(char **arr)
 {
 	int	i;
 
 	i = 0;
-	if (arr && *arr)
+	if (arr)
 	{
-		while ((*arr)[i])
-			free((*arr)[i++]);
-		free(*arr);
+		while (arr[i])
+			free(arr[i++]);
+		free(arr);
 	}
 }
 
@@ -60,6 +60,8 @@ char	*error_message(int code)
 		return ("Command found but not executable");
 	else if (code == COMMAND_NOT_FOUND)
 		return ("Command not found");
+	else if (code == UNLINK_FAIL)
+		return ("Can not delete file");
 	else
 		return ("Unknown error");
 }
@@ -68,17 +70,19 @@ void	elegant_exit(t_var *data, int error_code)
 {
 	perror(error_message(error_code));
 	if (data->path)
-		array_free(&data->path);
+		array_free(data->path);
 	if (data->args)
-		array_free(&data->args);
+		array_free(data->args);
 	if (data->absolut_cmd)
 		ft_free(&data->absolut_cmd);
 	if (data->pipe_fd[0] != -1)
 		close(data->pipe_fd[0]);
 	if (data->pipe_fd[1] != -1)
 		close(data->pipe_fd[1]);
-	close(data->infile_fd);
-	close(data->outfile_fd);
+	if (data->infile_fd != -1)
+		close(data->infile_fd);
+	if (data->outfile_fd != -1)
+		close(data->outfile_fd);
 	if (data)
 		free(data);
 	exit(error_code);

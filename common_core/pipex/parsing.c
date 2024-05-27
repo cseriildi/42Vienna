@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:15:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/26 18:44:29 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/05/27 15:46:37 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	parse_input(t_var *data, int count, char **params, char **env)
 	data->commands = params + i;
 	data->commands[data->cmd_count] = NULL;
 	data->absolut_cmd = NULL;
+	data->infile_fd = -1;
+	data->outfile_fd = -1;
 	data->pipe_fd[0] = -1;
 	data->pipe_fd[1] = -1;
 	data->env = env;
@@ -36,6 +38,7 @@ void	parse_input(t_var *data, int count, char **params, char **env)
 		i++;
 	if (!data->env[i])
 		elegant_exit(data, MISSING_PATH);
+	data->path = NULL;
 	data->path = ft_split(data->env[i] + 5, ':');
 	if (!data->path)
 		elegant_exit(data, MALLOC_FAIL);
