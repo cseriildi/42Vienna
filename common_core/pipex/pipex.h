@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/27 14:37:45 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/27 18:00:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ typedef struct s_var
 {
 	pid_t	pid;
 	int		pipe_fd[2];
+	int		tmp_pipe[2];
 	char	*infile;
-	int		infile_fd;
+	int		i_fd;
 	char	*limiter;
-	int		here_doc_fd[2];
 	char	*outfile;
-	int		outfile_fd;
+	int		o_fd;
 	char	**commands;
 	int		cmd_count;
 	char	*absolut_cmd;
@@ -58,6 +58,10 @@ void	parse_input(t_var *data, int count, char **params, char **env);
 //main
 void	first_command(t_var *data);
 void	last_command(t_var *data);
+
+//utils bonus
+void	delete_file(t_var *data);
+void	here_doc(t_var *data);
 
 //ERROR CODES
 # define EXIT_SUCCESS 0  // Successful execution
