@@ -6,11 +6,30 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/27 14:51:20 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/27 18:04:02 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	exec_command(t_var *data, int cmd_index)
+{
+	data->args = ft_split(data->commands[cmd_index], ' ');
+	if (!data->args)
+		elegant_exit(data, MALLOC_FAIL);
+	data->cmd = data->args[0];
+	if (access(data->cmd, F_OK) == 0)
+		data->absolut_cmd = data->cmd;
+	else
+		data->absolut_cmd = find_path(data);
+	if (execve(data->absolut_cmd, data->args, data->env) == -1)
+	{
+		if (data->absolut_cmd == NULL)
+			elegant_exit(data, COMMAND_NOT_FOUND);
+		else
+			elegant_exit(data, ERROR_CANNOT_EXECUTE);
+	}
+}
 
 void	array_free(char **arr)
 {
@@ -69,21 +88,29 @@ char	*error_message(int code)
 void	elegant_exit(t_var *data, int error_code)
 {
 	perror(error_message(error_code));
-	if (data->path)
-		array_free(data->path);
-	if (data->args)
-		array_free(data->args);
-	if (data->absolut_cmd)
-		ft_free(&data->absolut_cmd);
-	if (data->pipe_fd[0] != -1)
-		close(data->pipe_fd[0]);
-	if (data->pipe_fd[1] != -1)
-		close(data->pipe_fd[1]);
-	if (data->infile_fd != -1)
-		close(data->infile_fd);
-	if (data->outfile_fd != -1)
-		close(data->outfile_fd);
 	if (data)
+	{
+		if (data->path)
+			array_free(data->path);
+		if (data->args)
+			array_free(data->args);
+		if (data->absolut_cmd)
+			ft_free(&data->absolut_cmd);
+		if (data->limiter)
+			ft_free(&data->limiter);
+		if (data->pipe_fd[0] != -1)
+			close(data->pipe_fd[0]);
+		if (data->pipe_fd[1] != -1)
+			close(data->pipe_fd[1]);
+		if (data->i_fd != -1)
+			close(data->i_fd);
+		if (data->o_fd != -1)
+			close(data->o_fd);
+		if (data->tmp_pipe[0] == -1)
+			close(data->tmp_pipe[0]);
+		if (data->tmp_pipe[1] == -1)
+			close(data->tmp_pipe[1]);
 		free(data);
+	}
 	exit(error_code);
 }
