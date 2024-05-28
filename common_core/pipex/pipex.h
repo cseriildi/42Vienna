@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/27 18:00:21 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/28 14:01:30 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@
 # include <errno.h>
 # include <stdio.h>
 # include <sys/wait.h>
-
+# include <stdbool.h>
 # include "libft/libft.h"
+
 
 typedef struct s_var
 {
 	pid_t	pid;
-	int		pipe_fd[2];
-	int		tmp_pipe[2];
+	int		pipe[2];
+	bool	is_here_doc;
+	int		pipe2[2];
+	int		here_doc_pipe[2];
 	char	*infile;
 	int		i_fd;
 	char	*limiter;
