@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:15:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/27 18:21:38 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/28 14:01:57 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void	init_data(t_var *data)
 {
 	data->pid = -1;
-	data->pipe_fd[0] = -1;
-	data->pipe_fd[1] = -1;
-	data->tmp_pipe[0] = -1;
-	data->tmp_pipe[1] = -1;
+	data->pipe[0] = -1;
+	data->pipe[1] = -1;
+	data->pipe2[0] = -1;
+	data->pipe2[1] = -1;
+	data->here_doc_pipe[0] = -1;
+	data->here_doc_pipe[1] = -1;
 	data->i_fd = -1;
 	data->limiter = NULL;
 	data->o_fd = -1;
@@ -27,6 +29,7 @@ void	init_data(t_var *data)
 	data->args = NULL;
 	data->path = NULL;
 	data->env = NULL;
+	data->is_here_doc = false;
 }
 
 void	parse_input(t_var *data, int count, char **params, char **env)
@@ -44,6 +47,7 @@ void	parse_input(t_var *data, int count, char **params, char **env)
 		if (!data->limiter)
 			elegant_exit(data, MALLOC_FAIL);
 		data->cmd_count--;
+		data->is_here_doc = true;
 	}
 	data->commands = params + i;
 	data->commands[data->cmd_count] = NULL;
