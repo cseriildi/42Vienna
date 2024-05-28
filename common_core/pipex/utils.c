@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/27 18:04:02 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/28 15:34:26 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	exec_command(t_var *data, int cmd_index)
 {
+	printf("%s, %d\n", data->commands[cmd_index], cmd_index);
 	data->args = ft_split(data->commands[cmd_index], ' ');
 	if (!data->args)
 		elegant_exit(data, MALLOC_FAIL);
 	data->cmd = data->args[0];
-	if (access(data->cmd, F_OK) == 0)
+	if (access(data->cmd, X_OK) == 0)
 		data->absolut_cmd = data->cmd;
 	else
 		data->absolut_cmd = find_path(data);
@@ -85,6 +86,13 @@ char	*error_message(int code)
 		return ("Unknown error");
 }
 
+void	close_pipe(int fd)
+{
+	if (fd != -1)
+		close(fd);
+	fd = -1;
+}
+
 void	elegant_exit(t_var *data, int error_code)
 {
 	perror(error_message(error_code));
@@ -98,18 +106,12 @@ void	elegant_exit(t_var *data, int error_code)
 			ft_free(&data->absolut_cmd);
 		if (data->limiter)
 			ft_free(&data->limiter);
-		if (data->pipe_fd[0] != -1)
-			close(data->pipe_fd[0]);
-		if (data->pipe_fd[1] != -1)
-			close(data->pipe_fd[1]);
-		if (data->i_fd != -1)
-			close(data->i_fd);
-		if (data->o_fd != -1)
-			close(data->o_fd);
-		if (data->tmp_pipe[0] == -1)
-			close(data->tmp_pipe[0]);
-		if (data->tmp_pipe[1] == -1)
-			close(data->tmp_pipe[1]);
+		close_pipe(data->pipe[0]);
+		close_pipe(data->pipe[1]);
+		close_pipe(data->i_fd);
+		close_pipe(data->o_fd);
+		close_pipe(data->pipe2[0]);
+		close_pipe(data->pipe2[1]);
 		free(data);
 	}
 	exit(error_code);
