@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 16:55:32 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/28 15:25:14 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/29 11:46:52 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	here_doc(t_var *data)
 		elegant_exit(data, FORK_FAIL);
 	else if (data->pid == 0)
 	{
-		printf("%s\n", "here_doc");
 		close(data->here_doc_pipe[0]);
 		ft_putstr_fd("pipe heredoc> ", STDOUT_FILENO);
 		line = get_next_line(STDIN_FILENO);
@@ -53,4 +52,11 @@ void	here_doc(t_var *data)
 		close(data->here_doc_pipe[1]);
 		exit(EXIT_SUCCESS);
 	}
+	else
+	{
+		waitpid(data->pid, NULL, 0);
+		close(data->here_doc_pipe[1]);
+		data->i_fd = data->here_doc_pipe[0];
+	}
+		
 }
