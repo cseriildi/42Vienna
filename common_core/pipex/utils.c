@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/28 15:34:26 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/29 11:28:15 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	exec_command(t_var *data, int cmd_index)
 {
-	printf("%s, %d\n", data->commands[cmd_index], cmd_index);
 	data->args = ft_split(data->commands[cmd_index], ' ');
 	if (!data->args)
 		elegant_exit(data, MALLOC_FAIL);
