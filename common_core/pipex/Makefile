@@ -6,15 +6,15 @@
 #    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/05/27 17:43:20 by icseri           ###   ########.fr        #
+#    Updated: 2024/05/29 18:17:08 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS = pipex.c utils.c parsing.c
+SRCS = pipex.c utils.c parsing.c utils2.c
 
-BONUS_SRCS = pipex_bonus.c utils.c parsing.c utils_bonus.c
+BONUS_SRCS = pipex_bonus.c utils.c utils2.c parsing.c utils_bonus.c
 
 OBJS = ${SRCS:.c=.o}
 

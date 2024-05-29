@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/28 14:01:30 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/29 18:45:33 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@
 # include <stdbool.h>
 # include "libft/libft.h"
 
-
 typedef struct s_var
 {
 	pid_t	pid;
 	int		pipe[2];
 	bool	is_here_doc;
 	int		pipe2[2];
-	int		here_doc_pipe[2];
 	char	*infile;
 	int		i_fd;
 	char	*limiter;
@@ -50,21 +48,22 @@ typedef struct s_var
 //utils
 void	array_free(char **arr);
 char	*ft_strjoin2(char *str1, char *str2, char *delimiter);
+void	safe_close(int fd);
+int		safe_open(char *filename, char mode, t_var *data);
+void	create_process(t_var *data, int fd[2]);
+
+//utils2
 char	*error_message(int code);
 void	elegant_exit(t_var *data, int error_code);
-
-//parsing
 void	exec_command(t_var *data, int cmd_index);
-char	*find_path(t_var *data);
-void	parse_input(t_var *data, int count, char **params, char **env);
-
-//main
-void	first_command(t_var *data);
-void	last_command(t_var *data);
 
 //utils bonus
 void	delete_file(t_var *data);
 void	here_doc(t_var *data);
+
+//parsing
+char	*find_path(t_var *data);
+void	parse_input(t_var *data, int count, char **params, char **env);
 
 //ERROR CODES
 # define EXIT_SUCCESS 0  // Successful execution

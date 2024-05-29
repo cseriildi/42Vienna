@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:15:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/28 14:01:57 by icseri           ###   ########.fr       */
+/*   Updated: 2024/05/29 18:38:26 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	init_data(t_var *data)
 	data->pipe[1] = -1;
 	data->pipe2[0] = -1;
 	data->pipe2[1] = -1;
-	data->here_doc_pipe[0] = -1;
-	data->here_doc_pipe[1] = -1;
 	data->i_fd = -1;
 	data->limiter = NULL;
 	data->o_fd = -1;
@@ -52,12 +50,11 @@ void	parse_input(t_var *data, int count, char **params, char **env)
 	data->commands = params + i;
 	data->commands[data->cmd_count] = NULL;
 	data->env = env;
-	i = 0;
-	while (data->env[i] && ft_strncmp(data->env[i], "PATH=", 5) != 0)
-		i++;
-	if (!data->env[i])
+	while (*env && ft_strncmp(*env, "PATH=", 5) != 0)
+		env++;
+	if (!*env)
 		elegant_exit(data, MISSING_PATH);
-	data->path = ft_split(data->env[i] + 5, ':');
+	data->path = ft_split(*env + 5, ':');
 	if (!data->path)
 		elegant_exit(data, MALLOC_FAIL);
 }
