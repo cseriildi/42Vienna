@@ -1,10 +1,10 @@
 ## About the pipex project
 
-### Useful stuff
-- Playlist to get familiar with [Unix Processes in C](https://youtube.com/playlist?list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&si=iyDYLxQotEdMbpUW)
-
 ### Summary
 This project focuses on using **pipes**. You will learn about **processes**, how to create them using **fork**, and how to connect them using **pipes**.
+
+### Useful stuff
+- Playlist to get familiar with [Unix Processes in C](https://youtube.com/playlist?list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&si=iyDYLxQotEdMbpUW)
 
 ### Mandatory
 The program should handle two commands and should work like the original command line:
@@ -17,7 +17,7 @@ After running `make` you can execute your program like this:
 
 `./pipex file1 cmd1 cmd2 file2`
 
-[Jump to the walk through](#walk-through-for-the-mandatory-part)
+[Jump to the walkthrough](#walkthrough-for-the-mandatory-part)
 
 ### Bonus
 The bonus part should handle multiple commands, similar to the mandatory part. 
@@ -40,9 +40,9 @@ should behave like:
 
 Where the first command reads from the Standard Input until it finds the LIMITER and the result after the last command gets appended to the file.
 
-[Jump to the walk through](#walk-through-for-the-bonus)
+[Jump to the walkthrough](#walkthrough-for-the-bonus)
 
-### Walk through for the mandatory part 
+### Walkthrough for the mandatory part 
 
 💡 *Click on a* ▶ *for a hint.*
 
@@ -131,7 +131,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 `execve(full_path_to_the_command, command_arguments_as_a_list, environment);`
 </details>
 
-### Walk through for the bonus
+### Walkthrough for the bonus
 - Similar to the mandatory part, check the arguments and parse them
 - Pipe and fork
 
