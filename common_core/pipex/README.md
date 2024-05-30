@@ -48,12 +48,12 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 
 <details><summary> Check the number of arguments and parse them as you'd like</summary>
 
-- Declair your main like this:
+- Declare your main like this:
 
 	`int	main(int argc, char **argv, char **env);`
 
 - The environment variables will be accessible through `env`, you can check environment variables in the terminal with the `env` command.
-- You can found the absolut path to the executable commands in the `PATH` variable. (On linux they are usually in the `/bin` or `/usr/bin` folder, but do **NOT** hardcode the folder).
+- You can find the absolute path to the executable commands in the `PATH` variable. (On Linux, they are usually in the `/bin` or `/usr/bin` folder, but do **NOT** hardcode the folder).
 - Use the `access()` function to check if the file exists and is executable.
 - Use `ft_split()` to create a list of arguments from the command for `execve()`.
 - Use `ft_strjoin()` to join the folder and the first element of the argument list to get the absolute path (don't forget the `/` in between).
@@ -72,7 +72,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 </details>
 
 #### In the child process:
-<details><summary>close the reading end of the pipe since you wont use it</summary>
+<details><summary>close the reading end of the pipe since you won't use it</summary>
 
 `close(pipe_fd[0]);`
 </details>
@@ -96,7 +96,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 
 `close(pipe_fd[1]);`
 </details>
-<details><summary>execute the command (in case of succesful execution the process ends) </summary>
+<details><summary>execute the command (in case of successful execution the process ends) </summary>
 
 `execve(full_path_to_the_command, command_arguments_as_a_list, environment);`
 </details>
@@ -116,7 +116,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 </details>
 <details><summary>close the pipe's reading end</summary>
 
-`pipe_fd[0];`
+`close(pipe_fd[0]);`
 </details>
 <details><summary>copy the file's content to the Standard Output</summary>
 
@@ -126,7 +126,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 
 `close(fd);`
 </details>
-<details><summary>execute the command (in case of succesful execution the process ends) </summary>
+<details><summary>execute the command (in case of successful execution the process ends) </summary>
 
 `execve(full_path_to_the_command, command_arguments_as_a_list, environment);`
 </details>
@@ -140,14 +140,14 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 - If the first argument is **here_doc**:
 	- Create a temporary file with a random name and open it with write permission
 	- Open the same file with read permission
-	- Using the get_next_line function *(from your previous project)* read from the Standart Input and write each line to the temporary file until you read the second argument which is the LIMITER
+	- Using the get_next_line function *(from your previous project)* read from the Standard Input and write each line to the temporary file until you read the second argument which is the LIMITER
 	- Close the file you wrote in
 - If the first argument is a file:
 	- Open the file with read permission
 - Copy the file's content to the Standard Input
 - Close the file
 - If you created a temporary file delete it
-- Copy the pipe's write end to the Standar Output
+- Copy the pipe's write end to the Standard Output
 - Close the pipe's write end
 - Execute the command
 
@@ -170,7 +170,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 		- Close the old pipe's read and write ends
 		- Set the old pipe's read and write ends to the new pipe's read and write ends
 - Close the pipe's write end
-- If the first argument was **here_doc** and the outfile exist open it in append mode
+- If the first argument was **here_doc** and the outfile exists open it in append mode
 - Otherwise open/create the outfile
 - Copy the pipe's read end to the Standard Input
 - Close the pipe's read end
@@ -178,4 +178,4 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 - Close the file
 - Execute the command
 
-Don't forget to always check if a function call failes, throw errors. Free when you have to. It's good practice to use different exit codes.
+Don't forget to always check if a function call fails, throw errors. Free when you have to. It's good practice to use different exit codes.
