@@ -8,7 +8,7 @@
 | [ft_printf](https://github.com/cseriildi/42Vienna/tree/main/common_core/ft_printf)| ![icseri's 42 ft_printf Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3637157)|
 | [get_next_line](https://github.com/cseriildi/42Vienna/tree/main/common_core/get_next_line)| ![icseri's 42 get_next_line Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3637162)|
 | [born2beroot](https://github.com/cseriildi/42Vienna/tree/main/common_core/born2beroot)| ![icseri's 42 Born2beroot Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3637163)|
-| *Exam Rank 02* | ![icseri's 42 pipex Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3658883) |
+| *Exam Rank 02* |![icseri's 42 Exam Rank 02 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3657688)|
 | [push_swap](https://github.com/cseriildi/42Vienna/tree/main/common_core/push_swap)| ![icseri's 42 push_swap Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3658828)|
 | [pipex](https://github.com/cseriildi/42Vienna/tree/main/common_core/pipex)| ![icseri's 42 pipex Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3658883)|
 | [fdf](https://github.com/cseriildi/42Vienna/tree/main/common_core/fdf)| In progress|
