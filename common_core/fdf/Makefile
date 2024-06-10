@@ -6,13 +6,13 @@
 #    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/06/06 17:46:03 by cseriildii       ###   ########.fr        #
+#    Updated: 2024/06/09 10:48:21 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRCS = 
+SRCS = fdf.c parsing.c utils.c
 
 OBJS = ${SRCS:.c=.o}
 
