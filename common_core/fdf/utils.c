@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:21:07 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/09 10:45:19 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/11 16:09:04 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,17 @@ void *ft_realloc(void *ptr, size_t old_size, size_t new_size)
     return new_ptr;
 }
 
-/* void	safe_exit(t_var *data, int error_code)
+ void	safe_exit(t_var *data, int error_code)
 {
 	perror(error_message(error_code));
 	if (data)
 	{
-		if (data->path)
-			array_free(data->path);
-		if (data->args)
-			array_free(data->args);
-		if (data->absolut_cmd)
-			ft_free(&data->absolut_cmd);
-		if (data->limiter)
-			ft_free(&data->limiter);
+		if (data->mlx)
+			mlx_destroy_display(data->mlx);
+		if (data->window)
+			mlx_destroy_display(data->window);
 		free(data);
 	}
 	exit(error_code);
 }
 
- */
