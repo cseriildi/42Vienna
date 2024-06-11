@@ -3,22 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
+#    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/06/09 10:48:21 by cseriildii       ###   ########.fr        #
+#    Updated: 2024/06/11 13:18:50 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRCS = fdf.c parsing.c utils.c
+SRCS = test.c
+#fdf.c parsing.c utils.c
 
 OBJS = ${SRCS:.c=.o}
 
 COMP = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -lXext -lX11 -lm -lz -lmlx
 
 all: ${NAME}
 
