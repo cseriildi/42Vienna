@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:47:15 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/11 17:00:58 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/14 17:18:02 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,78 @@
 # include <fcntl.h>
 # include <stdlib.h> 
 # include <mlx.h>
+# include <math.h>
 
-typedef enum {
-    EXIT_SUCCESS,
-    EXIT_FAILURE,
-	MALLOC_FAIL,
-    CANNOT_OPEN_FILE
-} ErrorCodes;
+# define ESC 65307
+# define CLICK_ON_X 17
 
+# define WIDTH 1090
+# define HEIGHT 960
+# define ANGLE 30
+
+# define PI 3.14159265358979323846
+
+typedef enum
+{
+	MALLOC_FAIL = 2,
+	WRONG_INPUT,
+	CANNOT_OPEN_FILE
+}	ErrorCodes;
+
+typedef struct	s_image {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_image;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int	z;
+	int color;
+}	t_point;
+
+typedef struct s_2d_point
+{
+	int	x;
+	int	y;
+	int color;
+}	t_2d_point;
 
 typedef struct s_var
 {
 	char	*filename;
 	char	*content;
 	char	**str_map;
-	int 	**map;
+	char	**line;
+	t_point	**map;
+	t_2d_point	**map_2d;
 	int		width;
 	int		height;
-	void 	*mlx;
+	int	angle;
+	float	scale;
+	void	*display;
 	void	*window;
+	t_image	image;
+	int		x_offset;
+	int		y_offset;
 }	t_var;
 
+void	safe_exit(t_var *data, int error_code);
+int	ft_max(int count, ...);
 
-//void	parsing(t_var	*data);
+//events
+int	handle_esc(int key, t_var *data);
+int	handle_close(t_var *data);
 
+void	array_free(void **arr);
 
+void	create_map(t_var *data);
+//iso
+
+void	create_2d(t_var *data);
 
 #endif

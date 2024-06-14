@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 17:47:06 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/09 10:54:38 by cseriildii       ###   ########.fr       */
+/*   Created: 2024/06/10 11:11:35 by icseri            #+#    #+#             */
+/*   Updated: 2024/06/14 17:15:37 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,22 @@ int	main(int argc, char **argv)
 		return (ft_putendl_fd("Missing argument", 2), 1);
 	data = malloc(sizeof(t_var));
 	if (!data)
-		return (ft_putendl_fd("Malloc failed", 2), 2);
+		safe_exit(data, MALLOC_FAIL);
 	data->filename = argv[1];
-	parsing(data);
-
-
-	int i = 0;
-	int j = 0;
-
-	while (i < data->height)
-	{
-		j = 0;
-		while ( j < data->width)
-		{
-			ft_printf("%d ", data->map[i][j]);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
+	create_map(data);
+	data->display = mlx_init();
+	if (!data->display)
+		safe_exit(data, MALLOC_FAIL);
+	data->window = mlx_new_window(data->display, WIDTH, HEIGHT, "fdf");
+	if (!data->window)
+		safe_exit(data, MALLOC_FAIL);
+	data->image.img = mlx_new_image(data->display, WIDTH, HEIGHT);
+	data->image.addr = mlx_get_data_addr(data->image.img, &data->image.bpp,
+		&data->image.line_len, &data->image.endian);
+	//draw(data);
+	mlx_put_image_to_window(data->display, data->window, data->image.img, 0, 0);
+	mlx_key_hook(data->window, handle_esc, data);
+	mlx_hook(data->window, CLICK_ON_X, 0, handle_close, data);
+	mlx_loop(data->display);
+	safe_exit(data, EXIT_SUCCESS);
 }
