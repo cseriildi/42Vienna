@@ -6,20 +6,21 @@
 #    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/06/11 13:18:50 by icseri           ###   ########.fr        #
+#    Updated: 2024/06/14 17:15:23 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRCS = test.c
-#fdf.c parsing.c utils.c
+SRCS = fdf.c parsing.c utils.c events.c iso_proj.c
 
 OBJS = ${SRCS:.c=.o}
 
 COMP = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -lXext -lX11 -lm -lz -lmlx
+CFLAGS = -Wall -Wextra -Werror -g 
+
+MINILIBX_FLAGS = -lXext -lX11 -lm -lz -lmlx
 
 all: ${NAME}
 
@@ -28,7 +29,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	@${MAKE} -C ./libft --no-print-directory
-	@${COMP} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME}
+	@${COMP} ${CFLAGS} ${OBJS} ./libft/libft.a -o ${NAME} ${MINILIBX_FLAGS}
 
 clean: 
 	@${MAKE} -C ./libft --no-print-directory fclean
