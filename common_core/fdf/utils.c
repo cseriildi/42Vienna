@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:21:07 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/14 17:20:04 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:33:36 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void *ft_realloc(void *ptr, size_t old_size, size_t new_size)
     return new_ptr;
 }
 
-void	array_free(void **arr)
+void	array_free(t_point **arr)
 {
 	int	i;
 
@@ -44,10 +44,29 @@ void	array_free(void **arr)
 	if (arr)
 	{
 		while (arr[i])
-			free(arr[i++]);
+		{
+			free(arr[i]);
+			i++;
+		}
 		free(arr);
 	}
-	arr = NULL;
+}
+
+void	char_array_free(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (arr)
+	{
+		while (arr[i])
+		{
+			free(arr[i]);
+			i++;
+		}
+		free(arr);
+		arr = NULL;
+	}
 }
 
 char	*error_message(int code)
@@ -74,17 +93,21 @@ void	safe_exit(t_var *data, int error_code)
 		{
 			if (data->window)
 				mlx_destroy_window(data->display, data->window);
+			if (data->image.img)
+				mlx_destroy_image(data->display, data->image.img);
 			mlx_destroy_display(data->display);
 			free(data->display);
 		}
 		if (data->content)
 			ft_free(&data->content);
-		if (data->str_map)
-			array_free((void **)data->str_map);
+ 		if (data->str_map)
+			char_array_free(data->str_map);
 		if (data->map)
-			array_free((void **)data->map);
+			array_free(data->map);
+		if (data->map_2d)
+			array_free(data->map_2d);
 		if (data->line)
-			array_free((void **)data->line);
+			char_array_free(data->line);
 		free(data);
 	}
 	exit(error_code);
