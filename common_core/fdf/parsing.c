@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 19:23:36 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/14 17:50:17 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:36:35 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	read_file(t_var	*data)
 	if (!data->content)
 	{
 		close(fd);
-		ft_putendl_fd("File is empty or malloc failed in get_next_line", 2);
-		exit(5);
+		safe_exit(data, MALLOC_FAIL);
 	}
 	line = get_next_line(fd);
 	while (line)
@@ -74,7 +73,7 @@ void	get_size(t_var *data)
 			data->width = i;
 		else if (data->width != i)
 
-		array_free((void **)data->line);
+		char_array_free(data->line);
 		data->height++;
 	}
 }
@@ -87,7 +86,7 @@ void	malloc_maps(t_var *data)
 	data->map = ft_calloc(sizeof(t_point *), data->height + 1);
 	if (!data->map)
 		safe_exit(data, MALLOC_FAIL);
-	data->map_2d = ft_calloc(sizeof(t_2d_point *), data->height + 1);
+	data->map_2d = ft_calloc(sizeof(t_point *), data->height + 1);
 	if (!data->map_2d)
 		safe_exit(data, MALLOC_FAIL);
 	i = -1;
@@ -96,7 +95,7 @@ void	malloc_maps(t_var *data)
 		data->map[i] = malloc(sizeof(t_point) * (data->width + 1));
 		if (!data->map[i])
 			safe_exit(data, MALLOC_FAIL);
-		data->map_2d[i] = malloc(sizeof(t_2d_point) * (data->width + 1));
+		data->map_2d[i] = malloc(sizeof(t_point) * (data->width + 1));
 		if (!data->map_2d[i])
 			safe_exit(data, MALLOC_FAIL);
 	}
@@ -114,12 +113,11 @@ void	create_map(t_var *data)
 		safe_exit(data, MALLOC_FAIL);
 	malloc_maps(data);
 	i = -1;
-	while (data->str_map[++i])
+	while (data->str_map[++i] && i < data->height)
 	{
 		data->line = ft_split(data->str_map[i], ' ');
 		if (!data->line)
 			safe_exit(data, MALLOC_FAIL);
-		array_free((void **)data->str_map);
 		j = 0;
 		while (data->line[j] && j < data->width)
 		{
@@ -130,6 +128,8 @@ void	create_map(t_var *data)
 		}
 		if (j != data->width || data->line[j])
 			safe_exit(data, WRONG_INPUT);
-		ft_free(data->line);
+		char_array_free(data->line);
 	}
+	char_array_free(data->str_map);
 }
+

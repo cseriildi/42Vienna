@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:47:15 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/14 17:18:02 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:28:14 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,6 @@ typedef struct s_point
 	int color;
 }	t_point;
 
-typedef struct s_2d_point
-{
-	int	x;
-	int	y;
-	int color;
-}	t_2d_point;
 
 typedef struct s_var
 {
@@ -65,7 +59,7 @@ typedef struct s_var
 	char	**str_map;
 	char	**line;
 	t_point	**map;
-	t_2d_point	**map_2d;
+	t_point	**map_2d;
 	int		width;
 	int		height;
 	int	angle;
@@ -84,7 +78,8 @@ int	ft_max(int count, ...);
 int	handle_esc(int key, t_var *data);
 int	handle_close(t_var *data);
 
-void	array_free(void **arr);
+void	array_free(t_point **arr);
+void	char_array_free(char **arr);
 
 void	create_map(t_var *data);
 //iso

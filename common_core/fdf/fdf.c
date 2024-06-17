@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:11:35 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/14 17:15:37 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:35:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main(int argc, char **argv)
 	if (!data->window)
 		safe_exit(data, MALLOC_FAIL);
 	data->image.img = mlx_new_image(data->display, WIDTH, HEIGHT);
+	if (!data->image.img)
+		safe_exit(data, MALLOC_FAIL);
 	data->image.addr = mlx_get_data_addr(data->image.img, &data->image.bpp,
 		&data->image.line_len, &data->image.endian);
 	//draw(data);
