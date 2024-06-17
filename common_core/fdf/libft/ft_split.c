@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 08:55:08 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/24 22:27:15 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/17 13:42:23 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ static int	occ(char const *str, char c)
 	return (counter);
 }
 
+static void	array_free(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (arr)
+	{
+		while (arr[i])
+			free(arr[i++]);
+		free(arr);
+	}
+	arr = NULL;
+}
 static char	**create_empty_array(char const *str, char c)
 {
 	int		count;
@@ -53,7 +66,7 @@ static char	**create_empty_array(char const *str, char c)
 		}
 		words[i] = ft_calloc(len + 1, 1);
 		if (words[i] == NULL)
-			return (ft_free(words), NULL);
+			return (array_free(words), NULL);
 	}
 	return (words);
 }
@@ -85,17 +98,3 @@ char	**ft_split(char const *str, char c)
 	words[i + (j != 0)] = NULL;
 	return (words);
 }
-
-/* int	main(int argc, char **argv)
-{
-	char	**words;
-	int		i;
-
-	(void)argc;
-	words = ft_split(argv[1], argv[2][0]);
-	i = 0;
-	while (words[i])
-		printf("[%s]\n", words[i++]);
-	printf("[%s]\n", words[i]);
-	ft_free(words);
-} */
