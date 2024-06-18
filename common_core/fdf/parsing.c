@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 19:23:36 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/17 19:36:35 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/18 11:25:17 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	create_map(t_var *data)
 {
 	int		i;
 	int		j;
+	char	**z;
 
 	read_file(data);
 	data->str_map = ft_split(data->content, '\n');
@@ -123,7 +124,13 @@ void	create_map(t_var *data)
 		{
 			data->map[i][j].x = j;
 			data->map[i][j].y = i;
-			data->map[i][j].z = ft_atoi(data->line[j]);
+			z = ft_split(data->line[j], ',');
+			data->map[i][j].z = ft_atoi(z[0]);
+			if (z[1])
+				data->map[i][j].color = ft_atoi_base(z[1], "0123456789ABCDEF");
+			else
+				data->map[i][j].color = BASE_COLOR;
+			char_array_free(z);
 			j++;
 		}
 		if (j != data->width || data->line[j])
