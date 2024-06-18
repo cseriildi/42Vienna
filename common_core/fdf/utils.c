@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:21:07 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/17 19:33:36 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/18 13:38:24 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,37 @@ void *ft_realloc(void *ptr, size_t old_size, size_t new_size)
     return new_ptr;
 }
 
-void	array_free(t_point **arr)
+void	array_free(t_point ***arr)
 {
 	int	i;
 
 	i = 0;
-	if (arr)
+	if (arr && *arr)
 	{
-		while (arr[i])
+		while ((*arr)[i])
 		{
-			free(arr[i]);
+			free((*arr)[i]);
 			i++;
 		}
-		free(arr);
+		free(*arr);
+		*arr = NULL;
 	}
 }
 
-void	char_array_free(char **arr)
+void	char_array_free(char ***arr)
 {
 	int	i;
 
 	i = 0;
-	if (arr)
+	if (arr && *arr)
 	{
-		while (arr[i])
+		while ((*arr)[i])
 		{
-			free(arr[i]);
+			free((*arr)[i]);
 			i++;
 		}
-		free(arr);
-		arr = NULL;
+		free(*arr);
+		*arr = NULL;
 	}
 }
 
@@ -101,13 +102,13 @@ void	safe_exit(t_var *data, int error_code)
 		if (data->content)
 			ft_free(&data->content);
  		if (data->str_map)
-			char_array_free(data->str_map);
+			char_array_free(&data->str_map);
 		if (data->map)
-			array_free(data->map);
+			array_free(&data->map);
 		if (data->map_2d)
-			array_free(data->map_2d);
+			array_free(&data->map_2d);
 		if (data->line)
-			char_array_free(data->line);
+			char_array_free(&data->line);
 		free(data);
 	}
 	exit(error_code);

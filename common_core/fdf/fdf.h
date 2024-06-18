@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:47:15 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/18 11:34:08 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/18 13:38:59 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h> 
-# include "mlx/mlx.h"
-//# include <mlx.h>
+//# include "mlx/mlx.h"
+# include <mlx.h>
 # include <math.h>
 
 # define ESC 65307
@@ -80,8 +80,8 @@ int	ft_max(int count, ...);
 int	handle_esc(int key, t_var *data);
 int	handle_close(t_var *data);
 
-void	array_free(t_point **arr);
-void	char_array_free(char **arr);
+void	array_free(t_point ***arr);
+void	char_array_free(char ***arr);
 
 void	create_map(t_var *data);
 

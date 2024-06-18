@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 10:40:59 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/18 11:21:17 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/18 13:16:43 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static int	get_value(char c)
 {
 	if (ft_isdigit(c))
 		return (c - '0');
-	if (ft_islower(c))
+	if (ft_tolower(c) == c)
 		return (c - 'a' + 10);
-	if (ft_isupper(c))
+	if (ft_toupper(c) == c)
 		return (c - 'A' + 10);
 	return (0);
 }
@@ -55,7 +55,6 @@ static int	get_value(char c)
 int	ft_atoi_base(const char *str, char *base)
 {
 	int num;
-	int i;
 	int sign;
 	int len;
 
