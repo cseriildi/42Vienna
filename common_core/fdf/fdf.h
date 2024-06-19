@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:47:15 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/19 07:59:58 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/19 15:56:01 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
 # define ESC 65307
 # define CLICK_ON_X 17
 
-# define WIDTH 1090
-# define HEIGHT 960
+# define WIDTH 1200
+# define HEIGHT 900
 # define ANGLE 30
-# define BASE_COLOR -1
+# define BASE_COLOR 0xFFFFFF
 
 # define PI 3.14159265358979323846
 
