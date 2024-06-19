@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:47:15 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/18 13:38:59 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/19 07:59:58 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ typedef struct s_var
 	t_image	image;
 	int		x_offset;
 	int		y_offset;
+	int		x_min;
+	int		y_min;
+	int		x_max;
+	int		y_max;
 }	t_var;
 
 void	safe_exit(t_var *data, int error_code);
