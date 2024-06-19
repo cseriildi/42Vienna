@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   iso_proj.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:47:42 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/19 07:56:23 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/19 16:01:47 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 void	set_borders(t_var *data, int row, int column)
 {
@@ -39,19 +38,28 @@ void	adjust_map(t_var *data)
 {
 	int row;
 	int column;
-	int x_offset;
-	int y_offset;
+	double x_range;
+	double y_range;
 
-	x_offset = (WIDTH - (data->x_max - data->x_min)) / 2 - data->x_min;
-	y_offset = (HEIGHT - (data->y_max - data->y_min)) / 2 - data->y_min;
+	x_range = data->x_max - data->x_min;
+	y_range = data->y_max - data->y_min;
+
+	data->scale = fmin((double)WIDTH / x_range, (double)HEIGHT / y_range);
+
+	data->x_offset = (WIDTH - (data->x_max - data->x_min) * data->scale) / 2 - data->x_min * data->scale;
+	data->y_offset = (HEIGHT - (data->y_max - data->y_min) * data->scale) / 2 - data->y_min * data->scale;
 	row = -1;
 	while (++row < data->height)
 	{
 		column = -1;
 		while (++column < data->width)
 		{
-			data->map_2d[row][column].x += x_offset;
-			data->map_2d[row][column].y += y_offset;
+			data->map_2d[row][column].x = data->map_2d[row][column].x * data->scale + data->x_offset;
+			data->map_2d[row][column].y = data->map_2d[row][column].y * data->scale + data->y_offset;
+			data->map[row][column].x = data->map[row][column].x * data->scale + data->x_offset;
+			data->map[row][column].y = data->map[row][column].y * data->scale + data->y_offset;
+
+		
 		}
 	}
 
