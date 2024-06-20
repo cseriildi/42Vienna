@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 08:55:08 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/17 13:42:23 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/20 19:04:17 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	array_free(char **arr)
 	}
 	arr = NULL;
 }
+
 static char	**create_empty_array(char const *str, char c)
 {
 	int		count;
