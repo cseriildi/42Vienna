@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:47:15 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/19 15:56:01 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:09:20 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,34 @@
 
 # define WIDTH 1200
 # define HEIGHT 900
-# define ANGLE 30
-# define BASE_COLOR 0xFFFFFF
+# define ANGLE -30
+# define BASE_COLOR 16777215
 
 # define PI 3.14159265358979323846
 
-typedef enum
+typedef enum s_err
 {
 	MALLOC_FAIL = 2,
 	WRONG_INPUT,
 	CANNOT_OPEN_FILE
-}	ErrorCodes;
+}	t_err;
 
-typedef struct	s_image {
+typedef struct s_image
+{
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_len;
-	int		endian;
+	int		ll;
+	int		en;
 }	t_image;
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
-	int color;
+	float	x;
+	float	y;
+	float	z;
+	int		color;
 }	t_point;
-
 
 typedef struct s_var
 {
@@ -64,25 +64,31 @@ typedef struct s_var
 	t_point	**map_2d;
 	int		width;
 	int		height;
-	int		angle;
-	float	scale;
+	double	angle;
+	double	scale;
 	void	*display;
 	void	*window;
-	t_image	image;
-	int		x_offset;
-	int		y_offset;
-	int		x_min;
-	int		y_min;
-	int		x_max;
-	int		y_max;
+	t_image	img;
+	double	x_offset;
+	double	y_offset;
+	double	x_min;
+	double	y_min;
+	double	x_max;
+	double	y_max;
+	int		delta_x;
+	int		delta_y;
+	int		sign_x;
+	int		sign_y;
+	double	error;
+	double	error2;
 }	t_var;
 
 void	safe_exit(t_var *data, int error_code);
-int	ft_max(int count, ...);
+int		ft_max(int count, ...);
 
 //events
-int	handle_esc(int key, t_var *data);
-int	handle_close(t_var *data);
+int		handle_esc(int key, t_var *data);
+int		handle_close(t_var *data);
 
 void	array_free(t_point ***arr);
 void	char_array_free(char ***arr);
@@ -93,8 +99,8 @@ void	create_map(t_var *data);
 void	create_2d(t_var *data);
 
 //atoi base
-int	ft_atoi_base(const char *str, char *base);
-
+int		ft_atoi_hex(char *str);
+void	init_data(t_var *data);
 void	draw(t_var *data);
 
 #endif

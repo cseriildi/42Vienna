@@ -6,28 +6,11 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 19:23:36 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/18 13:49:54 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/20 21:49:38 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	init_data(t_var *data)
-{
-	data->content = NULL;
-	data->str_map = NULL;
-	data->line = NULL;
-	data->map = NULL;
-	data->map_2d = NULL;
-	data->display = NULL;
-	data->image.img = NULL;
-	data->window = NULL;
-	data->height = 0;
-	data->width = 0;
-	data->scale = 20;
-	data->x_offset = 0;
-	data->y_offset = 0;
-}
 
 void	read_file(t_var	*data)
 {
@@ -101,11 +84,25 @@ void	malloc_maps(t_var *data)
 	}
 }
 
+void	split_z(char *line, t_point *p, t_var *data)
+{
+	char	**z;
+
+	z = ft_split(line, ',');
+	if (!z)
+		safe_exit(data, MALLOC_FAIL);
+	p->z = ft_atoi(z[0]);
+	if (z[1] && ft_strlen(z[1]) > 2 && z[1][0] == '0' && z[1][1] == 'x')
+		p->color = ft_atoi_hex(z[1] + 2);
+	else
+		p->color = BASE_COLOR;
+	char_array_free(&z);
+}
+
 void	create_map(t_var *data)
 {
 	int		i;
 	int		j;
-	char	**z;
 
 	read_file(data);
 	data->str_map = ft_split(data->content, '\n');
@@ -119,26 +116,14 @@ void	create_map(t_var *data)
 		data->line = ft_split(data->str_map[i], ' ');
 		if (!data->line)
 			safe_exit(data, MALLOC_FAIL);
-		j = 0;
-		while (data->line[j] && j < data->width)
+		j = -1;
+		while (data->line[++j] && j < data->width)
 		{
 			data->map[i][j].x = j;
 			data->map[i][j].y = i;
-			z = ft_split(data->line[j], ',');
-			if (!z)
-				safe_exit(data, MALLOC_FAIL);
-			data->map[i][j].z = ft_atoi(z[0]);
-			if (z[1])
-				data->map[i][j].color = ft_atoi_base(z[1], "0123456789ABCDEF");
-			else
-				data->map[i][j].color = BASE_COLOR;
-			char_array_free(&z);
-			j++;
+			split_z(data->line[j], &data->map[i][j], data);
 		}
-		if (j != data->width || data->line[j])
-			safe_exit(data, WRONG_INPUT);
 		char_array_free(&data->line);
 	}
 	char_array_free(&data->str_map);
 }
-
