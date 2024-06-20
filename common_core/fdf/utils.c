@@ -6,35 +6,11 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 13:21:07 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/18 13:38:24 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/20 20:22:05 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void *ft_realloc(void *ptr, size_t old_size, size_t new_size)
-{
-    void *new_ptr;
-
-	if (new_size == 0)
-    {
-        if (ptr != NULL)
-			free(ptr);
-        return NULL;
-    }
-    new_ptr = malloc(new_size);
-    if (new_ptr == NULL)
-        return NULL;
-    if (ptr != NULL)
-    {
-        if (old_size < new_size)
-			ft_memcpy(new_ptr, ptr, old_size);
-		else
-			ft_memcpy(new_ptr, ptr, new_size);
-        free(ptr); 
-    }
-    return new_ptr;
-}
 
 void	array_free(t_point ***arr)
 {
@@ -94,14 +70,13 @@ void	safe_exit(t_var *data, int error_code)
 		{
 			if (data->window)
 				mlx_destroy_window(data->display, data->window);
-			if (data->image.img)
-				mlx_destroy_image(data->display, data->image.img);
+			if (data->img.img)
+				mlx_destroy_image(data->display, data->img.img);
 			mlx_destroy_display(data->display);
 			free(data->display);
 		}
-		if (data->content)
-			ft_free(&data->content);
- 		if (data->str_map)
+		ft_free(&data->content);
+		if (data->str_map)
 			char_array_free(&data->str_map);
 		if (data->map)
 			array_free(&data->map);

@@ -6,78 +6,69 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 08:13:22 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/19 15:58:45 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:07:59 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void draw_line(t_point p1, t_point p2, t_var *data)
+int	ft_abs(int a)
 {
-    double dx = abs(p2.x - p1.x);
-    double dy = abs(p2.y - p1.y);
-    int sign_x = p1.x < p2.x ? 1 : -1;
-    int sign_y = p1.y < p2.y ? 1 : -1;
-    double error = dx - dy;
-    double error2;
-
-    while (p1.x != p2.x || p1.y != p2.y)
-    {
-        if (p1.x >= 0 && p1.x <= WIDTH && p1.y >= 0 && p1.y <= HEIGHT)
-            *(unsigned int *)(data->image.addr + (p1.y * data->image.line_len + p1.x * (data->image.bpp / 8))) = p1.color;
-        error2 = error * 2;
-        if (error2 > -dy)
-        {
-            error -= dy;
-            p1.x += sign_x;
-        }
-        if (error2 < dx)
-        {
-            error += dx;
-            p1.y += sign_y;
-        }
-    }
+	if (a < 0)
+		return (-a);
+	return (a);
 }
 
+int	get_direction(int a, int b)
+{
+	if (a < b)
+		return (1);
+	return (-1);
+}
+
+void	draw_line(t_point p1, t_point p2, t_var *data)
+{
+	data->delta_x = ft_abs((int)p2.x - (int)p1.x);
+	data->delta_y = ft_abs((int)p2.y - (int)p1.y);
+	data->sign_x = get_direction(p1.x, p2.x);
+	data->sign_y = get_direction(p1.y, p2.y);
+	data->error = data->delta_x - data->delta_y;
+	while ((int)p1.x != (int)p2.x || (int)p1.y != (int)p2.y)
+	{
+		if (p1.x >= 0 && p1.x <= WIDTH && p1.y >= 0 && p1.y <= HEIGHT)
+			*(unsigned int *)(data->img.addr + ((int)p1.y * data->img.ll
+						+ (int)p1.x * (data->img.bpp / 8))) = p1.color;
+		data->error2 = data->error * 2;
+		if (data->error2 > -data->delta_y)
+		{
+			data->error -= data->delta_y;
+			p1.x += data->sign_x;
+		}
+		if (data->error2 < data->delta_x)
+		{
+			data->error += data->delta_x;
+			p1.y += data->sign_y;
+		}
+	}
+}
 
 void	draw(t_var *data)
 {
-
-	int row;
-	int column;
-/* 	int pixel;
-	int color;
-	char *image_data;
-	int bpp, size_line, endian;
-	data->image.img = mlx_new_image(data->display, WIDTH, HEIGHT);
-	image_data = mlx_get_data_addr(data->image.img, &bpp, &size_line, &endian);
- */
+	int	i;
+	int	j;
 
 	create_2d(data);
-	row = -1;
-	while (++row < data->height)
+	i = -1;
+	while (++i < data->height)
 	{
-		column = -1;
-		while (++column < data->width)
+		j = -1;
+		while (++j < data->width)
 		{
-/* 			int x = (int)data->map_2d[row][column].x;
-			int y = (int)data->map_2d[row][column].y;
-			color = data->map_2d[row][column].color;
-			
-			
-			if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-			{
-				pixel = (x * bpp / 8) + (y * size_line);
-				image_data[pixel] = color & 0xFF;
-				image_data[pixel + 1] = (color >> 8) & 0xFF;
-				image_data[pixel + 2] = (color >> 16) & 0xFF;
-				image_data[pixel + 3] = (color >> 24) & 0xFF; 
-			}			*/
-			 if (column < data->width - 1)
-				draw_line(data->map[row][column], data->map[row][column + 1], data);
-			if (row < data->height - 1)
-				draw_line(data->map[row][column], data->map[row + 1][column], data);
+			if (j < data->width - 1)
+				draw_line(data->map_2d[i][j], data->map_2d[i][j + 1], data);
+			if (i < data->height - 1)
+				draw_line(data->map_2d[i][j], data->map_2d[i + 1][j], data);
 		}
 	}
-	mlx_put_image_to_window(data->display, data->window, data->image.img, 0, 0);
+	mlx_put_image_to_window(data->display, data->window, data->img.img, 0, 0);
 }
