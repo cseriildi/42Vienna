@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 17:47:15 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/20 22:09:20 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/24 12:18:02 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h> 
-//# include "mlx/mlx.h"
 # include <mlx.h>
 # include <math.h>
 
@@ -83,16 +82,17 @@ typedef struct s_var
 	double	error2;
 }	t_var;
 
+//utils
 void	safe_exit(t_var *data, int error_code);
 int		ft_max(int count, ...);
+void	array_free(t_point ***arr);
+void	char_array_free(char ***arr);
 
 //events
 int		handle_esc(int key, t_var *data);
 int		handle_close(t_var *data);
 
-void	array_free(t_point ***arr);
-void	char_array_free(char ***arr);
-
+//parsing
 void	create_map(t_var *data);
 
 //iso
@@ -100,7 +100,11 @@ void	create_2d(t_var *data);
 
 //atoi base
 int		ft_atoi_hex(char *str);
+
+//fdf
 void	init_data(t_var *data);
+
+//drawing
 void	draw(t_var *data);
 
 #endif
