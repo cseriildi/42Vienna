@@ -2,7 +2,7 @@
 
 In this project you have to sort data on a stack with a limited set of instructions using the lowest possible number of actions.
 
-**Allowed external functions:**  `read`, `write`, `malloc`, `free`, `exit`
+- **Allowed external functions:**  `read`, `write`, `malloc`, `free`, `exit`
 
 ## Useful stuff
 - Bash command to generate random numbers and save them in a variable: ```ARG=$(shuf -i 0-2147483647 -n 500)```
