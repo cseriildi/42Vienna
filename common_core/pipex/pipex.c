@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/26 14:28:09 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/26 14:42:34 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,27 @@ int	main(int argc, char **argv, char **env)
 {
 	t_var	*data;
 	int		status;
-	
+
 	if (argc != 5)
 		elegant_exit(NULL, ERROR_MISUSE);
 	data = malloc(sizeof(t_var));
 	if (!data)
 		elegant_exit(NULL, MALLOC_FAIL);
 	parse_input(data, argc, argv, env);
-	if (pipe(data->pipe) == -1)
-		elegant_exit(data, PIPE_FAIL);
+	create_process(data, data->pipe);
+	if (data->pid == 0)
+		first_command(data);
 	data->pid = fork();
 	if (data->pid == -1)
 		elegant_exit(data, FORK_FAIL);
 	else if (data->pid == 0)
-		first_command(data);
-	data->pid2 = fork();
-    if (data->pid2 == -1)
-        elegant_exit(data, FORK_FAIL);
-    else if (data->pid2 == 0)
 		last_command(data);
 	safe_close(data->pipe[0]);
 	safe_close(data->pipe[1]);
-	while (wait(&status) > 0);
+	while (1)
+	{
+		if (wait(&status) <= 0)
+			break ;
+	}
 	elegant_exit(data, EXIT_SUCCESS);
 }
