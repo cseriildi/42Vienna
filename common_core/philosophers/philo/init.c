@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 09:11:53 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/26 11:44:54 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ int	init_forks(t_philo *data)
 {
 	int			i;
 
-	data->err = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->count);
 	if (!data->forks)
-		return (free_data(data, MALLOC_FAIL), data->err);
+		return (free_data(data, MALLOC_FAIL), MALLOC_FAIL);
 	i = -1;
 	while (++i < data->count)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (free_data(data, MUTEX_INIT_FAIL), data->err);
+			return (free_data(data, MUTEX_INIT_FAIL), MUTEX_INIT_FAIL);
 	}
 	return (0);
 }
@@ -50,18 +49,18 @@ int	init_philos(t_philo *data)
 
 	data->philos = malloc(sizeof(pthread_t) * data->count);
 	if (!data->philos)
-		return (free_data(data, MALLOC_FAIL), data->err);
+		return (free_data(data, MALLOC_FAIL), MALLOC_FAIL);
 	i = -1;
 	while (++i < data->count)
 	{
 		if (pthread_create(&data->philos[i], NULL, func, data) != 0)
-			return (free_data(data, THREAD_CREATE_FAIL), data->err);
+			return (free_data(data, THREAD_CREATE_FAIL), THREAD_CREATE_FAIL);
 	}
 	i = -1;
 	while (++i < data->count)
 	{
 		if (pthread_join(data->philos[i], NULL) != 0)
-			return (free_data(data, THREAD_JOIN_FAIL), data->err);
+			return (free_data(data, THREAD_JOIN_FAIL), THREAD_JOIN_FAIL);
 	}
-	return (data->err);
+	return (0);
 }
