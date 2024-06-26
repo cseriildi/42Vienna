@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 13:24:13 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 14:39:10 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 typedef struct s_var
 {
 	pid_t	pid;
-	pid_t	pid2;
 	int		pipe[2];
 	bool	is_here_doc;
 	int		pipe2[2];
