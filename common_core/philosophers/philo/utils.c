@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:10:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/25 17:00:39 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 09:12:22 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@ void	print_error(int code)
 		write(2, "Thread creation failed\n", 24);
 	else if (code == THREAD_JOIN_FAIL)
 		write(2, "Thread joining failed\n", 23);
+	else if (code == MUTEX_INIT_FAIL)
+		write(2, "Mutex initialization failed\n", 29);
+}
+
+void	destroy_forks(t_philo *data)
+{
+	int			i;
+
+	i = -1;
+	while (++i < data->count)
+		pthread_mutex_destroy(&data->forks[i]);
 }
 
 void	free_data(t_philo *data, int code)
@@ -34,8 +45,7 @@ void	free_data(t_philo *data, int code)
 	{
 		if (data->philos)
 			free(data->philos);
-		if (data->count > 0)
-			pthread_mutex_destroy(&data->mutex);
+		destroy_forks(data);
 		free(data);
 	}
 }
