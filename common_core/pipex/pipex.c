@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/29 18:22:29 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:51:10 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	last_command(t_var *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_var	*data;
-
+	int		status;
+	
 	if (argc != 5)
 		elegant_exit(NULL, ERROR_MISUSE);
 	data = malloc(sizeof(t_var));
@@ -55,6 +56,11 @@ int	main(int argc, char **argv, char **env)
 		elegant_exit(data, FORK_FAIL);
 	else if (data->pid == 0)
 		first_command(data);
-	else
+	data->pid2 = fork();
+    if (data->pid2 == -1)
+        elegant_exit(data, FORK_FAIL);
+    else if (data->pid2 == 0)
 		last_command(data);
+	while (wait(&status) > 0);
+	elegant_exit(data, EXIT_SUCCESS);
 }

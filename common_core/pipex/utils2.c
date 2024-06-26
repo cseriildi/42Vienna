@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:00:52 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/29 18:10:33 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:27:10 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ char	*error_message(int code)
 
 void	elegant_exit(t_var *data, int error_code)
 {
-	perror(error_message(error_code));
+	if (error_code != 0)
+		perror(error_message(error_code));
 	if (data)
 	{
 		if (data->path)
@@ -77,6 +78,7 @@ void	elegant_exit(t_var *data, int error_code)
 		safe_close(data->pipe2[0]);
 		safe_close(data->pipe2[1]);
 		free(data);
+		data = NULL;
 	}
 	exit(error_code);
 }

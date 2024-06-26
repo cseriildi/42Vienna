@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 21:14:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/29 18:45:25 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:23:55 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	array_free(char **arr)
 			free(arr[i++]);
 		free(arr);
 	}
+	arr = NULL;
 }
 
 char	*ft_strjoin2(char *str1, char *str2, char *delimiter)
