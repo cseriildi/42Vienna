@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/29 18:46:06 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 16:42:08 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,32 @@ void	middle_command(t_var *data, int cmd_index)
 
 void	last_command(t_var *data)
 {
-	if (data->is_here_doc == true && access(data->outfile, F_OK) == 0)
-		data->o_fd = safe_open(data->outfile, 'A', data);
-	else
-		data->o_fd = safe_open(data->outfile, 'C', data);
-	safe_close(data->pipe[1]);
-	if (dup2(data->pipe[0], STDIN_FILENO) == -1)
-		elegant_exit(data, DUP2_FAIL);
-	safe_close(data->pipe[0]);
-	if (dup2(data->o_fd, STDOUT_FILENO) == -1)
-		elegant_exit(data, DUP2_FAIL);
-	safe_close(data->o_fd);
-	exec_command(data, data->cmd_count - 1);
+	create_process(data, data->pipe2);
+	if (data->pid == 0)
+	{
+		if (data->is_here_doc == true && access(data->outfile, F_OK) == 0)
+			data->o_fd = safe_open(data->outfile, 'A', data);
+		else
+			data->o_fd = safe_open(data->outfile, 'C', data);
+		safe_close(data->pipe[1]);
+		if (dup2(data->pipe[0], STDIN_FILENO) == -1)
+			elegant_exit(data, DUP2_FAIL);
+		safe_close(data->pipe[0]);
+		if (dup2(data->o_fd, STDOUT_FILENO) == -1)
+			elegant_exit(data, DUP2_FAIL);
+		safe_close(data->o_fd);
+		exec_command(data, data->cmd_count - 1);
+	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_var	*data;
 	int		i;
+	int		status;
 
 	if (argc < 5 || (ft_strncmp(argv[1], "here_doc", 9) == 0 && argc < 6))
-	{
-		ft_putendl_fd(error_message(ERROR_MISUSE), STDERR_FILENO);
-		exit (ERROR_MISUSE);
-	}
+		return (ft_putendl_fd(error_message(ERROR_MISUSE), 2), ERROR_MISUSE);
 	data = malloc(sizeof(t_var));
 	if (!data)
 		elegant_exit(NULL, MALLOC_FAIL);
@@ -86,13 +88,14 @@ int	main(int argc, char **argv, char **env)
 	create_process(data, data->pipe);
 	if (data->pid == 0)
 		first_command(data);
-	else
-	{
-		waitpid(data->pid, NULL, 0);
-		i = 0;
-		while (data->pid > 0 && ++i < data->cmd_count - 1)
-			middle_command(data, i);
-		if (i == data->cmd_count - 1 && data->pid > 0)
-			last_command(data);
-	}
+	i = 0;
+	while (data->pid > 0 && ++i < data->cmd_count - 1)
+		middle_command(data, i);
+	if (i == data->cmd_count - 1 && data->pid > 0)
+		last_command(data);
+	safe_close(data->pipe[0]);
+	safe_close(data->pipe[1]);
+	while (wait(&status) > 0)
+		continue ;
+	elegant_exit(data, EXIT_SUCCESS);
 }
