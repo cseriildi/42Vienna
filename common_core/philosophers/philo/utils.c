@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:10:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 09:12:22 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/26 11:39:30 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,18 @@ void	destroy_forks(t_philo *data)
 	i = -1;
 	while (++i < data->count)
 		pthread_mutex_destroy(&data->forks[i]);
+	data->forks = NULL;
 }
 
 void	free_data(t_philo *data, int code)
 {
-	data->err = code;
-	print_error(data->err);
+	print_error(code);
 	if (data)
 	{
 		if (data->philos)
 			free(data->philos);
-		destroy_forks(data);
+		if (data->forks)
+			destroy_forks(data);
 		free(data);
 	}
 }

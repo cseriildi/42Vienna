@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:48:29 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 09:12:33 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/26 11:40:22 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,19 @@ int	check_input(int argc, char **argv, t_philo *data)
 	int		i;
 	char	*tmp;
 
-	data->err = 0;
+	data->philos = NULL;
+	data->forks = NULL;
 	if (argc < 5 || argc > 6)
-		return (free_data(data, MISUSE), data->err);
+		return (free_data(data, MISUSE), MISUSE);
 	i = 0;
 	while (++i < argc)
 	{
 		tmp = ft_itoa(ft_atoi(argv[i]));
 		if (!tmp)
-			return (free_data(data, MALLOC_FAIL), data->err);
+			return (free_data(data, MALLOC_FAIL), MALLOC_FAIL);
 		if (ft_strcmp(argv[i], tmp) != 0 || ft_atoi(argv[i]) < 0
 			|| (i == 1 && ft_atoi(argv[i]) == 0))
-			return (free(tmp), free_data(data, INCORRECT_INPUT), data->err);
+			return (free(tmp), free_data(data, INCORRECT_INPUT), INCORRECT_INPUT);
 		free(tmp);
 	}
 	return (0);
