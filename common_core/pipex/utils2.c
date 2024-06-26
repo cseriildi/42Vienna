@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:00:52 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/26 13:27:10 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 14:34:18 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ char	*error_message(int code)
 
 void	elegant_exit(t_var *data, int error_code)
 {
-	if (error_code != 0)
+	if (error_code > 2)
 		perror(error_message(error_code));
+	if (error_code == ERROR_MISUSE)
+		ft_putendl_fd(error_message(error_code), 2);
 	if (data)
 	{
 		if (data->path)
