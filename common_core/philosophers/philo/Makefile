@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
+#    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/24 13:35:49 by icseri            #+#    #+#              #
-#    Updated: 2024/06/25 16:59:21 by icseri           ###   ########.fr        #
+#    Updated: 2024/06/26 09:07:04 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = philo
 
-SRCS = main.c utils.c libft.c
+SRCS = main.c utils.c libft.c parsing.c events.c init.c
 
 OBJS = ${SRCS:.c=.o}
 

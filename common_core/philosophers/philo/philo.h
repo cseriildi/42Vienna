@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/25 17:01:04 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/26 09:10:16 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ typedef enum s_err
 	MISUSE,
 	INCORRECT_INPUT,
 	THREAD_CREATE_FAIL,
-	THREAD_JOIN_FAIL
+	THREAD_JOIN_FAIL,
+	MUTEX_INIT_FAIL
 }	t_err;
 
 typedef struct s_philo
 {
 	pthread_t		*philos;
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	*forks;
 	int				count;
 	int				time_to_die;
 	int				time_to_eat;
@@ -43,10 +44,21 @@ typedef struct s_philo
 }	t_philo;
 
 //utils
+void	print_error(int code);
+void	free_data(t_philo *data, int code);
+void	destroy_forks(t_philo *data);
+
+//parsing
+int		check_input(int argc, char **argv, t_philo *data);
+void	parsing(int argc, char **argv, t_philo *data);
+
+//init
+int		init_philos(t_philo *data);
+int		init_forks(t_philo *data);
+
+//libft
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int nb);
 int		ft_strcmp(char *s1, char *s2);
-void	print_error(int code);
-void	free_data(t_philo *data, int code);
 
 #endif
