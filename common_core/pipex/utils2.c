@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:00:52 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/26 14:34:18 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/27 09:07:55 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,8 @@ char	*error_message(int code)
 		return ("Unknown error");
 }
 
-void	elegant_exit(t_var *data, int error_code)
+void	free_and_exit(t_var *data, int error_code)
 {
-	if (error_code > 2)
-		perror(error_message(error_code));
-	if (error_code == ERROR_MISUSE)
-		ft_putendl_fd(error_message(error_code), 2);
 	if (data)
 	{
 		if (data->path)
@@ -83,4 +79,13 @@ void	elegant_exit(t_var *data, int error_code)
 		data = NULL;
 	}
 	exit(error_code);
+}
+
+void	elegant_exit(t_var *data, int error_code)
+{
+	if (error_code > 2)
+		perror(error_message(error_code));
+	if (error_code == ERROR_MISUSE)
+		ft_putendl_fd(error_message(error_code), 2);
+	free_and_exit(data, error_code);
 }
