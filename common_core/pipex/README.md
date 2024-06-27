@@ -186,8 +186,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 
 #### In the parent process
 
-- Wait for the child process to finish
-- If you have more than 2 commands, repeat the following steps until you execute the second-to-last command:
+- Repeat the following steps until you execute the second-to-last command:
 		
 	- Pipe (use another integer array) and fork
 	- **In the child process:**
@@ -202,13 +201,20 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 		
 		- Close the old pipe's read and write ends
 		- Set the old pipe's read and write ends to the new pipe's read and write ends
-- Close the pipe's write end
-- If the first argument was **here_doc** and the outfile exists open it in append mode
-- Otherwise open/create the outfile
-- Copy the pipe's read end to the Standard Input
-- Close the pipe's read end
-- Copy the file's content to the Standard Output
-- Close the file
-- Execute the command
+- fork one last time, save the pid into a separate variable
+- **In the child process:**
+	- Close the pipe's write end
+	- If the first argument was **here_doc** and the outfile exists open it in append mode
+	- Otherwise open/create the outfile
+	- Copy the pipe's read end to the Standard Input
+	- Close the pipe's read end
+	- Copy the file's content to the Standard Output
+	- Close the file
+	- Execute the command
+- **In the parent process:**
+	- close both end of the pipe
+	- wait for the child processes to end
+	- capture the last child process's exit code
+	- exit with the last child process's exit code
 
 Don't forget to always check if a function call fails, throw errors. Free when you have to. It's good practice to use different exit codes.
