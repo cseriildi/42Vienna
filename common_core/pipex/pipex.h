@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 14:01:26 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 14:39:10 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/27 09:31:45 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 typedef struct s_var
 {
 	pid_t	pid;
+	pid_t	last_pid;
 	int		pipe[2];
 	bool	is_here_doc;
 	int		pipe2[2];
@@ -42,7 +43,8 @@ typedef struct s_var
 	int		status;
 	char	**path;
 	char	**env;
-
+	int		exit_status;
+	int		exit_code;
 }	t_var;
 
 //utils
@@ -56,6 +58,7 @@ void	create_process(t_var *data, int fd[2]);
 char	*error_message(int code);
 void	elegant_exit(t_var *data, int error_code);
 void	exec_command(t_var *data, int cmd_index);
+void	free_and_exit(t_var *data, int error_code);
 
 //utils bonus
 void	delete_file(t_var *data);

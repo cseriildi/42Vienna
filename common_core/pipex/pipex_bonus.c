@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/26 16:42:08 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/27 09:35:41 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,12 @@ void	middle_command(t_var *data, int cmd_index)
 
 void	last_command(t_var *data)
 {
-	create_process(data, data->pipe2);
-	if (data->pid == 0)
+	if (pipe(data->pipe2) == -1)
+		elegant_exit(data, PIPE_FAIL);
+	data->last_pid = fork();
+	if (data->last_pid == -1)
+		elegant_exit(data, FORK_FAIL);
+	if (data->last_pid == 0)
 	{
 		if (data->is_here_doc == true && access(data->outfile, F_OK) == 0)
 			data->o_fd = safe_open(data->outfile, 'A', data);
@@ -77,7 +81,6 @@ int	main(int argc, char **argv, char **env)
 {
 	t_var	*data;
 	int		i;
-	int		status;
 
 	if (argc < 5 || (ft_strncmp(argv[1], "here_doc", 9) == 0 && argc < 6))
 		return (ft_putendl_fd(error_message(ERROR_MISUSE), 2), ERROR_MISUSE);
@@ -95,7 +98,10 @@ int	main(int argc, char **argv, char **env)
 		last_command(data);
 	safe_close(data->pipe[0]);
 	safe_close(data->pipe[1]);
-	while (wait(&status) > 0)
+	while (wait(&data->exit_status) > 0)
 		continue ;
-	elegant_exit(data, EXIT_SUCCESS);
+	waitpid(data->last_pid, &data->exit_status, 0);
+	if (WIFEXITED(data->exit_status))
+		data->exit_code = WEXITSTATUS(data->exit_status);
+	free_and_exit(data, data->exit_code);
 }
