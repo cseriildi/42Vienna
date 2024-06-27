@@ -70,7 +70,7 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 </details>
 <details><summary>create a copy of your current process by forking it </summary>
 
-`pid_t	pid; fork(pid);`
+`pid_t	pid; pid = fork();`
 
 *it will create a child process with `pid == 0` and a parent process with `pid > 0`*
 </details>
@@ -106,6 +106,13 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 </details>
 
 #### In the parent process:
+<details><summary>fork another process for the second command </summary>
+
+`last_pid = fork();`
+</details>
+
+#### In the second child process:
+
 <details><summary>close the pipe's writing end </summary>
 
 `close(pipe_fd[1]);`
@@ -133,6 +140,28 @@ Where the first command reads from the Standard Input until it finds the LIMITER
 <details><summary>execute the command (in case of successful execution the process ends) </summary>
 
 `execve(full_path_to_the_command, command_arguments_as_a_list, environment);`
+</details>
+
+#### In the parent process:
+<details><summary>close both end of the pipe</summary>
+
+`close(pipe_fd[0]); close(pipe_fd[1]);`
+</details>
+<details><summary>wait for the child processes to end</summary>
+
+`int status; while(wait(&status) > 0));`
+</details>
+<details><summary>capture the last child process's exit code</summary>
+
+`waitpid(last_pid, &status, 0);`
+
+`if (WIFEXITED(status))`
+
+`exit_code = WEXITSTATUS(status);`
+</details>
+<details><summary>exit with the last child process's exit code</summary>
+
+`exit(exit_code);`
 </details>
 
 ## Walkthrough for the bonus

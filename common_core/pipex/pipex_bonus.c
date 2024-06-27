@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/27 09:35:41 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/27 09:55:14 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	middle_command(t_var *data, int cmd_index)
 
 void	last_command(t_var *data)
 {
-	if (pipe(data->pipe2) == -1)
-		elegant_exit(data, PIPE_FAIL);
 	data->last_pid = fork();
 	if (data->last_pid == -1)
 		elegant_exit(data, FORK_FAIL);
