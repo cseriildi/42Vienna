@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:15:55 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/29 18:38:26 by icseri           ###   ########.fr       */
+/*   Updated: 2024/06/27 09:33:09 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	init_data(t_var *data)
 {
 	data->pid = -1;
+	data->last_pid = -1;
+	data->exit_code = 1;
 	data->pipe[0] = -1;
 	data->pipe[1] = -1;
 	data->pipe2[0] = -1;

@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:57:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/26 14:42:34 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/06/27 09:32:44 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	last_command(t_var *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_var	*data;
-	int		status;
 
 	if (argc != 5)
 		elegant_exit(NULL, ERROR_MISUSE);
@@ -52,17 +51,17 @@ int	main(int argc, char **argv, char **env)
 	create_process(data, data->pipe);
 	if (data->pid == 0)
 		first_command(data);
-	data->pid = fork();
-	if (data->pid == -1)
+	data->last_pid = fork();
+	if (data->last_pid == -1)
 		elegant_exit(data, FORK_FAIL);
-	else if (data->pid == 0)
+	else if (data->last_pid == 0)
 		last_command(data);
 	safe_close(data->pipe[0]);
 	safe_close(data->pipe[1]);
-	while (1)
-	{
-		if (wait(&status) <= 0)
-			break ;
-	}
-	elegant_exit(data, EXIT_SUCCESS);
+	while (wait(&data->exit_status) > 0)
+		continue ;
+	waitpid(data->last_pid, &data->exit_status, 0);
+	if (WIFEXITED(data->exit_status))
+		data->exit_code = WEXITSTATUS(data->exit_status);
+	free_and_exit(data, data->exit_code);
 }
