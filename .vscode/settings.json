@@ -14,7 +14,9 @@
 		"get_next_line.h": "c",
 		"limits.h": "c",
 		"sstream": "c",
-		"unistd.h": "c"
+		"unistd.h": "c",
+		"mlx.h": "c",
+		"algorithm": "c"
 	},
 	"files.autoSave": "off"
 }
