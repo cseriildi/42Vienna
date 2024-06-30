@@ -1,4 +1,4 @@
-# About the FdF project
+# About the Philosophers project
 
 ## Summary
 The goal of this project is to solve the **Dining Philosophers Problem**. 
