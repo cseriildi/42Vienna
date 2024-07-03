@@ -6,40 +6,61 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:07 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/14 17:10:14 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/03 13:54:38 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-t_list	*ft_lstnew(int	fd)
+static void	remove_node(t_list **list, t_list *node)
 {
-	t_list	*new_node;
+	t_list	*prev;
+	t_list	*curr;
 
-	new_node = malloc(sizeof(t_list));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->fd = fd;
-	new_node->content = NULL;
-	new_node->next = NULL;
-	return (new_node);
-}
-
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	if (lst && new)
+	prev = NULL;
+	curr = *list;
+	while (curr)
 	{
-		new->next = *lst;
-		*lst = new;
+		if (curr == node)
+		{
+			if (prev)
+				prev->next = curr->next;
+			else
+				*list = curr->next;
+			ft_free(&curr->content);
+			free(curr);
+			return ;
+		}
+		prev = curr;
+		curr = curr->next;
 	}
 }
 
+static t_list	*get_node(t_list **list, int fd)
+{
+	t_list	*node;
+
+	node = *list;
+	while (node && node->fd != fd)
+		node = node->next;
+	if (node == NULL)
+	{
+		node = malloc(sizeof(t_list));
+		if (node == NULL)
+			return (NULL);
+		node->fd = fd;
+		node->content = NULL;
+		node->next = *list;
+		*list = node;
+	}
+	return (node);
+}
 
 static char	*read_fd(int fd, char *read_chars)
 {
-	char		*tmp;
-	char		*buffer;
-	long		read_size;
+	char	*tmp;
+	char	*buffer;
+	long	read_size;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (buffer == NULL)
@@ -65,51 +86,46 @@ static char	*read_fd(int fd, char *read_chars)
 
 char	*get_next_line(int fd)
 {
-	static t_list	**list;
+	static t_list	*list;
 	t_list			*read_chars;
 	char			*line;
 	char			*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	read_chars = NULL;
-	if (list)
-		read_chars = *list;
-	while (read_chars && read_chars->fd != fd)
-		read_chars = read_chars->next;
-	if (read_chars == NULL)
-	{
-		list = malloc(sizeof(t_list));
-		ft_lstadd_front(list, ft_lstnew(fd));
-	}
+	read_chars = get_node(&list, fd);
+	if (!read_chars)
+		return (NULL);
 	read_chars->content = read_fd(fd, read_chars->content);
 	if (!read_chars->content)
-		return (ft_free(&read_chars->content), NULL);
+		return (remove_node(&list, read_chars), NULL);
 	line = line_search(read_chars->content);
 	if (!line || !*line)
-		return (ft_free(&read_chars->content), ft_free(&line), NULL);
+		return (ft_free(&line), remove_node(&list, read_chars), NULL);
 	tmp = ft_strjoin(NULL, read_chars->content + ft_strlen(line));
 	ft_free(&read_chars->content);
 	read_chars->content = tmp;
 	if (!read_chars->content)
-		return (ft_free(&line), ft_free(&read_chars->content), NULL);
+		return (ft_free(&line), remove_node(&list, read_chars), NULL);
 	return (line);
 }
 
-# include <fcntl.h>
+/* # include <fcntl.h>
 # include <stdio.h>
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	int		fd;
 	int		fd2;
 	char	*line;
 	char	*line2;
 
-	fd = open("test.txt", O_RDWR);
+	if (argc < 2)
+		return (1);
+	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (-1);
-	fd2 = open("test.txt", O_RDWR);
+	fd2 = open(argv[2], O_RDONLY);
 	if (fd2 == -1)
 		return (-1);
 	line = get_next_line(fd);
@@ -130,4 +146,5 @@ int	main(void)
 		}
 	}
 	close(fd);
-}
+	close(fd2);
+} */
