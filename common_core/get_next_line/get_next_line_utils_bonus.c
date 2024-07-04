@@ -6,11 +6,11 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:19 by icseri            #+#    #+#             */
-/*   Updated: 2024/07/03 13:37:02 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/04 10:28:09 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *s)
 {
