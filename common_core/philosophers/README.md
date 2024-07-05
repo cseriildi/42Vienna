@@ -13,6 +13,7 @@ You will learn about **threads** and **mutexes**.
 
 ## Useful stuff
 - [Playlist to get familiar with threads](https://youtube.com/playlist?list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&si=AtKXJ5pkEW9mtvHN)
+- [Visualizer](https://nafuka11.github.io/philosophers-visualizer/)
 
 ## Mandatory Part
 - Each philosopher is a thread.
