@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/06/26 11:39:12 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/05 10:39:20 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo
 void	print_error(int code);
 void	free_data(t_philo *data, int code);
 void	destroy_forks(t_philo *data);
+long	*get_time(void);
 
 //parsing
 int		check_input(int argc, char **argv, t_philo *data);
