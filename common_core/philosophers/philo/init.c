@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 11:44:54 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/05 10:40:08 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,30 @@ int	init_forks(t_philo *data)
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (free_data(data, MUTEX_INIT_FAIL), MUTEX_INIT_FAIL);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 void	*func(void *arg)
 {
 	t_philo			*data;
 	struct timeval	tv;
-	long			milliseconds;
+	long			*milliseconds;
 
 	data = (t_philo *)arg;
 	pthread_mutex_lock(&data->forks[0]);
 	gettimeofday(&tv, NULL);
-	milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-	printf("%ld\n", milliseconds);
+	milliseconds = get_time();
+	if (milliseconds == NULL)
+		return (NULL);
+	//printf("%ld\n", *millis;econds);
 	pthread_mutex_unlock(&data->forks[0]);
-	return (NULL);
+	return ((void *)milliseconds);
 }
 
 int	init_philos(t_philo *data)
 {
-	int			i;
+	int		i;
+	long	*result;
 
 	data->philos = malloc(sizeof(pthread_t) * data->count);
 	if (!data->philos)
@@ -59,8 +62,13 @@ int	init_philos(t_philo *data)
 	i = -1;
 	while (++i < data->count)
 	{
-		if (pthread_join(data->philos[i], NULL) != 0)
+		if (pthread_join(data->philos[i],  (void **)&result) != 0)
 			return (free_data(data, THREAD_JOIN_FAIL), THREAD_JOIN_FAIL);
+		if (result)
+		{
+			printf("Thread %d result: %ld\n", i, *result);
+			free(result);
+		}
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

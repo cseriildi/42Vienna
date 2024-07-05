@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:10:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 11:39:30 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/05 10:39:12 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,18 @@ void	free_data(t_philo *data, int code)
 			destroy_forks(data);
 		free(data);
 	}
+}
+
+
+long	*get_time(void)
+{
+	struct timeval	tv;
+	long			*milliseconds;
+	
+	milliseconds = malloc(sizeof(long));
+	if (!milliseconds)
+		return (NULL);
+	gettimeofday(&tv, NULL);
+	*milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (milliseconds);
 }
