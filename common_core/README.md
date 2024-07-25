@@ -11,10 +11,10 @@
 | *Exam Rank 02* |![icseri's 42 Exam Rank 02 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3657688)|
 | [push_swap](https://github.com/cseriildi/42Vienna/tree/main/common_core/push_swap)| ![icseri's 42 push_swap Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3658828)|
 | [pipex](https://github.com/cseriildi/42Vienna/tree/main/common_core/pipex)| ![icseri's 42 pipex Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3658883)|
-| [fdf](https://github.com/cseriildi/42Vienna/tree/main/common_core/fdf)|[![icseri's 42 FdF Score](https://badge.emaugale.com/api/v2/clxsqzhud004201qmgpto0vhi/project/3702420)](https://github.com/Zekao/badge42)|
-| *Exam Rank 03*	|[![icseri's 42 FdF Score](https://badge.emaugale.com/api/v2/clxsqzhud004201qmgpto0vhi/project/3702420)](https://github.com/Zekao/badge42)|
-| Philosophers		|In progress|
-| minishell			|In progress|
+| [fdf](https://github.com/cseriildi/42Vienna/tree/main/common_core/fdf)|[![icseri's 42 FdF Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3702420)](https://github.com/Nimon77/badge42)|
+| *Exam Rank 03*	|[![icseri's 42 Exam Rank 03 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/3717815)](https://github.com/Nimon77/badge42)|
+| [Philosophers](https://github.com/cseriildi/42Vienna/tree/main/common_core/philosophers) |In progress|
+| [minishell](https://github.com/cseriildi/minishell) |In progress|
 | *Exam Rank 04*	| |
 | NetPractice		| |
 | cub3d/miniRT		| |
