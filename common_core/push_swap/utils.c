@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 10:18:57 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/20 11:06:08 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:29:10 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,22 @@ int	number_count(char const *str, char c)
 	return (counter);
 }
 
-char	**stack_to_heap(char **stack_array, int size)
+void	stack_to_heap(char **stack_array, int size, t_var *vars)
 {
 	int		i;
-	char	**heap_array;
 
-	heap_array = malloc((size + 1) * sizeof(char *));
-	if (!heap_array)
-		malloc_failed(NULL, NULL, NULL, NULL);
+	vars->nums = malloc((size + 1) * sizeof(char *));
+	if (!vars->nums)
+		error(vars);
 	i = 0;
 	while (i < size)
 	{
-		heap_array[i] = ft_strdup(stack_array[i]);
-		if (!heap_array[i])
-			malloc_failed(NULL, heap_array, NULL, NULL);
+		vars->nums[i] = ft_strdup(stack_array[i]);
+		if (!vars->nums[i])
+			error(vars);
 		i++;
 	}
-	heap_array[size] = NULL;
-	return (heap_array);
+	vars->nums[size] = NULL;
 }
 
 /* 

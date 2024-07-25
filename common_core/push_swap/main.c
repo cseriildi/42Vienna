@@ -6,72 +6,81 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 09:01:22 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/17 10:35:49 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:05:40 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	mini_sort(t_clist **a)
+t_var	*init(t_var *vars)
 {
-	if (is_sorted(a) == false)
+	vars = malloc(sizeof(t_var));
+	if (!vars)
+		error(vars);
+	vars->stack_a = NULL;
+	vars->stack_b = NULL;
+	vars->nums = NULL;
+	vars->numbers = NULL;
+	vars->ranks = NULL;
+	return (vars);
+}
+
+void	mini_sort(t_var *vars)
+{
+	if (is_sorted(vars->stack_a) == false)
 	{
-		if ((*a)->rank > (*a)->next->rank && (*a)->rank > (*a)->previous->rank)
-			exec_rule(a, NULL, "ra\n", false);
-		if ((*a)->next->rank > (*a)->previous->rank)
-			exec_rule(a, NULL, "rra\n", false);
-		if ((*a)->rank > (*a)->next->rank)
-			exec_rule(a, NULL, "sa\n", false);
+		if ((*vars->stack_a)->rank > (*vars->stack_a)->next->rank
+			&& (*vars->stack_a)->rank > (*vars->stack_a)->previous->rank)
+			exec_rule(vars, "ra\n", false);
+		if ((*vars->stack_a)->next->rank > (*vars->stack_a)->previous->rank)
+			exec_rule(vars, "rra\n", false);
+		if ((*vars->stack_a)->rank > (*vars->stack_a)->next->rank)
+			exec_rule(vars, "sa\n", false);
 	}
 }
 
-int	sort(t_clist **a, int count)
+int	sort(t_var *vars, int count)
 {
-	t_clist	**b;
-
 	if (count <= 3)
-		mini_sort(a);
+		mini_sort(vars);
 	else
 	{
-		b = malloc(sizeof(t_clist *));
-		if (!b)
-			malloc_failed(a, NULL, NULL, NULL);
-		*b = NULL;
-		sort_push_b(a, b, count);
-		mini_sort(a);
-		sort_push_a(a, b, count);
-		ft_circ_lstclear(b);
-		free(b);
+		vars->stack_b = malloc(sizeof(t_clist *));
+		if (!vars->stack_b)
+			error(vars);
+		*vars->stack_b = NULL;
+		sort_push_b(vars, count);
+		mini_sort(vars);
+		sort_push_a(vars, count);
 	}
-	if (is_sorted(a) == false)
+	if (is_sorted(vars->stack_a) == false)
 		return (1);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_clist	**stack_a;
-	char	**nums;
+	t_var	*vars;
 
 	if (--argc <= 0)
 		return (0);
+	vars = NULL;
+	vars = init(vars);
 	if (argc > 1)
-		nums = stack_to_heap(++argv, argc);
+		stack_to_heap(++argv, argc, vars);
 	if (argc == 1)
 	{
 		argc = number_count(argv[1], ' ');
-		nums = ft_split(argv[1], ' ');
+		vars->nums = ft_split(argv[1], ' ');
+		if (!vars->nums)
+			error(vars);
 	}
-	if (argc == 0 || is_valid_input(argc, nums) == false)
-		return (write(STDERR_FILENO, "Error\n", 6), array_free(&nums), 1);
-	stack_a = create_stack(argc, nums);
-	array_free(&nums);
-	if (!stack_a)
-		malloc_failed(NULL, NULL, NULL, NULL);
-	if (is_sorted(stack_a) == false && sort(stack_a, argc) == 1)
-	{
-		write(2, "Error\n", 6);
-		return (ft_circ_lstclear(stack_a), free(stack_a), 1);
-	}
-	return (ft_circ_lstclear(stack_a), free(stack_a), 0);
+	if (argc == 0 || is_valid_input(argc, vars) == false)
+		error(vars);
+	vars->stack_a = create_stack(argc, vars);
+	if (!vars->stack_a)
+		error(vars);
+	if (is_sorted(vars->stack_a) == false && sort(vars, argc) == 1)
+		error(vars);
+	return (free_all(vars), 0);
 }
