@@ -6,32 +6,32 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:07:37 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/05/17 10:08:53 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:05:20 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_valid_input(int count, char **input)
+bool	is_valid_input(int count, t_var *vars)
 {
 	char	*new;
 	char	*prev;
 	int		i;
 
-	while (--count >= 0 && input)
+	while (--count >= 0 && vars->nums)
 	{
-		new = ft_itoa(ft_atoi(input[count]));
+		new = ft_itoa(ft_atoi(vars->nums[count]));
 		if (!new)
-			malloc_failed(NULL, input, NULL, NULL);
-		if (ft_strncmp(input[count], new, ft_strlen(new) + 1)
-			&& ft_strncmp(input[count], "-0", 3))
+			error(vars);
+		if (ft_strncmp(vars->nums[count], new, ft_strlen(new) + 1)
+			&& ft_strncmp(vars->nums[count], "-0", 3))
 			return (free(new), false);
 		i = count;
 		while (--i >= 0)
 		{
-			prev = ft_itoa(ft_atoi(input[i]));
+			prev = ft_itoa(ft_atoi(vars->nums[i]));
 			if (!prev)
-				malloc_failed(NULL, input, new, NULL);
+				return (free(new), error(vars), false);
 			if (!ft_strncmp(new, prev, ft_strlen(new) + 1))
 				return (free(new), free(prev), false);
 			free(prev);
@@ -78,30 +78,27 @@ void	get_ranks(int count, char **params, int *numbers, int *ranks)
 	}
 }
 
-t_clist	**create_stack(int count, char **params)
+t_clist	**create_stack(int count, t_var *vars)
 {
-	t_clist	**stack_a;
 	t_clist	*current;
-	int		*numbers;
-	int		*ranks;
 
-	numbers = malloc(sizeof(int) * count);
-	if (!numbers)
-		malloc_failed(NULL, params, NULL, NULL);
-	ranks = ft_calloc(sizeof(int), count);
-	if (!ranks)
-		malloc_failed(NULL, params, numbers, NULL);
-	get_ranks(count, params, numbers, ranks);
-	stack_a = malloc(sizeof(t_clist *));
-	if (!stack_a)
-		malloc_failed(NULL, NULL, numbers, ranks);
-	*stack_a = NULL;
+	vars->numbers = malloc(sizeof(int) * count);
+	if (!vars->numbers)
+		error(vars);
+	vars->ranks = ft_calloc(sizeof(int), count);
+	if (!vars->ranks)
+		error(vars);
+	get_ranks(count, vars->nums, vars->numbers, vars->ranks);
+	vars->stack_a = malloc(sizeof(t_clist *));
+	if (!vars->stack_a)
+		error(vars);
+	*vars->stack_a = NULL;
 	while (--count >= 0)
 	{
-		current = ft_circ_lstnew(numbers[count], ranks[count]);
+		current = ft_circ_lstnew(vars->numbers[count], vars->ranks[count]);
 		if (!current)
-			malloc_failed(stack_a, params, numbers, ranks);
-		ft_circ_lstadd_front(stack_a, current);
+			error(vars);
+		ft_circ_lstadd_front(vars->stack_a, current);
 	}
-	return (free(numbers), free(ranks), stack_a);
+	return (vars->stack_a);
 }

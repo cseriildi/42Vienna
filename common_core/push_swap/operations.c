@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:06:38 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/16 17:50:37 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:25:27 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	swap(t_clist **stack)
 	}
 }
 
-void	push(t_clist **stack_src, t_clist **stack_dest)
+void	push(t_clist **stack_src, t_clist **stack_dest, t_var *vars)
 {
 	t_clist	*head;
 	t_clist	*head_copy;
@@ -46,11 +46,7 @@ void	push(t_clist **stack_src, t_clist **stack_dest)
 			next = NULL;
 		head_copy = ft_circ_lstnew(head->content, head->rank);
 		if (!head_copy)
-		{
-			ft_circ_lstclear(stack_src);
-			free(stack_src);
-			malloc_failed(stack_dest, NULL, NULL, NULL);
-		}
+			error(vars);
 		ft_circ_lstadd_front(stack_dest, head_copy);
 		ft_circ_lstdelone(&head);
 		*stack_src = next;
@@ -68,30 +64,30 @@ void	rotate(t_clist **stack, bool is_reverse)
 	}
 }
 
-void	exec_rule(t_clist **a, t_clist **b, char *rule, bool is_bonus)
+void	exec_rule(t_var *vars, char *rule, bool is_bonus)
 {
 	if (!ft_strncmp(rule, "sa\n", 3) || !ft_strncmp(rule, "ss\n", 3))
-		swap(a);
+		swap(vars->stack_a);
 	if (!ft_strncmp(rule, "sb\n", 3) || !ft_strncmp(rule, "ss\n", 3))
-		swap(b);
+		swap(vars->stack_b);
 	if (!ft_strncmp(rule, "pa\n", 3))
-		push(b, a);
+		push(vars->stack_b, vars->stack_a, vars);
 	if (!ft_strncmp(rule, "pb\n", 3))
-		push(a, b);
+		push(vars->stack_a, vars->stack_b, vars);
 	if (!ft_strncmp(rule, "ra\n", 3) || !ft_strncmp(rule, "rr\n", 3))
-		rotate(a, false);
+		rotate(vars->stack_a, false);
 	if (!ft_strncmp(rule, "rb\n", 3) || !ft_strncmp(rule, "rr\n", 3))
-		rotate(b, false);
+		rotate(vars->stack_b, false);
 	if (!ft_strncmp(rule, "rra\n", 4) || !ft_strncmp(rule, "rrr\n", 4))
-		rotate(a, true);
+		rotate(vars->stack_a, true);
 	if (!ft_strncmp(rule, "rrb\n", 4) || !ft_strncmp(rule, "rrr\n", 4))
-		rotate(b, true);
+		rotate(vars->stack_b, true);
 	if (!is_bonus)
 		ft_printf("%s", rule);
 }
 
-void	repeat_rule(t_clist **a, t_clist **b, int times, char *rule)
+void	repeat_rule(t_var *vars, int times, char *rule)
 {
 	while (times-- > 0)
-		exec_rule(a, b, rule, false);
+		exec_rule(vars, rule, false);
 }
