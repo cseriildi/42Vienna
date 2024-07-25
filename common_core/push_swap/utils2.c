@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:03:51 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/17 10:13:11 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:06:32 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,38 @@ void	array_free(char ***arr)
 		while ((*arr)[i])
 			free((*arr)[i++]);
 		free(*arr);
+		*arr = NULL;
 	}
 }
 
-void	malloc_failed(t_clist **stack_a, char **arr, void *p1, void *p2)
+void	free_all(t_var *vars)
 {
-	if (stack_a)
+	if (!vars)
+		return ;
+	if (vars->stack_a)
 	{
-		ft_circ_lstclear(stack_a);
-		free(stack_a);
+		ft_circ_lstclear(vars->stack_a);
+		free(vars->stack_a);
+		vars->stack_a = NULL;
 	}
-	array_free(&arr);
-	ft_free(&p1);
-	ft_free(&p2);
+	if (vars->stack_b)
+	{
+		ft_circ_lstclear(vars->stack_b);
+		free(vars->stack_b);
+		vars->stack_b = NULL;
+	}
+	if (vars->nums)
+		array_free(&vars->nums);
+	if (vars->numbers)
+		ft_free((void **)&vars->numbers);
+	if (vars->ranks)
+		ft_free((void **)&vars->ranks);
+	free(vars);
+}
+
+void	error(t_var *vars)
+{
+	free_all(vars);
 	write(STDERR_FILENO, "Error\n", 6);
 	exit(1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:05:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/12 11:33:12 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/07/18 18:30:09 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,28 @@ void	set_price(t_clist *node_a, t_clist *node_b)
 	node_b->price = price;
 }
 
-void	rotate_to_push(t_clist **a, t_clist **b, t_clist *n_a, t_clist *n_b)
+void	rotate_to_push(t_var *vars, t_clist *n_a, t_clist *n_b)
 {
 	if (max(2, n_a->r_index, n_b->r_index) == n_a->price)
 	{
-		repeat_rule(a, b, min(2, n_a->r_index, n_b->r_index), "rr\n");
-		repeat_rule(a, b, n_a->r_index - n_b->r_index, "ra\n");
-		repeat_rule(a, b, n_b->r_index - n_a->r_index, "rb\n");
+		repeat_rule(vars, min(2, n_a->r_index, n_b->r_index), "rr\n");
+		repeat_rule(vars, n_a->r_index - n_b->r_index, "ra\n");
+		repeat_rule(vars, n_b->r_index - n_a->r_index, "rb\n");
 	}
 	else if (max(2, n_a->rr_index, n_b->rr_index) == n_a->price)
 	{
-		repeat_rule(a, b, min(2, n_a->rr_index, n_b->rr_index), "rrr\n");
-		repeat_rule(a, b, n_a->rr_index - n_b->rr_index, "rra\n");
-		repeat_rule(a, b, n_b->rr_index - n_a->rr_index, "rrb\n");
+		repeat_rule(vars, min(2, n_a->rr_index, n_b->rr_index), "rrr\n");
+		repeat_rule(vars, n_a->rr_index - n_b->rr_index, "rra\n");
+		repeat_rule(vars, n_b->rr_index - n_a->rr_index, "rrb\n");
 	}
 	else if (n_a->r_index + n_b->rr_index == n_a->price)
 	{
-		repeat_rule(a, b, n_a->r_index, "ra\n");
-		repeat_rule(a, b, n_b->rr_index, "rrb\n");
+		repeat_rule(vars, n_a->r_index, "ra\n");
+		repeat_rule(vars, n_b->rr_index, "rrb\n");
 	}
 	else
 	{
-		repeat_rule(a, b, n_a->rr_index, "rra\n");
-		repeat_rule(a, b, n_b->r_index, "rb\n");
+		repeat_rule(vars, n_a->rr_index, "rra\n");
+		repeat_rule(vars, n_b->r_index, "rb\n");
 	}
 }

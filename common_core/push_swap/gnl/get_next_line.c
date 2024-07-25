@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:07 by icseri            #+#    #+#             */
-/*   Updated: 2024/05/06 10:51:51 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/18 12:59:16 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_next_line(int fd)
 	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (free(read_chars), NULL);
 	read_chars = read_fd(fd, read_chars);
 	if (!read_chars)
 		return (ft_free(&read_chars), NULL);
