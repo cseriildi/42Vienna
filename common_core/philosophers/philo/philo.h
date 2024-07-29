@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/07/05 10:39:20 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:53:59 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ typedef struct s_philo
 	int				time_to_sleep;
 	bool			min_eat;
 	int				eat_count;
+	int				exit_code;
 }	t_philo;
 
 //utils
 void	print_error(int code);
-void	free_data(t_philo *data, int code);
+int		free_data(t_philo *data);
 void	destroy_forks(t_philo *data);
 long	*get_time(void);
 

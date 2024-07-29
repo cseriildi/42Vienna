@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:16:59 by icseri            #+#    #+#             */
-/*   Updated: 2024/07/02 15:41:35 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/29 14:13:40 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	main(int argc, char **argv)
 		return (print_error(MALLOC_FAIL), MALLOC_FAIL);
 	exit_code = check_input(argc, argv, data);
 	if (exit_code != 0)
-		return (exit_code);
+		return (free_data(data));
 	parsing(argc, argv, data);
-	init_forks(data);
-	exit_code = init_philos(data);
-	if (exit_code != 0)
-		return (exit_code);
-	
-	destroy_forks(data);
-	return (EXIT_SUCCESS);
+	data->exit_code = init_forks(data);
+	if (data->exit_code != 0)
+		return (free_data(data));
+	data->exit_code = init_philos(data);
+	if (data->exit_code != 0)
+		return (free_data(data));
+	return (free_data(data));
 }
