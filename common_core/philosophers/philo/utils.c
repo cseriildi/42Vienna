@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:10:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/05 10:39:12 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:53:42 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ void	destroy_forks(t_philo *data)
 	data->forks = NULL;
 }
 
-void	free_data(t_philo *data, int code)
+int	free_data(t_philo *data)
 {
-	print_error(code);
+	int exit_code;
+
+	exit_code = data->exit_code;
+	print_error(data->exit_code);
 	if (data)
 	{
 		if (data->philos)
@@ -49,6 +52,7 @@ void	free_data(t_philo *data, int code)
 			destroy_forks(data);
 		free(data);
 	}
+	return (exit_code);
 }
 
 
