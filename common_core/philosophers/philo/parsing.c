@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:48:29 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/06/26 11:40:22 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/29 14:14:28 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ int	check_input(int argc, char **argv, t_philo *data)
 	data->philos = NULL;
 	data->forks = NULL;
 	if (argc < 5 || argc > 6)
-		return (free_data(data, MISUSE), MISUSE);
+		return (MISUSE);
 	i = 0;
 	while (++i < argc)
 	{
 		tmp = ft_itoa(ft_atoi(argv[i]));
 		if (!tmp)
-			return (free_data(data, MALLOC_FAIL), MALLOC_FAIL);
+			return (MALLOC_FAIL);
 		if (ft_strcmp(argv[i], tmp) != 0 || ft_atoi(argv[i]) < 0
 			|| (i == 1 && ft_atoi(argv[i]) == 0))
-			return (free(tmp), free_data(data, INCORRECT_INPUT), INCORRECT_INPUT);
+			return (free(tmp), INCORRECT_INPUT);
 		free(tmp);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 void	parsing(int argc, char **argv, t_philo *data)

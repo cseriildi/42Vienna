@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/05 10:40:08 by icseri           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:46:01 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	init_forks(t_philo *data)
 
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->count);
 	if (!data->forks)
-		return (free_data(data, MALLOC_FAIL), MALLOC_FAIL);
+		return (MALLOC_FAIL);
 	i = -1;
 	while (++i < data->count)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (free_data(data, MUTEX_INIT_FAIL), MUTEX_INIT_FAIL);
+			return (MUTEX_INIT_FAIL);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -52,18 +52,18 @@ int	init_philos(t_philo *data)
 
 	data->philos = malloc(sizeof(pthread_t) * data->count);
 	if (!data->philos)
-		return (free_data(data, MALLOC_FAIL), MALLOC_FAIL);
+		return (MALLOC_FAIL);
 	i = -1;
 	while (++i < data->count)
 	{
 		if (pthread_create(&data->philos[i], NULL, func, data) != 0)
-			return (free_data(data, THREAD_CREATE_FAIL), THREAD_CREATE_FAIL);
+			return (THREAD_CREATE_FAIL);
 	}
 	i = -1;
 	while (++i < data->count)
 	{
 		if (pthread_join(data->philos[i],  (void **)&result) != 0)
-			return (free_data(data, THREAD_JOIN_FAIL), THREAD_JOIN_FAIL);
+			return (THREAD_JOIN_FAIL);
 		if (result)
 		{
 			printf("Thread %d result: %ld\n", i, *result);
