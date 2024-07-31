@@ -3,30 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/31 11:33:31 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/07/31 14:09:10 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void print_status(t_philo *philo, long time, char *act)
+void	print_status(t_philo *philo, long time, char *act)
 {
 	pthread_mutex_lock(philo->data->print_lock);
 	printf("%ld %d %s\n", time, philo->id, act);
 	pthread_mutex_unlock(philo->data->print_lock);
 }
 
-long get_elapsed_time(t_data *data)
+long	get_time(void)
+{
+	struct timeval	tv;
+	long			milliseconds;
+
+	gettimeofday(&tv, NULL);
+	milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+	return (milliseconds);
+}
+
+long	get_elapsed_time(t_data *data)
 {
 	return (get_time() - data->start_time);
 }
+
 void	*routine(void *arg)
 {
-	t_philo *philo;
-	
+	t_philo	*philo;
+
 	philo = (t_philo *)arg;
 	while (true)
 	{
@@ -45,5 +56,5 @@ void	*routine(void *arg)
 		usleep(philo->data->time_to_sleep * 1000);
 		print_status(philo, get_elapsed_time(philo->data), "is thinking");
 	}
-	return NULL;
+	return (NULL);
 }
