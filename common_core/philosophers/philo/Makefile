@@ -6,14 +6,14 @@
 #    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/24 13:35:49 by icseri            #+#    #+#              #
-#    Updated: 2024/06/26 09:07:04 by cseriildii       ###   ########.fr        #
+#    Updated: 2024/07/30 16:59:26 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = philo
 
-SRCS = main.c utils.c libft.c parsing.c events.c init.c
+SRCS = main.c init.c utils.c libft.c events.c routine.c
 
 OBJS = ${SRCS:.c=.o}
 
