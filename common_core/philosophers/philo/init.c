@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/30 16:56:22 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/07/31 14:07:43 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int init_data(t_data *data, int argc, char **argv)
+int	init_data(t_data *data, int argc, char **argv)
 {
 	data->start_time = get_time();
 	data->philos = NULL;
@@ -22,10 +22,13 @@ int init_data(t_data *data, int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (init_forks(data) != 0)
 		return (EXIT_FAILURE);
-	if (init_philos(data) != 0)
-		return (EXIT_FAILURE);
+	data->print_lock = malloc(sizeof(pthread_mutex_t));
+	if (!data->print_lock)
+		return (set_exit_code(data, MALLOC_FAIL));
 	if (pthread_mutex_init(data->print_lock, NULL) != 0)
 		return (set_exit_code(data, MUTEX_INIT_FAIL));
+	if (init_philos(data) != 0)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -81,8 +84,9 @@ int	init_forks(t_data *data)
 
 int	init_philos(t_data *data)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
+	t_philo	philo;	
 
 	count = data->count;
 	data->philos = malloc(sizeof(t_philo) * count);
@@ -91,15 +95,15 @@ int	init_philos(t_data *data)
 	i = -1;
 	while (++i < count)
 	{
-		data->philos[i].id = i + 1;
-		data->philos[i].times_eaten = 0;
-		data->philos[i].last_eating_time = 0;
-		data->philos[i].data = data;
-		data->philos[i].left_fork = &data->forks[i];
-		data->philos[i].right_fork = &data->forks[(i + 1) % count];
-		if (pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]) != 0)
+		philo = data->philos[i];
+		philo.id = i + 1;
+		philo.times_eaten = 0;
+		philo.last_eating_time = 0;
+		philo.data = data;
+		philo.left_fork = &data->forks[i];
+		philo.right_fork = &data->forks[(i + 1) % count];
+		if (pthread_create(&philo.thread, NULL, routine, &philo) != 0)
 			return (set_exit_code(data, THREAD_CREATE_FAIL));
 	}
 	return (EXIT_SUCCESS);
 }
-
