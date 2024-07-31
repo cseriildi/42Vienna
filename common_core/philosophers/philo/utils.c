@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:10:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/30 16:54:33 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/07/31 14:07:09 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_putendl_fd(char *s, int fd)
 		write(fd, s++, 1);
 	write(fd, "\n", 1);
 }
+
 int	print_error(int code)
 {
 	if (code == MALLOC_FAIL)
@@ -48,7 +49,7 @@ void	destroy_forks(t_data *data)
 
 int	free_data(t_data *data)
 {
-	int exit_code;
+	int	exit_code;
 
 	if (data)
 	{
@@ -70,16 +71,6 @@ int	free_data(t_data *data)
 		return (exit_code);
 	}
 	return (EXIT_SUCCESS);
-}
-
-long	get_time(void)
-{
-	struct timeval	tv;
-	long			milliseconds;
-	
-	gettimeofday(&tv, NULL);
-	milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-	return (milliseconds);
 }
 
 int	set_exit_code(t_data *data, int code)
