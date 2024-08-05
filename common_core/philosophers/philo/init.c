@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/31 14:07:43 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/05 19:24:37 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,29 @@
 
 int	init_data(t_data *data, int argc, char **argv)
 {
-	data->start_time = get_time();
 	data->philos = NULL;
 	data->forks = NULL;
-	data->print_lock = NULL;
+	data->print = NULL;
+	data->program = NULL;
+	data->running = true;
+	data->handcuffs = NULL;
 	if (init_input(data, argc, argv) != 0)
 		return (EXIT_FAILURE);
-	if (init_forks(data) != 0)
+	if (init_mutexes(data) != 0)
 		return (EXIT_FAILURE);
-	data->print_lock = malloc(sizeof(pthread_mutex_t));
-	if (!data->print_lock)
+	data->print = malloc(sizeof(pthread_mutex_t));
+	if (!data->print)
 		return (set_exit_code(data, MALLOC_FAIL));
-	if (pthread_mutex_init(data->print_lock, NULL) != 0)
+	if (pthread_mutex_init(data->print, NULL) != 0)
 		return (set_exit_code(data, MUTEX_INIT_FAIL));
-	if (init_philos(data) != 0)
-		return (EXIT_FAILURE);
+	data->program = malloc(sizeof(pthread_mutex_t));
+	if (!data->program)
+		return (set_exit_code(data, MALLOC_FAIL));
+	if (pthread_mutex_init(data->program, NULL) != 0)
+		return (set_exit_code(data, MUTEX_INIT_FAIL));
+	data->philos = malloc(sizeof(t_philo) * data->count);
+	if (!data->philos)
+		return (set_exit_code(data, MALLOC_FAIL));
 	return (EXIT_SUCCESS);
 }
 
@@ -60,50 +68,65 @@ int	init_input(t_data *data, int argc, char **argv)
 	return (set_exit_code(data, EXIT_SUCCESS));
 }
 
-int	init_forks(t_data *data)
+int	init_mutexes(t_data *data)
 {
 	int			i;
 
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->count);
 	if (!data->forks)
 		return (set_exit_code(data, MALLOC_FAIL));
+	data->handcuffs = malloc(sizeof(pthread_mutex_t) * data->count);
+	if (!data->handcuffs)
+		return (destroy_mutexes(data->forks, 0), set_exit_code(data, MALLOC_FAIL));
 	i = -1;
 	while (++i < data->count)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 		{
-			while (--i >= 0)
-				pthread_mutex_destroy(&data->forks[i]);
-			free(data->forks);
-			data->forks = NULL;
+			destroy_mutexes(data->forks, i);
 			return (set_exit_code(data, MUTEX_INIT_FAIL));
 		}
+		if (pthread_mutex_init(&data->handcuffs[i], NULL) != 0)
+		{
+			destroy_mutexes(data->forks, i + 1);
+			destroy_mutexes(data->handcuffs, i);
+			return (set_exit_code(data, MUTEX_INIT_FAIL));
+		}
+		pthread_mutex_lock(&data->handcuffs[i]);
 	}
 	return (EXIT_SUCCESS);
 }
 
-int	init_philos(t_data *data)
+int	init_philos(t_data *data, t_philo *philos)
 {
 	int		i;
-	int		count;
-	t_philo	philo;	
 
-	count = data->count;
-	data->philos = malloc(sizeof(t_philo) * count);
-	if (!data->philos)
-		return (set_exit_code(data, MALLOC_FAIL));
 	i = -1;
-	while (++i < count)
+	while (++i < data->count)
 	{
-		philo = data->philos[i];
-		philo.id = i + 1;
-		philo.times_eaten = 0;
-		philo.last_eating_time = 0;
-		philo.data = data;
-		philo.left_fork = &data->forks[i];
-		philo.right_fork = &data->forks[(i + 1) % count];
-		if (pthread_create(&philo.thread, NULL, routine, &philo) != 0)
+		philos[i].id = i + 1;
+		if (philos[i].id % 2 == 0)
+			philos[i].type = EVEN;
+		else if (philos[i].id == data->count && philos[i].id != 1)
+			philos[i].type = ODD_ONE_OUT;
+		else
+			philos[i].type = ODD;
+		philos[i].times_eaten = 0;
+		philos[i].last_eating_time = 0;
+		philos[i].data = data;
+		philos[i].left_fork = &data->forks[i];
+		philos[i].right_fork = &data->forks[(i + 1) % data->count];
+		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]))
 			return (set_exit_code(data, THREAD_CREATE_FAIL));
 	}
+	return (EXIT_SUCCESS);
+}
+
+int	init_reaper_and_waiter(t_data *data)
+{
+	if (pthread_create(&data->waiter, NULL, &waiter, data))
+		return (set_exit_code(data, THREAD_CREATE_FAIL));
+	if (pthread_create(&data->reaper, NULL, &kill_starver, data))
+		return (set_exit_code(data, THREAD_CREATE_FAIL));
 	return (EXIT_SUCCESS);
 }

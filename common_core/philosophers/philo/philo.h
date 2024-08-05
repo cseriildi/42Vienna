@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/07/31 14:08:40 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/05 16:43:24 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,33 @@ typedef enum s_err
 	MISUSE,
 	INCORRECT_INPUT,
 	THREAD_CREATE_FAIL,
-	THREAD_JOIN_FAIL,
 	MUTEX_INIT_FAIL
 }	t_err;
+
+typedef enum s_status
+{
+	ALIVE,
+	DEAD,
+	FULL,
+	MOURNING
+}	t_status;
+
+typedef enum s_type
+{
+	ODD_ONE_OUT,
+	EVEN,
+	ODD
+}	t_type;
 
 struct	s_data;
 
 typedef struct s_philo
 {
 	int				id;
+	int				type;
+	int				status;
 	int				times_eaten;
-	long			last_eating_time;
+	long long		last_eating_time;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -50,32 +66,58 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				min_eat_count;
-	long			start_time;
+	long long		start_time;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*print_lock;
+	pthread_mutex_t *handcuffs;
+	pthread_mutex_t	*print;
+	pthread_mutex_t	*program;
+	pthread_t		reaper;
+	pthread_t		waiter;
 	int				exit_code;
+	bool			running;
 }	t_data;
 
 //init
 int		init_data(t_data *data, int argc, char **argv);
 int		init_input(t_data *data, int argc, char **argv);
-int		init_philos(t_data *data);
-int		init_forks(t_data *data);
+int		init_philos(t_data *data, t_philo *philos);
+int		init_mutexes(t_data *data);
+int		init_reaper_and_waiter(t_data *data);
 
 //routine
 void	*routine(void *arg);
-long	get_time(void);
+void	*kill_starver(void *arg);
+void	*waiter(void *arg);
+
+//time 
+long long	get_time(void);
+long long	get_elapsed_time(t_data *data);
+void	ft_usleep(long long time, t_data *data);
 
 //utils
 int		print_error(int code);
 int		free_data(t_data *data);
-void	destroy_forks(t_data *data);
+void	destroy_mutexes(pthread_mutex_t *mutexes, int count);
 int		set_exit_code(t_data *data, int code);
 
-//libft
+//utils2
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int nb);
 int		ft_strcmp(char *s1, char *s2);
+
+//utils3
+void	start_program(pthread_mutex_t *program);
+void	print_status(t_philo *philo, long long time, char *act);
+void	send_obituary(t_data *data, int id);
+void	check_if_all_full(t_data *data);
+void	take_forks(t_philo *philo);
+void release_forks(t_philo *philo);
+void join_threads(t_data *data);
+
+//events
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 
 #endif
