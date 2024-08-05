@@ -3,58 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/31 14:09:10 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/05 19:45:13 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	print_status(t_philo *philo, long time, char *act)
-{
-	pthread_mutex_lock(philo->data->print_lock);
-	printf("%ld %d %s\n", time, philo->id, act);
-	pthread_mutex_unlock(philo->data->print_lock);
-}
-
-long	get_time(void)
-{
-	struct timeval	tv;
-	long			milliseconds;
-
-	gettimeofday(&tv, NULL);
-	milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-	return (milliseconds);
-}
-
-long	get_elapsed_time(t_data *data)
-{
-	return (get_time() - data->start_time);
-}
 
 void	*routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (true)
+	pthread_mutex_lock(philo->data->program);
+	pthread_mutex_unlock(philo->data->program);
+	//thinking(philo);
+	while (philo->status == ALIVE)
 	{
-		pthread_mutex_lock(philo->left_fork);
-		print_status(philo, get_elapsed_time(philo->data), "has taken a fork");
-		pthread_mutex_lock(philo->right_fork);
-		print_status(philo, get_elapsed_time(philo->data), "has taken a fork");
-		philo->last_eating_time = get_time() - philo->data->start_time;
-		print_status(philo, get_elapsed_time(philo->data), "is eating");
-		usleep(philo->data->time_to_eat * 1000);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
-		philo->times_eaten++;
-		philo->last_eating_time = get_elapsed_time(philo->data);
-		print_status(philo, get_elapsed_time(philo->data), "is sleeping");
-		usleep(philo->data->time_to_sleep * 1000);
-		print_status(philo, get_elapsed_time(philo->data), "is thinking");
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
+	}
+	return (NULL);
+}
+long	get_time_left(t_data *data)
+{
+	long long	time_left;
+	long long	min_time_left;
+	int			i;
+
+	i = -1;
+	min_time_left = data->time_to_die;
+	while (++i < data->count)
+	{
+		time_left = data->time_to_die - (get_elapsed_time(data)
+				- data->philos[i].last_eating_time);
+		if (time_left < 0 && data->running == true)
+		{
+			send_obituary(data, i + 1);
+			return (time_left);
+		}
+		if (time_left < min_time_left)
+			min_time_left = time_left;
+	}
+	return (min_time_left);
+}
+
+void	*kill_starver(void *arg)
+{
+	t_data	*data;
+	long long	time_left;
+
+	data = (t_data *)arg;
+	pthread_mutex_lock(data->program);
+	pthread_mutex_unlock(data->program);
+	while (data->running == true)
+	{
+		time_left = get_time_left(data);
+		ft_usleep(time_left / 2, data);
+	}
+	return (NULL);
+}
+
+void	switch_from_to(int old_type, int type, t_data *data)
+{
+	int	i;
+	
+	if (data->running == false)
+		return ;
+	i = -1;
+	while (++i < data->count)
+	{
+		if (old_type != -1 && data->philos[i].type == old_type)
+			pthread_mutex_lock(&data->handcuffs[i]);
+	}
+	i = -1;
+	while (++i < data->count)
+	{
+		if (data->philos[i].type == type)
+			pthread_mutex_unlock(&data->handcuffs[i]);
+	}
+	ft_usleep(data->time_to_eat, data);
+}
+
+void	*waiter(void *arg)
+{
+	t_data	*data;
+	int		i;
+
+	data = (t_data *)arg;
+	pthread_mutex_lock(data->program);
+	i = -1;
+	while (++i < data->count)
+		pthread_mutex_lock(&data->handcuffs[i]);
+	pthread_mutex_unlock(data->program);
+	switch_from_to(-1, ODD, data);
+	while (data->running == true)
+	{
+		switch_from_to(ODD, EVEN, data);
+		if (data->count != 1 && data->count % 2 == 1)
+			switch_from_to(EVEN, ODD_ONE_OUT, data);
+		switch_from_to(ODD_ONE_OUT, ODD, data);
 	}
 	return (NULL);
 }

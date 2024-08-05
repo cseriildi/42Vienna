@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:10:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/07/31 14:07:09 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/05 16:36:07 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,20 @@ int	print_error(int code)
 		ft_putendl_fd("Min 1 philo, and the times/count positive integers", 2);
 	else if (code == THREAD_CREATE_FAIL)
 		ft_putendl_fd("Thread creation failed", 2);
-	else if (code == THREAD_JOIN_FAIL)
-		ft_putendl_fd("Thread joining failed", 2);
 	else if (code == MUTEX_INIT_FAIL)
 		ft_putendl_fd("Mutex initialization failed", 2);
 	return (code);
 }
 
-void	destroy_forks(t_data *data)
+void	destroy_mutexes(pthread_mutex_t *mutexes, int count)
 {
-	int			i;
+	int	i;
 
 	i = -1;
-	while (++i < data->count)
-		pthread_mutex_destroy(&data->forks[i]);
-	free(data->forks);
-	data->forks = NULL;
+	while (++i < count)
+		pthread_mutex_destroy(&mutexes[i]);
+	free(mutexes);
+	mutexes = NULL;
 }
 
 int	free_data(t_data *data)
@@ -60,13 +58,13 @@ int	free_data(t_data *data)
 			data->philos = NULL;
 		}
 		if (data->forks)
-			destroy_forks(data);
-		if (data->print_lock)
-		{
-			pthread_mutex_destroy(data->print_lock);
-			free(data->print_lock);
-			data->print_lock = NULL;
-		}
+			destroy_mutexes(data->forks, data->count);
+		if (data->handcuffs)
+			destroy_mutexes(data->handcuffs, data->count);
+		if (data->print)
+			destroy_mutexes(data->print, 1);
+		if (data->program)
+			destroy_mutexes(data->program, 1);
 		free(data);
 		return (exit_code);
 	}
