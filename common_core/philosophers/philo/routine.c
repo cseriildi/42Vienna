@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 15:40:41 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 17:38:43 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,6 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-long	get_time_left(t_data *data)
-{
-	long long	time_left;
-	long long	min_time_left;
-	int			i;
-
-	i = -1;
-	min_time_left = data->time_to_die;
-	while (++i < data->count)
-	{
-		pthread_mutex_lock(data->philos[i].check_status);
-		time_left = data->time_to_die - (get_elapsed_time(data)
-				- data->philos[i].last_eating_time);
-		pthread_mutex_unlock(data->philos[i].check_status);
-		if (time_left < 0 && is_running(data) == true)
-		{
-			set_status(data, i + 1);
-			return (time_left);
-		}
-		if (time_left < min_time_left)
-			min_time_left = time_left;
-	}
-	return (min_time_left);
-}
-
 void	*monitoring(void *arg)
 {
 	t_data		*data;
@@ -73,4 +48,34 @@ void	*monitoring(void *arg)
 		ft_usleep(time_left / 2, data);
 	}
 	return (NULL);
+}
+
+void	join_threads(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->count)
+		pthread_join(data->philos[i].thread, NULL);
+	pthread_join(data->monitor, NULL);
+}
+
+bool	is_running(t_data *data)
+{
+	bool	running;
+
+	pthread_mutex_lock(data->check_status);
+	running = data->running;
+	pthread_mutex_unlock(data->check_status);
+	return (running);
+}
+
+bool	is_alive(t_philo *philo)
+{
+	bool	alive;
+
+	pthread_mutex_lock(philo->check_status);
+	alive = philo->status == ALIVE;
+	pthread_mutex_unlock(philo->check_status);
+	return (alive);
 }
