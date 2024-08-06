@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/05 19:45:13 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 10:38:01 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,21 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(philo->data->program);
 	pthread_mutex_unlock(philo->data->program);
-	//thinking(philo);
+	print_status(philo, get_elapsed_time(philo->data), "is thinking");
+	if (philo->type == EVEN)
+		ft_usleep(philo->data->time_to_eat, philo->data);
+	else if (philo->type == ODD_ONE_OUT)
+		ft_usleep(philo->data->time_to_eat * 2, philo->data);
 	while (philo->status == ALIVE)
 	{
-		eating(philo);
+		if (eating(philo) == false)
+			break ;
 		sleeping(philo);
 		thinking(philo);
 	}
 	return (NULL);
 }
+
 long	get_time_left(t_data *data)
 {
 	long long	time_left;
@@ -53,7 +59,7 @@ long	get_time_left(t_data *data)
 
 void	*kill_starver(void *arg)
 {
-	t_data	*data;
+	t_data		*data;
 	long long	time_left;
 
 	data = (t_data *)arg;
@@ -63,49 +69,6 @@ void	*kill_starver(void *arg)
 	{
 		time_left = get_time_left(data);
 		ft_usleep(time_left / 2, data);
-	}
-	return (NULL);
-}
-
-void	switch_from_to(int old_type, int type, t_data *data)
-{
-	int	i;
-	
-	if (data->running == false)
-		return ;
-	i = -1;
-	while (++i < data->count)
-	{
-		if (old_type != -1 && data->philos[i].type == old_type)
-			pthread_mutex_lock(&data->handcuffs[i]);
-	}
-	i = -1;
-	while (++i < data->count)
-	{
-		if (data->philos[i].type == type)
-			pthread_mutex_unlock(&data->handcuffs[i]);
-	}
-	ft_usleep(data->time_to_eat, data);
-}
-
-void	*waiter(void *arg)
-{
-	t_data	*data;
-	int		i;
-
-	data = (t_data *)arg;
-	pthread_mutex_lock(data->program);
-	i = -1;
-	while (++i < data->count)
-		pthread_mutex_lock(&data->handcuffs[i]);
-	pthread_mutex_unlock(data->program);
-	switch_from_to(-1, ODD, data);
-	while (data->running == true)
-	{
-		switch_from_to(ODD, EVEN, data);
-		if (data->count != 1 && data->count % 2 == 1)
-			switch_from_to(EVEN, ODD_ONE_OUT, data);
-		switch_from_to(ODD_ONE_OUT, ODD, data);
 	}
 	return (NULL);
 }

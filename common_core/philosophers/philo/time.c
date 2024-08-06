@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 09:22:00 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/05 12:18:49 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 10:37:31 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long long	get_time(void)
 {
 	struct timeval	tv;
-	long long			milliseconds;
+	long long		milliseconds;
 
 	gettimeofday(&tv, NULL);
 	milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;

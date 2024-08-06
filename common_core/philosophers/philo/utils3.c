@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:37:27 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/05 19:38:27 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 10:34:43 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	print_status(t_philo *philo, long long time, char *act)
 
 void	send_obituary(t_data *data, int id)
 {
-	int i;
-	
+	int	i;
+
 	if (data->running == true)
 	{
 		pthread_mutex_lock(data->print);
@@ -40,10 +40,10 @@ void	send_obituary(t_data *data, int id)
 	}
 }
 
-void check_if_all_full(t_data *data)
+void	check_if_all_full(t_data *data)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	if (data->min_eat_count == -1)
 		return ;
@@ -58,38 +58,43 @@ void check_if_all_full(t_data *data)
 		data->running = false;
 }
 
-void	take_forks(t_philo *philo)
+bool	take_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->handcuffs[philo->id - 1]);
-	pthread_mutex_lock(philo->left_fork);
-	print_status(philo, get_elapsed_time(philo->data), "has taken a fork");
-	if (philo->left_fork != philo->right_fork)
+	if (philo->id % 2 == 0)
 	{
+		pthread_mutex_lock(philo->left_fork);
+		print_status(philo, get_elapsed_time(philo->data), "has taken a fork");
 		pthread_mutex_lock(philo->right_fork);
 		print_status(philo, get_elapsed_time(philo->data), "has taken a fork");
 	}
 	else
 	{
-		ft_usleep(philo->data->time_to_die * 2, philo->data);
+		pthread_mutex_lock(philo->right_fork);
+		print_status(philo, get_elapsed_time(philo->data), "has taken a fork");
+		if (philo->left_fork == philo->right_fork)
+		{
+			pthread_mutex_unlock(philo->right_fork);
+			return (false);
+		}
+		pthread_mutex_lock(philo->left_fork);
+		print_status(philo, get_elapsed_time(philo->data), "has taken a fork");
 	}
-	pthread_mutex_unlock(&philo->data->handcuffs[philo->id - 1]);
+	return (true);
 }
 
-void release_forks(t_philo *philo)
+void	release_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->left_fork);
 	if (philo->left_fork != philo->right_fork)
 		pthread_mutex_unlock(philo->right_fork);
 }
 
-void join_threads(t_data *data)
+void	join_threads(t_data *data)
 {
-	int i;
+	int	i;
 
-	pthread_join(data->reaper, NULL);
-	pthread_join(data->waiter, NULL);
 	i = -1;
 	while (++i < data->count)
 		pthread_join(data->philos[i].thread, NULL);
+	pthread_join(data->reaper, NULL);
 }
-		
