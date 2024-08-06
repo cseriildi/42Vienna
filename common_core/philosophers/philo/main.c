@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:16:59 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/06 10:09:17 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 15:25:18 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	pthread_mutex_lock(data->program);
 	if (init_philos(data, data->philos) != 0)
 		return (pthread_mutex_unlock(data->program), free_data(data));
-	if (init_reaper(data) != 0)
+	if (init_monitor(data) != 0)
 		return (pthread_mutex_unlock(data->program), free_data(data));
 	data->start_time = get_time();
 	pthread_mutex_unlock(data->program);
