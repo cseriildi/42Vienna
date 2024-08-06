@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 17:38:43 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 20:14:22 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(philo->data->program);
 	pthread_mutex_unlock(philo->data->program);
-	print_status(philo, get_elapsed_time(philo->data), "is thinking");
+	print_status(philo, "is thinking");
 	if (philo->type == EVEN)
 		ft_usleep(philo->data->time_to_eat, philo->data);
 	else if (philo->type == ODD_ONE_OUT)
 		ft_usleep(philo->data->time_to_eat * 2, philo->data);
-	while (is_alive(philo) == true)
+	while (is_running(philo->data) == true)
 	{
 		if (eating(philo) == false)
 			break ;
@@ -75,7 +75,10 @@ bool	is_alive(t_philo *philo)
 	bool	alive;
 
 	pthread_mutex_lock(philo->check_status);
-	alive = philo->status == ALIVE;
+	if (philo->status == ALIVE || philo->status == FULL)
+		alive = true;
+	else
+		alive = false;
 	pthread_mutex_unlock(philo->check_status);
 	return (alive);
 }

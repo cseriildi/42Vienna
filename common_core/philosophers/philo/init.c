@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 17:49:45 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 20:14:03 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	init_input(t_data *data, int argc, char **argv)
 		tmp = ft_itoa(ft_atoi(argv[i]));
 		if (!tmp)
 			return (set_exit_code(data, MALLOC_FAIL));
-		if (ft_strcmp(argv[i], tmp) != 0 || ft_atoi(argv[i]) <= 0)
+		if (ft_strcmp(argv[i], tmp) != 0 || ft_atoi(argv[i]) < 0
+			|| (i == 1 && ft_atoi(argv[i]) <= 0))
 			return (free(tmp), set_exit_code(data, INCORRECT_INPUT));
 		free(tmp);
 	}
