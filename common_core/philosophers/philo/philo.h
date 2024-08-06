@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/06 10:40:08 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 16:09:40 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t *check_status;
 	struct s_data	*data;
 }	t_philo;
 
@@ -71,7 +72,8 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*program;
-	pthread_t		reaper;
+	pthread_mutex_t	*check_status;
+	pthread_t		monitor;
 	int				exit_code;
 	bool			running;
 }	t_data;
@@ -81,11 +83,11 @@ int			init_data(t_data *data, int argc, char **argv);
 int			init_input(t_data *data, int argc, char **argv);
 int			init_philos(t_data *data, t_philo *philos);
 int			init_mutexes(t_data *data);
-int			init_reaper(t_data *data);
+int			init_monitor(t_data *data);
 
 //routine
 void		*routine(void *arg);
-void		*kill_starver(void *arg);
+void		*monitoring(void *arg);
 
 //time 
 long long	get_time(void);
@@ -104,17 +106,20 @@ char		*ft_itoa(int nb);
 int			ft_strcmp(char *s1, char *s2);
 
 //utils3	
-void		start_program(pthread_mutex_t *program);
 void		print_status(t_philo *philo, long long time, char *act);
-void		send_obituary(t_data *data, int id);
+void		set_status(t_data *data, int id);
 void		check_if_all_full(t_data *data);
-bool		take_forks(t_philo *philo);
-void		release_forks(t_philo *philo);
 void		join_threads(t_data *data);
+bool 		is_running(t_data *data);
+bool		is_alive(t_philo *philo);
+int 		get_type(int id, int count);
+int mutex_init(t_data *data, pthread_mutex_t *mutex);
 
 //events
 bool		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
+bool		take_forks(t_philo *philo);
+void		release_forks(t_philo *philo);
 
 #endif
