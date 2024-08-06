@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/06 17:46:24 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 19:58:39 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char		*ft_itoa(int nb);
 int			ft_strcmp(char *s1, char *s2);
 
 //utils	
-void		print_status(t_philo *philo, long long time, char *act);
+void		print_status(t_philo *philo, char *act);
 void		set_status(t_data *data, int id);
 bool		check_if_all_full(t_data *data, int id);
 int			get_type(int id, int count);

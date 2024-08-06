@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils3.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:37:27 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 17:41:03 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 20:01:03 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_status(t_philo *philo, long long time, char *act)
+void	print_status(t_philo *philo, char *act)
 {
 	pthread_mutex_lock(philo->data->print);
 	if (is_alive(philo) == true)
-		printf("%lld %d %s\n", time, philo->id, act);
+		printf("%lld %d %s\n", get_elapsed_time(philo->data), philo->id, act);
 	pthread_mutex_unlock(philo->data->print);
 }
 
