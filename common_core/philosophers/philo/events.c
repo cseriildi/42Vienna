@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:50:27 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 15:58:43 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 17:31:18 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 bool	eating(t_philo *philo)
 {
+	bool	is_full;	
+
+	is_full = false;
 	if (take_forks(philo) == false)
 		return (false);
 	pthread_mutex_lock(philo->check_status);
@@ -27,9 +30,11 @@ bool	eating(t_philo *philo)
 	if (philo->times_eaten == philo->data->min_eat_count)
 	{
 		philo->status = FULL;
-		check_if_all_full(philo->data);
+		is_full = true;
 	}
 	pthread_mutex_unlock(philo->check_status);
+	if (is_full == true && check_if_all_full(philo->data, philo->id) == true)
+		return (false);
 	return (true);
 }
 

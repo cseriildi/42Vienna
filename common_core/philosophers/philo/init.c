@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 16:09:56 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 17:49:45 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,18 @@ int	init_data(t_data *data, int argc, char **argv)
 {
 	data->philos = NULL;
 	data->forks = NULL;
+	data->philo_lock = NULL;
 	data->check_status = NULL;
 	data->print = NULL;
 	data->program = NULL;
 	data->running = true;
 	if (init_input(data, argc, argv) != 0)
+		return (EXIT_FAILURE);
+	if (mutex_init(data, &data->print) != 0)
+		return (EXIT_FAILURE);
+	if (mutex_init(data, &data->program) != 0)
+		return (EXIT_FAILURE);
+	if (mutex_init(data, &data->check_status) != 0)
 		return (EXIT_FAILURE);
 	if (init_mutexes(data) != 0)
 		return (EXIT_FAILURE);
@@ -43,8 +50,7 @@ int	init_input(t_data *data, int argc, char **argv)
 		tmp = ft_itoa(ft_atoi(argv[i]));
 		if (!tmp)
 			return (set_exit_code(data, MALLOC_FAIL));
-		if (ft_strcmp(argv[i], tmp) != 0 || ft_atoi(argv[i]) < 0
-			|| (i == 1 && ft_atoi(argv[i]) == 0))
+		if (ft_strcmp(argv[i], tmp) != 0 || ft_atoi(argv[i]) <= 0)
 			return (free(tmp), set_exit_code(data, INCORRECT_INPUT));
 		free(tmp);
 	}
@@ -62,12 +68,6 @@ int	init_mutexes(t_data *data)
 {
 	int			i;
 
-	if (mutex_init(data, data->print) != 0)
-		return (EXIT_FAILURE);
-	if (mutex_init(data, data->program) != 0)
-		return (EXIT_FAILURE);
-	if (mutex_init(data, data->check_status) != 0)
-		return (EXIT_FAILURE);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->count);
 	if (!data->forks)
 		return (set_exit_code(data, MALLOC_FAIL));
@@ -75,10 +75,18 @@ int	init_mutexes(t_data *data)
 	while (++i < data->count)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-		{
-			destroy_mutexes(data->forks, i);
-			return (set_exit_code(data, MUTEX_INIT_FAIL));
-		}
+			return (destroy_mutexes(data->forks, i),
+				set_exit_code(data, MUTEX_INIT_FAIL));
+	}
+	data->philo_lock = malloc(sizeof(pthread_mutex_t) * data->count);
+	if (!data->philo_lock)
+		return (set_exit_code(data, MALLOC_FAIL));
+	i = -1;
+	while (++i < data->count)
+	{
+		if (pthread_mutex_init(&data->philo_lock[i], NULL) != 0)
+			return (destroy_mutexes(data->philo_lock, i),
+				set_exit_code(data, MUTEX_INIT_FAIL));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -91,15 +99,14 @@ int	init_philos(t_data *data, t_philo *philos)
 	while (++i < data->count)
 	{
 		philos[i].id = i + 1;
-		philos[i].id = get_type(philos[i].id, data->count);
+		philos[i].type = get_type(philos[i].id, data->count);
 		philos[i].times_eaten = 0;
 		philos[i].last_eating_time = 0;
 		philos[i].status = ALIVE;
 		philos[i].data = data;
 		philos[i].left_fork = &data->forks[i];
 		philos[i].right_fork = &data->forks[(i + 1) % data->count];
-		if (mutex_init(data, philos[i].check_status) != 0)
-			return (EXIT_FAILURE);
+		philos[i].check_status = &data->philo_lock[i];
 		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]))
 			return (set_exit_code(data, THREAD_CREATE_FAIL));
 	}
