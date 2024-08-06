@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:10:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/05 16:36:07 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 10:30:18 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	free_data(t_data *data)
 		}
 		if (data->forks)
 			destroy_mutexes(data->forks, data->count);
-		if (data->handcuffs)
-			destroy_mutexes(data->handcuffs, data->count);
 		if (data->print)
 			destroy_mutexes(data->print, 1);
 		if (data->program)

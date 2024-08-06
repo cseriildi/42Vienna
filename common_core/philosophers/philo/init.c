@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/05 19:24:37 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 10:34:52 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->print = NULL;
 	data->program = NULL;
 	data->running = true;
-	data->handcuffs = NULL;
 	if (init_input(data, argc, argv) != 0)
 		return (EXIT_FAILURE);
 	if (init_mutexes(data) != 0)
@@ -75,9 +74,6 @@ int	init_mutexes(t_data *data)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->count);
 	if (!data->forks)
 		return (set_exit_code(data, MALLOC_FAIL));
-	data->handcuffs = malloc(sizeof(pthread_mutex_t) * data->count);
-	if (!data->handcuffs)
-		return (destroy_mutexes(data->forks, 0), set_exit_code(data, MALLOC_FAIL));
 	i = -1;
 	while (++i < data->count)
 	{
@@ -86,13 +82,6 @@ int	init_mutexes(t_data *data)
 			destroy_mutexes(data->forks, i);
 			return (set_exit_code(data, MUTEX_INIT_FAIL));
 		}
-		if (pthread_mutex_init(&data->handcuffs[i], NULL) != 0)
-		{
-			destroy_mutexes(data->forks, i + 1);
-			destroy_mutexes(data->handcuffs, i);
-			return (set_exit_code(data, MUTEX_INIT_FAIL));
-		}
-		pthread_mutex_lock(&data->handcuffs[i]);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -113,6 +102,7 @@ int	init_philos(t_data *data, t_philo *philos)
 			philos[i].type = ODD;
 		philos[i].times_eaten = 0;
 		philos[i].last_eating_time = 0;
+		philos[i].status = ALIVE;
 		philos[i].data = data;
 		philos[i].left_fork = &data->forks[i];
 		philos[i].right_fork = &data->forks[(i + 1) % data->count];
@@ -122,10 +112,8 @@ int	init_philos(t_data *data, t_philo *philos)
 	return (EXIT_SUCCESS);
 }
 
-int	init_reaper_and_waiter(t_data *data)
+int	init_reaper(t_data *data)
 {
-	if (pthread_create(&data->waiter, NULL, &waiter, data))
-		return (set_exit_code(data, THREAD_CREATE_FAIL));
 	if (pthread_create(&data->reaper, NULL, &kill_starver, data))
 		return (set_exit_code(data, THREAD_CREATE_FAIL));
 	return (EXIT_SUCCESS);
