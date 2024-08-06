@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 10:38:01 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/06 15:40:41 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*routine(void *arg)
 		ft_usleep(philo->data->time_to_eat, philo->data);
 	else if (philo->type == ODD_ONE_OUT)
 		ft_usleep(philo->data->time_to_eat * 2, philo->data);
-	while (philo->status == ALIVE)
+	while (is_alive(philo) == true)
 	{
 		if (eating(philo) == false)
 			break ;
@@ -44,11 +44,13 @@ long	get_time_left(t_data *data)
 	min_time_left = data->time_to_die;
 	while (++i < data->count)
 	{
+		pthread_mutex_lock(data->philos[i].check_status);
 		time_left = data->time_to_die - (get_elapsed_time(data)
 				- data->philos[i].last_eating_time);
-		if (time_left < 0 && data->running == true)
+		pthread_mutex_unlock(data->philos[i].check_status);
+		if (time_left < 0 && is_running(data) == true)
 		{
-			send_obituary(data, i + 1);
+			set_status(data, i + 1);
 			return (time_left);
 		}
 		if (time_left < min_time_left)
@@ -57,7 +59,7 @@ long	get_time_left(t_data *data)
 	return (min_time_left);
 }
 
-void	*kill_starver(void *arg)
+void	*monitoring(void *arg)
 {
 	t_data		*data;
 	long long	time_left;
@@ -65,7 +67,7 @@ void	*kill_starver(void *arg)
 	data = (t_data *)arg;
 	pthread_mutex_lock(data->program);
 	pthread_mutex_unlock(data->program);
-	while (data->running == true)
+	while (is_running(data) == true)
 	{
 		time_left = get_time_left(data);
 		ft_usleep(time_left / 2, data);
