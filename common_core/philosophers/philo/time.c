@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 09:22:00 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 17:42:39 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/07 14:10:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ long long	get_time_left(t_data *data)
 		time_left = data->time_to_die - (get_elapsed_time(data)
 				- data->philos[i].last_eating_time);
 		pthread_mutex_unlock(data->philos[i].check_status);
-		if (time_left < 0 && is_running(data) == true)
+		if (time_left <= 0 && is_running(data) == true)
 		{
 			set_status(data, i + 1);
 			return (time_left);
@@ -56,7 +56,9 @@ void	ft_usleep(long long time, t_data *data)
 {
 	long long	start;
 
+	if (time == 0)
+		return ;
 	start = get_time();
-	while (get_time() - start < time && is_running(data) == true)
+	while (is_running(data) == true && get_time() - start < time)
 		usleep(100);
 }
