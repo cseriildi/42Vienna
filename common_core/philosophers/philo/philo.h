@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/06 19:58:39 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/07 12:36:33 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			ft_strcmp(char *s1, char *s2);
 //utils	
 void		print_status(t_philo *philo, char *act);
 void		set_status(t_data *data, int id);
-bool		check_if_all_full(t_data *data, int id);
+bool		check_if_all_full(t_data *data);
 int			get_type(int id, int count);
 int			mutex_init(t_data *data, pthread_mutex_t **mutex);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 20:14:22 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/07 14:13:58 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->data->min_eat_count == 0)
+		return (NULL);
 	pthread_mutex_lock(philo->data->program);
 	pthread_mutex_unlock(philo->data->program);
 	print_status(philo, "is thinking");
@@ -41,11 +43,17 @@ void	*monitoring(void *arg)
 
 	data = (t_data *)arg;
 	pthread_mutex_lock(data->program);
+	if (data->min_eat_count == 0)
+	{
+		data->running = false;
+		pthread_mutex_unlock(data->program);
+		return (NULL);
+	}
 	pthread_mutex_unlock(data->program);
 	while (is_running(data) == true)
 	{
 		time_left = get_time_left(data);
-		ft_usleep(time_left / 2, data);
+		ft_usleep(time_left, data);
 	}
 	return (NULL);
 }
