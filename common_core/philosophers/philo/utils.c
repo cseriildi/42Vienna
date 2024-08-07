@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:37:27 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/06 20:01:03 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/07 14:21:31 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_status(t_philo *philo, char *act)
 {
 	pthread_mutex_lock(philo->data->print);
-	if (is_alive(philo) == true)
+	if (is_running(philo->data) == true)
 		printf("%lld %d %s\n", get_elapsed_time(philo->data), philo->id, act);
 	pthread_mutex_unlock(philo->data->print);
 }
@@ -26,6 +26,7 @@ void	set_status(t_data *data, int id)
 
 	pthread_mutex_lock(data->check_status);
 	data->running = false;
+	pthread_mutex_unlock(data->check_status);
 	pthread_mutex_lock(data->philos[id - 1].check_status);
 	data->philos[id - 1].status = DEAD;
 	pthread_mutex_unlock(data->philos[id - 1].check_status);
@@ -40,10 +41,9 @@ void	set_status(t_data *data, int id)
 			data->philos[i].status = MOURNING;
 		pthread_mutex_unlock(data->philos[i].check_status);
 	}
-	pthread_mutex_unlock(data->check_status);
 }
 
-bool	check_if_all_full(t_data *data, int id)
+bool	check_if_all_full(t_data *data)
 {
 	int	i;
 
@@ -52,8 +52,6 @@ bool	check_if_all_full(t_data *data, int id)
 	i = -1;
 	while (++i < data->count)
 	{
-		if (i == id - 1)
-			continue ;
 		pthread_mutex_lock(data->philos[i].check_status);
 		if (data->philos[i].status != FULL)
 		{
