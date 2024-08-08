@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:50:27 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/07 12:37:05 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/08 18:54:12 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,7 @@ void	thinking(t_philo *philo)
 	if (is_running(philo->data) == true)
 	{
 		print_status(philo, "is thinking");
-		if (philo->data->count % 2 == 1)
-			ft_usleep(philo->data->time_to_eat * 2
-				- philo->data->time_to_sleep, philo->data);
-		else
-			ft_usleep(philo->data->time_to_eat
-				- philo->data->time_to_sleep, philo->data);
+		ft_usleep(philo->data->time_to_think, philo->data);
 	}
 }
 

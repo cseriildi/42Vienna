@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/07 14:13:58 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/08 18:53:51 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	*routine(void *arg)
 	pthread_mutex_lock(philo->data->program);
 	pthread_mutex_unlock(philo->data->program);
 	print_status(philo, "is thinking");
-	if (philo->type == EVEN)
-		ft_usleep(philo->data->time_to_eat, philo->data);
-	else if (philo->type == ODD_ONE_OUT)
-		ft_usleep(philo->data->time_to_eat * 2, philo->data);
+	ft_usleep(philo->initial_thinking_time, philo->data);
 	while (is_running(philo->data) == true)
 	{
 		if (eating(philo) == false)
