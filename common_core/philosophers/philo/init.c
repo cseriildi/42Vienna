@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/08 19:20:24 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/09 13:09:49 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->philos = malloc(sizeof(t_philo) * data->count);
 	if (!data->philos)
 		return (set_exit_code(data, MALLOC_FAIL));
-	if (data->count % 2 == 0)
-		data->time_to_think = data->time_to_eat - data->time_to_sleep;
-	else
-		data->time_to_think = data->time_to_eat / ((data->count - 1) / 2);
+	data->time_to_think = data->time_to_eat - data->time_to_sleep;
+	if (data->count % 2 == 1)
+		data->time_to_think = data->time_to_eat / (float)(data->count / 2)
+			+ data->time_to_think;
 	return (EXIT_SUCCESS);
 }
 
@@ -110,8 +110,8 @@ int	init_philos(t_data *data, t_philo *philos)
 		else if (data->count % 2 == 0 && philos[i].type == ODD)
 			philos[i].initial_thinking_time = 0;
 		else if (data->count % 2 == 1)
-			philos[i].initial_thinking_time = data->time_to_think * (i / 2)
-				+ data->time_to_eat * (philos[i].type == EVEN);
+			philos[i].initial_thinking_time = data->time_to_eat * (i % 2 == 1)
+				+ data->time_to_eat / (float)(data->count / 2) * (i / 2);
 		philos[i].times_eaten = 0;
 		philos[i].last_eating_time = 0;
 		philos[i].status = ALIVE;
