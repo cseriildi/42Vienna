@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/09 14:36:16 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/09 15:29:25 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	init_data(t_data *data, int argc, char **argv)
 		return (set_exit_code(data, MALLOC_FAIL));
 	data->time_to_think = data->time_to_eat - data->time_to_sleep;
 	if (data->count % 2 == 1)
-		data->time_to_think = data->time_to_eat / (float)(data->count / 2)
-			+ data->time_to_think;
+		data->time_to_think += data->time_to_eat / (float)(data->count / 2);
 	return (EXIT_SUCCESS);
 }
 

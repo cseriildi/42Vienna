@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 12:32:57 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/08 18:53:51 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/09 14:40:31 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,4 @@ bool	is_running(t_data *data)
 	running = data->running;
 	pthread_mutex_unlock(data->check_status);
 	return (running);
-}
-
-bool	is_alive(t_philo *philo)
-{
-	bool	alive;
-
-	pthread_mutex_lock(philo->check_status);
-	if (philo->status == ALIVE || philo->status == FULL)
-		alive = true;
-	else
-		alive = false;
-	pthread_mutex_unlock(philo->check_status);
-	return (alive);
 }
