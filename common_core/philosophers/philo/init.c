@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/09 13:09:49 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/09 14:36:16 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,9 @@ int	init_philos(t_data *data, t_philo *philos)
 	while (++i < data->count)
 	{
 		philos[i].id = i + 1;
-		philos[i].type = get_type(philos[i].id, data->count);
-		if (data->count % 2 == 0 && philos[i].type == EVEN)
+		if (data->count % 2 == 0 && i % 2 == 1)
 			philos[i].initial_thinking_time = data->time_to_eat;
-		else if (data->count % 2 == 0 && philos[i].type == ODD)
+		else if (data->count % 2 == 0 && i % 2 == 0)
 			philos[i].initial_thinking_time = 0;
 		else if (data->count % 2 == 1)
 			philos[i].initial_thinking_time = data->time_to_eat * (i % 2 == 1)
