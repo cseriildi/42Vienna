@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/09 13:00:05 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/09 14:35:24 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,11 @@ typedef enum s_status
 	MOURNING
 }	t_status;
 
-typedef enum s_type
-{
-	ODD_ONE_OUT,
-	EVEN,
-	ODD
-}	t_type;
-
 struct	s_data;
 
 typedef struct s_philo
 {
 	int				id;
-	int				type;
 	int				initial_thinking_time;
 	int				status;
 	int				times_eaten;

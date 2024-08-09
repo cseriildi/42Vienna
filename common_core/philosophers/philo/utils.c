@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 10:37:27 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/07 14:21:31 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/09 14:36:34 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,6 @@ bool	check_if_all_full(t_data *data)
 	data->running = false;
 	pthread_mutex_unlock(data->check_status);
 	return (true);
-}
-
-int	get_type(int id, int count)
-{
-	if (id % 2 == 0)
-		return (EVEN);
-	else if (id == count && id != 1)
-		return (ODD_ONE_OUT);
-	else
-		return (ODD);
 }
 
 int	mutex_init(t_data *data, pthread_mutex_t **mutex)
