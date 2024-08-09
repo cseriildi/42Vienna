@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/09 14:35:24 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/09 15:27:07 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void		*routine(void *arg);
 void		*monitoring(void *arg);
 void		join_threads(t_data *data);
 bool		is_running(t_data *data);
-bool		is_alive(t_philo *philo);
 
 //events
 bool		eating(t_philo *philo);
@@ -109,7 +108,6 @@ int			ft_strcmp(char *s1, char *s2);
 void		print_status(t_philo *philo, char *act);
 void		set_status(t_data *data, int id);
 bool		check_if_all_full(t_data *data);
-int			get_type(int id, int count);
 int			mutex_init(t_data *data, pthread_mutex_t **mutex);
 
 //cleanup
