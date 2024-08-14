@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:44:25 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/14 08:57:26 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/14 12:34:48 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,76 @@
 
 void	simulation(t_philo *philo)
 {
-	t_inprocess_data	philo_data;
-	
-	philo_data = get_philo_data(philo, philo->data);
-	safe_print(philo_data, "is thinking");
-	ft_usleep(philo_data.initial_thinking_time, philo_data);
+	if (pthread_create(&philo->thread, NULL, &routine, philo))
+		safe_process_exit(philo, THREAD_CREATE_FAIL);
+	if (pthread_create(&philo->monitor, NULL, &monitor, philo))
+		safe_process_exit(philo, THREAD_CREATE_FAIL);
+	pthread_join(philo->thread, NULL);
+	pthread_join(philo->monitor, NULL);
+	safe_process_exit(philo, EXIT_SUCCESS);
+}
+
+void	*routine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	safe_print(philo, "is thinking");
+	if (ft_usleep(philo->initial_thinking_time, philo) == false)
+		return (NULL);
 	while (true)
 	{
-		philo_data = eating(philo_data);
-		sleeping(philo_data);
-		thinking(philo_data);
+		if (eating(philo) == false)
+			break ;
+		if (sleeping(philo) == false)
+			break ;
+		if (thinking(philo) == false)
+			break ;
 	}
+	return (NULL);
 }
 
-t_inprocess_data	get_philo_data(t_philo *philo, t_data *data)
+void	*monitor(void *arg)
 {
-	t_inprocess_data	philo_data;
+	t_philo	*philo;
+	int		i;
 
-	philo_data.id = philo->id;
-	philo_data.initial_thinking_time = philo->initial_thinking_time;
-	philo_data.time_to_die = data->time_to_die;
-	philo_data.time_to_eat = data->time_to_eat;
-	philo_data.time_to_sleep = data->time_to_sleep;
-	philo_data.time_to_think = data->time_to_think;
-	philo_data.philo_count = data->count;
-	philo_data.start_time = data->start_time;
-	philo_data.last_eating_time = philo_data.start_time;
-	philo_data.eat_count = 0;
-	philo_data.min_eat_count = data->min_eat_count;
-	philo_data.sems.forks = data->sems.forks;
-	philo_data.sems.dead = data->sems.dead;
-	philo_data.sems.full = data->sems.full;
-	philo_data.sems.print = data->sems.print;
-	free(data->philos);
-	free(data);
-	//philo_data = open_semaphores(philo_data);
-	return (philo_data);
+	philo = (t_philo *)arg;
+	sem_wait(philo->sems.dead);
+	sem_post(philo->sems.dead);
+	sem_wait(philo->sems.check_status);
+	philo->running = false;
+	sem_post(philo->sems.check_status);
+	i = -1;
+	while (++i < philo->count)
+		sem_post(philo->sems.dead);
+	i = -1;
+	while (++i < philo->count)
+		sem_post(philo->sems.full);
+	return (NULL);
 }
-/*
-t_inprocess_data	open_semaphores(t_inprocess_data philo)
+
+void	*full_monitor(void *arg)
 {
-	philo.forks = sem_open("/forks", 0);
-	if (philo.forks == 1)
-		safe_process_exit (philo, SEM_FAIL);
-	philo.full = sem_open("/full", 0);
-	if (philo.full == SEM_FAILED)
-		safe_process_exit (philo, SEM_FAIL);
-	philo.print = sem_open("/print", 0);
-	if (philo.print == SEM_FAILED)
-		safe_process_exit (philo, SEM_FAIL);
-	philo.dead = sem_open("/dead", 0);
-	if (philo.dead == SEM_FAILED)
-		safe_process_exit (philo, SEM_FAIL);
-	return (philo);
+	t_data	*data;
+	int		i;
+
+	data = (t_data *)arg;
+	i = -1;
+	while (++i < data->count)
+		sem_wait(data->sems.full);
+	i = -1;
+	while (++i < data->count)
+		sem_post(data->sems.dead);
+	return (NULL);
 }
-*/
+
+bool	is_running(t_philo *philo)
+{
+	bool	running;
+
+	sem_wait(philo->sems.check_status);
+	running = philo->running;
+	sem_post(philo->sems.check_status);
+	return (running);
+}
