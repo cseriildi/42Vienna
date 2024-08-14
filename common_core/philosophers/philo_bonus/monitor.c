@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 13:22:50 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/14 07:49:31 by cseriildii       ###   ########.fr       */
+/*   Created: 2024/08/13 13:38:52 by cseriildii        #+#    #+#             */
+/*   Updated: 2024/08/13 21:30:41 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	main(int argc, char **argv)
+void	*dead_monitor(void *arg)
 {
 	t_data	*data;
-	int		exit_code;
+	int		i;
 
-	check_input(argc, argv);
-	data = malloc(sizeof(t_data));
-	if (!data)
-		safe_exit(NULL, MALLOC_FAIL);
-	init_data(data, argc, argv);
-	init_semaphores(data);
-	data->start_time = get_time();
-	init_processes(data);
-	init_threads(data);
-	exit_code = wait_processes(data);
-	safe_exit(data, exit_code);
+	data = (t_data *)arg;
+	sem_wait(data->dead);
+	kill_processes(data);
+	i = -1;
+	while (++i < data->count)
+		sem_post(data->full);
+	return (NULL);
+}
+
+void	*full_monitor(void *arg)
+{
+	t_data	*data;
+	int		i;
+
+	data = (t_data *)arg;
+	i = -1;
+	while (++i < data->count)
+		sem_wait(data->full);
+	sem_post(data->dead);
+	return (NULL);
 }
