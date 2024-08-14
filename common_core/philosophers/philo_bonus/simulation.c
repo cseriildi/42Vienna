@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:44:25 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/14 12:34:48 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/14 12:48:02 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	sem_wait(philo->sems.print);
+	sem_post(philo->sems.print);
+	philo->start_time = get_time();
+	philo->last_eating_time = philo->start_time;
 	safe_print(philo, "is thinking");
 	if (ft_usleep(philo->initial_thinking_time, philo) == false)
 		return (NULL);

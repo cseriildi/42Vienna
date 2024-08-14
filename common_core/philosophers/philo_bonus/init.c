@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 15:55:05 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/14 12:30:30 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/14 12:48:18 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	init_philo(t_philo *philo, int i, int argc, char **argv)
 		philo->initial_thinking_time = philo->time_to_eat
 			/ (float)(philo->count / 2) * i;
 	philo->eat_count = 0;
-	philo->start_time = get_time();
-	philo->last_eating_time = philo->start_time;
 	philo->running = true;
 }
 
