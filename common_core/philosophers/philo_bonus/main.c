@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:22:50 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/14 07:49:31 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/14 12:22:04 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		safe_exit(NULL, MALLOC_FAIL);
-	init_data(data, argc, argv);
+	init_data(data, argv);
 	init_semaphores(data);
-	data->start_time = get_time();
-	init_processes(data);
+	init_processes(data, argc, argv);
+	sem_post(data->sems.print);
 	init_threads(data);
 	exit_code = wait_processes(data);
 	safe_exit(data, exit_code);
