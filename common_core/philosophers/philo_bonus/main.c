@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:22:50 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/14 12:22:04 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/26 14:40:09 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	main(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		safe_exit(NULL, MALLOC_FAIL);
-	init_data(data, argv);
+	init_data(data, argc, argv);
 	init_semaphores(data);
-	init_processes(data, argc, argv);
-	sem_post(data->sems.print);
+	data->start_time = get_time();
+	init_processes(data);
 	init_threads(data);
 	exit_code = wait_processes(data);
 	safe_exit(data, exit_code);

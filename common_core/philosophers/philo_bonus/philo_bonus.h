@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/14 12:36:25 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/26 14:35:59 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,20 @@ typedef struct s_philo
 
 typedef struct s_data
 {
+	int			argc;
+	char		**argv;
 	int			count;
 	t_sems		sems;
 	pthread_t	dead_monitor;
 	pthread_t	full_monitor;
 	pid_t		*pids;
+	long long	start_time;
 }	t_data;
 
 //init
-void		init_data(t_data *data, char **argv);
-void		init_philo(t_philo *philo, int i, int argc, char **argv);
-void		init_processes(t_data *data, int argc, char **argv);
+void		init_data(t_data *data, int argc, char **argv);
+void		init_philo(t_philo *philo, int i, t_data *data);
+void		init_processes(t_data *data);
 void		init_semaphores(t_data *data);
 void		init_threads(t_data *data);
 
