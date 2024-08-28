@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/09 15:29:25 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/28 11:51:13 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	init_data(t_data *data, int argc, char **argv)
 	if (!data->philos)
 		return (set_exit_code(data, MALLOC_FAIL));
 	data->time_to_think = data->time_to_eat - data->time_to_sleep;
-	if (data->count % 2 == 1)
+	if (data->count % 2 == 1 && data->count != 1)
 		data->time_to_think += data->time_to_eat / (float)(data->count / 2);
 	return (EXIT_SUCCESS);
 }
@@ -107,7 +107,7 @@ int	init_philos(t_data *data, t_philo *philos)
 			philos[i].initial_thinking_time = data->time_to_eat;
 		else if (data->count % 2 == 0 && i % 2 == 0)
 			philos[i].initial_thinking_time = 0;
-		else if (data->count % 2 == 1)
+		else if (data->count % 2 == 1 && data->count != 1)
 			philos[i].initial_thinking_time = data->time_to_eat * (i % 2 == 1)
 				+ data->time_to_eat / (float)(data->count / 2) * (i / 2);
 		philos[i].times_eaten = 0;
