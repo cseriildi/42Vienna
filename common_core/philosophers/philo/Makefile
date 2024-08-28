@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
+#    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/24 13:35:49 by icseri            #+#    #+#              #
-#    Updated: 2024/08/06 17:45:26 by cseriildii       ###   ########.fr        #
+#    Updated: 2024/08/28 11:54:57 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS = ${SRCS:.c=.o}
 
 COMP = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -pthread
+CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread,undefined
 
 all: ${NAME}
 
