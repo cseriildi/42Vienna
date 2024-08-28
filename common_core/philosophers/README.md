@@ -12,7 +12,7 @@ The goal of this project is to solve the **Dining Philosophers Problem**.
 - [Playlist about Unix Processes in C](https://youtube.com/playlist?list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&si=iyDYLxQotEdMbpUW)
 - [Visualizer](https://nafuka11.github.io/philosophers-visualizer/) for the output of your project
 - To check for data races and deadlocks in your code use the `--tool=helgrind` flag with valgrind
-- To check for the leaks in each process use the `--track-children=yes` flag with the valgrind
+- To check for the leaks in each process use the `--trace-children=yes` flag with the valgrind
 - Check out [Lukas' README](https://github.com/itislu/42-Philosophers/blob/main/README.md) for the optimal distribution of the thinking time in case of odd number of philosophers
 
 ## Mandatory Part
