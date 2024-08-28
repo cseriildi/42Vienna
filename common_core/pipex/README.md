@@ -7,8 +7,8 @@ This project focuses on using **pipes**. You will learn about **processes**, how
 
 ## Useful stuff
 - Playlist to get familiar with [Unix Processes in C](https://youtube.com/playlist?list=PLfqABt5AS4FkW5mOn2Tn9ZZLLDwA3kZUY&si=iyDYLxQotEdMbpUW)
-- To check for the leaks in each process use the `--track-children=yes` flag with the valgrind
-- To check for open fd-s use the `--trace-fds=yes` flag with valgrind
+- To check for the leaks in each process use the `--trace-children=yes` flag with the valgrind
+- To check for open fd-s use the `--track-fds=yes` flag with valgrind
 
 ## Mandatory
 The program should handle two commands and should work like the original command line:
