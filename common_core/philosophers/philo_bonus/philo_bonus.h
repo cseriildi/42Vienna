@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/26 14:35:59 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/29 16:20:21 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,41 +42,43 @@ struct	s_data;
 typedef struct s_sems
 {
 	sem_t	*forks;
+	sem_t	*take2forks;
 	sem_t	*full;
 	sem_t	*dead;
 	sem_t	*print;
 	sem_t	*check_status;
+	sem_t	*program;
 }	t_sems;
 
 typedef struct s_philo
 {
-	int			id;
-	int			initial_thinking_time;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			time_to_think;
-	int			min_eat_count;
-	int			count;
-	long long	start_time;
-	long long	last_eating_time;
-	int			eat_count;
-	t_sems		sems;
-	pthread_t	thread;
-	pthread_t	monitor;
-	bool		running;
+	int				id;
+	int				initial_thinking_time;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				time_to_think;
+	int				min_eat_count;
+	int				count;
+	long long		start_time;
+	long long		last_eating_time;
+	int				eat_count;
+	t_sems			sems;
+	pthread_t		thread;
+	pthread_t		monitor;
+	bool			running;
 }	t_philo;
 
 typedef struct s_data
 {
-	int			argc;
-	char		**argv;
-	int			count;
-	t_sems		sems;
-	pthread_t	dead_monitor;
-	pthread_t	full_monitor;
-	pid_t		*pids;
-	long long	start_time;
+	int				argc;
+	char			**argv;
+	int				count;
+	t_sems			sems;
+	pthread_t		dead_monitor;
+	pthread_t		full_monitor;
+	pid_t			*pids;
+	long long		start_time;
 }	t_data;
 
 //init
@@ -94,15 +96,16 @@ bool		ft_usleep(long long time, t_philo *philo);
 //simulation
 void		simulation(t_philo *philo);
 void		*routine(void *arg);
+void		*dead_monitor(void *arg);
+void		*full_monitor(void *arg);
+void		*monitor(void *arg);
 
 //events
 bool		eating(t_philo *philo);
 bool		sleeping(t_philo *philo);
 bool		thinking(t_philo *philo);
-
-//monitor
-void		*full_monitor(void *arg);
-void		*monitor(void *arg);
+bool		take_forks(t_philo *philo);
+void		dying(t_philo *philo);
 
 //utils
 void		check_input(int argc, char **argv);

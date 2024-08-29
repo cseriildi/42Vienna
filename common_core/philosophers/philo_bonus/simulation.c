@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:44:25 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/26 14:28:54 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/29 15:34:39 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	sem_wait(philo->sems.print);
-	sem_post(philo->sems.print);
 	safe_print(philo, "is thinking");
 	if (ft_usleep(philo->initial_thinking_time, philo) == false)
 		return (NULL);
@@ -48,20 +46,14 @@ void	*routine(void *arg)
 void	*monitor(void *arg)
 {
 	t_philo	*philo;
-	int		i;
 
 	philo = (t_philo *)arg;
 	sem_wait(philo->sems.dead);
-	sem_post(philo->sems.dead);
 	sem_wait(philo->sems.check_status);
 	philo->running = false;
 	sem_post(philo->sems.check_status);
-	i = -1;
-	while (++i < philo->count)
-		sem_post(philo->sems.dead);
-	i = -1;
-	while (++i < philo->count)
-		sem_post(philo->sems.full);
+	sem_post(philo->sems.program);
+	sem_post(philo->sems.full);
 	return (NULL);
 }
 
@@ -80,12 +72,17 @@ void	*full_monitor(void *arg)
 	return (NULL);
 }
 
-bool	is_running(t_philo *philo)
+void	*dead_monitor(void *arg)
 {
-	bool	running;
+	t_data	*data;
+	int		i;
 
-	sem_wait(philo->sems.check_status);
-	running = philo->running;
-	sem_post(philo->sems.check_status);
-	return (running);
+	data = (t_data *)arg;
+	i = -1;
+	while (++i < data->count)
+		sem_wait(data->sems.program);
+	i = -1;
+	while (++i < data->count)
+		sem_post(data->sems.print);
+	return (NULL);
 }

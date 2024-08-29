@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 15:55:05 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/26 14:39:56 by icseri           ###   ########.fr       */
+/*   Updated: 2024/08/29 16:19:39 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	init_data(t_data *data, int argc, char **argv)
 	data->argc = argc;
 	data->argv = argv;
 	data->count = ft_atoi(argv[1]);
+	data->sems.check_status = NULL;
+	data->sems.dead = NULL;
+	data->sems.forks = NULL;
+	data->sems.print = NULL;
+	data->sems.full = NULL;
+	data->sems.program = NULL;
+	data->sems.take2forks = NULL;
 	data->pids = malloc(sizeof(pid_t) * data->count);
 	if (!data->pids)
 		safe_exit(data, MALLOC_FAIL);
@@ -34,18 +41,22 @@ void	init_philo(t_philo *philo, int i, t_data *data)
 	if (data->argc == 6)
 		philo->min_eat_count = ft_atoi(data->argv[5]);
 	philo->time_to_think = philo->time_to_eat - philo->time_to_sleep;
-	if (philo->count % 2 == 1)
+	if (philo->count % 2 == 1 && philo->count != 1)
 		philo->time_to_think += philo->time_to_eat / (float)(philo->count / 2);
+	philo->initial_thinking_time = 0;
 	if (philo->count % 2 == 0)
 		philo->initial_thinking_time = philo->time_to_eat
 			* (i >= philo->count / 2);
-	else
+	else if (philo->count != 1)
 		philo->initial_thinking_time = philo->time_to_eat
 			/ (float)(philo->count / 2) * i;
 	philo->eat_count = 0;
 	philo->running = true;
 	philo->start_time = data->start_time;
 	philo->last_eating_time = philo->start_time;
+	philo->sems = data->sems;
+	free(data->pids);
+	free(data);
 }
 
 void	init_processes(t_data *data)
@@ -68,9 +79,6 @@ void	init_processes(t_data *data)
 		else if (data->pids[i] == 0)
 		{
 			init_philo(philo, i, data);
-			philo->sems = data->sems;
-			free(data->pids);
-			free(data);
 			simulation(philo);
 		}
 	}
@@ -94,10 +102,18 @@ void	init_semaphores(t_data *data)
 	data->sems.check_status = safe_open_sem("/status", 1);
 	if (data->sems.check_status == SEM_FAILED)
 		safe_exit(data, SEM_FAIL);
+	data->sems.program = safe_open_sem("/program", 0);
+	if (data->sems.program == SEM_FAILED)
+		safe_exit(data, SEM_FAIL);
+	data->sems.take2forks = safe_open_sem("/take2forks", data->count / 2);
+	if (data->sems.take2forks == SEM_FAILED)
+		safe_exit(data, SEM_FAIL);
 }
 
 void	init_threads(t_data *data)
 {
 	pthread_create(&data->full_monitor, NULL, &full_monitor, data);
 	pthread_join(data->full_monitor, NULL);
+	pthread_create(&data->dead_monitor, NULL, &dead_monitor, data);
+	pthread_join(data->dead_monitor, NULL);
 }

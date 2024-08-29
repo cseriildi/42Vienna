@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:02:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/14 12:38:53 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/29 16:20:13 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	safe_exit(t_data *data, int exit_code)
 		safe_close_sem(data->sems.dead, "/dead");
 		safe_close_sem(data->sems.print, "/print");
 		safe_close_sem(data->sems.check_status, "/status");
+		safe_close_sem(data->sems.program, "/program");
+		safe_close_sem(data->sems.take2forks, "/take2forks");
 		if (data->pids)
 			free(data->pids);
 		free(data);
@@ -59,7 +61,19 @@ void	safe_process_exit(t_philo *philo, int exit_code)
 		safe_close_sem(philo->sems.dead, "/dead");
 		safe_close_sem(philo->sems.print, "/print");
 		safe_close_sem(philo->sems.check_status, "/status");
+		safe_close_sem(philo->sems.program, "/program");
+		safe_close_sem(philo->sems.take2forks, "/take2forks");
 		free(philo);
 	}
 	exit (exit_code);
+}
+
+void	safe_close_sem(sem_t *sem, char *name)
+{
+	if (sem)
+	{
+		sem_unlink(name);
+		sem_close(sem);
+		sem = NULL;
+	}
 }
