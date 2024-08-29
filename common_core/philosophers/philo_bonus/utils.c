@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:56:18 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/14 12:34:29 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/08/29 15:34:59 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,6 @@ void	safe_print(t_philo *philo, char *str)
 	sem_post(philo->sems.print);
 }
 
-void	safe_close_sem(sem_t *sem, char *name)
-{
-	if (sem)
-	{
-		sem_unlink(name);
-		sem_close(sem);
-		sem = NULL;
-	}
-}
-
 sem_t	*safe_open_sem(char *name, int value)
 {
 	sem_t	*sem;
@@ -83,4 +73,14 @@ sem_t	*safe_open_sem(char *name, int value)
 		return (SEM_FAILED);
 	sem_unlink(name);
 	return (sem);
+}
+
+bool	is_running(t_philo *philo)
+{
+	bool	running;
+
+	sem_wait(philo->sems.check_status);
+	running = philo->running;
+	sem_post(philo->sems.check_status);
+	return (running);
 }
