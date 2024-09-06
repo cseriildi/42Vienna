@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
+#    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/09/04 14:14:09 by icseri           ###   ########.fr        #
+#    Updated: 2024/09/06 13:22:19 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = phonebook
 
-SRCS = PhoneBook.cpp
+SRCS = PhoneBook.cpp Contact.cpp main.cpp utils.cpp
 
 OBJS = ${SRCS:.cpp=.o}
 
