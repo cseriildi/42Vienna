@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:36:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/04 15:00:02 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/08 12:36:07 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 #include <string>
 #include <algorithm>
 
-std::string	make_it_loud(std::string text)
+std::string	make_it_loud(const std::string& text)
 {
+	std::string uppercased = text;
 	std::string::iterator it; 
 	
-	for (it = text.begin(); it != text.end(); it++)
+	for (it = uppercased.begin(); it != uppercased.end(); it++)
 		*it = std::toupper(*it);
-	return text;
+	return uppercased;
 }
 
 int main(int argc, char **argv)
