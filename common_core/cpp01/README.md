@@ -6,7 +6,7 @@ The goal of the CPP Module projects is to get familiar with C++ programming lang
 - **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`.
 
 ## Useful Stuff
-
+- [Documentation and Tutorial for C++](https://cplusplus.com/doc/tutorial/)
 
 ## Exercise 00
 The goal of this task is to decide when is it better to allocate on the stack and on thhe heap.

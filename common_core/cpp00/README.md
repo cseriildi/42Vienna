@@ -6,7 +6,7 @@ The goal of the CPP Module projects is to get familiar with C++ programming lang
 - **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`.
 
 ## Useful Stuff
-
+- [Documentation and Tutorial for C++](https://cplusplus.com/doc/tutorial/)
 
 ## Exercise 00
 Create a program that behaves like this:
