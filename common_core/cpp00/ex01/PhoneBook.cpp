@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:36:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/08 16:29:20 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 19:13:26 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	print_field(const std::string& field, int len)
 {
 	if (len <= 0)
 		return;
-	if (field.length() <= len)
+	if (field.length() <= (long unsigned int)len)
 		std::cout << std::setw(len) << field;
 	else
 		std::cout << field.substr(0, len - 1) << ".";
