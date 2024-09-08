@@ -2,7 +2,7 @@
 
 ## Summary
 The goal of the CPP Module projects is to get familiar with C++ programming language quickly.
-- **Allowed functions**: Any function from the standard library, if there is a C++ version of the function, use that.
+- **Allowed functions**: Any function from the standard library, if there is a C++ version of the function, use that. The code must compile with c++98.
 - **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`.
 
 ## Useful Stuff
@@ -28,7 +28,7 @@ Create a phonebook for 8 cantacts
 	- PhoneBook: an array of contacts, max 8, after reaching max replacing the oldest one
 	- Contact: a phonebook contact
 - After running the program it will wait for a command
-	- **ADD**: to save a new contact with the below information
+	- **ADD**: to save a new contact with the below mandatory fields (leaving them empty should not be accepted)
 		- first name
 		- last name
 		- nickname
@@ -43,6 +43,16 @@ Create a phonebook for 8 cantacts
 			- In case of incorect index throw an error and prompt again
 	- **EXIT**: to delete the phonebook and exit the program
 	- Anything else should just give back the prompt
+
+<div style="background-color: #505050; padding: 10px; border-radius: 5px; font-style: italic;">
+
+Additional things I added that are not in the subject:
+- replacing multiple whitespaces with a singular space and trimming the leading and closing whitespaces, if after trimming the string is empty trow an error and prompt again
+- for the phone number I only accept numerical value with an optional spaces and a leading `+` sign, but it has to contain at least one number
+- if no contact has been saved yet, instead of printing an empty phonebook I throw a `There are no contacts in the phonebook` error and prompt again
+- I add the new contact at the top of the phonebook so I don't have to handle the issue when the phonebook is full, bacause the oldest contact is gonna be removed automatically when I have at least 8 contacts already
+</div>
+
 
 ## Exercise 02
 There is a `test.cpp`, an `Account.hpp` and a log file provided, and using those you have to recreate the missing `Account.cpp` file that should create a program the output of which should be the same as the provided log file *(other than the timestamps)*.
