@@ -6,16 +6,12 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 10:08:49 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/08 16:23:38 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 16:48:07 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Account.hpp"
-#include <vector>
-#include <algorithm>
-#include <functional>
 #include <iostream>
-#include <string>
 #include <ctime>
 
 int	Account::_nbAccounts = 0;
