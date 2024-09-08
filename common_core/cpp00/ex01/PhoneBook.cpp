@@ -6,20 +6,14 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:36:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/08 12:46:11 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 16:29:20 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() 
-	: _contactCount(0)
-{
-}
-
-PhoneBook::~PhoneBook()
-{
-}
+PhoneBook::PhoneBook() : _contactCount(0) {}
+PhoneBook::~PhoneBook() {}
 
 void	PhoneBook::setContact(const std::string& firstName,
 								const std::string& lastName,
@@ -40,15 +34,8 @@ void	PhoneBook::setContact(const std::string& firstName,
 	if (this->_contactCount < this->_MaxContactCount)
 		this->_contactCount++;
 }
-int		PhoneBook::getContactCount(void) const
-{
-	return this->_contactCount;
-}
-
-Contact	PhoneBook::getContact(int index) const
-{
-	return this->_contacts[index];
-}
+int		PhoneBook::getContactCount(void) const {return this->_contactCount;}
+Contact	PhoneBook::getContact(int index) const {return this->_contacts[index];}
 
 void	PhoneBook::_shiftContacts(void)
 {
