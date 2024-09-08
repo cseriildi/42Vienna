@@ -6,7 +6,7 @@
 #    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/09/08 20:31:32 by cseriildii       ###   ########.fr        #
+#    Updated: 2024/09/08 21:45:03 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,6 @@ fclean: clean
 	
 re: fclean all
 
-build: re clean
+build: all clean
 
 .PHONY: all clean fclean re build
