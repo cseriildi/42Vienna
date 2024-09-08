@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:14:48 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/06 16:04:06 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 12:46:08 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 
 #include "Contact.hpp"
 #include <iomanip>
+#include <sstream>
 
-void	print_field(std::string field, int len);
+void		print_field(const std::string& field, int len);
+std::string	ft_itoa(int n);
 
 class PhoneBook
 {
@@ -28,30 +30,30 @@ class PhoneBook
 		~PhoneBook();
 
 		//Setters
-		void				set_contact(std::string first_name,
-										std::string last_name,
-										std::string nickname,
-										std::string phone_number,
-										std::string darkest_secret);
+		void				setContact(const std::string& firstName,
+										const std::string& lastName,
+										const std::string& nickName,
+										const std::string& phoneNumber,
+										const std::string& darkestSecret);
 
 		//Getters
-		int					get_contact_count(void);
-		Contact				get_contact(int index);
+		int					getContactCount(void) const;
+		Contact				getContact(int index) const;
 
 		//Functions
-		void				print_phonebook(void);
-		void				print_contact(int index);
+		void				printPhonebook(void) const;
+		void				printContact(int index) const;
 
 	private:
 
 		//Variables
-		static const int	max_contact_count = 8;
-		static const int	box_length = 10;
-		int					contact_count;
-		Contact				contacts[max_contact_count];
+		static const int	_MaxContactCount = 8;
+		static const int	_BoxLength = 10;
+		int					_contactCount;
+		Contact				_contacts[_MaxContactCount];
 
 		//Functions
-		void				shift_contacts(void);
+		void				_shiftContacts(void);
 		
 };
 
