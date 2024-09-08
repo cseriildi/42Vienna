@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:14:48 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/08 12:46:08 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 16:59:33 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 #include "Contact.hpp"
 #include <iomanip>
-#include <sstream>
+#include <iostream>
+#include <string>
 
 void		print_field(const std::string& field, int len);
 std::string	ft_itoa(int n);
