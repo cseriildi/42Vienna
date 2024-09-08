@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:15:48 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/08 13:28:28 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 17:00:24 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define UTILS_HPP
 
 #include "PhoneBook.hpp"
-#include <limits>
-#include <cctype>
+#include <iostream>
+#include <string>
 
 void		add_contact(PhoneBook &myPhoneBook);
 void		search_contact(PhoneBook &myPhoneBook);
