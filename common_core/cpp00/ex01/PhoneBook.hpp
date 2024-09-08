@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:14:48 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/08 16:59:33 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 18:19:25 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 void		print_field(const std::string& field, int len);
 std::string	ft_itoa(int n);
