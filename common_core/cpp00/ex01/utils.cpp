@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:13:39 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/08 13:27:16 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 18:15:20 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ std::string get_data(const std::string& field)
 		data = trim(data);
 		if (data.length() == 0)
 		{
-			std::cout << field << " cannot be empty!" << std::endl;
+			std::cerr << field << " cannot be empty!" << std::endl;
 			continue;
 		}
 		if (field == "Phone Number" && !valid_phone_number(data))
