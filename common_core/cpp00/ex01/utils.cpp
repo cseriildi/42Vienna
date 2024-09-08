@@ -6,36 +6,36 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:13:39 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/06 16:03:58 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 13:27:16 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.hpp"
 
-void	add_contact(PhoneBook &my_phonebook)
+void	add_contact(PhoneBook &myPhoneBook)
 {
-	std::string first_name = get_data("First Name");
-	std::string last_name = get_data("Last Name");
+	std::string firstName = get_data("First Name");
+	std::string lastName = get_data("Last Name");
 	std::string nickname = get_data("Nickname");
-	std::string phone_number = get_data("Phone Number");
-	std::string darkest_secret = get_data("Darkest Secret");
+	std::string phoneNumber = get_data("Phone Number");
+	std::string darkestSecret = get_data("Darkest Secret");
 
-	my_phonebook.set_contact(first_name, last_name, nickname, phone_number, darkest_secret);
+	myPhoneBook.setContact(firstName, lastName, nickname, phoneNumber, darkestSecret);
 	
 }
 
-void	search_contact(PhoneBook &my_phonebook)
+void	search_contact(PhoneBook &myPhoneBook)
 {
 	std::string input;
 	int 		index;
-	int			max_index = my_phonebook.get_contact_count();
+	int			max_index = myPhoneBook.getContactCount();
 
 	if (max_index == 0)
 	{
 		std::cerr << "There are no contacts in the phonebook" << std::endl;
 		return;
 	}
-	my_phonebook.print_phonebook();
+	myPhoneBook.printPhonebook();
 	
 	while (true)
 	{
@@ -50,13 +50,12 @@ void	search_contact(PhoneBook &my_phonebook)
 		else
 			std::cerr << "There are only " << max_index << " contacts in the phonebook" << std::endl;
 	}
-	my_phonebook.print_contact(index);
+	myPhoneBook.printContact(index);
 }
 
-std::string get_data(std::string field)
+std::string get_data(const std::string& field)
 {
 	std::string data;
-	int			phone_number;
 
 	while (true)
 	{
@@ -82,24 +81,24 @@ int get_index(void)
 {
 	int 		index;
 	std::string input;
+	std::string index_str;
+	
 
 	while (true)
 	{
 		std::cout << "Enter the index of the contact you want to see: ";
 		std::getline(std::cin, input);
 
-		try
+		if (input.length() == 0)
 		{
-			index = std::stoi(input);
-		}
-		catch (std::invalid_argument &e)
-		{
-			std::cerr << "Index must be a number!" << std::endl;
+			std::cerr << "Index cannot be empty!" << std::endl;
 			continue;
 		}
-		catch (std::out_of_range &e)
+		index = ft_atoi(input);
+		index_str = ft_itoa(index);
+		if (input != index_str)
 		{
-			std::cerr << "Index is out of range!" << std::endl;
+			std::cerr << "Index must be a number between 0-7!" << std::endl;
 			continue;
 		}
 		break;
@@ -107,13 +106,13 @@ int get_index(void)
 	return index;
 }
 
-std::string	trim(std::string str)
+std::string	trim(const std::string& str)
 {
 	std::string trimmed = "";
 
 	if (!str.empty())
 	{
-		std::string::iterator it = str.begin();
+		std::string::const_iterator it = str.begin();
 
 		while (it != str.end())
 		{
@@ -124,25 +123,45 @@ std::string	trim(std::string str)
 			trimmed += ' ';
 		}
 		
-		while (std::isspace(trimmed.back()))
-			trimmed.pop_back();
+		while (!trimmed.empty() && std::isspace(*(trimmed.end() - 1)))
+			trimmed.erase(trimmed.length() - 1);
 	}
 	return trimmed;
 }
 
-bool	valid_phone_number(std::string phone_number)
+bool	valid_phone_number(const std::string& phoneNumber)
 {
-	std::string::iterator it = phone_number.begin();
+	std::string::const_iterator it = phoneNumber.begin();
 	
 	if (*it == '+')
 		it++;
-	while (it != phone_number.end())
+	while (it != phoneNumber.end())
 	{
 		if (!std::isdigit(*it) && !std::isspace(*it))
 			return false;
 		it++;
 	}
-	if (phone_number == "+")
+	if (phoneNumber == "+")
 		return false;
 	return true;
+}
+
+int	ft_atoi(const std::string& num)
+{
+	int result = 0;
+	int sign = 1;
+	std::string::const_iterator it = num.begin();
+
+	if (*it == '-' || *it == '+')
+	{
+		if (*it == '-')
+			sign = -1;
+		it++;
+	}
+	while (it != num.end() && std::isdigit(*it))
+	{
+		result = result * 10 + *it - '0';
+		it++;
+	}
+	return result * sign;
 }

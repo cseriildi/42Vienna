@@ -6,13 +6,14 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:36:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/06 16:02:56 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/08 12:46:11 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() : contact_count(0)
+PhoneBook::PhoneBook() 
+	: _contactCount(0)
 {
 }
 
@@ -20,82 +21,86 @@ PhoneBook::~PhoneBook()
 {
 }
 
-void	PhoneBook::set_contact(std::string first_name, std::string last_name, std::string nickname, std::string phone_number, std::string darkest_secret)
+void	PhoneBook::setContact(const std::string& firstName,
+								const std::string& lastName,
+								const std::string& nickname,
+								const std::string& phoneNumber,
+								const std::string& darkestSecret)
 {
 	Contact contact;
 	
-	contact.set_first_name(first_name);
-	contact.set_last_name(last_name);
-	contact.set_nickname(nickname);
-	contact.set_phone_number(phone_number);
-	contact.set_darkest_secret(darkest_secret);
+	contact.setFirstName(firstName);
+	contact.setLastName(lastName);
+	contact.setNickname(nickname);
+	contact.setPhoneNumber(phoneNumber);
+	contact.setDarkestSecret(darkestSecret);
 
-	shift_contacts();
-	this->contacts[0] = contact;
-	if (this->contact_count < this->max_contact_count)
-		this->contact_count++;
+	_shiftContacts();
+	this->_contacts[0] = contact;
+	if (this->_contactCount < this->_MaxContactCount)
+		this->_contactCount++;
 }
-int		PhoneBook::get_contact_count(void)
+int		PhoneBook::getContactCount(void) const
 {
-	return this->contact_count;
+	return this->_contactCount;
 }
 
-Contact	PhoneBook::get_contact(int index)
+Contact	PhoneBook::getContact(int index) const
 {
-	return this->contacts[index];
+	return this->_contacts[index];
 }
 
-void	PhoneBook::shift_contacts(void)
+void	PhoneBook::_shiftContacts(void)
 {
-	for (int i = this->max_contact_count - 1; i > 0; i--)
-		this->contacts[i] = this->contacts[i - 1];
+	for (int i = this->_MaxContactCount - 1; i > 0; i--)
+		this->_contacts[i] = this->_contacts[i - 1];
 }
 
-void	PhoneBook::print_contact(int index)
+void	PhoneBook::printContact(int index) const
 {
 	Contact contact;
 
-	contact = get_contact(index);
-	std::cout << "First Name: " << contact.get_first_name() << std::endl;
-	std::cout << "Last Name: " << contact.get_last_name() << std::endl;
-	std::cout << "Nickname: " << contact.get_nickname() << std::endl;
-	std::cout << "Phone Number: " << contact.get_phone_number() << std::endl;
-	std::cout << "Darkest Secret: " << contact.get_darkest_secret() << std::endl;
+	contact = getContact(index);
+	std::cout << "First Name: " << contact.getFirstName() << std::endl;
+	std::cout << "Last Name: " << contact.getLastName() << std::endl;
+	std::cout << "Nickname: " << contact.getNickname() << std::endl;
+	std::cout << "Phone Number: " << contact.getPhoneNumber() << std::endl;
+	std::cout << "Darkest Secret: " << contact.getDarkestSecret() << std::endl;
 }
 
-void	PhoneBook::print_phonebook(void)
+void	PhoneBook::printPhonebook(void) const
 {
 	std::cout << "|";
-	print_field("Index", this->box_length);
+	print_field("Index", this->_BoxLength);
 	std::cout << "|";
-	print_field("First Name", this->box_length);
+	print_field("First Name", this->_BoxLength);
 	std::cout << "|";
-	print_field("Last Name", this->box_length);
+	print_field("Last Name", this->_BoxLength);
 	std::cout << "|";
-	print_field("Nickname", this->box_length);
+	print_field("Nickname", this->_BoxLength);
 	std::cout << "|" << std::endl;
 
-	for (int i = 0; i < 4 * this->box_length + 5; i++)
+	for (int i = 0; i < 4 * this->_BoxLength + 5; i++)
 		std::cout << "-";
 	std::cout << std::endl;
-	for (int i = 0; i < this->contact_count; i++)
+	for (int i = 0; i < this->_contactCount; i++)
 	{
 		std::cout << "|";
-		print_field(std::to_string(i), this->box_length);
+		print_field(ft_itoa(i), this->_BoxLength);
 		std::cout << "|";
-		print_field(this->contacts[i].get_first_name(), this->box_length);
+		print_field(this->_contacts[i].getFirstName(), this->_BoxLength);
 		std::cout << "|";
-		print_field(this->contacts[i].get_last_name(), this->box_length);
+		print_field(this->_contacts[i].getLastName(), this->_BoxLength);
 		std::cout << "|";
-		print_field(this->contacts[i].get_nickname(), this->box_length);
+		print_field(this->_contacts[i].getNickname(), this->_BoxLength);
 		std::cout << "|" << std::endl;
-		for (int i = 0; i < 4 * this->box_length + 5; i++)
+		for (int i = 0; i < 4 * this->_BoxLength + 5; i++)
 			std::cout << "-";
 		std::cout << std::endl;
 	}
 }
 
-void	print_field(std::string field, int len)
+void	print_field(const std::string& field, int len)
 {
 	if (len <= 0)
 		return;
@@ -104,4 +109,11 @@ void	print_field(std::string field, int len)
 	else
 		std::cout << field.substr(0, len - 1) << ".";
 
+}
+
+std::string	ft_itoa(int n)
+{
+	std::stringstream ss;
+	ss << n;
+	return ss.str();
 }
