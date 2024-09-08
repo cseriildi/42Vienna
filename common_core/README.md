@@ -18,8 +18,8 @@
 | *Exam Rank 04*	| |
 | NetPractice		| |
 | cub3d/miniRT		| |
-| CPP Module 00		| |
-| CPP Module 01		| |
+| [CPP Module 00](https://github.com/cseriildi/42Vienna/tree/main/common_core/cpp00) | In progress |
+| [CPP Module 01](https://github.com/cseriildi/42Vienna/tree/main/common_core/cpp01) | In progress |
 | CPP Module 02 	| |
 | CPP Module 03 	| |
 | CPP Module 04 	| |
