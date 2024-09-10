@@ -6,13 +6,13 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 19:42:11 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/10 10:10:43 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:23:59 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-Zombie	*zombieHorde(int N, std::string name)
+Zombie	*zombieHorde(int N, const std::string& name)
 {	
 	Zombie *zombies = new Zombie[N];
 

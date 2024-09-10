@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:35:39 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/10 10:10:32 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:32:40 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_atoi(const std::string& num)
 	return result * sign;
 }
 
-std::string	ft_itoa(int n)
+const std::string&	ft_itoa(int n)
 {
 	std::stringstream ss;
 	ss << n;
