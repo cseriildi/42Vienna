@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:14:48 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/10 10:10:15 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:09:01 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ class Zombie
 {
 	public:
 
-		Zombie();
+		Zombie(const std::string& name);
 		~Zombie();
 
-		void 	setName(std::string name);
-		void	announce(void);
+		void	announce(void) const;
 		
 	private:
 
@@ -32,7 +31,7 @@ class Zombie
 		
 };
 
-Zombie	*newZombie(std::string name);
-void	randomChump(std::string name);
+Zombie	*newZombie(const std::string& name);
+void	randomChump(const std::string& name);
 
 #endif
