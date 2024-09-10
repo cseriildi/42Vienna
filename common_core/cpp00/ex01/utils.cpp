@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:13:39 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/10 10:09:33 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:30:54 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	search_contact(PhoneBook &myPhoneBook)
 	myPhoneBook.printContact(index);
 }
 
-std::string get_data(const std::string& field)
+const std::string& get_data(const std::string& field)
 {
 	std::string data;
 
@@ -106,7 +106,7 @@ int get_index(void)
 	return index;
 }
 
-std::string	trim(const std::string& str)
+const std::string&	trim(const std::string& str)
 {
 	std::string trimmed = "";
 

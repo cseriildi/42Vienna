@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:09:58 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/10 10:09:18 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/10 11:29:20 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	Contact::setNickname(const std::string& nickname) {this->_nickname = nickna
 void	Contact::setPhoneNumber(const std::string& phoneNumber) {this->_phoneNumber = phoneNumber;}
 void	Contact::setDarkestSecret(const std::string& darkestSecret) {this->_darkestSecret = darkestSecret;}
 
-std::string	Contact::getFirstName(void) const {return this->_firstName;}
-std::string	Contact::getLastName(void) const {return this->_lastName;}
-std::string Contact::getNickname(void) const {return this->_nickname;}
-std::string Contact::getPhoneNumber(void) const {return this->_phoneNumber;}
-std::string Contact::getDarkestSecret(void) const {return this->_darkestSecret;}
+const std::string&	Contact::getFirstName(void) const {return this->_firstName;}
+const std::string&	Contact::getLastName(void) const {return this->_lastName;}
+const std::string& Contact::getNickname(void) const {return this->_nickname;}
+const std::string& Contact::getPhoneNumber(void) const {return this->_phoneNumber;}
+const std::string& Contact::getDarkestSecret(void) const {return this->_darkestSecret;}
