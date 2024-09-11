@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 15:55:05 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/29 16:19:39 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:00:53 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	init_processes(t_data *data)
 		data->pids[i] = fork();
 		if (data->pids[i] == -1)
 		{
+			while (i-- >= 0)
+				sem_post(data->sems.dead);
 			free(philo);
 			safe_exit(data, FORK_FAIL);
 		}
@@ -112,8 +114,25 @@ void	init_semaphores(t_data *data)
 
 void	init_threads(t_data *data)
 {
-	pthread_create(&data->full_monitor, NULL, &full_monitor, data);
+	int	i;
+
+	i = 0;
+	if (pthread_create(&data->full_monitor, NULL, &full_monitor, data))
+	{
+		while (i++ <= data->count)
+			sem_post(data->sems.dead);
+		i = 0;
+		while (i++ <= data->count)
+			sem_post(data->sems.full);
+	}
 	pthread_join(data->full_monitor, NULL);
 	pthread_create(&data->dead_monitor, NULL, &dead_monitor, data);
+	{
+		while (i++ <= data->count)
+			sem_post(data->sems.dead);
+		i = 0;
+		while (i++ <= data->count)
+			sem_post(data->sems.full);
+	}
 	pthread_join(data->dead_monitor, NULL);
 }
