@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:56:18 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/29 15:34:59 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:56:36 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,12 @@ int	wait_processes(t_data *data)
 	i = -1;
 	while (++i < data->count)
 	{
-		waitpid(data->pids[i], &status, 0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			exit_code = WEXITSTATUS(status);
+		if (data->pids[i] != -1)
+		{
+			waitpid(data->pids[i], &status, 0);
+			if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+				exit_code = WEXITSTATUS(status);
+		}
 	}
 	return (exit_code);
 }

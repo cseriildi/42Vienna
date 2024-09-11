@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/29 16:20:21 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:01:27 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,13 @@ int			ft_atoi(const char *nptr);
 char		*ft_itoa(int nb);
 int			ft_strcmp(char *s1, char *s2);
 
-//cleanup
+//libft2
 void		ft_putendl_fd(char *s, int fd);
+
+//cleanup
 void		print_error(int code);
 void		safe_exit(t_data *data, int exit_code);
 void		safe_process_exit(t_philo *philo, int exit_code);
+void		death_alert(sem_t *sems, int count);
 
 #endif

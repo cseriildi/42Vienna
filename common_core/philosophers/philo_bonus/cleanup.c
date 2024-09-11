@@ -6,18 +6,11 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 16:02:03 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/29 16:20:13 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:59:23 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	while (*s)
-		write(fd, s++, 1);
-	write(fd, "\n", 1);
-}
 
 void	print_error(int code)
 {
@@ -35,8 +28,16 @@ void	print_error(int code)
 
 void	safe_exit(t_data *data, int exit_code)
 {
+	int	i;
+
 	if (data)
 	{
+		i = 0;
+		while (data->sems.dead && i++ <= data->count)
+			sem_post(data->sems.dead);
+		i = 0;
+		while (data->sems.full && i++ <= data->count)
+			sem_post(data->sems.full);	
 		safe_close_sem(data->sems.forks, "/forks");
 		safe_close_sem(data->sems.full, "/full");
 		safe_close_sem(data->sems.dead, "/dead");
@@ -45,7 +46,10 @@ void	safe_exit(t_data *data, int exit_code)
 		safe_close_sem(data->sems.program, "/program");
 		safe_close_sem(data->sems.take2forks, "/take2forks");
 		if (data->pids)
+		{
+			wait_processes(data);
 			free(data->pids);
+		}
 		free(data);
 	}
 	print_error(exit_code);
@@ -56,6 +60,7 @@ void	safe_process_exit(t_philo *philo, int exit_code)
 {
 	if (philo)
 	{
+		death_alert((philo->sems), philo->count);
 		safe_close_sem(philo->sems.forks, "/forks");
 		safe_close_sem(philo->sems.full, "/full");
 		safe_close_sem(philo->sems.dead, "/dead");
@@ -76,4 +81,16 @@ void	safe_close_sem(sem_t *sem, char *name)
 		sem_close(sem);
 		sem = NULL;
 	}
+}
+
+void	death_alert(sem_t sems, int count)
+{
+	int	i;
+
+	i = 0;
+	while (sems.dead && i++ <= count)
+			sem_post(sems->dead);
+	i = 0;
+	while (sems->full && i++ <= count)
+			sem_post(sems->full);
 }
