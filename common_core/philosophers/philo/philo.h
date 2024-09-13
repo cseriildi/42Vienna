@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:04 by icseri            #+#    #+#             */
-/*   Updated: 2024/08/09 15:27:07 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/12 14:38:36 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <string.h>
 
 typedef enum s_err
 {
 	MALLOC_FAIL = 2,
 	MISUSE,
 	INCORRECT_INPUT,
-	THREAD_CREATE_FAIL,
+	THREAD_FAIL,
 	MUTEX_INIT_FAIL
 }	t_err;
 
@@ -103,6 +104,10 @@ void		ft_usleep(long long time, t_data *data);
 int			ft_atoi(const char *nptr);
 char		*ft_itoa(int nb);
 int			ft_strcmp(char *s1, char *s2);
+
+//libft2
+void		*ft_calloc(size_t nmemb, size_t size);
+void		ft_putendl_fd(char *s, int fd);
 
 //utils	
 void		print_status(t_philo *philo, char *act);
