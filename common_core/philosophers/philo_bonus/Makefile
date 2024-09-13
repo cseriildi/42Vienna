@@ -6,7 +6,7 @@
 #    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/24 13:35:49 by icseri            #+#    #+#              #
-#    Updated: 2024/09/13 14:52:45 by cseriildii       ###   ########.fr        #
+#    Updated: 2024/09/13 14:54:22 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS = ${SRCS:.c=.o}
 
 COMP = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread,undefined
+CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread,undefined
 
 all: ${NAME}
 
