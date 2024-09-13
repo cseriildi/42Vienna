@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 08:59:38 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/08/28 11:51:13 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/13 13:09:18 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 int	init_data(t_data *data, int argc, char **argv)
 {
-	data->philos = NULL;
-	data->forks = NULL;
-	data->philo_lock = NULL;
-	data->check_status = NULL;
-	data->print = NULL;
-	data->program = NULL;
 	data->running = true;
 	if (init_input(data, argc, argv) != 0)
 		return (EXIT_FAILURE);
@@ -31,7 +25,7 @@ int	init_data(t_data *data, int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (init_mutexes(data) != 0)
 		return (EXIT_FAILURE);
-	data->philos = malloc(sizeof(t_philo) * data->count);
+	data->philos = ft_calloc(sizeof(t_philo), data->count);
 	if (!data->philos)
 		return (set_exit_code(data, MALLOC_FAIL));
 	data->time_to_think = data->time_to_eat - data->time_to_sleep;
@@ -72,7 +66,7 @@ int	init_mutexes(t_data *data)
 {
 	int			i;
 
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->count);
+	data->forks = ft_calloc(sizeof(pthread_mutex_t), data->count);
 	if (!data->forks)
 		return (set_exit_code(data, MALLOC_FAIL));
 	i = -1;
@@ -82,7 +76,7 @@ int	init_mutexes(t_data *data)
 			return (destroy_mutexes(data->forks, i),
 				set_exit_code(data, MUTEX_INIT_FAIL));
 	}
-	data->philo_lock = malloc(sizeof(pthread_mutex_t) * data->count);
+	data->philo_lock = ft_calloc(sizeof(pthread_mutex_t), data->count);
 	if (!data->philo_lock)
 		return (set_exit_code(data, MALLOC_FAIL));
 	i = -1;
@@ -118,7 +112,7 @@ int	init_philos(t_data *data, t_philo *philos)
 		philos[i].right_fork = &data->forks[(i + 1) % data->count];
 		philos[i].check_status = &data->philo_lock[i];
 		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]))
-			return (set_exit_code(data, THREAD_CREATE_FAIL));
+			return (data->running = false, set_exit_code(data, THREAD_FAIL));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -126,6 +120,9 @@ int	init_philos(t_data *data, t_philo *philos)
 int	init_monitor(t_data *data)
 {
 	if (pthread_create(&data->monitor, NULL, &monitoring, data))
-		return (set_exit_code(data, THREAD_CREATE_FAIL));
+	{
+		data->running = false;
+		return (set_exit_code(data, THREAD_FAIL));
+	}
 	return (EXIT_SUCCESS);
 }

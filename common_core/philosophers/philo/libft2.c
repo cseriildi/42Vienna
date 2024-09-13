@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   libft2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/24 13:16:59 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/12 14:21:07 by cseriildii       ###   ########.fr       */
+/*   Created: 2024/09/12 14:34:08 by cseriildii        #+#    #+#             */
+/*   Updated: 2024/09/12 14:34:33 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+void	ft_putendl_fd(char *s, int fd)
 {
-	t_data	*data;
+	while (*s)
+		write(fd, s++, 1);
+	write(fd, "\n", 1);
+}
 
-	data = ft_calloc(sizeof(t_data), 1);
-	if (!data)
-		return (print_error(MALLOC_FAIL));
-	if (init_data(data, argc, argv) != 0)
-		return (free_data(data));
-	pthread_mutex_lock(data->program);
-	init_philos(data, data->philos);
-	init_monitor(data);
-	data->start_time = get_time();
-	pthread_mutex_unlock(data->program);
-	join_threads(data);
-	return (free_data(data));
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*p;
+
+	if (size != 0 && nmemb != ((nmemb * size) / size))
+		return (NULL);
+	p = malloc(nmemb * size);
+	if (p == NULL)
+		return (NULL);
+	memset(p, 0, nmemb * size);
+	return (p);
 }
