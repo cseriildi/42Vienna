@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 09:44:25 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/11 14:50:22 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/13 14:50:49 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	simulation(t_philo *philo)
 {
-	if (pthread_create(&philo->monitor, NULL, &monitor, philo))
-		safe_process_exit(philo, THREAD_CREATE_FAIL);
 	if (pthread_create(&philo->thread, NULL, &routine, philo))
 		safe_process_exit(philo, THREAD_CREATE_FAIL);
+	if (pthread_create(&philo->monitor, NULL, &monitor, philo))
+	{
+		pthread_join(philo->thread, NULL);
+		safe_process_exit(philo, THREAD_CREATE_FAIL);
+	}
 	pthread_join(philo->thread, NULL);
 	pthread_join(philo->monitor, NULL);
 	safe_process_exit(philo, EXIT_SUCCESS);

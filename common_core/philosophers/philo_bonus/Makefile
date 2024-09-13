@@ -3,23 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
+#    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/24 13:35:49 by icseri            #+#    #+#              #
-#    Updated: 2024/08/29 16:05:23 by icseri           ###   ########.fr        #
+#    Updated: 2024/09/13 14:52:45 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = philo_bonus
 
-SRCS = main.c init.c libft.c cleanup.c time.c simulation.c utils.c events.c
+SRCS = main.c init.c libft.c libft2.c cleanup.c time.c simulation.c utils.c events.c
 
 OBJS = ${SRCS:.c=.o}
 
 COMP = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -pthread #-fsanitize=thread,undefined
+CFLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=thread,undefined
 
 all: ${NAME}
 
@@ -37,4 +37,6 @@ fclean: clean
 	
 re: fclean all
 
-.PHONY: all clean fclean re
+build: all clean
+
+.PHONY: all clean fclean re build

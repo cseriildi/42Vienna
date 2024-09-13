@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/11 19:01:27 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/12 11:28:57 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,12 @@ int			ft_strcmp(char *s1, char *s2);
 
 //libft2
 void		ft_putendl_fd(char *s, int fd);
+void		*ft_calloc(size_t nmemb, size_t size);
 
 //cleanup
 void		print_error(int code);
 void		safe_exit(t_data *data, int exit_code);
 void		safe_process_exit(t_philo *philo, int exit_code);
-void		death_alert(sem_t *sems, int count);
+void		death_alert(t_sems sems, int count);
 
 #endif
