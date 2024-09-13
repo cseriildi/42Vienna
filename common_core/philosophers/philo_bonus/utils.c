@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 14:56:18 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/11 14:56:36 by icseri           ###   ########.fr       */
+/*   Updated: 2024/09/13 14:52:10 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	wait_processes(t_data *data)
 	int	exit_code;
 
 	exit_code = 0;
+	status = 0;
 	i = -1;
 	while (++i < data->count)
 	{
