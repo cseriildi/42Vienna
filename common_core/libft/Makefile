@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
+#    By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 10:47:29 by icseri            #+#    #+#              #
-#    Updated: 2024/04/10 16:58:35 by icseri           ###   ########.fr        #
+#    Updated: 2024/09/18 15:47:03 by cseriildii       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
 OBJS = ${SRCS:.c=.o}
 
-BONUS_OBJS = ${BONUS_SRCS:.c=.o}
+BONUS_OBJS = ${SRCS:.c=.o} ${BONUS_SRCS:.c=.o}
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -36,14 +36,17 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 	ar rcs ${NAME} ${OBJS}
 
-bonus: ${OBJS} ${BONUS_OBJS}
-	ar rcs ${NAME} ${OBJS} ${BONUS_OBJS}
+bonus: .$(NAME:.a=_bonus.a)
+
+.$(NAME:.a=_bonus.a): ${BONUS_OBJS}
+	ar rcs .$(NAME:.a=_bonus.a) ${BONUS_OBJS}
+	cp .$(NAME:.a=_bonus.a) ${NAME}
 	
 clean: 
-	rm -f ${OBJS} ${BONUS_OBJS}
+	rm -f ${BONUS_OBJS}
 
 fclean: 
-	rm -f ${OBJS} ${BONUS_OBJS} ${NAME}
+	rm -f ${BONUS_OBJS} ${NAME} .$(NAME:.a=_bonus.a)
 
 re: fclean all
 
