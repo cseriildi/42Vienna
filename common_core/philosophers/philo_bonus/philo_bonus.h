@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
+/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 13:20:25 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/12 11:28:57 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/09/13 15:39:27 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <sys/types.h>
 # include <sys/time.h>
 # include <sys/wait.h>
-# include <sys/stat.h>
-# include <signal.h>
 # include <semaphore.h>
 # include <fcntl.h>
 # include <pthread.h>
