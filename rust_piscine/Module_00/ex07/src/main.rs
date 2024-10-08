@@ -1,4 +1,4 @@
-use ex07::strpcmp;
+extern crate ex07;
 use ftkit::ARGS;
 
 fn main() {
@@ -7,7 +7,7 @@ fn main() {
     let pattern = args[2].as_bytes();
 
 
-	if strpcmp(query, pattern) {
+	if ex07::lib::strpcmp(query, pattern) {
         println!("yes");
     } else {
         println!("no");
@@ -16,7 +16,7 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use ex07::lib::strpcmp;
 
     #[test]
     fn test_strpcmp() {
