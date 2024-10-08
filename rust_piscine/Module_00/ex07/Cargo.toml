@@ -1,0 +1,15 @@
+[package]
+name = "ex07"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "ex07"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ex07"
+path = "src/main.rs"
+
+[dependencies]
+ftkit = "0.1.12"
