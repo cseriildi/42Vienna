@@ -27,7 +27,7 @@ fn my_unused_function() {}
 
 * For exercises managed with cargo, the command `cargo clippy -- -D warnings` must run **with no errors**!
 
-* You are *strongly* encouraged to write extensive tests for the functions and systems you turn in. However, for function/library submissions (_anything which is not a program_), do **not** submit a main. Tests can use the symbols you want, even if they are not specified in the `allowed symbols` section.
+* You are *strongly* encouraged to write extensive tests for the functions and systems you turn in. However, for function/library submissions (_anything which is not a program_), do **not** submit a main. Tests can use the symbols and lint levels you want, even if they are not specified in the `allowed symbols` section.
 
 
 
@@ -64,7 +64,7 @@ allowed symbols:
     std::println
 ```
 
-Create a `min` **function** that takes two integers, and returns the smaller one. To make the file compile and for it to be testable, you must add a  `main` function to showing that your function is
+Create a `min` **function** that takes two integers, and returns the smaller one. To make the file compile and for it to be testable, you must submit a  `main` function to showing that your function is
 indeed correct.
 
 The function must be prototyped like this:
@@ -121,6 +121,7 @@ The `collatz` function must execute the following algorithm...
 
 ...until *n* equals 1. On each iteration, *n* must be displayed on the standard output, followed
 by a line feed.
+Make sure to prevent timeouts!
 
 ```txt
 Input:
@@ -175,8 +176,8 @@ The rules have changed a bit, however. They must be followed in order.
 * When the number is both a multiple of 3 and 5, "fizzbuzz" must be displayed.
 * When the number is a multiple of 3, "fizz" must be displayed.
 * When the number is a multiple of 5, "buzz" must be displayed.
-* When the number is congruent to 3 modulo 11 "FIZZ" is displayed.
-* When the number is congruent to 5 modulo 11 "BUZZ" is displayed.
+* When the number modulo 11 is congruent to 3 "FIZZ" is displayed.
+* When the number modulo 11 is congruent to 5 "BUZZ" is displayed.
 * Otherwise, the number itself is written.
 
 Example:
@@ -227,7 +228,6 @@ Create a Cargo project.
 * Its author must be you.
 * Its description must be "my answer to the fifth exercise of the first module of 42's Rust Piscine"
 * It must not be possible to publish the package, even when using `cargo publish`.
-
 * The following commands must give this output:
 
 ```txt
@@ -270,6 +270,8 @@ thread 'main' panicked at 'attempt to add with overflow', src/overflow.rs:3:5
 255u8 + 1u8 == 0
 ```
 
+* **You are allowed to modify lint levels for completing this exercise! Up to you to figure out which :)**
+
 ## Exercise 05: Friday The 13th
 
 ```txt
@@ -284,7 +286,7 @@ allowed symbols:
 ```
 
 Write a **program** which prints every Friday that falls on the 13th of the month, since the first
-day of year 1 (it was a monday).
+day of year 1 (it was a monday) until today.
 
 To complete this task, you must write the following function:
 
@@ -342,6 +344,7 @@ allowed dependencies;
 allowed symbols:
     ftkit::read_number  ftkit::random_number
     i32::cmp  std::cmp::Ordering
+    std::println
 ```
 
 Create a **program** that plays the guessing game.
@@ -413,7 +416,7 @@ yes
 no
 ```
 
-
+```
 MIT License
 
 Copyright (c) 2024 Nils Mathieu
@@ -435,3 +438,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
