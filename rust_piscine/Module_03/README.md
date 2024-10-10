@@ -279,7 +279,7 @@ allowed symbols:
 ```rust
 struct Vector<T> {
     x: T,
-    y: Y,
+    y: T,
 }
 
 impl<T> Vector<T> {
