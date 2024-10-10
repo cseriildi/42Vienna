@@ -4,9 +4,9 @@ trait FortyTwo {
     fn forty_two() -> Self;
 }
 
-impl FortyTwo for i32 {
+impl FortyTwo for u32 {
 	fn forty_two() -> Self {
-		let instance: i32 = 42;
+		let instance: u32 = 42;
 		instance
 	}
 }
@@ -25,6 +25,6 @@ fn print_forty_two<T: Debug + FortyTwo>() {
 
 
 fn main() {
-	print_forty_two::<i32>();
+	print_forty_two::<u32>();
 	print_forty_two::<String>();
 }
