@@ -97,26 +97,25 @@ At that moment, Maran was enlightened.
 
 ## General Rules
 
-* Any exercise you turn in must compile using the `cargo` package manager, either with `cargo run`
-if the subject requires a _program_, or with `cargo test` otherwise. Only dependencies specified
-in the allowed dependencies section are allowed. Only symbols specified in the `allowed symbols`
-section are allowed.
+* Any code you turn in must compile *without warnings* using the `rustc` compiler available on the school's machines without additional options. If not specified differently in the subject, you are **not** allowed to use the `unsafe` keyword anywhere in your code.
 
-* Every exercise must be part of a virtual Cargo workspace, a single `workspace.members` table must
-be declared for the whole module.
+* For exercises using the `cargo` package manager, the same rule applies. In that case, only the crates specified in the `allowed dependencies` section are allowed. Any other dependency is forbidden. More generally, only the symbols specified in `allowed symbols` are authorized within an exercise.
 
-* Everything must compile _without warnings_ with the `rustc` compiler available on the school's
-machines without additional options.  You are _not_ allowed to use `unsafe` code anywere in your
-code.
+* You are generally *not* authorized to modify lint levels - either using `#[attributes]`, `#![global_attributes]` or with command-line arguments. You may optionally allow the `dead_code` lint to silence warnings about unused variables, functions, etc.
 
-* You are generally not authorized to modify lint levels - either using `#[attributes]`,
-`#![global_attributes]` or with command-line arguments. You may optionally allow the `dead_code`
-lint to silence warnings about unused variables, functions, etc.
+```rust
+// Either globally:
+#![allow(dead_code)] 
 
-* For exercises managed with cargo, the command `cargo clippy -- -D warnings` must run with no errors!
+// Or locally, for a simple item:
+#[allow(dead_code)]
+fn my_unused_function() {}
+```
 
-* You are _strongly_ encouraged to write extensive tests for the functions and programs you turn in.
- Tests can use the symbols & attributes you want, even if they are not specified in the `allowed symbols` section. **However**, tests should **not** introduce **any additional external dependencies** beyond those already required by the subject.
+* For exercises managed with cargo, the command `cargo clippy -- -D warnings` must run **with no errors**!
+
+* You are *strongly* encouraged to write extensive tests for the functions and systems you turn in. However, for function/library submissions (_anything which is not a program_), do **not** submit a main. Tests can use the symbols and lint levels you want, even if they are not specified in the `allowed symbols` section.
+
 
 ## Exercise 00: Dimensional Analysis
 
@@ -128,7 +127,7 @@ files to turn in:
     src/main.rs  Cargo.toml
 ```
 
-Copy/Paste the following code and make it compile by adding type alias definitions.
+Copy/Past the following code and make it compile by adding type alias definitions.
 
 ```rust
 fn seconds_to_minutes(seconds: Seconds) -> Minutes {
@@ -172,7 +171,7 @@ struct Point {
 
 Implement the following inherent functions:
 
-* `new`, which creates a new `Point` with the coordinates passed to it.
+* `new`, which creates a new `Point` instance with specific coordinates.
 * `zero`, which creates a new `Point` at coordinates `(0, 0)`.
 * `distance`, which computes the distance between two existing points.
 * `translate`, which adds the vector `(dx, dy)` to the coordinates of the point.
@@ -200,7 +199,7 @@ files to turn in:
 * Once a pizza has been ordered, it takes two days before the cook start working on it.
 * Making a pizza takes roughly 5 days.
 * Once the pizza is ready, the only delivery man must pick it up. It takes 3 days on average.
-* Delivering the pizza always takes a whole week.
+* Delivering the pizza always take a whole week.
 
 Define the following type:
 
@@ -225,7 +224,7 @@ impl PizzaStatus {
 
 * `from_delivery_time` predicts the status of a pizza that was ordered `ordered_days_ago` days ago.
 * `get_delivery_time_in_days` returns the estimated time before the pizza is delivered, in days. The
-**worst case** (longest delivery time) is always returned.
+worst case is always returned.
 
 ## Exercise 03: Dry Boilerplates
 
@@ -280,11 +279,9 @@ allowed dependencies:
 
 allowed symbols:
     std::{print, println}
-    std::io::stdout
-    std::io::Stdout::{flush}
     std::vec::Vec::{new, push, remove, clear, len, is_empty}
     std::string::String::as_str
-    str::{to_string, parse, len, is_empty, trim, strip_prefix, strip_suffix}
+    str::{to_string, parse, len, is_empty, trim, strip_prefix}
     ftkit::{read_line, read_number}
     std::result::Result
 ```
@@ -295,10 +292,10 @@ When the user starts the program, they are asked what to do. Available commands 
 
 ```rust
 enum Command {
-    Todo(String),   // Command: "TODO"
-    Done(usize),    // Command: "DONE"
-    Purge,          // Command: "PURGE"
-    Quit,           // Command: "QUIT"
+    Todo(String),
+    Done(usize),
+    Purge,
+    Quit,
 }
 
 impl Command {
@@ -339,23 +336,23 @@ You may design the interface you want to this exercise. Here is an example.
 ```txt
 >_ cargo run
 
-TODO star shortinette (https://github.com/42-Short/shortinette)
+TODO go shopping
 
-    0 [ ] star shortinette (https://github.com/42-Short/shortinette)
+    0 [ ] go shopping
 
-TODO finish this module
+TODO do my homeworks
 
-    0 [ ] star shortinette (https://github.com/42-Short/shortinette)
-    1 [ ] finish this module
+    0 [ ] go shopping
+    1 [ ] do my homeworks
 
 DONE 0
 
-    0 [ ] finish this module
-      [x] star shortinette (https://github.com/42-Short/shortinette)
+    0 [ ] do my homeworks
+      [x] go shopping
 
 PURGE
 
-    0 [ ] finish this module
+    0 [ ] do my homework
 
 QUIT
 ```
@@ -374,7 +371,7 @@ allowed symbols:
     <[T]>::len
 ```
 
-Define a `Color` type, responsible for describing a color by its red, green and blue channels.
+Define a `Color` type, responsible for describing a color by its red, green and blue components.
 
 ```rust
 struct Color {
@@ -405,33 +402,25 @@ impl Color {
 }
 ```
 
-* The `closest_mix` function must try mixing up to `max` colors taken from `palette`, as if painting
-on a white canvas. 
-* Each color in the `palette` array is a tuple where the first element is the color, and the second is its opacity (`alpha`), a value between $0$ and $255$. An opacity of $255$ means fully opaque, and $0$ means fully transparent.
-* The function should create a new color by blending up to `max` colors from the palette, and return the one that is **closest** to the original color (`self`).
+* The `closest_mix` function must try mixing up to `max` colors taken from `palette`, as if painted
+on a white canvas. The mix function must account for their opacity (the second element of each
+tuple). The created color that's the closest to `self` is returned.
 
-### Color Blending Formula 
-To blend two colors $A$ and $B$, use the following formula, where $B$ is fully opaque, and $A$ has an opacity $alpha$ between $0$ and $255$:
+The formula used to blend a color A over another color B is the following. B is assumed to be
+opaque, and A has an opacity of `alpha`. 1 means opaque, 0 means transparent.
 
-$$
-C = A * alpha + B * ((255 - alpha) / 255)
-$$
+```
+C = A * alpha + B * (1 - alpha)
+```
 
-* $A$ is the color being blended on top, with opacity $alpha$.
-* $B$ is the background color, which is fully opaque.
-* The result $C$ is the blended color.
+The distance between two colors A and B must be computed like this:
 
-### Distance Between Two Colors
-The distance between two colors $A$ and $B$ is calculated by finding the difference between their red, green and blue values separately. For each color channel, (r, g and b), the distance is computed as the absolute difference between the values of $A$ and $B$. This can be expressed as:
-* $d_r$ is the distance between the red value of $A$ and the red value of $B$.
-* $d_g$ is the distance between the green value of $A$ and the green value of $B$.
-* $d_b$ is the distance between the blue value of $A$ and the blue value of $B$.
-
-In general, for each color channel (red, green, or blue), the distance is $d_x = |A_x - B_x|$, where $x$ represents one of the color channels.
-
-$$
-distance = d_r^2 + d_g^2 + d_b^2
-$$
+```
+dr = A.red - B.red
+dg = A.green - B.green
+db = A.blue - B.blue
+distance = dr * dr + dg * dg + db * db
+```
 
 Example:
 
