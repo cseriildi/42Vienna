@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 14:40:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/09/10 15:46:04 by icseri           ###   ########.fr       */
+/*   Updated: 2024/10/30 14:23:07 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,24 @@
 
 std::string	replace(std::string text, std::string s1, std::string s2)
 {
-	std::string	new_text = text;
-	(void)s1;
-	(void)s2;
-	//replacing
+	std::string	new_text = "";
+	std::string	chunk = "";
+	std::size_t	index = 0;
+	std::size_t len = text.length();
+
+	while (index < len)
+	{
+		std::size_t position = text.substr(index, len).find(s1);
+		if (position == std::string::npos)
+		{
+			new_text.append(text.substr(index, len - index));
+			return new_text;
+		}
+		chunk = text.substr(index, position);
+		index += chunk.length() + s1.length();
+		new_text.append(chunk);
+		new_text.append(s2);
+	}
 
 	return new_text;
 }
@@ -28,7 +42,7 @@ int	main(int argc, char **argv)
 {
 	if (argc != 4)
 	{
-		std::cout << argv[0] << " <filename> <string to replace> <string to replace with>" << std::endl;
+		std::cerr << argv[0] << " <filename> <string to replace> <string to replace with>" << std::endl;
 		return 1;
 	}
 
@@ -36,10 +50,14 @@ int	main(int argc, char **argv)
 	std::string outfile = infile + ".replace";
 	
 	std::ifstream inFile(infile.c_str(), std::ios::in);
-	//error handling
+	if (!inFile)
+	{
+		std::cerr << " Couldn't open " << infile << std::endl;
+		return 1;
+	}
 	
 	std::string text;
-	getline(inFile, text);
+	getline(inFile, text); 
 
 	std::string line;
 	
@@ -51,7 +69,11 @@ int	main(int argc, char **argv)
 	std::string	to_replace_with = argv[3];
 	
 	std::ofstream outFile(outfile.c_str(), std::ios::out);
-	//error handling
+	if (!outFile)
+	{
+		std::cerr << " Couldn't open " << outfile << std::endl;
+		return 1;
+	}
 
 	outFile << replace(text, to_replace, to_replace_with) << std::flush;
 	outFile.close();

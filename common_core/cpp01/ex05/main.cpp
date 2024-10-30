@@ -5,35 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 10:35:39 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/10/30 12:02:42 by cseriildii       ###   ########.fr       */
+/*   Created: 2024/09/10 14:40:34 by icseri            #+#    #+#             */
+/*   Updated: 2024/10/30 16:22:53 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.hpp"
+# include "Harl.hpp"
 
-int		main(void)
+int	main()
 {
-	PhoneBook 	my_phonebook;
-	std::string input;
+	Harl myHarl;
+
+	std::string level;
+
+	level = "DEBUG";
+	myHarl.complain(level);
+	level = "INFO";
+	myHarl.complain(level);
+	level = "WARNING";
+	myHarl.complain(level);
+	level = "ERROR";
+	myHarl.complain(level);
+	level = "WHATEVER";
+	myHarl.complain(level);
 	
-	while (true)
-	{
-		std::cout << "Enter a command (ADD/SEARCH/EXIT): ";
-		std::getline(std::cin, input);
-		if (input.length() == 0)
-		{
-			reopen_stdin();
-			continue;
-		}
-		if (input == "EXIT")
-			break;
-		else if (input == "ADD")
-			add_contact(my_phonebook);
-		else if (input == "SEARCH")
-			search_contact(my_phonebook);
-		else
-			continue;
-	}
+	
 	return 0;
 }

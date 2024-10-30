@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:13:39 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/09/11 19:22:06 by icseri           ###   ########.fr       */
+/*   Updated: 2024/10/30 12:05:25 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ void	search_contact(PhoneBook &myPhoneBook)
 	myPhoneBook.printContact(index);
 }
 
+void	reopen_stdin()
+{
+	if (std::cin.eof())
+	{
+		std::cin.clear();
+		std::cin.ignore(0, '\n');
+		std::freopen("/dev/tty", "r", stdin);
+		std::cout << std::endl;
+	}
+}
+
+
 const std::string get_data(const std::string& field)
 {
 	std::string data;
@@ -64,6 +76,7 @@ const std::string get_data(const std::string& field)
 		data = trim(data);
 		if (data.length() == 0)
 		{
+			reopen_stdin();
 			std::cerr << field << " cannot be empty!" << std::endl;
 			continue;
 		}
@@ -91,6 +104,7 @@ int get_index(void)
 
 		if (input.length() == 0)
 		{
+			reopen_stdin();
 			std::cerr << "Index cannot be empty!" << std::endl;
 			continue;
 		}
