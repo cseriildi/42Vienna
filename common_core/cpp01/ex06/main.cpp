@@ -1,45 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Harl.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 15:19:33 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/11/05 14:56:15 by cseriildii       ###   ########.fr       */
+/*   Created: 2024/09/10 14:40:34 by icseri            #+#    #+#             */
+/*   Updated: 2024/11/04 13:15:35 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HARL_HPP
-# define HARL_HPP
+# include "Harl.hpp"
 
-#include <iostream>
-#include <string>
-
-enum Levels
+int	main(int argc, char **argv)
 {
-    DEBUG,
-	INFO,
-	WARNING,
-    ERROR,
-	OTHER
-};
-
-class	Harl
-{
-	public:
-
-		Harl();
-		~Harl();
+	if (argc != 2)
+	{
+		std::cerr << "Usage: " << argv[0] << " <level>" << std::endl;
+		return 1;
+	}
 	
-		void complain( std::string level );
+    Harl myHarl;
 
-	private:
+	myHarl.complain(argv[1]);
 
-		void debug( void );
-		void info( void );
-		void warning( void );
-		void error( void );
-};
-
-#endif
+	return 0;
+}

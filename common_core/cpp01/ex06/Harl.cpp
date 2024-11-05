@@ -6,7 +6,7 @@
 /*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 15:42:33 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/11/05 15:11:58 by cseriildii       ###   ########.fr       */
+/*   Updated: 2024/11/05 14:53:59 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void Harl::complain( std::string level )
 {
 	const char *levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	void (Harl::*funcPointers[])() = {
-		&Harl::debug,
-		&Harl::info,
-		&Harl::warning,
-		&Harl::error
-	};
-
 	int index = OTHER;;
 	for (int i = 0; i <= 3; i++)
 	{
@@ -55,13 +48,26 @@ void Harl::complain( std::string level )
 			break ;
 		}
 	}
-
 	switch (index)
 	{
 		case OTHER:
-			std::cout << "Unkown level" << std::endl;
+			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 			return ;
-		default:
-			(this->*funcPointers[index])();
-	}
+		case DEBUG:
+			std::cout << "[ DEBUG ]" << std::endl;
+			this->debug();
+			std::cout << std::endl;
+		case INFO:
+			std::cout << "[ INFO ]" << std::endl;
+			this->info();
+			std::cout << std::endl;
+		case WARNING:
+			std::cout << "[ WARNING ]" << std::endl;
+			this->warning();
+			std::cout << std::endl;
+		case ERROR:
+			std::cout << "[ ERROR ]" << std::endl;
+			this->error();
+			std::cout << std::endl;
+    }
 }
