@@ -6,12 +6,12 @@
 #    By: icseri <icseri@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/09 15:39:14 by icseri            #+#    #+#              #
-#    Updated: 2024/11/07 17:07:08 by icseri           ###   ########.fr        #
+#    Updated: 2024/11/08 11:43:39 by icseri           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 
+NAME = fixed
 
-SRCS = main.cpp
+SRCS = main.cpp Fixed.cpp
 
 include ../Makefile
