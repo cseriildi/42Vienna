@@ -3,44 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:03:05 by icseri            #+#    #+#             */
-/*   Updated: 2024/11/08 17:02:37 by icseri           ###   ########.fr       */
+/*   Updated: 2024/11/09 09:12:56 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <iostream>
+#include <cmath> 
 
-Fixed::Fixed(): _value (0)
-{
-	std::cout << "Default constructor called\n";
-}
+Fixed::Fixed(): _value (0) {std::cout << "Default constructor called\n";}
 
-Fixed::Fixed(const int num): _value(num << _nbFractBits)
-{
-	std::cout << "Int constructor called\n";
-}
+Fixed::Fixed(const int num): _value(num << _nbFractBits) {std::cout << "Int constructor called\n";}
 
-Fixed::Fixed( float num) : _value(static_cast<int>(num * (1 << _nbFractBits)))
-{
-	std::cout << "Float constructor called\n";
-}
+Fixed::Fixed(const float num) : _value(static_cast<int>(roundf(num * (1 << _nbFractBits)))) {std::cout << "Float constructor called\n";}
 
+Fixed::~Fixed() {std::cout << "Destructor called\n";}
 
-Fixed::~Fixed()
-{
-	std::cout << "Destructor called\n";
-}
-
-/* 
-// I like this one more tbh
-Fixed::Fixed(const Fixed& other): _value(other._value)
-{
-	std::cout << "Copy constructor called\n";
-} 
-*/
+//Fixed::Fixed(const Fixed& other): _value(other._value) {std::cout << "Copy constructor called\n";}
 
 Fixed::Fixed(const Fixed& other) //NOLINT
 {
@@ -56,10 +38,7 @@ Fixed& Fixed::operator=(const Fixed& other)
 	return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const Fixed& other)
-{
-	return os << other.toFloat();
-}
+std::ostream& operator<<(std::ostream& os, const Fixed& other) {return os << other.toFloat();}
 
 int Fixed::getRawBits( void ) const
 {
@@ -67,21 +46,14 @@ int Fixed::getRawBits( void ) const
 	return this->_value;
 }
 
-void Fixed::setRawBits( int const raw )
-{	
-	this->_value = raw;
-}
+void Fixed::setRawBits( int const raw ) {this->_value = raw;}
 
 float	Fixed::toFloat( void ) const
 {
-	float as_float = static_cast<float>(this->getRawBits()) / static_cast<float>(1 << _nbFractBits);
-
-	return as_float;
+	return static_cast<float>(this->getRawBits()) / static_cast<float>(1 << _nbFractBits);;
 }
 
 int		Fixed::toInt( void ) const
 {
-	int as_int = this->getRawBits() >> _nbFractBits;
-
-	return as_int;
+	return this->getRawBits() >> _nbFractBits;;
 }

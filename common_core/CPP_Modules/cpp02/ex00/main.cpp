@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 17:08:36 by icseri            #+#    #+#             */
-/*   Updated: 2024/11/08 17:18:29 by icseri           ###   ########.fr       */
+/*   Updated: 2024/11/09 07:29:00 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main( void ) {
 	Fixed b( a );
 	Fixed c;
 
-	c = b;
+	c = b; //This is almost the same as c.operator=(b);
 	
 	std::cout << a.getRawBits() << std::endl;
 	std::cout << b.getRawBits() << std::endl;

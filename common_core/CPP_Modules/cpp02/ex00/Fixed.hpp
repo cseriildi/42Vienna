@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:56:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/11/08 14:12:55 by icseri           ###   ########.fr       */
+/*   Updated: 2024/11/09 07:56:21 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 class Fixed
 {
 	public:
+	
 		Fixed();
 		Fixed(const Fixed& other); // Copy constructor
-		Fixed& operator=(const Fixed& other); // Copy asssignment 
 		~Fixed();
+		Fixed& operator=(const Fixed& other); // Copy asssignment 
 
 		int		getRawBits( void ) const;
 		void	setRawBits( int const raw ); //NOLINT

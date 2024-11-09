@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:03:05 by icseri            #+#    #+#             */
-/*   Updated: 2024/11/08 13:57:09 by icseri           ###   ########.fr       */
+/*   Updated: 2024/11/09 07:27:08 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ Fixed::~Fixed()
 }
 
 /* 
-// I like this one more tbh
 Fixed::Fixed(const Fixed& other): _value(other._value)
 {
 	std::cout << "Copy constructor called\n";

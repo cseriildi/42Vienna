@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 10:56:34 by icseri            #+#    #+#             */
-/*   Updated: 2024/11/08 18:53:05 by icseri           ###   ########.fr       */
+/*   Updated: 2024/11/09 09:44:54 by cseriildii       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,26 @@ class Fixed
 		Fixed();
 		Fixed(int num);
 		Fixed(float num);
-		Fixed& operator=(const Fixed& other);
-		
-		bool operator<(const Fixed& other);
-		bool operator>(const Fixed& other);
-		bool operator>=(const Fixed& other);
-		bool operator<=(const Fixed& other);
-		bool operator==(const Fixed& other);
-		bool operator!=(const Fixed& other);
-/* 		Fixed& operator+(const Fixed& other);
-		Fixed& operator-(const Fixed& other);
-		Fixed& operator*(const Fixed& other);
-		Fixed& operator/(const Fixed& other); */
-		
 		Fixed(const Fixed& other);
 		~Fixed();
+		Fixed&	operator=(const Fixed& other);
+		
+		bool	operator<(const Fixed& other) const;
+		bool	operator>(const Fixed& other) const;
+		bool	operator>=(const Fixed& other) const;
+		bool	operator<=(const Fixed& other) const;
+		bool	operator==(const Fixed& other) const;
+		bool	operator!=(const Fixed& other) const;
+		
+		Fixed	operator+(const Fixed& other) const;
+		Fixed	operator-(const Fixed& other) const;
+		Fixed	operator*(const Fixed& other) const;
+		Fixed	operator/(const Fixed& other) const;
+		
+		Fixed&	operator++();
+		Fixed&	operator--();
+		Fixed	operator++(int);
+		Fixed	operator--(int);
 
 		int		getRawBits( void ) const;
 		void	setRawBits( int raw );
