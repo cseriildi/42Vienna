@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Harl.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/30 15:42:33 by cseriildii        #+#    #+#             */
-/*   Updated: 2024/11/07 16:50:56 by icseri           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 //NOLINTBEGIN(readability-convert-member-functions-to-static, performance-unnecessary-value-param, cppcoreguidelines-pro-bounds-constant-array-index)
 
 #include "Harl.hpp"
