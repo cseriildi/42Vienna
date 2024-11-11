@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Fixed.cpp                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cseriildii <cseriildii@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 11:03:05 by icseri            #+#    #+#             */
-/*   Updated: 2024/11/09 09:44:55 by cseriildii       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Fixed.hpp"
 #include <iostream>
 #include <cmath> 
@@ -46,7 +34,7 @@ bool	Fixed::operator==(const Fixed& other) const {return _value == other._value;
 
 bool	Fixed::operator!=(const Fixed& other) const {return !(*this == other);}
 
-//arithmetic operators
+//arithmetic operators:
 Fixed	Fixed::operator+(const Fixed& other) const {return Fixed(this->toFloat() + other.toFloat());}
 
 Fixed	Fixed::operator-(const Fixed& other) const {return Fixed(this->toFloat() - other.toFloat());}
@@ -57,27 +45,27 @@ Fixed	Fixed::operator/(const Fixed& other) const {return Fixed(this->toFloat() /
 
 //pre-increment
 Fixed&	Fixed::operator++() {
-	_value += ((1 << _nbFractBits)); 
+	_value++; 
     return *this;
 }
 
 //pre-decrement
 Fixed&	Fixed::operator--() {
-	_value -= (1 << _nbFractBits);
+	_value--;
     return *this;
 }
 
 //post-increment
 Fixed	Fixed::operator++(int) {
     Fixed temp(*this);
-	_value += ((1 << _nbFractBits)); 
+	_value++; 
     return temp;
 }
 
 //post-decrement
 Fixed	Fixed::operator--(int) {
     Fixed temp(*this);
-	_value -= (1 << _nbFractBits);
+	_value--;
     return temp;
 }
 
@@ -90,10 +78,10 @@ float	Fixed::toFloat( void ) const {return static_cast<float>(_value) / static_c
 int		Fixed::toInt( void ) const {return _value >> _nbFractBits;}
 
 //min & max
-Fixed&	Fixed::min(Fixed& a, Fixed& b) {return (a < b) ? a : b;}
+Fixed&			Fixed::min(Fixed& a, Fixed& b) {return (a < b) ? a : b;}
 
 const Fixed&	Fixed::min(const Fixed& a, const Fixed& b) {return (a < b) ? a : b;}
 
-Fixed&	Fixed::max(Fixed& a, Fixed& b) {return (a > b) ? a : b;}
+Fixed&			Fixed::max(Fixed& a, Fixed& b) {return (a > b) ? a : b;}
 
 const Fixed&	Fixed::max(const Fixed& a, const Fixed& b) {return (a > b) ? a : b;}
