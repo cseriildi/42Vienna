@@ -1,0 +1,27 @@
+CompileFlags:
+  Add: [-Wall, -Wextra, -Werror, --std=c++98, -pedantic-errors]
+  Compiler: c++
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      [
+        "bugprone-*",
+        "clang-analyzer-*",
+        "cppcoreguidelines-*",
+        "misc-*",
+        "performance-*",
+        "readability-*",
+      ]
+    Remove: [readability-identifier-length,
+            readability-braces-around-statements,
+            cppcoreguidelines-pro-bounds-pointer-arithmetic]
+    FastCheckFilter: None
+  MissingIncludes: Strict
+
+InlayHints:
+  BlockEnd: No
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
