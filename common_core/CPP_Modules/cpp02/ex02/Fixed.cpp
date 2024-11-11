@@ -43,26 +43,26 @@ Fixed	Fixed::operator*(const Fixed& other) const{return Fixed(this->toFloat() * 
 
 Fixed	Fixed::operator/(const Fixed& other) const {return Fixed(this->toFloat() / other.toFloat());}
 
-//pre-increment
+//pre-increment:
 Fixed&	Fixed::operator++() {
 	_value++; 
     return *this;
 }
 
-//pre-decrement
+//pre-decrement:
 Fixed&	Fixed::operator--() {
 	_value--;
     return *this;
 }
 
-//post-increment
+//post-increment:
 Fixed	Fixed::operator++(int) {
     Fixed temp(*this);
 	_value++; 
     return temp;
 }
 
-//post-decrement
+//post-decrement:
 Fixed	Fixed::operator--(int) {
     Fixed temp(*this);
 	_value--;
@@ -77,7 +77,7 @@ float	Fixed::toFloat( void ) const {return static_cast<float>(_value) / static_c
 
 int		Fixed::toInt( void ) const {return _value >> _nbFractBits;}
 
-//min & max
+//min & max:
 Fixed&			Fixed::min(Fixed& a, Fixed& b) {return (a < b) ? a : b;}
 
 const Fixed&	Fixed::min(const Fixed& a, const Fixed& b) {return (a < b) ? a : b;}

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 13:36:54 by icseri            #+#    #+#             */
-/*   Updated: 2024/11/07 15:43:21 by icseri           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 //NOLINTBEGIN(bugprone-easily-swappable-parameters, cppcoreguidelines-pro-bounds-constant-array-index, readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)
 
 #include "PhoneBook.hpp"
