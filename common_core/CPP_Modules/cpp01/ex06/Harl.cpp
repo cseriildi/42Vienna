@@ -29,7 +29,7 @@ void Harl::error( void )
 
 void Harl::complain( std::string level )
 {
-	const char *levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	const std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	int index = OTHER;;
 	for (int i = 0; i <= 3; i++)
