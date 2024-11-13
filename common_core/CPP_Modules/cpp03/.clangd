@@ -15,7 +15,10 @@ Diagnostics:
       ]
     Remove: [readability-identifier-length,
             readability-braces-around-statements,
-            cppcoreguidelines-pro-bounds-pointer-arithmetic]
+            cppcoreguidelines-pro-bounds-pointer-arithmetic,
+            cppcoreguidelines-avoid-magic-numbers,
+            readability-magic-numbers,
+            bugprone-easily-swappable-parameters]
     FastCheckFilter: None
   MissingIncludes: Strict
 
