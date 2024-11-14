@@ -10,7 +10,11 @@ class ClapTrap
 	public:
 
 		ClapTrap();
-		ClapTrap(const std::string& name, unsigned int hitPoints = 10, unsigned int energyPoints = 10, unsigned int attackDamage = 0);
+		ClapTrap(const std::string& name,
+				unsigned int hitPoints = 10,
+				unsigned int energyPoints = 10,
+				unsigned int attackDamage = 0);
+
 		ClapTrap(const ClapTrap& other);
 		virtual ~ClapTrap();
 		ClapTrap&	operator=(const ClapTrap& other);

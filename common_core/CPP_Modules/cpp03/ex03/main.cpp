@@ -1,14 +1,12 @@
 #include <string>
-#include "ClapTrap.hpp"
-#include "FragTrap.hpp"
+#include "DiamondTrap.hpp"
 
 int main()
 {
-    ClapTrap a = ClapTrap();
-   	ClapTrap b = ClapTrap("Duck");
-	FragTrap c = FragTrap();
-	FragTrap d = FragTrap("Duck2");
-
+	DiamondTrap c = DiamondTrap();
+	c.whoAmI();
+	DiamondTrap d = DiamondTrap("Duck2");
+	d.whoAmI(); 
 	d.attack("Goose");
 	d.printInfo();
 	d.takeDamage(2);
