@@ -1,5 +1,5 @@
-NAME = claptrap
+NAME = fragtrap
 
-SRCS = ClapTrap.cpp main.cpp ScavTrap.cpp
+SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp
 
 include ../Makefile

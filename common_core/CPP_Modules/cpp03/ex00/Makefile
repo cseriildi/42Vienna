@@ -1,5 +1,5 @@
 NAME = claptrap
 
-SRCS = ClapTrap.cpp main.cpp
+SRCS = main.cpp ClapTrap.cpp
 
 include ../Makefile
