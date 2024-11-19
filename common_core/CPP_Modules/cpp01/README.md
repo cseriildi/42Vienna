@@ -3,10 +3,10 @@
 ## Summary
 The goal of the CPP Module projects is to get familiar with C++ programming language quickly.
 - **Allowed functions**: Any function from the standard library, if there is a C++ version of the function, use that. The code must compile with c++98.
-- **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`.
+- **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`. Namespace and friend keyword. `Containers` (vector/list/map/...) and `Algorithms` (functions from the `algorithm` header).
 
 ## Useful Stuff
-- [Documentation and Tutorial for C++](https://cplusplus.com/doc/tutorial/)
+
 
 ## Exercise 00
 The goal of this task is to decide when is it better to allocate on the stack and on the heap.
@@ -57,10 +57,28 @@ In this task you'll learn about file management and manipulation
 	- string to replace
 	- string to replace with
 - Open the file
-- Replace the word
-- It is forbidden to use the std::string::replace since that what you'll have to recreate
+- Create a `<filename>.replace` file with replacing the word
+- It is forbidden to use the `std::string::replace` since that what you have to recreate
 - Write your own test cases
 
 ## Exercise 05
+The goal of this exercise is to use pointers to member functions.
+- Create class `Harl`
+- Implement these **private** member functions: *they should print a message according to the level*
+	- `void debug();`
+	- `void info();`
+	- `void warning();`
+	- `void error();`
+- Implement this **public** member function: *(calls the appropriate function based on the level passed to it using a pointer to the member function)*
+	- void complain(std::string level);
+- Avoid using a lot of if/else statements
 
 ## Exercise 06
+In this exercise you'll get to know the SWITCH statement.
+- Reusing the class from the previous exercise create a program that takes an argument indicating the minimum level of complaints that should displayed.
+- If the argument provided is:
+	- `"DEBUG"` call `debug()`, `info()`, `warning()`, `error()`
+	- `"INFO"` call `info()`, `warning()`, `error()`
+	- `"WARNING"` call `warning()`, `error()`
+	- `"ERROR"` call `error()`
+	- anything else then print `"[ Probably complaining about insignificant problems ]"`

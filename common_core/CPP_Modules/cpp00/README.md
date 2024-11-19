@@ -3,10 +3,10 @@
 ## Summary
 The goal of the CPP Module projects is to get familiar with C++ programming language quickly.
 - **Allowed functions**: Any function from the standard library, if there is a C++ version of the function, use that. The code must compile with c++98.
-- **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`.
+- **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`. Namespace and friend keyword. `Containers` (vector/list/map/...) and `Algorithms` (functions from the `algorithm` header).
 
 ## Useful Stuff
-- [Documentation and Tutorial for C++](https://cplusplus.com/doc/tutorial/)
+
 
 ## Exercise 00
 Create a program that behaves like this:
@@ -50,7 +50,7 @@ Additional things I added that are not in the subject:
 - replacing multiple whitespaces with a singular space and trimming the leading and closing whitespaces, if after trimming the string is empty trow an error and prompt again
 - for the phone number I only accept numerical value with an optional spaces and a leading `+` sign, but it has to contain at least one number
 - if no contact has been saved yet, instead of printing an empty phonebook I throw a `There are no contacts in the phonebook` error and prompt again
-- I add the new contact at the top of the phonebook so I don't have to handle the issue when the phonebook is full, bacause the oldest contact is gonna be removed automatically when I have at least 8 contacts already
+- I add the new contact at the top of the phonebook so I don't have to handle the issue when the phonebook is full, because the oldest contact is going to be removed automatically when I have at least 8 contacts already
 </div>
 
 
