@@ -27,7 +27,7 @@ WrongCat&	WrongCat::operator=(const WrongCat& other)
 	return *this;
 }
 
-void WrongCat::makeSound()
+void WrongCat::makeSound() const //NOLINT
 {
 	std::cout << "Meow\n";
 }

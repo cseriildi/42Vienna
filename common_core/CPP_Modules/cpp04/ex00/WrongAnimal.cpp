@@ -31,10 +31,9 @@ WrongAnimal&	WrongAnimal::operator=(const WrongAnimal& other)
 	return *this;
 }
 
-void WrongAnimal::makeSound()
+void WrongAnimal::makeSound() const  //NOLINT
 {
 	std::cout << "I can't talk\n";
 }
-
 
 const std::string&	WrongAnimal::getType() const {return _type;}
