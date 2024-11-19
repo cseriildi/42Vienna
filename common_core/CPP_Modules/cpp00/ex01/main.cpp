@@ -13,18 +13,13 @@ int		main(void)
 		std::cout << "Enter a command (ADD/SEARCH/EXIT): ";
 		std::getline(std::cin, input);
 		if (input.empty())
-		{
 			reopen_stdin();
-			continue;
-		}
-		if (input == "EXIT")
+		else if (input == "EXIT")
 			break;
-		if (input == "ADD")
+		else if (input == "ADD")
 			add_contact(my_phonebook);
 		else if (input == "SEARCH")
 			search_contact(my_phonebook);
-		else
-			continue;
 	}
 	return 0;
 }

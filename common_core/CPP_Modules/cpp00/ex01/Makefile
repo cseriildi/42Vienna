@@ -1,5 +1,5 @@
 NAME = phonebook
 
-SRCS = PhoneBook.cpp Contact.cpp main.cpp utils.cpp
+SRCS = main.cpp utils.cpp PhoneBook.cpp Contact.cpp
 
 include ../Makefile

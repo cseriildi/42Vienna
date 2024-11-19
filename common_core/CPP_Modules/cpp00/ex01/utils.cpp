@@ -56,7 +56,6 @@ void	reopen_stdin()
 	}
 }
 
-
 std::string get_data(const std::string& field)
 {
 	std::string data;
