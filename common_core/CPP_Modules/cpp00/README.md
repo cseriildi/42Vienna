@@ -47,7 +47,7 @@ Create a phonebook for 8 cantacts
 <div style="background-color: #505050; padding: 10px; border-radius: 5px; font-style: italic;">
 
 Additional things I added that are not in the subject:
-- replacing multiple whitespaces with a singular space and trimming the leading and closing whitespaces, if after trimming the string is empty trow an error and prompt again
+- replacing multiple whitespaces with a singular space and trimming the leading and closing whitespaces, if after trimming the string is empty throw an error and prompt again
 - for the phone number I only accept numerical value with an optional spaces and a leading `+` sign, but it has to contain at least one number
 - if no contact has been saved yet, instead of printing an empty phonebook I throw a `There are no contacts in the phonebook` error and prompt again
 - I add the new contact at the top of the phonebook so I don't have to handle the issue when the phonebook is full, because the oldest contact is going to be removed automatically when I have at least 8 contacts already
