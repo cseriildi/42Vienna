@@ -1,79 +1,52 @@
+//NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+
 #include "utils.hpp"
-#include "PhoneBook.hpp"
 #include <string>
 #include <cstdio>
 #include <iostream>
 #include <cctype>
-
-void	add_contact(PhoneBook &myPhoneBook)
-{
-	std::string firstName = get_data("First Name");
-	std::string lastName = get_data("Last Name");
-	std::string nickname = get_data("Nickname");
-	std::string phoneNumber = get_data("Phone Number");
-	std::string darkestSecret = get_data("Darkest Secret");
-
-	myPhoneBook.setContact(firstName, lastName, nickname, phoneNumber, darkestSecret);
-	
-}
-
-void	search_contact(PhoneBook &myPhoneBook)
-{
-	int 		index = 0;
-	int			max_index = myPhoneBook.getContactCount();
-
-	if (max_index == 0)
-	{
-		std::cerr << "There are no contacts in the phonebook\n";
-		return;
-	}
-	myPhoneBook.printPhonebook();
-	
-	while (true)
-	{
-		index = get_index();
-	
-		if (index < max_index && index >= 0)
-			break;
-		if (index < 0)
-			std::cerr << "Index cannot be negative!\n";
-		else if (max_index == 1)
-			std::cerr << "There is only 1 contact in the phonebook\n";
-		else
-			std::cerr << "There are only " << max_index << " contacts in the phonebook\n";
-	}
-	myPhoneBook.printContact(index);
-}
+#include <sstream>
+#include <iomanip>
 
 void	reopen_stdin()
 {
-	if (std::cin.eof())
+	if (std::wcin.eof())
 	{
-		std::cin.clear();
-		std::cin.ignore(0, '\n');
+		std::wcin.clear();
+		std::wcin.ignore(0, '\n');
 		std::freopen("/dev/tty", "r", stdin);
-		std::cout << "\n";
+		std::wcout << "\n";
 	}
 }
 
-std::string get_data(const std::string& field)
+std::wstring get_data(const std::wstring& field)
 {
-	std::string data;
+	std::wstring data;
 
 	while (true)
 	{
-		std::cout << "Enter " << field << ": ";
-		std::getline(std::cin, data);
+		std::wcout << "Enter " << field << ": ";
+		std::getline(std::wcin, data);
+		if (std::wcin.eof())
+		{
+			reopen_stdin();
+			std::wcerr << field << " cannot be empty!\n";
+			continue;
+		}
+		if (has_emoji(data))
+		{
+			std::wcerr << "Emoji is not allowed!\n";
+			continue;
+		}
 		data = trim(data);
 		if (data.empty())
 		{
-			reopen_stdin();
-			std::cerr << field << " cannot be empty!\n";
+			std::wcerr << field << " cannot be empty!\n";
 			continue;
 		}
-		if (field == "Phone Number" && !valid_phone_number(data))
+		if (field == L"Phone Number" && !valid_phone_number(data))
 		{
-			std::cerr << "Phone number is not valid!\n";
+			std::wcerr << "Phone number is not valid!\n";
 			continue;
 		}
 		break;
@@ -83,27 +56,24 @@ std::string get_data(const std::string& field)
 
 int get_index(void)
 {
-	int 		index = 0;
-	std::string input;
-	std::string index_str;
-	
+	int				index = 0;
+	std::wstring	input;
 
 	while (true)
 	{
-		std::cout << "Enter the index of the contact you want to see: ";
-		std::getline(std::cin, input);
+		std::wcout << "Enter the index of the contact you want to see: ";
+		std::getline(std::wcin, input);
 
-		if (input.empty())
+		if (std::wcin.eof() || input.empty())
 		{
 			reopen_stdin();
-			std::cerr << "Index cannot be empty!\n";
+			std::wcerr << "Index cannot be empty!\n";
 			continue;
 		}
 		index = ft_atoi(input);
-		index_str = ft_itoa(index);
-		if (input != index_str)
+		if (input != ft_itoa(index))
 		{
-			std::cerr << "Index must be a number between 0-7!\n";
+			std::wcerr << "Index must be a number between 0-7!\n";
 			continue;
 		}
 		break;
@@ -111,13 +81,13 @@ int get_index(void)
 	return index;
 }
 
-std::string	trim(const std::string& str)
+std::wstring	trim(const std::wstring& str)
 {
-	std::string trimmed;
+	std::wstring trimmed;
 
 	if (!str.empty())
 	{
-		std::string::const_iterator it = str.begin();
+		std::wstring::const_iterator it = str.begin();
 
 		while (it != str.end())
 		{
@@ -134,9 +104,9 @@ std::string	trim(const std::string& str)
 	return trimmed;
 }
 
-bool	valid_phone_number(const std::string& phoneNumber)
+bool	valid_phone_number(const std::wstring& phoneNumber)
 {
-	std::string::const_iterator it = phoneNumber.begin();
+	std::wstring::const_iterator it = phoneNumber.begin();
 	
 	if (*it == '+')
 		it++;
@@ -146,14 +116,14 @@ bool	valid_phone_number(const std::string& phoneNumber)
 			return false;
 		it++;
 	}
-	return (phoneNumber != "+");
+	return (phoneNumber != L"+");
 }
 
-int	ft_atoi(const std::string& num)
+int	ft_atoi(const std::wstring& num)
 {
 	int result = 0;
 	int sign = 1;
-	std::string::const_iterator it = num.begin();
+	std::wstring::const_iterator it = num.begin();
 
 	if (*it == '-' || *it == '+')
 	{
@@ -163,8 +133,43 @@ int	ft_atoi(const std::string& num)
 	}
 	while (it != num.end() && std::isdigit(*it) != 0)
 	{
-		result = result * 10 + *it - '0'; //NOLINT
+		result = result * 10 + *it - '0';
 		it++;
 	}
 	return result * sign;
 }
+
+std::wstring	ft_itoa(int n)
+{
+	std::wstringstream ss;
+	ss << n;
+	return ss.str();
+}
+
+void	print_field(const std::wstring &field, int len)
+{
+	if (len <= 0)
+		return;
+	if (field.length() <= (long unsigned int)len)
+		std::wcout << std::setw(len) << field;
+	else
+		std::wcout << field.substr(0, len - 1) << ".";
+}
+
+bool has_emoji(const std::wstring& str)
+{
+	std::wstring::const_iterator it;
+
+	for (it = str.begin(); it != str.end(); it++)
+	{
+		if ((*it >= 0x1F600 && *it <= 0x1F64F) ||
+           (*it >= 0x1F300 && *it <= 0x1F5FF) ||
+           (*it >= 0x1F680 && *it <= 0x1F6FF) ||
+           (*it >= 0x1F900 && *it <= 0x1F9FF) ||
+           (*it >= 0x2600 && *it <= 0x26FF) ||  
+           (*it >= 0x2700 && *it <= 0x27BF))
+			return true;
+	}
+	return false;
+}
+//NOLINTEND(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

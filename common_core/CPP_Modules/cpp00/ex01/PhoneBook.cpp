@@ -2,19 +2,18 @@
 
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
+#include "utils.hpp"
 #include <iostream>
 #include <string>
-#include <iomanip>
-#include <sstream>
 
 PhoneBook::PhoneBook() : _contactCount(0) {}
 PhoneBook::~PhoneBook() {}
 
-void	PhoneBook::setContact(const std::string& firstName,
-								const std::string& lastName,
-								const std::string& nickname,
-								const std::string& phoneNumber,
-								const std::string& darkestSecret)
+void	PhoneBook::setContact(const std::wstring& firstName,
+								const std::wstring& lastName,
+								const std::wstring& nickname,
+								const std::wstring& phoneNumber,
+								const std::wstring& darkestSecret)
 {
 	Contact contact;
 	
@@ -43,61 +42,82 @@ void	PhoneBook::printContact(int index) const
 	Contact contact;
 
 	contact = getContact(index);
-	std::cout << "First Name: " << contact.getFirstName() << "\n";
-	std::cout << "Last Name: " << contact.getLastName() << "\n";
-	std::cout << "Nickname: " << contact.getNickname() << "\n";
-	std::cout << "Phone Number: " << contact.getPhoneNumber() << "\n";
-	std::cout << "Darkest Secret: " << contact.getDarkestSecret() << "\n";
+	std::wcout << "First Name: " << contact.getFirstName() << "\n";
+	std::wcout << "Last Name: " << contact.getLastName() << "\n";
+	std::wcout << "Nickname: " << contact.getNickname() << "\n";
+	std::wcout << "Phone Number: " << contact.getPhoneNumber() << "\n";
+	std::wcout << "Darkest Secret: " << contact.getDarkestSecret() << "\n";
 }
 
 void	PhoneBook::printPhonebook(void) const
 {
-	std::cout << "|";
-	print_field("Index", PhoneBook::BOXLENGTH);
-	std::cout << "|";
-	print_field("First Name", PhoneBook::BOXLENGTH);
-	std::cout << "|";
-	print_field("Last Name", PhoneBook::BOXLENGTH);
-	std::cout << "|";
-	print_field("Nickname", PhoneBook::BOXLENGTH);
-	std::cout << "|\n";
+	std::wcout << "|";
+	print_field(L"Index", PhoneBook::BOXLENGTH);
+	std::wcout << "|";
+	print_field(L"First Name", PhoneBook::BOXLENGTH);
+	std::wcout << "|";
+	print_field(L"Last Name", PhoneBook::BOXLENGTH);
+	std::wcout << "|";
+	print_field(L"Nickname", PhoneBook::BOXLENGTH);
+	std::wcout << "|\n";
 
 	for (int i = 0; i < 4 * PhoneBook::BOXLENGTH + 5; i++)
-		std::cout << "-";
-	std::cout << "\n";
+		std::wcout << "-";
+	std::wcout << "\n";
 	for (int i = 0; i < this->_contactCount; i++)
 	{
-		std::cout << "|";
+		std::wcout << "|";
 		print_field(ft_itoa(i), PhoneBook::BOXLENGTH);
-		std::cout << "|";
+		std::wcout << "|";
 		print_field(this->_contacts[i].getFirstName(), PhoneBook::BOXLENGTH);
-		std::cout << "|";
+		std::wcout << "|";
 		print_field(this->_contacts[i].getLastName(), PhoneBook::BOXLENGTH);
-		std::cout << "|";
+		std::wcout << "|";
 		print_field(this->_contacts[i].getNickname(), PhoneBook::BOXLENGTH);
-		std::cout << "|" << "\n";
+		std::wcout << "|" << "\n";
 		for (int i = 0; i < 4 * PhoneBook::BOXLENGTH + 5; i++)
-			std::cout << "-";
-		std::cout << "\n";
+			std::wcout << "-";
+		std::wcout << "\n";
 	}
 }
 
-void	print_field(const std::string& field, int len)
+void	PhoneBook::add_contact()
 {
-	if (len <= 0)
-		return;
-	if (field.length() <= (long unsigned int)len)
-		std::cout << std::setw(len) << field;
-	else
-		std::cout << field.substr(0, len - 1) << ".";
+	std::wstring firstName = get_data(L"First Name");
+	std::wstring lastName = get_data(L"Last Name");
+	std::wstring nickname = get_data(L"Nickname");
+	std::wstring phoneNumber = get_data(L"Phone Number");
+	std::wstring darkestSecret = get_data(L"Darkest Secret");
 
+	this->setContact(firstName, lastName, nickname, phoneNumber, darkestSecret);
 }
 
-std::string	ft_itoa(int n)
+void	PhoneBook::search_contact() const
 {
-	std::stringstream ss;
-	ss << n;
-	return ss.str();
+	int 		index = 0;
+	int			max_index = this->getContactCount();
+
+	if (max_index == 0)
+	{
+		std::wcerr << "There are no contacts in the phonebook\n";
+		return;
+	}
+	this->printPhonebook();
+	
+	while (true)
+	{
+		index = get_index();
+	
+		if (index < max_index && index >= 0)
+			break;
+		if (index < 0)
+			std::wcerr << "Index cannot be negative!\n";
+		else if (max_index == 1)
+			std::wcerr << "There is only 1 contact in the phonebook\n";
+		else
+			std::wcerr << "There are only " << max_index << " contacts in the phonebook\n";
+	}
+	this->printContact(index);
 }
 
 //NOLINTEND(bugprone-easily-swappable-parameters, cppcoreguidelines-pro-bounds-constant-array-index, readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers)

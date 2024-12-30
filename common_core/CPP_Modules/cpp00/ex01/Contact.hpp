@@ -14,27 +14,27 @@ class Contact
 		~Contact();
 
 		//Setters
-		void		setFirstName(const std::string& firstName);
-		void		setLastName(const std::string& lastName);
-		void		setNickname(const std::string& nickname);
-		void		setPhoneNumber(const std::string& phoneNumber);
-		void		setDarkestSecret(const std::string& darkestSecret);
+		void	setFirstName(const std::wstring& firstName);
+		void	setLastName(const std::wstring& lastName);
+		void	setNickname(const std::wstring& nickname);
+		void	setPhoneNumber(const std::wstring& phoneNumber);
+		void	setDarkestSecret(const std::wstring& darkestSecret);
 		
 		//Getters
-		const std::string&	getFirstName() const;
-		const std::string&	getLastName() const;
-		const std::string&	getNickname() const;
-		const std::string&	getPhoneNumber() const;
-		const std::string&	getDarkestSecret() const;
+		const std::wstring&	getFirstName() const;
+		const std::wstring&	getLastName() const;
+		const std::wstring&	getNickname() const;
+		const std::wstring&	getPhoneNumber() const;
+		const std::wstring&	getDarkestSecret() const;
 
 	private:
 
 		//Variables
-		std::string	_firstName;
-		std::string	_lastName;
-		std::string	_nickname;
-		std::string	_phoneNumber;
-		std::string	_darkestSecret;
+		std::wstring	_firstName;
+		std::wstring	_lastName;
+		std::wstring	_nickname;
+		std::wstring	_phoneNumber;
+		std::wstring	_darkestSecret;
 		
 };
 

@@ -2,24 +2,25 @@
 #include "PhoneBook.hpp"
 #include <string>
 #include <iostream>
+#include <clocale>
 
 int		main(void)
 {
-	PhoneBook 	my_phonebook;
-	std::string input;
-	
+	PhoneBook		my_phonebook;
+	std::wstring	input=L"         "; //fix this
+
+	setlocale(LC_CTYPE, "");
 	while (true)
 	{
-		std::cout << "Enter a command (ADD/SEARCH/EXIT): ";
-		std::getline(std::cin, input);
-		if (input.empty())
+		std::wcout << "Enter a command (ADD/SEARCH/EXIT): ";
+		std::getline(std::wcin, input);
+		if (std::wcin.eof())
 			reopen_stdin();
-		else if (input == "EXIT")
+		else if (input == L"ADD")
+			my_phonebook.add_contact();
+		else if (input == L"SEARCH")
+			my_phonebook.search_contact();
+		else if (input == L"EXIT")
 			break;
-		else if (input == "ADD")
-			add_contact(my_phonebook);
-		else if (input == "SEARCH")
-			search_contact(my_phonebook);
 	}
-	return 0;
 }

@@ -1,17 +1,17 @@
 #ifndef UTILS_HPP
 # define UTILS_HPP
 
-#include "PhoneBook.hpp"
 #include <string>
 #include <cstdio>
 
-void			add_contact(PhoneBook &myPhoneBook);
-void			search_contact(PhoneBook &myPhoneBook);
-std::string 	get_data(const std::string& field);
+std::wstring 	get_data(const std::wstring& field);
 int 			get_index(void);
-std::string		trim(const std::string& str);
-bool			valid_phone_number(const std::string& phoneNumber);
-int				ft_atoi(const std::string& num);
+std::wstring	trim(const std::wstring& str);
+bool			valid_phone_number(const std::wstring& phoneNumber);
+int				ft_atoi(const std::wstring& num);
 void			reopen_stdin();
+std::wstring	ft_itoa(int n);
+void			print_field(const std::wstring& field, int len);
+bool			has_emoji(const std::wstring& str);
 
 #endif
