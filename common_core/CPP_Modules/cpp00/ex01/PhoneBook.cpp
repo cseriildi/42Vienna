@@ -99,7 +99,7 @@ void	PhoneBook::search_contact() const
 
 	if (max_index == 0)
 	{
-		std::wcerr << "There are no contacts in the phonebook\n";
+		std::cerr << "There are no contacts in the phonebook\n";
 		return;
 	}
 	this->printPhonebook();
@@ -111,11 +111,11 @@ void	PhoneBook::search_contact() const
 		if (index < max_index && index >= 0)
 			break;
 		if (index < 0)
-			std::wcerr << "Index cannot be negative!\n";
+			std::cerr << "Index cannot be negative!\n";
 		else if (max_index == 1)
-			std::wcerr << "There is only 1 contact in the phonebook\n";
+			std::cerr << "There is only 1 contact in the phonebook\n";
 		else
-			std::wcerr << "There are only " << max_index << " contacts in the phonebook\n";
+			std::cerr << "There are only " << max_index << " contacts in the phonebook\n";
 	}
 	this->printContact(index);
 }

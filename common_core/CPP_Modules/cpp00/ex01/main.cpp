@@ -7,8 +7,9 @@
 int		main(void)
 {
 	PhoneBook		my_phonebook;
-	std::wstring	input=L"         "; //fix this
+	std::wstring	input;
 
+	input.reserve(10); //to avoid invalid read, because of std::basic_string is dinamically allocated, initially started with a very small size
 	setlocale(LC_CTYPE, "");
 	while (true)
 	{

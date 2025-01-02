@@ -30,23 +30,23 @@ std::wstring get_data(const std::wstring& field)
 		if (std::wcin.eof())
 		{
 			reopen_stdin();
-			std::wcerr << field << " cannot be empty!\n";
+			std::cerr << "This field cannot be empty!\n";
 			continue;
 		}
 		if (has_emoji(data))
 		{
-			std::wcerr << "Emoji is not allowed!\n";
+			std::cerr << "Emoji is not allowed!\n";
 			continue;
 		}
 		data = trim(data);
 		if (data.empty())
 		{
-			std::wcerr << field << " cannot be empty!\n";
+			std::cerr << "This field cannot be empty!\n";
 			continue;
 		}
 		if (field == L"Phone Number" && !valid_phone_number(data))
 		{
-			std::wcerr << "Phone number is not valid!\n";
+			std::cerr << "Phone number is not valid!\n";
 			continue;
 		}
 		break;
@@ -67,13 +67,13 @@ int get_index(void)
 		if (std::wcin.eof() || input.empty())
 		{
 			reopen_stdin();
-			std::wcerr << "Index cannot be empty!\n";
+			std::cerr << "Index cannot be empty!\n";
 			continue;
 		}
 		index = ft_atoi(input);
 		if (input != ft_itoa(index))
 		{
-			std::wcerr << "Index must be a number between 0-7!\n";
+			std::cerr << "Index must be a number between 0-7!\n";
 			continue;
 		}
 		break;
