@@ -23,6 +23,8 @@ class	Harl
 
 	private:
 
+		void (Harl::*_funcPointers[4])();
+
 		void debug( void );
 		void info( void );
 		void warning( void );

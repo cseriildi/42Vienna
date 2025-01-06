@@ -1,4 +1,4 @@
-//NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index, bugprone-switch-missing-default-case, readability-convert-member-functions-to-static, performance-unnecessary-value-param)
+//NOLINTBEGIN(readability-convert-member-functions-to-static, cppcoreguidelines-pro-bounds-constant-array-index, bugprone-switch-missing-default-case, performance-unnecessary-value-param)
 
 #include "Harl.hpp"
 #include <iostream>
@@ -31,15 +31,10 @@ void Harl::complain( std::string level )
 {
 	const std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	int index = OTHER;;
-	for (int i = 0; i <= 3; i++)
-	{
-		if (levels[i] == level)
-		{
-			index = i;
-			break ;
-		}
-	}
+	int index = 0;
+	while (index < 4 && levels[index] != level)
+		index++;
+
 	switch (index)
 	{
 		case OTHER:
@@ -47,22 +42,22 @@ void Harl::complain( std::string level )
 			return ;
 		case DEBUG:
 			std::cout << "[ DEBUG ]\n";
-			this->debug();
+			debug();
 			std::cout << "\n";
 		case INFO:
 			std::cout << "[ INFO ]\n";
-			this->info();
+			info();
 			std::cout << "\n";
 		case WARNING:
 			std::cout << "[ WARNING ]\n";
-			this->warning();
+			warning();
 			std::cout << "\n";
 		case ERROR:
 			std::cout << "[ ERROR ]\n";
-			this->error();
+			error();
 			std::cout << "\n";
     }
 }
 
-//NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index, bugprone-switch-missing-default-case, readability-convert-member-functions-to-static, performance-unnecessary-value-param)
+//NOLINTEND(readability-convert-member-functions-to-static, cppcoreguidelines-pro-bounds-constant-array-index, bugprone-switch-missing-default-case, performance-unnecessary-value-param)
 

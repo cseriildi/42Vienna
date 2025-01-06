@@ -4,7 +4,14 @@
 #include <iostream>
 #include <string>
 
-Harl::Harl() {}
+Harl::Harl() //NOLINT
+{
+	_funcPointers[0] = &Harl::debug;
+	_funcPointers[1] = &Harl::info;
+	_funcPointers[2] = &Harl::warning;
+	_funcPointers[3] = &Harl::error;
+}
+
 Harl::~Harl() {}
 
 void Harl::debug( void )
@@ -29,24 +36,11 @@ void Harl::error( void )
 
 void Harl::complain( std::string level )
 {
-	const char *levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	const std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	void (Harl::*funcPointers[])() = {
-		&Harl::debug,
-		&Harl::info,
-		&Harl::warning,
-		&Harl::error
-	};
-
-	int index = OTHER;;
-	for (int i = 0; i <= 3; i++)
-	{
-		if (levels[i] == level)
-		{
-			index = i;
-			break ;
-		}
-	}
+	int index = 0;
+	while (index < 4 && levels[index] != level)
+		index++;
 
 	switch (index)
 	{
@@ -54,7 +48,7 @@ void Harl::complain( std::string level )
 			std::cout << "Unkown level\n";
 			return ;
 		default:
-			(this->*funcPointers[index])();
+			(this->*_funcPointers[index])();
 	}
 }
 
