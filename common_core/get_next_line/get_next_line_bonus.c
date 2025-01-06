@@ -6,7 +6,7 @@
 /*   By: icseri <icseri@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:27:07 by icseri            #+#    #+#             */
-/*   Updated: 2024/07/03 13:54:38 by icseri           ###   ########.fr       */
+/*   Updated: 2024/12/13 10:15:49 by icseri           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,22 @@ static t_list	*get_node(t_list **list, int fd)
 	return (node);
 }
 
+static void	ft_listclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*current;
+
+	if (lst && del)
+	{
+		while (*lst)
+		{
+			current = (*lst)->next;
+			del((*lst)->content);
+			*lst = current;
+		}
+	}
+	*lst = NULL;
+}
+
 static char	*read_fd(int fd, char *read_chars)
 {
 	char	*tmp;
@@ -92,7 +108,7 @@ char	*get_next_line(int fd)
 	char			*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (ft_listclear(&list, &free), NULL);
 	read_chars = get_node(&list, fd);
 	if (!read_chars)
 		return (NULL);
