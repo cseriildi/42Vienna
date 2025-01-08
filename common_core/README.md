@@ -19,8 +19,8 @@
 | NetPractice		| [![icseri's 42 NetPractice Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4032718)](https://github.com/Nimon77/badge42) |
 | [cub3d](./cub3d/)		| [![icseri's 42 cub3d Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4032719)](https://github.com/Nimon77/badge42) |
 | [CPP Module 00](./CPP_Modules/cpp00/) | [![icseri's 42 CPP Module 00 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4032715)](https://github.com/Nimon77/badge42) |
-| [CPP Module 01](./CPP_Modules/cpp01/) | In progress |
-| [CPP Module 02](./CPP_Modules/cpp02/) | In progress |
+| [CPP Module 01](./CPP_Modules/cpp01/) | [![icseri's 42 CPP Module 01 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4042912)](https://github.com/Nimon77/badge42) |
+| [CPP Module 02](./CPP_Modules/cpp02/) | [![icseri's 42 CPP Module 02 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4077366)](https://github.com/Nimon77/badge42) |
 | [CPP Module 03](./CPP_Modules/cpp03/) | In progress |
 | [CPP Module 04](./CPP_Modules/cpp04/)	| In progress |
 | *Exam Rank 05* 	| |
