@@ -18,6 +18,7 @@ class Fixed
 		void	setRawBits( int raw );
 		float	toFloat( void ) const;
 		int		toInt( void ) const;
+		int		getFractionalBits(void) const;
 		
 	private:
 		

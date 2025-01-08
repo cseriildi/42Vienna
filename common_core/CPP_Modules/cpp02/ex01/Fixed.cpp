@@ -1,6 +1,7 @@
 #include "Fixed.hpp"
 #include <iostream>
 #include <cmath> 
+#include <iomanip>
 
 Fixed::Fixed(): _value (0) {std::cout << "Default constructor called\n";}
 
@@ -26,13 +27,9 @@ Fixed& Fixed::operator=(const Fixed& other)
 	return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const Fixed& other) {return os << other.toFloat();}
+int Fixed::getFractionalBits(void) const {return _nbFractBits;} //NOLINT
 
-int Fixed::getRawBits( void ) const
-{
-	std::cout << "getRawBits member function called\n";
-	return this->_value;
-}
+int Fixed::getRawBits( void ) const {return this->_value;}
 
 void Fixed::setRawBits( int const raw ) {this->_value = raw;}
 
@@ -43,5 +40,10 @@ float	Fixed::toFloat( void ) const
 
 int		Fixed::toInt( void ) const
 {
-	return this->getRawBits() >> _nbFractBits;;
+	return this->getRawBits() >> _nbFractBits;
+}
+
+std::ostream& operator<<(std::ostream& os, const Fixed& other)
+{
+	return os << std::setprecision(other.getFractionalBits()) << other.toFloat();
 }
