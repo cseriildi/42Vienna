@@ -39,12 +39,12 @@ int main( void ) {
 		std::cout << "a - b: " << a - b << "\n";
 		std::cout << "a * b: " << a * b << "\n";
 		std::cout << "a / b: " << a / b << "\n";
-		std::cout << "a > b: " << (a > b) << "\n";
-		std::cout << "a >= b: " << (a >= b) << "\n";
-		std::cout << "a < b: " << (a < b) << "\n";
-		std::cout << "a <= b: " << (a <= b) << "\n";
-		std::cout << "a == b: " << (a == b) << "\n";
-		std::cout << "a != b: " << (a != b) << "\n";
+		std::cout << "a > b: " << (a > b ?  "true" : "false") << "\n";
+		std::cout << "a >= b: " << (a >= b ?  "true" : "false") << "\n";
+		std::cout << "a < b: " << (a < b ?  "true" : "false") << "\n";
+		std::cout << "a <= b: " << (a <= b ?  "true" : "false") << "\n";
+		std::cout << "a == b: " << (a == b ?  "true" : "false") << "\n";
+		std::cout << "a != b: " << (a != b ?  "true" : "false") << "\n";
 		std::cout << "min(a, b): " << Fixed::min(a, b) << "\n";
 		std::cout << "max(a, b): " << Fixed::max(a, b) << "\n";
 	}
