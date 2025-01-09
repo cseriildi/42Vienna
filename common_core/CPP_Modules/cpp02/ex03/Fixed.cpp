@@ -1,25 +1,40 @@
 #include "Fixed.hpp"
 #include <iostream>
-#include <cmath> 
+#include <cmath>
+#include <iomanip>
+#include <climits>
 
 Fixed::Fixed(): _value (0) {}
 
-Fixed::Fixed(const int num): _value(num << _nbFractBits) {}
+Fixed::Fixed(const int num) {
+	if (num >= INT_MAX / (1 << _nbFractBits))
+		_value = INT_MAX;
+	else
+		_value = num * (1 << _nbFractBits);
+}
 
-Fixed::Fixed(const float num) : _value(static_cast<int>(roundf(num * (1 << _nbFractBits)))) {}
+Fixed::Fixed(const float num) {
+	if (num >= INT_MAX / (1 << _nbFractBits))
+		_value = INT_MAX;
+	else
+		_value = static_cast<int>(roundf(num * (1 << _nbFractBits)));	
+}
 
 Fixed::~Fixed() {}
 
 Fixed::Fixed(const Fixed& other): _value(other._value) {} 
 
-Fixed&	Fixed::operator=(const Fixed& other)
-{
+Fixed&	Fixed::operator=(const Fixed& other) {
 	if (this != &other)
 		_value = other._value;
 	return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const Fixed& other) {return os << other.toFloat();}
+int Fixed::getFractionalBits(void) const {return _nbFractBits;} //NOLINT
+
+std::ostream& operator<<(std::ostream& os, const Fixed& other) {
+	return os << std::setprecision(other.getFractionalBits()) << other.toFloat();
+}
 
 //comparison operators:
 bool	Fixed::operator<(const Fixed& other) const {return _value < other._value;}
@@ -45,27 +60,31 @@ Fixed	Fixed::operator/(const Fixed& other) const {return Fixed(this->toFloat() /
 
 //pre-increment:
 Fixed&	Fixed::operator++() {
-	_value++; 
+	if (_value != INT_MAX)
+		_value++; 
     return *this;
 }
 
 //pre-decrement:
 Fixed&	Fixed::operator--() {
-	_value--;
+	if (_value != INT_MIN)
+		_value--;
     return *this;
 }
 
 //post-increment:
 Fixed	Fixed::operator++(int) {
     Fixed temp(*this);
-	_value++; 
+	if (_value != INT_MAX)
+		_value++; 
     return temp;
 }
 
 //post-decrement:
 Fixed	Fixed::operator--(int) {
     Fixed temp(*this);
-	_value--;
+	if (_value != INT_MIN)
+		_value--;
     return temp;
 }
 
@@ -73,9 +92,11 @@ int		Fixed::getRawBits( void ) const {return _value;}
 
 void	Fixed::setRawBits( int const raw ) {_value = raw;}
 
-float	Fixed::toFloat( void ) const {return static_cast<float>(_value) / static_cast<float>(1 << _nbFractBits);}
+float	Fixed::toFloat( void ) const {
+	return static_cast<float>(this->getRawBits()) / static_cast<float>(1 << _nbFractBits);;
+}
 
-int		Fixed::toInt( void ) const {return _value >> _nbFractBits;}
+int		Fixed::toInt( void ) const {return this->getRawBits() >> _nbFractBits;}
 
 //min & max:
 Fixed&			Fixed::min(Fixed& a, Fixed& b) {return (a < b) ? a : b;}

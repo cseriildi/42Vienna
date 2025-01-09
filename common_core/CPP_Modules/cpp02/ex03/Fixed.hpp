@@ -31,6 +31,7 @@ class Fixed
 		Fixed	operator--(int);
 
 		int		getRawBits( void ) const;
+		int		getFractionalBits(void) const;
 		void	setRawBits( int raw );
 		float	toFloat( void ) const;
 		int		toInt( void ) const;
@@ -48,4 +49,5 @@ class Fixed
 };
 
 std::ostream& operator<<(std::ostream& os, const Fixed& other);
+
 #endif

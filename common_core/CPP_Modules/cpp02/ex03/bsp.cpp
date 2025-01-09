@@ -1,4 +1,4 @@
-//NOLINTBEGIN(bugprone-easily-swappable-parameters)
+//NOLINTBEGIN(bugprone-easily-swappable-parameters, performance-unnecessary-value-param)
 
 #include "Point.hpp"
 #include "Fixed.hpp"
@@ -15,7 +15,7 @@ float	cross_product(Point const& a, Point const& b, Point const& p)
 	return (bx - ax) * (py - ay) - (by - ay) * (px - ax);
 }
 
-bool bsp(Point const a, Point const b, Point const c, Point const point) // NOLINT(performance-unnecessary-value-param)
+bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
 	float const abp = cross_product(a, b, point);
 	float const bcp = cross_product(b, c, point);
@@ -24,4 +24,4 @@ bool bsp(Point const a, Point const b, Point const c, Point const point) // NOLI
 	return (abp > 0 && bcp > 0 && cap > 0) || (abp < 0 && bcp < 0 && cap < 0);
 }
 
-//NOLINTEND(bugprone-easily-swappable-parameters)
+//NOLINTEND(bugprone-easily-swappable-parameters, performance-unnecessary-value-param)
