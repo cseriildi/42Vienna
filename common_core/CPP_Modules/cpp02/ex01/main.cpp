@@ -34,7 +34,7 @@ int main( void ) {
 		Fixed actual_fixed_max = Fixed(8388607.5f);
 		Fixed actual_fixed_min = Fixed(-8388608);
 
-		std::cout << "\nDefault constructed Fixed number is " << default_fixed << ".\n\n";
+		std::cout << "Default constructed Fixed number is " << default_fixed << ".\n\n";
 		
 		std::cout << "Technically Fixed max would be 8388607.99609375, but that number is rounded up due to the float rounding rules to: ";
 		std::cout << fixed_max_should_be << " which makes the Fixed number overflow to: " << fixed_max << ".\n";

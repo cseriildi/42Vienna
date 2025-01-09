@@ -2,12 +2,28 @@
 #include <iostream>
 #include <cmath> 
 #include <iomanip>
+#include <climits>
 
 Fixed::Fixed(): _value (0) {std::cout << "Default constructor called\n";}
 
-Fixed::Fixed(const int num): _value(num << _nbFractBits) {std::cout << "Int constructor called\n";}
+Fixed::Fixed(const int num)
+{
+	if (num >= INT_MAX / (1 << _nbFractBits))
+		_value = INT_MAX;
+	else
+		_value = num * (1 << _nbFractBits);
+	std::cout << "Int constructor called\n";
+}
 
-Fixed::Fixed(const float num) : _value(static_cast<int>(roundf(num * (1 << _nbFractBits)))) {std::cout << "Float constructor called\n";}
+Fixed::Fixed(const float num)
+{
+	if (num >= INT_MAX / (1 << _nbFractBits))
+		_value = INT_MAX;
+	else
+		_value = static_cast<int>(roundf(num * (1 << _nbFractBits)));
+	std::cout << "Float constructor called\n";
+	
+}
 
 Fixed::~Fixed() {std::cout << "Destructor called\n";}
 

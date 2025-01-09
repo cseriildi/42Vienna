@@ -31,6 +31,7 @@ class Fixed
 		Fixed	operator--(int);
 
 		int		getRawBits( void ) const;
+		int		getFractionalBits(void) const;
 		void	setRawBits( int raw );
 		float	toFloat( void ) const;
 		int		toInt( void ) const;

@@ -1,6 +1,6 @@
 COMP = c++
 
-CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98 -pedantic
+CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98 -pedantic -fsanitize=address,undefined,bounds,float-divide-by-zero
 
 OBJS = ${SRCS:.cpp=.o}
 
