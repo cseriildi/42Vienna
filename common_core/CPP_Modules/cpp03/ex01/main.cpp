@@ -6,33 +6,39 @@
 
 int main()
 {
-    ClapTrap a = ClapTrap();
-   	ClapTrap b = ClapTrap("Duck");
-	ScavTrap c = ScavTrap();
-	ScavTrap d = ScavTrap("Duck2");
+	ScavTrap a = ScavTrap();
+	ScavTrap b = ScavTrap("Duck");
+	ScavTrap c = ScavTrap("Duck2");
+   	ClapTrap *d = &c;
 
-	d.attack("Goose");
-	d.printInfo();
-	d.takeDamage(2);
-    d.printInfo();
-	d.guardGate();
-	d.printInfo();
-	d.beRepaired(420);
-	d.printInfo();
-	d.takeDamage(42);
-	d.printInfo();
-	d.takeDamage(420);
-	d.printInfo();
-	d.takeDamage(420);
-	d.printInfo();
-	d.attack("Goose");
-	d.printInfo();
-	d.beRepaired(42);
-	d.printInfo();
-	d.attack("Goose");
-	d.printInfo();
-	d.guardGate();
-	d.printInfo();
+	b.attack("Goose");
+	b.printInfo();
+	b.takeDamage(2);
+    b.printInfo();
+	b.guardGate();
+	b.printInfo();
+	b.beRepaired(420);
+	b.printInfo();
+	b.takeDamage(42);
+	b.printInfo();
+	b.takeDamage(420);
+	b.printInfo();
+	b.takeDamage(420);
+	b.printInfo();
+	b.attack("Goose");
+	b.printInfo();
+	b.beRepaired(42);
+	b.printInfo();
+	b.attack("Goose");
+	b.printInfo();
+	b.guardGate();
+	b.printInfo();
+
+	d->attack("Goose");
+	d->takeDamage(42);
+	d->beRepaired(42);
+	//d->guardGate(); //this is only defined in ScavTrap
+
     return 0;
 }
 

@@ -4,32 +4,37 @@
 
 int main()
 {
-    ClapTrap a = ClapTrap();
-   	ClapTrap b = ClapTrap("Duck");
-	FragTrap c = FragTrap();
-	FragTrap d = FragTrap("Duck2");
+	FragTrap a = FragTrap();
+	FragTrap b = FragTrap("Duck");
+	FragTrap c = FragTrap("Duck2");
+	ClapTrap *d = &c;
 
-	d.attack("Goose");
-	d.printInfo();
-	d.takeDamage(2);
-    d.printInfo();
-	d.highFivesGuys();
-	d.printInfo();
-	d.beRepaired(420);
-	d.printInfo();
-	d.takeDamage(42);
-	d.printInfo();
-	d.takeDamage(420);
-	d.printInfo();
-	d.takeDamage(420);
-	d.printInfo();
-	d.attack("Goose");
-	d.printInfo();
-	d.beRepaired(42);
-	d.printInfo();
-	d.attack("Goose");
-	d.printInfo();
-	d.highFivesGuys();
-	d.printInfo();
+	b.attack("Goose");
+	b.printInfo();
+	b.takeDamage(2);
+    b.printInfo();
+	b.highFivesGuys();
+	b.printInfo();
+	b.beRepaired(420);
+	b.printInfo();
+	b.takeDamage(42);
+	b.printInfo();
+	b.takeDamage(420);
+	b.printInfo();
+	b.takeDamage(420);
+	b.printInfo();
+	b.attack("Goose");
+	b.printInfo();
+	b.beRepaired(42);
+	b.printInfo();
+	b.attack("Goose");
+	b.printInfo();
+	b.highFivesGuys();
+	b.printInfo();
+
+	d->attack("Goose");
+	d->takeDamage(42);
+	d->beRepaired(42);
+	//d->highFivesGuys(); this is only defined in FragTrap
     return 0;
 }

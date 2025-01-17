@@ -4,14 +4,14 @@
 #include <string>
 #include <iostream>
 
-ClapTrap::ClapTrap() : _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap() : _name("noname ClapTrap"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
-	std::cout << "ClapTrap: Default constructor called\n";
+	std::cout << "ClapTrap: Default constructor called for " << _name << "\n";
 }
 
 ClapTrap::ClapTrap(const std::string& name, unsigned int hitPoints, unsigned int energyPoints, unsigned int attackDamage): _name(name), _hitPoints(hitPoints), _energyPoints(energyPoints), _attackDamage(attackDamage)
 {
-	std::cout << "ClapTrap: Parameterized constructor called\n";
+	std::cout << "ClapTrap: Parameterized constructor called for " << _name << "\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other): _name(other._name), _hitPoints(other._hitPoints), _energyPoints(other._energyPoints), _attackDamage(other._attackDamage)
@@ -21,7 +21,7 @@ ClapTrap::ClapTrap(const ClapTrap& other): _name(other._name), _hitPoints(other.
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "ClapTrap: Destructor called\n";
+	std::cout << "ClapTrap: Destructor called for " << _name << "\n";
 }
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap& other)
