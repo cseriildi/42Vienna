@@ -5,12 +5,12 @@
 #include <string>
 #include <iostream>
 
-DiamondTrap::DiamondTrap(): ClapTrap("_clap_name",
+DiamondTrap::DiamondTrap(): ClapTrap("noname_DiamondTrap_clap_name",
 							FragTrap::_hp,
 							ScavTrap::_ep,
-							FragTrap::_ad)
+							FragTrap::_ad), _name("noname_DiamondTrap")
 {
-	std::cout << "DiamondTrap: Default constructor called\n";
+	std::cout << "DiamondTrap: Default constructor called for " << _name << "\n";
 }
 
 DiamondTrap::DiamondTrap(const std::string& name,
@@ -20,7 +20,7 @@ DiamondTrap::DiamondTrap(const std::string& name,
 	: ClapTrap(name + "_clap_name", hitPoints, energyPoints, attackDamage),
 	_name(name)
 {
-	std::cout << "DiamondTrap: Parameterized constructor called\n";
+	std::cout << "DiamondTrap: Parameterized constructor called for " << _name << "\n";
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other)
@@ -33,7 +33,7 @@ DiamondTrap::DiamondTrap(const DiamondTrap& other)
 
 DiamondTrap::~DiamondTrap()
 {
-	std::cout << "DiamondTrap: Destructor called\n";
+	std::cout << "DiamondTrap: Destructor called for " << _name << "\n";
 }
 
 DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& other)

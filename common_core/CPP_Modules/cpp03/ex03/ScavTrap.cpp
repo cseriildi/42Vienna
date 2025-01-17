@@ -3,14 +3,14 @@
 #include <string>
 #include <iostream>
 
-ScavTrap::ScavTrap(): ClapTrap("", 100, 50, 20)
+ScavTrap::ScavTrap(): ClapTrap("noname ScavTrap", 100, 50, 20)
 {
-	std::cout << "ScavTrap: Default constructor called\n";
+	std::cout << "ScavTrap: Default constructor called for " << _name << "\n";
 }
 
 ScavTrap::ScavTrap(const std::string& name, unsigned int hitPoints, unsigned int energyPoints, unsigned int attackDamage): ClapTrap(name, hitPoints, energyPoints, attackDamage)
 {
-	std::cout << "ScavTrap: Parameterized constructor called\n";
+	std::cout << "ScavTrap: Parameterized constructor called for " << _name << "\n";
 }
 
 ScavTrap::ScavTrap(const ScavTrap& other): ClapTrap(other._name, other._hitPoints, other._energyPoints, other._attackDamage)
@@ -20,7 +20,7 @@ ScavTrap::ScavTrap(const ScavTrap& other): ClapTrap(other._name, other._hitPoint
 
 ScavTrap::~ScavTrap()
 {
-	std::cout << "ScavTrap: Destructor called\n";
+	std::cout << "ScavTrap: Destructor called for " << _name << "\n";
 }
 
 ScavTrap&	ScavTrap::operator=(const ScavTrap& other)

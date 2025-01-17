@@ -3,14 +3,14 @@
 #include <string>
 #include <iostream>
 
-FragTrap::FragTrap(): ClapTrap("", 100, 50, 20)
+FragTrap::FragTrap(): ClapTrap("noname FragTrap", 100, 50, 20)
 {
-	std::cout << "FragTrap: Default constructor called\n";
+	std::cout << "FragTrap: Default constructor called for " << _name << "\n";
 }
 
 FragTrap::FragTrap(const std::string& name, unsigned int hitPoints, unsigned int energyPoints, unsigned int attackDamage): ClapTrap(name, hitPoints, energyPoints, attackDamage)
 {
-	std::cout << "FragTrap: Parameterized constructor called\n";
+	std::cout << "FragTrap: Parameterized constructor called for " << _name << "\n";
 }
 
 FragTrap::FragTrap(const FragTrap& other): ClapTrap(other._name, other._hitPoints, other._energyPoints, other._attackDamage)
@@ -20,7 +20,7 @@ FragTrap::FragTrap(const FragTrap& other): ClapTrap(other._name, other._hitPoint
 
 FragTrap::~FragTrap()
 {
-	std::cout << "FragTrap: Destructor called\n";
+	std::cout << "FragTrap: Destructor called for " << _name << "\n";
 }
 
 FragTrap&	FragTrap::operator=(const FragTrap& other)
