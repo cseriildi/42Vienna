@@ -7,62 +7,56 @@
 
 int main()
 {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
-	std::cout << j->getType() << " " << std::endl; //NOLINT
-	std::cout << i->getType() << " " << std::endl; //NOLINT
-	i->makeSound();
-	j->makeSound();
-	meta->makeSound();
+	{
+		const Animal* meta = new Animal();
+		const Animal* j = new Dog();
+		const Animal* i = new Cat();
+		std::cout << j->getType() << " " << std::endl; //NOLINT
+		std::cout << i->getType() << " " << std::endl; //NOLINT
+		i->makeSound();
+		j->makeSound();
+		meta->makeSound();
 
-	delete meta;
-	delete i;
-	delete j;
-	
-	Animal a = Animal();
-   	Cat cat = Cat();
-	Dog dog = Dog();
+		delete meta;
+		delete i;
+		delete j;
+	}
+	{
+		const WrongAnimal* meta = new WrongAnimal();
+		const WrongCat* i = new WrongCat();
+		const WrongAnimal* j = i;
+		std::cout << i->getType() << "\n";
+		std::cout << j->getType() << "\n";
+		i->makeSound();
+		j->makeSound();
+		meta->makeSound();
 
-	Cat cat2 = Cat();
-	Dog dog2 = Dog();
+		delete meta;
+		delete i;
+	}
+	/* {
+		Animal *animal = new Animal();
+		Dog *dog = new Dog();
+		Cat *cat = new Cat();
 
-	Cat cat3 = Cat(cat);
-	Dog dog3 = Dog(dog);
+		Animal *dog2 = new Dog(*dog);
+		Animal *cat2 = new Cat(*cat);
 
-	cat2 = cat;
-	dog2 = dog;
+		animal->makeSound();
+		dog->makeSound();
+		cat->makeSound();
+		dog2->makeSound();
+		cat2->makeSound();
 
-	cat.makeSound();
-	cat2.makeSound();
-	cat3.makeSound();
+		animal = dog;
+		animal->makeSound();
+		animal = cat;
+		animal->makeSound();
 
-	dog.makeSound();
-	dog2.makeSound();
-	dog3.makeSound();
-
-
-	const WrongAnimal* meta2 = new WrongAnimal();
-	const WrongAnimal* i2 = new WrongCat();
-	std::cout << i2->getType() << " " << std::endl; //NOLINT
-	i2->makeSound();
-	meta2->makeSound();
-
-	delete meta2;
-	delete i2;
-	
-	WrongAnimal c = WrongAnimal();
-   	WrongCat Wrongcat = WrongCat();
-
-	WrongCat Wrongcat2 = WrongCat();
-
-	WrongCat Wrongcat3 = WrongCat(Wrongcat);
-
-	Wrongcat2 = Wrongcat;
-
-	Wrongcat.makeSound();
-	Wrongcat2.makeSound();
-	Wrongcat3.makeSound();
-
-    return 0;
+		delete animal;
+		delete dog;
+		delete cat;
+		delete dog2;
+		delete cat2;
+	} */
 }

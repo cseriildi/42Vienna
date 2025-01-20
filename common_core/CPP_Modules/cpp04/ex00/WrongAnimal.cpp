@@ -33,7 +33,7 @@ WrongAnimal&	WrongAnimal::operator=(const WrongAnimal& other)
 
 void WrongAnimal::makeSound() const  //NOLINT
 {
-	std::cout << "I can't talk\n";
+	std::cout << "Can't make sound!\n";
 }
 
 const std::string&	WrongAnimal::getType() const {return _type;}
