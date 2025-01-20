@@ -34,29 +34,34 @@ int main()
 		delete meta;
 		delete i;
 	}
-	/* {
+	{
 		Animal *animal = new Animal();
-		Dog *dog = new Dog();
-		Cat *cat = new Cat();
-
-		Animal *dog2 = new Dog(*dog);
-		Animal *cat2 = new Cat(*cat);
-
 		animal->makeSound();
-		dog->makeSound();
+
+		Cat *cat = new Cat();
 		cat->makeSound();
-		dog2->makeSound();
+		Animal *cat2 = new Cat(*cat);
 		cat2->makeSound();
 
-		animal = dog;
+		delete cat;
+		delete cat2;
+
+		Dog *dog = new Dog();
+		dog->makeSound();
+		Animal *dog2 = new Dog(*dog);
+		dog2->makeSound();
+
+		*animal = *dog; //NOLINT
 		animal->makeSound();
-		animal = cat;
+		*animal = *dog2;
 		animal->makeSound();
+		Dog *dog3 = new Dog();
+		*dog3 = *dog;
+		dog3->makeSound();
 
 		delete animal;
 		delete dog;
-		delete cat;
 		delete dog2;
-		delete cat2;
-	} */
+		delete dog3;
+	}
 }
