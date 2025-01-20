@@ -25,12 +25,13 @@ Cat&	Cat::operator=(const Cat& other)
 	if (this != &other)
 	{
 		_type = other._type;
-		_brain = other._brain;
+		*_brain = *other._brain;
 	}
 	return *this;
 }
 
-void Cat::makeSound() const
-{
-	std::cout << "Meow\n";
-}
+void Cat::makeSound() const {std::cout << "Meow\n";}
+
+void Cat::think(const std::string& idea) const {_brain->addIdea(idea);}
+
+void Cat::printBrain() const {std::cout << *_brain;}

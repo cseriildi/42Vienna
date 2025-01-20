@@ -25,12 +25,14 @@ Dog&	Dog::operator=(const Dog& other)
 	if (this != &other)
 	{
 		_type = other._type;
-		_brain = other._brain;
+		*_brain = *other._brain;
 	}
 	return *this;
 }
 
-void Dog::makeSound() const
-{
-	std::cout << "Woof\n";
-}
+void Dog::makeSound() const {std::cout << "Woof\n";}
+
+void Dog::think(const std::string& idea) const {_brain->addIdea(idea);}
+
+void Dog::printBrain() const {std::cout << *_brain;}
+

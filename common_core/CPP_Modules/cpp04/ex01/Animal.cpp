@@ -33,8 +33,7 @@ Animal&	Animal::operator=(const Animal& other)
 
 void Animal::makeSound() const
 {
-	std::cout << "I can't talk\n";
+	std::cout << "Can't make sound!\n";
 }
-
 
 const std::string&	Animal::getType() const {return _type;}
