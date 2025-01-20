@@ -9,8 +9,10 @@ int main()
 	{
 		const Animal* j = new Dog();
 		const Animal* i = new Cat();
+		const Animal* k = new Animal();
 		delete j;
 		delete i;
+		delete k;
 	}
 	{
 		Animal *animals[10];

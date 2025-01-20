@@ -25,5 +25,4 @@ class Brain
 
 std::ostream& operator<<(std::ostream& os, const Brain& other);
 
-
 #endif
