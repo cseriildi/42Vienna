@@ -1,25 +1,28 @@
 #ifndef AMATERIA_HPP
 #define AMATERIA_HPP
 
-#include "Character.hpp"
 #include <string>
+
+class ICharacter;
 
 class AMateria
 {	
 	public:
 
 		AMateria(std::string const & type);
+		AMateria(const AMateria& other); 
+		AMateria&	operator=(const AMateria& other);
 		virtual ~AMateria();
 
 		std::string const & getType() const;
 		virtual AMateria* clone() const = 0;
-		virtual void use(Character::ICharacter& target);
+		virtual void use(ICharacter& target);
 
 	protected:
 
 		AMateria();
 
-		std::string const& _type; //NOLINT
+		const std::string _type; //NOLINT
 
 };
 

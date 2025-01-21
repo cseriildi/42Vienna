@@ -5,10 +5,16 @@
 
 class Ice: public AMateria
 {
-	Ice();
-	Ice(const Ice& other);
-	~Ice();
-	Ice&	operator=(const Ice& other);
+	public:
+
+		Ice();
+		Ice(const Ice& other);
+		Ice&	operator=(const Ice& other);
+		~Ice();
+
+		AMateria* clone() const;
+		void use(ICharacter& target);
+
 };
 
 
