@@ -1,3 +1,5 @@
+//NOLINTBEGIN(cppcoreguidelines-init-variables)
+
 #include "AMateria.hpp"
 #include "Ice.hpp"
 #include "Cure.hpp"
@@ -32,3 +34,4 @@ int main()
 
 	return 0;
 }
+//NOLINTEND(cppcoreguidelines-init-variables)
