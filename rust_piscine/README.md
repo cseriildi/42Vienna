@@ -2,6 +2,13 @@
 
 This was a 7 days rust bootcamp, where we learned the basics of rust using [these tasks](https://github.com/42-Short/rust/tree/main/subjects) and the [Rust documentation](https://doc.rust-lang.org/beta/rustc/index.html) as a guideline.
 
+The training covered:
+- Package management with Cargo
+- Fundamentals of the borrow checker and ownership model
+- Introduction to concurrent programming in Rust
+- Safe practices for working with unsafe code
+- Basics of Rust's approach to memory management Gained hands-on experience applying Rust's unique features to solve programming challenges and develop more efficient code.
+
 |Solutions|
 |----|
 |[Day 0](./Module_00/)|
