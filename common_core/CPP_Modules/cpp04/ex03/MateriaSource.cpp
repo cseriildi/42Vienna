@@ -16,13 +16,7 @@ MateriaSource::MateriaSource(const MateriaSource& other): _inventory()
 	}
 }
 
-MateriaSource::~MateriaSource()
-{
-	for (int i = 0; i < 4; i++) {
-		if (_inventory[i] != NULL)
-			delete _inventory[i];
-	}
-}
+MateriaSource::~MateriaSource() {}
 
 MateriaSource&	MateriaSource::operator=(const MateriaSource& other)
 {

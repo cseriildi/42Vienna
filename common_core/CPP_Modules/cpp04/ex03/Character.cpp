@@ -19,13 +19,7 @@ Character::Character(const Character& other): _name(other._name), _inventory()
 	}
 }
 
-Character::~Character()
-{
-	for (int i = 0; i < 4; i++) {
-		if (_inventory[i] != NULL)
-			delete _inventory[i];
-	}
-}
+Character::~Character() {}
 
 Character&	Character::operator=(const Character& other)
 {

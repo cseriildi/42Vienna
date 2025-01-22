@@ -2,10 +2,11 @@
 #define ICHARACTER_HPP
 
 #include <string>
+#include "Node.hpp"
 
 class AMateria;
 
-class ICharacter //NOLINT
+class ICharacter: public Node //NOLINT
 {
 	public:
 		virtual ~ICharacter() {}

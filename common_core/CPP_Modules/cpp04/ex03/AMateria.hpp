@@ -1,11 +1,12 @@
 #ifndef AMATERIA_HPP
 #define AMATERIA_HPP
 
+#include "Node.hpp"
 #include <string>
 
 class ICharacter;
 
-class AMateria
+class AMateria : public Node
 {	
 	public:
 

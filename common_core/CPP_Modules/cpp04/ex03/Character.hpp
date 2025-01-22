@@ -2,6 +2,7 @@
 #define CHARACTER_HPP
 
 #include "ICharacter.hpp"
+
 #include <string>
 
 class AMateria;
@@ -26,8 +27,6 @@ class Character: public ICharacter
 
 		std::string _name;
 		AMateria*	_inventory[4];
-
-
 
 };
 
