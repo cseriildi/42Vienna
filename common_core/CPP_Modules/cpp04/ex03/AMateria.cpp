@@ -1,11 +1,18 @@
 #include "AMateria.hpp"
+#include "LinkedList.hpp"
+#include "ICharacter.hpp"
+#include <iostream>
 #include <string>
+#include <cstddef>
+#include <new>
 
-AMateria::AMateria() {}
+extern LinkedList g_head; //NOLINT
 
-AMateria::AMateria(const std::string& type): _type(type) {}
+AMateria::AMateria() : _isEquipped(false), _next(NULL) {}
 
-AMateria::AMateria(const AMateria& other): _type(other._type) {}
+AMateria::AMateria(const std::string& type): _type(type), _isEquipped(false), _next(NULL) {}
+
+AMateria::AMateria(const AMateria& other): _type(other._type), _isEquipped(false), _next(NULL) {}
 
 AMateria::~AMateria() {}
 
@@ -20,6 +27,23 @@ const std::string&	AMateria::getType() const {return _type;}
 
 void	AMateria::use(ICharacter& target)
 {
-	(void)target;
-	//not sure what to do here
+	std::cout << "* uses " << _type << " on " << target.getName() << " *\n";
 }
+
+bool AMateria::isEquipped() const {return _isEquipped;}
+
+void AMateria::setEquipped(bool isEquipped) {_isEquipped = isEquipped;}
+
+void* AMateria::operator new(std::size_t size) {
+    void* ptr = ::operator new(size);
+	g_head.add_new(ptr);
+    return ptr;
+}
+
+void AMateria::operator delete(void* ptr) {
+    (void)ptr;
+}
+
+void* AMateria::get_next() const {return _next;}
+
+void AMateria::set_next(void* next) {_next = next;}

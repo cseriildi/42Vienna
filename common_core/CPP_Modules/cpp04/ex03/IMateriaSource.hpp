@@ -2,10 +2,10 @@
 #define IMATERIASOURCE_HPP
 
 #include <string>
-#include "Node.hpp"
+
 class AMateria;
 
-class IMateriaSource: public Node //NOLINT
+class IMateriaSource //NOLINT
 {
 	public:
 		virtual ~IMateriaSource() {}

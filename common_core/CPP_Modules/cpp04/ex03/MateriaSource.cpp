@@ -12,7 +12,7 @@ MateriaSource::MateriaSource(const MateriaSource& other): _inventory()
 	for (int i = 0; i < 4; i++) {
 		if (_inventory[i] != NULL)
 			delete _inventory[i];
-		_inventory[i] = other._inventory[i];
+		_inventory[i] = other._inventory[i]->clone();
 	}
 }
 
@@ -25,7 +25,7 @@ MateriaSource&	MateriaSource::operator=(const MateriaSource& other)
 		for (int i = 0; i < 4; i++) {
 			if (_inventory[i] != NULL)
 				delete _inventory[i];
-			_inventory[i] = other._inventory[i];
+			_inventory[i] = other._inventory[i]->clone();
 		}
 	}
 	return *this;
@@ -33,10 +33,12 @@ MateriaSource&	MateriaSource::operator=(const MateriaSource& other)
 
 void MateriaSource::learnMateria(AMateria* m)
 {
+	if (m == NULL)
+		return;
 	for (int i = 0; i < 4; i++)
 	{
 		if (_inventory[i] == NULL) {
-			_inventory[i] = m;
+			_inventory[i] = m->clone();
 			return;
 		}
 	}
