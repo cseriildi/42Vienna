@@ -18,28 +18,17 @@ Character::Character(const Character& other): _name(other._name), _inventory()
 	}
 }
 
-Character::~Character() {
-/* 	for (int i = 0; i < 4; i++) {
-		if (_inventory[i] != NULL)
-		{
-			// delete _inventory[i]; // == ~Ice(); ~AMateria(); ::operator delete(_inventory[i]);
-			 delete _inventory[i];
-		}
-	} */
-}
-#include <iostream>
+Character::~Character() {}
+
 Character&	Character::operator=(const Character& other)
 {
 	if (this != &other)
 	{
 		_name = other._name;
 		for (int i = 0; i < 4; i++) {
-			if (_inventory[i] != NULL)
-			{
-				std::cout << "delete _inventory[i];\n";
-				delete _inventory[i];
-			}
-			_inventory[i] = other._inventory[i];
+			
+			if (other._inventory[i] != NULL)
+			_inventory[i] = other._inventory[i]->clone();
 		}
 	}
 	return *this;

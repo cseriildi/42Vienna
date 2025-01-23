@@ -69,7 +69,6 @@ int main()
 		delete bob;
 		delete me;
 		delete src;
-		return 0;
 	}
 	g_head.clear();
 	std::cout << "\n\n--------------------------------------------\n\n" << '\n';
