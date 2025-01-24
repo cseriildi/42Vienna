@@ -16,7 +16,7 @@ AMateria::AMateria(const AMateria& other): _type(other._type), _isEquipped(false
 
 AMateria::~AMateria() {}
 
-AMateria&	AMateria::operator=(const AMateria& other)
+AMateria&	AMateria::operator=(const AMateria& other) //NOLINT
 {
 	//While assigning a Materia to another, copying the type doesn’t make sense.
 	(void)other;
@@ -40,9 +40,7 @@ void* AMateria::operator new(std::size_t size) {
     return ptr;
 }
 
-void AMateria::operator delete(void* ptr) {
-    (void)ptr;
-}
+void AMateria::operator delete(void* ptr) {(void)ptr;}
 
 void* AMateria::get_next() const {return _next;}
 

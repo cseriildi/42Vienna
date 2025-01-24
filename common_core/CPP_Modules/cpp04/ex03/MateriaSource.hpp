@@ -19,6 +19,9 @@ class MateriaSource: public IMateriaSource
 		void learnMateria(AMateria* m);
 		AMateria* createMateria(std::string const & type);
 
+		void printInventory() const;
+
+
 	private:
 
 		AMateria*	_inventory[4];
