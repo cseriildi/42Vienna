@@ -3,10 +3,33 @@
 
 #include <string>
 #include <iostream>
+#include <exception>
 
 class Bureaucrat
 {
 	public:
+		class GradeTooHighException : public std::exception
+		{
+			public:
+				GradeTooHighException(const std::string& msg);
+				~GradeTooHighException() throw();
+				const char* what() const throw();
+
+			private:
+				std::string _msg;
+		};
+
+		class GradeTooLowException : public std::exception
+		{
+			public:
+				GradeTooLowException(const std::string& msg);
+				~GradeTooLowException() throw();
+				const char* what() const throw();
+
+			private:
+				std::string _msg;
+		};
+
 		static const int	MAXGRADE = 1;
 		static const int	MINGRADE = 150;
 
@@ -19,8 +42,8 @@ class Bureaucrat
 		const std::string	getName(void) const;
 		int					getGrade(void) const;
 
-		void				incrementGrade(void);
-		void				decrementGrade(void);
+		void				promote(void);
+		void				demote(void);
 
 	private:
 		const std::string	_name;
