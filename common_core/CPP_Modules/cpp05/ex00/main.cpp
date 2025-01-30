@@ -20,7 +20,7 @@ void test_all(const std::string& name, int grade)
 		std::cout << "\033[0;31m" << e.what() << "\033[0m (caught with too high catch)\n\n";
 	} catch (Bureaucrat::GradeTooLowException &e) {
 		std::cout << "\033[0;31m" << e.what() << "\033[0m (caught with too low catch)\n\n";
-	} catch (...) {
+	} catch (std::exception &e) {
 		std::cout <<  "(caught with general catch)\n\n";
 	}
 }
