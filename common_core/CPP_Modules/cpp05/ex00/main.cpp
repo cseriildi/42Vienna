@@ -16,13 +16,17 @@ void test_all(const std::string& name, int grade)
 		a = b;
 		std::cout <<"Copy assignment:\n" << "a: " << a << "b: " << b << "\n";
 		
-	} catch (std::exception &e) {
-		std::cout << "\033[0;31m" << e.what() << "\033[0m \n\n";
+	} catch (Bureaucrat::GradeTooHighException &e) {
+		std::cout << "\033[0;31m" << e.what() << "\033[0m (caught with too high catch)\n\n";
+	} catch (Bureaucrat::GradeTooLowException &e) {
+		std::cout << "\033[0;31m" << e.what() << "\033[0m (caught with too low catch)\n\n";
+	} catch (...) {
+		std::cout <<  "(caught with general catch)\n\n";
 	}
 }
 
 
-int main()
+int main(void)
 {
 	std::cout << "\033[1;30mTEST: Out of bound at construction\033[0m\n\n";
 	test_all("Duck", 0);

@@ -1,5 +1,5 @@
 NAME = form
 
-SRCS = main.cpp Bureaucrat.cpp Form.cpp exceptions.cpp
+SRCS = main.cpp Bureaucrat.cpp Form.cpp MyException.cpp
 
 include ../Makefile

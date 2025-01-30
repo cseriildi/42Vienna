@@ -3,45 +3,30 @@
 
 #include <string>
 #include <iostream>
-#include <exception>
+#include "MyException.hpp"
 
 class Bureaucrat
 {
 	public:
-		class GradeTooHighException : public std::exception
-		{
-			public:
-				GradeTooHighException(const std::string& msg);
-				~GradeTooHighException() throw();
-				const char* what() const throw();
+		//exceptions
+		class GradeTooHighException: public MyException {public: GradeTooHighException(const std::string& msg);};
+		class GradeTooLowException: public MyException {public: GradeTooLowException(const std::string& msg);};
 
-			private:
-				std::string _msg;
-		};
-
-		class GradeTooLowException : public std::exception
-		{
-			public:
-				GradeTooLowException(const std::string& msg);
-				~GradeTooLowException() throw();
-				const char* what() const throw();
-
-			private:
-				std::string _msg;
-		};
-
+		//static consts
 		static const int	MAXGRADE = 1;
 		static const int	MINGRADE = 150;
 
+		//constructors
 		Bureaucrat(const std::string& name, int grade);
 		~Bureaucrat();
 		Bureaucrat(const Bureaucrat &other);
 		Bureaucrat &operator=(const Bureaucrat &other);
 
-
+		//getters
 		const std::string	getName(void) const;
 		int					getGrade(void) const;
 
+		//functions
 		void				promote(void);
 		void				demote(void);
 
@@ -50,7 +35,6 @@ class Bureaucrat
 		int					_grade;
 
 		Bureaucrat();
-
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& other);

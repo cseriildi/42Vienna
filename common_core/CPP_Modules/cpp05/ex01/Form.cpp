@@ -7,9 +7,9 @@ Form::Form() : _isSigned(false), _gradeToSign(MINGRADE), _gradeToExecute(MAXGRAD
 Form::Form(const std::string& name, unsigned char gradeToSign, unsigned char gradeToExecute) : _name(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
 	if (gradeToSign > MINGRADE || gradeToExecute > MINGRADE)
-		throw GradeTooLowException("Grade too low");
+		throw Form::GradeTooLowException("Grade too low");
 	else if (gradeToSign < MAXGRADE || gradeToExecute < MAXGRADE)
-		throw GradeTooHighException("Grade too high");
+		throw Form::GradeTooHighException("Grade too high");
 }
 
 Form::~Form() {}
@@ -39,16 +39,10 @@ unsigned char Form::getGradeToExecute(void) const {return _gradeToExecute;}
 void Form::beSigned(const Bureaucrat& bureaucrat)
 {
 	if (bureaucrat.getGrade() > _gradeToSign)
-		throw GradeTooLowException("Grade too low");
+		throw Form::GradeTooLowException("Bureaucrat doesn't have the required grade for signing the form!");
 	_isSigned = true;
 }
 
-void Form::signForm(const Bureaucrat& bureaucrat)
-{
-	try {
-		beSigned(bureaucrat);
-		std::cout << bureaucrat.getName() << " signs " << _name << "\n";
-	} catch (std::exception &e) {
-		std::cout << bureaucrat.getName() << " couldn’t sign " << _name << " because " << e.what() << "\n";
-	}
-}
+Form::GradeTooHighException::GradeTooHighException(const std::string& msg): MyException(msg) {}
+
+Form::GradeTooLowException::GradeTooLowException(const std::string& msg): MyException(msg) {}
