@@ -1,3 +1,5 @@
+//NOLINTBEGIN(cppcoreguidelines-init-variables, cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers, cppcoreguidelines-avoid-non-const-global-variables)
+
 #include "AMateria.hpp"
 #include "Ice.hpp"
 #include "Cure.hpp"
@@ -8,6 +10,7 @@
 #include "LinkedList.hpp"
 #include "../colors.hpp"
 #include <iostream>
+#include <cstddef>
 
 extern LinkedList g_head;
 
@@ -104,8 +107,9 @@ void test_characters(void)
 	duck->printInventory();
 
 	Character* ducky = new Character(*duck);
-	std::cout << "Duck is called " BOLD << duck->getName() << RESET " and ducky is also called " BOLD << ducky->getName();
-	std::cout << RESET " because ducky is a copy of duck, so lets change ducky's name to avoid confusion.\n";
+	std::cout << "Duck is called " BOLD << duck->getName() << RESET \
+	" and ducky is also called " BOLD << ducky->getName() << RESET \
+	" because ducky is a copy of duck, so lets change ducky's name to avoid confusion.\n";
 
 	ducky->setName("Bobby");
 	ducky->printInventory();
@@ -118,7 +122,8 @@ void test_characters(void)
 
 	*ducky = *duck;
 
-	std::cout << "Ducky copied duck again so his name changed back to " BOLD << duck->getName() << RESET " let's change it again.\n";
+	std::cout << "Ducky copied duck again so his name changed back to " \
+	BOLD << duck->getName() << RESET " let's change it again.\n";
 	ducky->setName("Bobby");
 
 	ducky->printInventory();
@@ -178,3 +183,5 @@ void test_materiasources(void)
 	delete pda;
 	delete pda2;
 }
+
+//NOLINTEND(cppcoreguidelines-init-variables, cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers, cppcoreguidelines-avoid-non-const-global-variables)

@@ -1,3 +1,5 @@
+//NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers, cppcoreguidelines-pro-bounds-constant-array-index)
+
 #include "AAnimal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
@@ -66,3 +68,4 @@ void test_copies(void)
 	std::cout << "Copied cat's brain:\n";
 	cat2.printBrain();
 }
+//NOLINTEND(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers, cppcoreguidelines-pro-bounds-constant-array-index)
