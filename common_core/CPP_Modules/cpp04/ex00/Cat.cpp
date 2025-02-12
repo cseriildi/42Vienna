@@ -1,21 +1,22 @@
 #include "Cat.hpp"
 #include "Animal.hpp"
+#include "../colors.hpp"
 #include <string>
 #include <iostream>
 
 Cat::Cat(): Animal("Cat")
 {
-	std::cout << "Cat: Default constructor called\n";
+	std::cout << ITALIC "Cat: Default constructor called\n" RESET;
 }
 
 Cat::Cat(const Cat& other): Animal(other)
 {
-	std::cout << "Cat: Copy constructor called\n";
+	std::cout << ITALIC "Cat: Copy constructor called\n" RESET;
 }
 
 Cat::~Cat()
 {
-	std::cout << "Cat: Destructor called\n";
+	std::cout << ITALIC "Cat: Destructor called\n" RESET;
 }
 
 Cat&	Cat::operator=(const Cat& other)
@@ -29,5 +30,5 @@ Cat&	Cat::operator=(const Cat& other)
 
 void Cat::makeSound() const
 {
-	std::cout << "Meow\n";
+	std::cout << BLUE "Meow\n" RESET;
 }

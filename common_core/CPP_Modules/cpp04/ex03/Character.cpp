@@ -3,7 +3,7 @@
 #include "Character.hpp"
 #include "ICharacter.hpp"
 #include "AMateria.hpp"
-#include "colors.hpp"
+#include "../colors.hpp"
 #include <string>
 #include <cstddef>
 #include <iostream>

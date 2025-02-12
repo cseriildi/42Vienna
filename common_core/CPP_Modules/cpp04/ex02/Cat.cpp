@@ -1,23 +1,24 @@
 #include "Cat.hpp"
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
+#include "../colors.hpp"
 #include <string>
 #include <iostream>
 
-Cat::Cat(): Animal("Cat"), _brain(new Brain)
+Cat::Cat(): AAnimal("Cat"), _brain(new Brain)
 {
-	std::cout << "Cat: Default constructor called\n";
+	std::cout << ITALIC "Cat: Default constructor called\n" RESET;
 }
 
-Cat::Cat(const Cat& other): Animal(other), _brain(new Brain(*other._brain))
+Cat::Cat(const Cat& other): AAnimal(other), _brain(new Brain(*other._brain))
 {
-	std::cout << "Cat: Copy constructor called\n";
+	std::cout << ITALIC "Cat: Copy constructor called\n" RESET;
 }
 
 Cat::~Cat()
 {
 	delete _brain;
-	std::cout << "Cat: Destructor called\n";
+	std::cout << ITALIC "Cat: Destructor called\n" RESET;
 }
 
 Cat&	Cat::operator=(const Cat& other)
@@ -30,7 +31,7 @@ Cat&	Cat::operator=(const Cat& other)
 	return *this;
 }
 
-void Cat::makeSound() {std::cout << "Meow\n";}
+void Cat::makeSound() {std::cout << BLUE "Meow\n" RESET;}
 
 void Cat::think(const std::string& idea) const {_brain->addIdea(idea);}
 

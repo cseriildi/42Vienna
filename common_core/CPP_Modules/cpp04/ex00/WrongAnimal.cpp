@@ -1,25 +1,26 @@
 #include "WrongAnimal.hpp"
+#include "../colors.hpp"
 #include <string>
 #include <iostream>
 
 WrongAnimal::WrongAnimal() 
 {
-	std::cout << "WrongAnimal: Default constructor called\n";
+	std::cout << ITALIC "WrongAnimal: Default constructor called\n" RESET;
 }
 
 WrongAnimal::WrongAnimal(const std::string& type): _type(type) 
 {
-	std::cout << "WrongAnimal: Parameterized constructor called\n";
+	std::cout << ITALIC "WrongAnimal: Parameterized constructor called\n" RESET;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal& other): _type(other._type)
 {
-	std::cout << "WrongAnimal: Copy constructor called\n";
+	std::cout << ITALIC "WrongAnimal: Copy constructor called\n" RESET;
 }
 
 WrongAnimal::~WrongAnimal()
 {
-	std::cout << "WrongAnimal: Destructor called\n";
+	std::cout << ITALIC "WrongAnimal: Destructor called\n" RESET;
 }
 
 WrongAnimal&	WrongAnimal::operator=(const WrongAnimal& other)
@@ -33,7 +34,7 @@ WrongAnimal&	WrongAnimal::operator=(const WrongAnimal& other)
 
 void WrongAnimal::makeSound() const  //NOLINT
 {
-	std::cout << "Can't make sound!\n";
+	std::cout << BLUE "Can't make sound!\n" RESET;
 }
 
 const std::string&	WrongAnimal::getType() const {return _type;}

@@ -1,25 +1,26 @@
 #include "Animal.hpp"
+#include "../colors.hpp"
 #include <string>
 #include <iostream>
 
 Animal::Animal() 
 {
-	std::cout << "Animal: Default constructor called\n";
+	std::cout << ITALIC "Animal: Default constructor called\n" RESET;
 }
 
 Animal::Animal(const std::string& type): _type(type) 
 {
-	std::cout << "Animal: Parameterized constructor called\n";
+	std::cout << ITALIC "Animal: Parameterized constructor called\n" RESET;
 }
 
 Animal::Animal(const Animal& other): _type(other._type)
 {
-	std::cout << "Animal: Copy constructor called\n";
+	std::cout << ITALIC "Animal: Copy constructor called\n" RESET;
 }
 
 Animal::~Animal()
 {
-	std::cout << "Animal: Destructor called\n";
+	std::cout << ITALIC "Animal: Destructor called\n" RESET;
 }
 
 Animal&	Animal::operator=(const Animal& other)
@@ -33,7 +34,7 @@ Animal&	Animal::operator=(const Animal& other)
 
 void Animal::makeSound() const
 {
-	std::cout << "Can't make sound!\n";
+	std::cout << BLUE "Can't make sound!\n" RESET;
 }
 
 const std::string&	Animal::getType() const {return _type;}

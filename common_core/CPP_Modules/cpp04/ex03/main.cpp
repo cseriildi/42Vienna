@@ -1,9 +1,13 @@
 //NOLINTBEGIN(cppcoreguidelines-init-variables)
 
 #include "LinkedList.hpp"
-#include "tests.hpp"
 
 LinkedList g_head = LinkedList(); //NOLINT
+
+void test_subject(void);
+void test_materias(void);
+void test_characters(void);
+void test_materiasources(void);
 
 int main()
 {

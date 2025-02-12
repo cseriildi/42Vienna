@@ -6,14 +6,14 @@
 #include "MateriaSource.hpp"
 #include "IMateriaSource.hpp"
 #include "LinkedList.hpp"
-#include "colors.hpp"
+#include "../colors.hpp"
 #include <iostream>
 
 extern LinkedList g_head;
 
 void test_subject(void)
 {
-	std::cout << BOLD "TEST FORM SUBJECT\n\n" RESET;
+	std::cout << BOLD "TEST FROM SUBJECT\n\n" RESET;
 
 	IMateriaSource* src = new MateriaSource();
 	src->learnMateria(new Ice());
