@@ -4,7 +4,7 @@
 #include <string>
 #include <exception>
 
-class MyException : public std::exception
+class MyException : public std::exception //NOLINT
 {
 	public:
 		virtual ~MyException() throw();

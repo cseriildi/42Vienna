@@ -23,7 +23,7 @@ class Bureaucrat
 		Bureaucrat &operator=(const Bureaucrat &other);
 
 		//getters
-		const std::string	getName(void) const;
+		const std::string&	getName(void) const;
 		int					getGrade(void) const;
 
 		//functions
@@ -31,7 +31,7 @@ class Bureaucrat
 		void				demote(void);
 
 	private:
-		const std::string	_name;
+		const std::string	_name; //NOLINT
 		int					_grade;
 
 		Bureaucrat();

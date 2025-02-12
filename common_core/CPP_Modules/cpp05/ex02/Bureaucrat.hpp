@@ -21,7 +21,7 @@ class Bureaucrat
 		Bureaucrat(const Bureaucrat &other);
 		Bureaucrat &operator=(const Bureaucrat &other);
 
-		const std::string	getName(void) const;
+		const std::string&	getName(void) const;
 		unsigned char		getGrade(void) const;
 
 		void				promote(void);
@@ -30,7 +30,7 @@ class Bureaucrat
 		void				executeForm(const AForm& form);
 
 	private:
-		const std::string	_name;
+		const std::string	_name; //NOLINT
 		unsigned char		_grade;
 
 		Bureaucrat();

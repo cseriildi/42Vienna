@@ -1,5 +1,7 @@
 #include "PresidentialPardonForm.hpp"
+#include "AForm.hpp"
 #include <string>
+#include <iostream>
 
 PresidentialPardonForm::PresidentialPardonForm() :
 	AForm("PresidentialPardonForm", 145, 137, "") {}

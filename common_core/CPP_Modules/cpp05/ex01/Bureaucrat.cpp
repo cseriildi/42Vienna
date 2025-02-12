@@ -9,7 +9,7 @@ Bureaucrat::Bureaucrat(const std::string& name, unsigned char grade) : _name(nam
 {
 	if (grade > MINGRADE)
 		throw Bureaucrat::GradeTooLowException("Grade too low");
-	else if (grade < MAXGRADE)
+	if (grade < MAXGRADE)
 		throw Bureaucrat::GradeTooHighException("Grade too high");
 }
 
@@ -31,7 +31,7 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& other)
 	return os;
 }
 
-const std::string Bureaucrat::getName(void) const {return _name;}
+const std::string& Bureaucrat::getName(void) const {return _name;}
 
 unsigned char Bureaucrat::getGrade(void) const {return _grade;}
 

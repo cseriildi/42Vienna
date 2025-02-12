@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
 
+class MyException;
+
 class Form
 {
 	public:
@@ -23,7 +25,7 @@ class Form
 		Form &operator=(const Form &other);
 
 		//getters
-		const std::string	getName(void) const;
+		const std::string&	getName(void) const;
 		unsigned char		getGradeToSign(void) const;
 		unsigned char		getGradeToExecute(void) const;
 
@@ -32,10 +34,10 @@ class Form
 
 	private:
 
-		const std::string	_name;
-		bool				_isSigned;
-		const unsigned char	_gradeToSign;
-		const unsigned char	_gradeToExecute;
+		const std::string	_name; //NOLINT
+		bool				_isSigned; //NOLINT
+		const unsigned char	_gradeToSign; //NOLINT
+		const unsigned char	_gradeToExecute; //NOLINT
 
 		Form();
 };

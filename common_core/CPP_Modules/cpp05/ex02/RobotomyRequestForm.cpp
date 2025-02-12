@@ -1,6 +1,8 @@
 #include "RobotomyRequestForm.hpp"
+#include "AForm.hpp"
 #include <string>
 #include <ctime>
+#include <iostream>
 
 RobotomyRequestForm::RobotomyRequestForm() :
 	AForm("RobotomyRequestForm", 145, 137, "") {}

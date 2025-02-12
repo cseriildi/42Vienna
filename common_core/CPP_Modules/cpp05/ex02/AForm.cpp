@@ -1,5 +1,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
+#include "MyException.hpp"
 #include <string>
 #include <iostream>
 
@@ -10,7 +11,7 @@ AForm::AForm(const std::string& name, unsigned char gradeToSign, unsigned char g
 {
 	if (gradeToSign > MINGRADE || gradeToExecute > MINGRADE)
 		throw AForm::GradeTooLowException("Grade too low");
-	else if (gradeToSign < MAXGRADE || gradeToExecute < MAXGRADE)
+	if (gradeToSign < MAXGRADE || gradeToExecute < MAXGRADE)
 		throw AForm::GradeTooHighException("Grade too high");
 }
 
@@ -39,13 +40,13 @@ AForm::GradeTooLowException::GradeTooLowException(const std::string& msg): MyExc
 
 AForm::ExecutionFailed::ExecutionFailed(const std::string& msg): MyException(msg) {}
 
-const std::string AForm::getName(void) const {return _name;}
+const std::string& AForm::getName(void) const {return _name;}
 
 unsigned char AForm::getGradeToSign(void) const {return _gradeToSign;}
 
 unsigned char AForm::getGradeToExecute(void) const {return _gradeToExecute;}
 
-const std::string AForm::getTarget(void) const {return _target;}
+const std::string& AForm::getTarget(void) const {return _target;}
 
 void AForm::beSigned(const Bureaucrat& bureaucrat)
 {
@@ -56,7 +57,7 @@ void AForm::beSigned(const Bureaucrat& bureaucrat)
 
 void AForm::execute(const Bureaucrat& executor) const
 {
-	if (_isSigned == false) {
+	if (not _isSigned) {
 		throw AForm::ExecutionFailed("Form is not signed yet!");
 	}
 	if (executor.getGrade() > _gradeToExecute){

@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "MyException.hpp"
 #include "AForm.hpp"
 #include <string>
 #include <iostream>
@@ -9,7 +10,7 @@ Bureaucrat::Bureaucrat(const std::string& name, unsigned char grade) : _name(nam
 {
 	if (grade > MINGRADE)
 		throw GradeTooLowException("Grade too low");
-	else if (grade < MAXGRADE)
+	if (grade < MAXGRADE)
 		throw GradeTooHighException("Grade too high");
 }
 
@@ -35,7 +36,7 @@ Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string& msg)
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string& msg): MyException(msg) {}
 
-const std::string Bureaucrat::getName(void) const {return _name;}
+const std::string& Bureaucrat::getName(void) const {return _name;}
 
 unsigned char Bureaucrat::getGrade(void) const {return _grade;}
 

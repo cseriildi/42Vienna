@@ -1,4 +1,5 @@
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 #include <string>
 #include <iostream>
 
@@ -8,7 +9,7 @@ Form::Form(const std::string& name, unsigned char gradeToSign, unsigned char gra
 {
 	if (gradeToSign > MINGRADE || gradeToExecute > MINGRADE)
 		throw Form::GradeTooLowException("Grade too low");
-	else if (gradeToSign < MAXGRADE || gradeToExecute < MAXGRADE)
+	if (gradeToSign < MAXGRADE || gradeToExecute < MAXGRADE)
 		throw Form::GradeTooHighException("Grade too high");
 }
 
@@ -30,7 +31,7 @@ std::ostream& operator<<(std::ostream& os, const Form& other)
 	return os;
 }
 
-const std::string Form::getName(void) const {return _name;}
+const std::string& Form::getName(void) const {return _name;}
 
 unsigned char Form::getGradeToSign(void) const {return _gradeToSign;}
 
