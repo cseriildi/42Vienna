@@ -2,6 +2,7 @@
 
 #include "MateriaSource.hpp"
 #include "AMateria.hpp"
+#include "colors.hpp"
 #include <cstddef>
 #include <string>
 #include <iostream>
@@ -36,7 +37,7 @@ void MateriaSource::learnMateria(AMateria* m)
 {
 	if (m == NULL)
 	{
-		std::cerr << "Invalid materia\n";
+		std::cerr << RED "Invalid materia\n" RESET;
 		return;
 	}
 	for (int i = 0; i < 4; i++)
@@ -47,7 +48,7 @@ void MateriaSource::learnMateria(AMateria* m)
 			return;
 		}
 	}
-	std::cerr << "Inventory is full\n";
+	std::cerr << RED "Inventory is full\n" RESET;
 }
 
 AMateria* MateriaSource::createMateria(const std::string& type)
@@ -60,13 +61,13 @@ AMateria* MateriaSource::createMateria(const std::string& type)
 			return _inventory[i]->clone();
 		}
 	}
-	std::cerr << "Materia " << type << " is not in inventory!\n";
+	std::cerr << RED "Materia " << type << " is not in inventory!\n" RESET;
 	return NULL;
 }
 
 void MateriaSource::printInventory() const
 {
-	std::cerr << "\nInventory:\n";
+	std::cerr << BOLD PURPLE "\nInventory:\n" NOT_BOLD;
 	for (int i = 0; i < 4; i++)
 	{
 		std::cerr << i << ": ";
@@ -74,7 +75,7 @@ void MateriaSource::printInventory() const
 			std::cerr << _inventory[i]->getType();
 		std::cerr << "\n";
 	}
-	std::cerr << "\n";
+	std::cerr << RESET "\n";
 }
 
 //NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)

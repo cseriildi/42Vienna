@@ -23,6 +23,7 @@ class Character: public ICharacter
 		void use(int idx, ICharacter& target);
 
 		void printInventory() const;
+		void setName(const std::string& name);
 
 	private:
 

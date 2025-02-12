@@ -3,6 +3,7 @@
 #include "Character.hpp"
 #include "ICharacter.hpp"
 #include "AMateria.hpp"
+#include "colors.hpp"
 #include <string>
 #include <cstddef>
 #include <iostream>
@@ -49,16 +50,18 @@ Character&	Character::operator=(const ICharacter& other)
 
 const std::string& Character::getName() const {return _name;}
 
+void Character::setName(const std::string& name) {_name = name;}
+
 void Character::equip(AMateria* m)
 {
 	if (m == NULL)
 	{
-		std::cerr << "Invalid materia\n";
+		std::cerr << RED "Invalid materia\n" RESET;
 		return;
 	}
 	if (m->isEquipped())
 	{
-		std::cerr << "Materia is already equipped\n";
+		std::cerr << RED "Materia is already equipped\n" RESET;
 		return;
 	}
 	for (int i = 0; i < 4; i++)
@@ -70,19 +73,19 @@ void Character::equip(AMateria* m)
 			return;
 		}
 	}
-	std::cerr << "Inventory is full\n";
+	std::cerr << RED "Inventory is full\n" RESET;
 }
 
 void Character::unequip(int idx)
 {
 	if (idx < 0 || idx >= 4)
 	{
-		std::cerr << "Invalid index\n";
+		std::cerr << RED "Invalid index\n" RESET;
 		return;
 	}
 	if (_inventory[idx] == NULL)
 	{
-		std::cerr << "No materia equipped at this index\n";
+		std::cerr << RED "No materia equipped at this index\n" RESET;
 		return;
 	}
 	_inventory[idx]->setEquipped(false);
@@ -94,12 +97,12 @@ void Character::use(int idx, ICharacter& target)
 {
 	if (idx < 0 || idx >= 4)
 	{
-		std::cerr << "Invalid index\n";
+		std::cerr << RED "Invalid index\n" RESET;
 		return;
 	}
 	if (_inventory[idx] == NULL)
 	{
-		std::cerr << "No materia equipped at this index\n";
+		std::cerr << RED "No materia equipped at this index\n" RESET;
 		return;
 	}
 	_inventory[idx]->use(target);
@@ -107,7 +110,7 @@ void Character::use(int idx, ICharacter& target)
 
 void Character::printInventory() const
 {
-	std::cerr << "\nInventory of " << _name << ":\n";
+	std::cerr << PURPLE BOLD "\nInventory of " << _name << "\n" NOT_BOLD;
 	for (int i = 0; i < 4; i++)
 	{
 		std::cerr << i << ": ";
@@ -115,7 +118,7 @@ void Character::printInventory() const
 			std::cerr << _inventory[i]->getType();
 		std::cerr << "\n";
 	}
-	std::cerr << "\n";
+	std::cerr << RESET "\n";
 }
 
 //NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
