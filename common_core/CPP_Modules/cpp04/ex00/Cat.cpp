@@ -25,6 +25,7 @@ Cat&	Cat::operator=(const Cat& other)
 	{
 		_type = other._type;
 	}
+	std::cout << ITALIC "Cat: Copy assignment operator called\n" RESET;
 	return *this;
 }
 

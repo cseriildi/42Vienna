@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-WrongAnimal::WrongAnimal() 
+WrongAnimal::WrongAnimal() : _type("Not specified")
 {
 	std::cout << ITALIC "WrongAnimal: Default constructor called\n" RESET;
 }

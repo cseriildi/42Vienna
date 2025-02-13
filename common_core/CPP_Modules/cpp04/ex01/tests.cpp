@@ -1,4 +1,4 @@
-//NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers, cppcoreguidelines-pro-bounds-constant-array-index)
+//NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
 
 #include "Animal.hpp"
 #include "Cat.hpp"
@@ -30,6 +30,7 @@ void test_with_array(void)
 			animals[i] = new Dog();
 	}
 	for (int i = 0; i < 10; i++) {
+		std::cout << BRIGHT_CYAN << animals[i]->getType() << " says: " RESET;
 		animals[i]->makeSound();
 	}
 	for (int i = 0; i < 10; i++) {
@@ -69,4 +70,4 @@ void test_copies(void)
 	std::cout << "Copied cat's brain:\n";
 	cat2.printBrain();
 }
-//NOLINTEND(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers, cppcoreguidelines-avoid-magic-numbers, cppcoreguidelines-pro-bounds-constant-array-index)
+//NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)

@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-Animal::Animal() 
+Animal::Animal() : _type("Not specified")
 {
 	std::cout << ITALIC "Animal: Default constructor called\n" RESET;
 }
@@ -29,6 +29,7 @@ Animal&	Animal::operator=(const Animal& other)
 	{
 		_type = other._type;
 	}
+	std::cout << ITALIC "Animal: Copy assignment operator called\n" RESET;
 	return *this;
 }
 

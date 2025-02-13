@@ -25,6 +25,7 @@ Dog&	Dog::operator=(const Dog& other)
 	{
 		_type = other._type;
 	}
+	std::cout << ITALIC "Dog: Copy assignment operator called\n" RESET;
 	return *this;
 }
 
