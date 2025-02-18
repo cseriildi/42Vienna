@@ -4,9 +4,10 @@
 #include <string>
 
 ShrubberyCreationForm::ShrubberyCreationForm() :
-	AForm("ShrubberyCreationForm", 145, 137, "") {}
+	AForm("ShrubberyCreationForm", GRADETOSIGN, GRADETOEXECUTE, "") {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target): AForm("ShrubberyCreationForm", 145, 137, target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target):
+	AForm("ShrubberyCreationForm", GRADETOSIGN, GRADETOEXECUTE, target) {}
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
 

@@ -1,16 +1,26 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
+#include "../colors.hpp"
 #include <string>
 #include <iostream>
+#include <sstream>
 
 Bureaucrat::Bureaucrat() : _grade(MINGRADE) {}
 
-Bureaucrat::Bureaucrat(const std::string& name, unsigned char grade) : _name(name), _grade(grade)
-{
-	if (grade > MINGRADE)
-		throw Bureaucrat::GradeTooLowException("Grade too low");
-	if (grade < MAXGRADE)
-		throw Bureaucrat::GradeTooHighException("Grade too high");
+Bureaucrat::Bureaucrat(const std::string& name, unsigned int grade) : _name(name), _grade(grade)
+{	
+	std::ostringstream msg;
+
+	if (grade > MINGRADE) {
+		msg << "Bureaucrat's grade (" << grade << ") is too low, it has to be between " \
+		<< Bureaucrat::MAXGRADE << " and " << Bureaucrat::MINGRADE;
+		throw Bureaucrat::GradeTooLowException(msg.str());
+	}
+	if (grade < MAXGRADE) {
+		msg << "Bureaucrat's grade (" << grade << ") is too high, it has to be between " \
+		<< Bureaucrat::MAXGRADE << " and " << Bureaucrat::MINGRADE;
+		throw Bureaucrat::GradeTooHighException(msg.str());
+	}
 }
 
 Bureaucrat::~Bureaucrat() {}
@@ -33,19 +43,19 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& other)
 
 const std::string& Bureaucrat::getName(void) const {return _name;}
 
-unsigned char Bureaucrat::getGrade(void) const {return _grade;}
+unsigned int Bureaucrat::getGrade(void) const {return _grade;}
 
 void Bureaucrat::promote(void)
 {
 	if (_grade == MAXGRADE)
-		throw Bureaucrat::GradeTooHighException("Grade too high");
+		throw Bureaucrat::GradeTooHighException("Bureaucrat can't be promoted");
 	_grade--;
 }
 
 void Bureaucrat::demote(void)
 {
 	if (_grade == MINGRADE)
-		throw Bureaucrat::GradeTooLowException("Grade too low");
+		throw Bureaucrat::GradeTooLowException("Bureaucrat can't be demoted");
 	_grade++;
 }
 
@@ -53,11 +63,11 @@ void Bureaucrat::signForm(Form& form) const
 {
 	try {
 		form.beSigned(*this);
-		std::cout << _name << " signs " << form.getName() << "\n";
-	} catch (Bureaucrat::GradeTooLowException &e) {
-		std::cout << _name << " couldn’t sign " << form.getName() << " because " << e.what() << "\n";
-	} catch (Bureaucrat::GradeTooHighException &e) {
-		std::cout << _name << " couldn’t sign " << form.getName() << " because " << e.what() << "\n";
+		std::cout << GREEN <<_name << " signed " << form.getName() << RESET "\n";
+	} catch (Form::GradeTooLowException &e) {
+		std::cout << RED <<_name << " couldn’t sign " << form.getName() << " because " << e.what() << RESET "\n";
+	} catch (Form::FormAlreadySigned &e) {
+		std::cout << RED << _name << " couldn’t sign " << form.getName() << " because " << e.what() << RESET "\n";
 	}
 }
 

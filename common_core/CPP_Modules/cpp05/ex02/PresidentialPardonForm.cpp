@@ -4,9 +4,10 @@
 #include <iostream>
 
 PresidentialPardonForm::PresidentialPardonForm() :
-	AForm("PresidentialPardonForm", 145, 137, "") {}
+	AForm("PresidentialPardonForm", GRADETOSIGN, GRADETOEXECUTE, "") {}
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string& target): AForm("PresidentialPardonForm", 145, 137, target) {}
+PresidentialPardonForm::PresidentialPardonForm(const std::string& target): 
+	AForm("PresidentialPardonForm", GRADETOSIGN, GRADETOEXECUTE, target) {}
 
 PresidentialPardonForm::~PresidentialPardonForm() {}
 
@@ -24,5 +25,4 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) const
 {
 	AForm::execute(executor);
 	std::cout << getTarget() << " has been pardoned by Zaphod Beeblebrox\n";
-	//Informs that <target> has been pardoned by Zaphod Beeblebrox
 }

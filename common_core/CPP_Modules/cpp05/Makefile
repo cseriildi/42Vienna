@@ -1,17 +1,16 @@
-COMP = c++
+CXX = c++
 
-CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98 -pedantic #-fsanitize=address,undefined,bounds
-
+CXXFLAGS = -Wall -Wextra -Werror -g -std=c++98 -pedantic #-fsanitize=address,undefined,bounds
 
 OBJS = ${SRCS:.cpp=.o}
 
 all: $(NAME)
 
 .cpp.o:
-	$(COMP) $(CPPFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(COMP) $(CPPFLAGS) -o $(NAME) $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
 
 clean:
 	rm -rf $(OBJS)

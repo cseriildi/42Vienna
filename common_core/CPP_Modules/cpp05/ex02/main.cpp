@@ -1,11 +1,8 @@
-#include "Bureaucrat.hpp"
-#include "AForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include <cstddef>
+void test_all_for_bureaucrat(void);
+void test_all_forms(void);
 
 int main()
 {
-	// write testcases
+	test_all_for_bureaucrat();
+	test_all_forms();
 }

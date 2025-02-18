@@ -1,13 +1,21 @@
 #include "RobotomyRequestForm.hpp"
 #include "AForm.hpp"
+#include <cstdlib>
 #include <string>
 #include <ctime>
 #include <iostream>
 
 RobotomyRequestForm::RobotomyRequestForm() :
-	AForm("RobotomyRequestForm", 145, 137, "") {}
+	AForm("RobotomyRequestForm", GRADETOSIGN, GRADETOEXECUTE, "")
+{
+	srand(clock());
+}
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string& target): AForm("RobotomyRequestForm", 145, 137, target) {}
+RobotomyRequestForm::RobotomyRequestForm(const std::string& target):
+	AForm("RobotomyRequestForm", GRADETOSIGN, GRADETOEXECUTE, target)
+{
+	srand(clock());
+}
 
 RobotomyRequestForm::~RobotomyRequestForm() {}
 
@@ -25,7 +33,7 @@ void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 {
 	AForm::execute(executor);
 	std::cout << "Brrrrrrrr!\n";
-	if (time(NULL) % 2 == 0)
+	if (rand() % 2 == 0)
 		std::cout << getTarget() << " has been robotomized\n";
 	else {
 		std::cout << "Robotomization of " << getTarget() << " failed\n";

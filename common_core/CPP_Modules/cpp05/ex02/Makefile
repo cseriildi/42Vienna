@@ -6,6 +6,7 @@ SRCS = main.cpp \
 		MyException.cpp \
 		PresidentialPardonForm.cpp \
 		RobotomyRequestForm.cpp \
-		ShrubberyCreationForm.cpp
+		ShrubberyCreationForm.cpp \
+		tests.cpp
 
 include ../Makefile

@@ -1,12 +1,13 @@
 #include "Bureaucrat.hpp"
 #include "MyException.hpp"
 #include "AForm.hpp"
+#include "../colors.hpp"
 #include <string>
 #include <iostream>
 
 Bureaucrat::Bureaucrat() : _grade(MINGRADE) {}
 
-Bureaucrat::Bureaucrat(const std::string& name, unsigned char grade) : _name(name), _grade(grade)
+Bureaucrat::Bureaucrat(const std::string& name, unsigned int grade) : _name(name), _grade(grade)
 {
 	if (grade > MINGRADE)
 		throw GradeTooLowException("Grade too low");
@@ -38,7 +39,7 @@ Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string& msg): 
 
 const std::string& Bureaucrat::getName(void) const {return _name;}
 
-unsigned char Bureaucrat::getGrade(void) const {return _grade;}
+unsigned int Bureaucrat::getGrade(void) const {return _grade;}
 
 void Bureaucrat::promote(void)
 {
@@ -58,9 +59,11 @@ void Bureaucrat::signForm(AForm& form)
 {
 	try {
 		form.beSigned(*this);
-		std::cout << _name << " signs " << form.getName() << "\n";
-	} catch (Bureaucrat::GradeTooLowException &e) {
-		std::cout << _name << " couldn’t sign " << form.getName() << " because " << e.what() << "\n";
+		std::cout << GREEN <<_name << " signed " << form.getName() << RESET "\n";
+	} catch (AForm::GradeTooLowException &e) {
+		std::cout << RED <<_name << " couldn’t sign " << form.getName() << " because " << e.what() << RESET "\n";
+	} catch (AForm::FormAlreadySigned &e) {
+		std::cout << RED << _name << " couldn’t sign " << form.getName() << " because " << e.what() << RESET "\n";
 	}
 }
 
@@ -68,10 +71,10 @@ void Bureaucrat::executeForm(const AForm& form)
 {
 	try {
 		form.execute(*this);
-		std::cout <<  _name << " executed " << form.getName() << "\n";
+		std::cout <<  GREEN << _name << " executed " << form.getName() << RESET "\n";
 	} catch (AForm::ExecutionFailed &e) {
-		std::cout <<  _name << " couldn’t execute " << form.getName() << " because " << e.what() << "\n";
+		std::cout <<  RED <<_name << " couldn’t execute " << form.getName() << " because " << e.what() << RESET "\n";
 	} catch (AForm::GradeTooLowException &e) { 
-		std::cout <<  _name << " couldn’t execute " << form.getName() << " because " << e.what() << "\n";
+		std::cout << RED << _name << " couldn’t execute " << form.getName() << " because " << e.what() << RESET "\n";
 	}
 }

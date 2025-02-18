@@ -7,6 +7,10 @@
 class RobotomyRequestForm : public AForm
 {
 	public:
+
+		static const unsigned int GRADETOSIGN = 72;
+		static const unsigned int GRADETOEXECUTE = 45;
+
 		RobotomyRequestForm(const std::string& target);
 		virtual ~RobotomyRequestForm();
 		RobotomyRequestForm(const RobotomyRequestForm &other);

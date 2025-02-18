@@ -13,16 +13,16 @@ class Bureaucrat
 		class GradeTooHighException: public MyException {public: GradeTooHighException(const std::string& msg);};
 		class GradeTooLowException: public MyException {public: GradeTooLowException(const std::string& msg);};
 
-		static const unsigned char	MAXGRADE = 1;
-		static const unsigned char	MINGRADE = 150;
+		static const unsigned int	MAXGRADE = 1;
+		static const unsigned int	MINGRADE = 150;
 
-		Bureaucrat(const std::string& name, unsigned char grade);
+		Bureaucrat(const std::string& name, unsigned int grade);
 		~Bureaucrat();
 		Bureaucrat(const Bureaucrat &other);
 		Bureaucrat &operator=(const Bureaucrat &other);
 
 		const std::string&	getName(void) const;
-		unsigned char		getGrade(void) const;
+		unsigned int		getGrade(void) const;
 
 		void				promote(void);
 		void				demote(void);
@@ -31,7 +31,7 @@ class Bureaucrat
 
 	private:
 		const std::string	_name; //NOLINT
-		unsigned char		_grade;
+		unsigned int		_grade;
 
 		Bureaucrat();
 };
