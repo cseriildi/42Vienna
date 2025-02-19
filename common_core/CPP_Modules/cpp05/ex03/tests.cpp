@@ -142,8 +142,8 @@ void test_intern(void)
 	test_form_creation("pardon", "test5");
 	test_form_creation("creation", "test6");
 	test_form_creation("request", "test7");
-	test_form_creation("éáő őp", "test7");
-	test_form_creation("🦆", "test7");
+	test_form_creation("éáő őp", "test8");
+	test_form_creation("🦆", "test9");
 }
 //NOLINTBEGIN
 void test_from_subject(void)
