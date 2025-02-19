@@ -42,34 +42,29 @@ size_t identify_form(const char* name)
 							{"presidential", "pardon", "form"},
 							{"shrubbery", "creation", "form"},};
 
-	const char *sep = " _";
-	size_t i = 0;
-	while (i < 3)
+	for (size_t i = 0; i < 3; i++)
 	{
-		size_t j = 0;
 		size_t l = 0;
-		while (j < 3)
+		for (size_t j = 0; j < 3; j++)
 		{
 			if (not case_ignorant_comp(forms[i][j], name + l))
 				break;
 			l += strlen(forms[i][j]);
 			if (name[l] == '\0')
 				return (j == 0) ? 3 : i;
-			if (strchr(sep, name[l]) != NULL)
+			if (strchr(" _", name[l]) != NULL)
 				l++;
-			j++;
 		}
-		i++;
 	}
-	return i;
+	return 3;
 }
 
 Form* Intern::makeForm(const std::string& name, const std::string& target) //NOLINT
 {
 	switch (identify_form(name.c_str()))
 	{
-		case PRESIDENTIAL : return new PresidentialPardonForm(target);
 		case ROBOTOMY : return new RobotomyRequestForm(target);
+		case PRESIDENTIAL : return new PresidentialPardonForm(target);
 		case SHRUBBERY : return new ShrubberyCreationForm(target);
 		default :
 		{
