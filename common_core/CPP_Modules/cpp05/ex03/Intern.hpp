@@ -11,7 +11,8 @@ enum Forms
 {
     ROBOTOMY,
 	PRESIDENTIAL,
-	SHRUBBERY
+	SHRUBBERY,
+	UNKNOWN
 };
 
 class Intern

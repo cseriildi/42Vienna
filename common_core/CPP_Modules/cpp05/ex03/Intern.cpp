@@ -51,12 +51,12 @@ size_t identify_form(const char* name)
 				break;
 			l += strlen(forms[i][j]);
 			if (name[l] == '\0')
-				return (j == 0) ? 3 : i;
+				return (j == 0) ? UNKNOWN : i;
 			if (strchr(" _", name[l]) != NULL)
 				l++;
 		}
 	}
-	return 3;
+	return UNKNOWN;
 }
 
 Form* Intern::makeForm(const std::string& name, const std::string& target) //NOLINT
