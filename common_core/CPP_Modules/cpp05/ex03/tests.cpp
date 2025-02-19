@@ -145,3 +145,16 @@ void test_intern(void)
 	test_form_creation("éáő őp", "test7");
 	test_form_creation("🦆", "test7");
 }
+//NOLINTBEGIN
+void test_from_subject(void)
+{
+	std::cout << BOLD UNDERLINED "\nTEST FROM SUBJECT\n\n" RESET;
+
+	Intern someRandomIntern;
+	Form* rrf;
+	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+
+	std::cout << *rrf;
+	delete rrf;
+}
+//NOLINTEND
