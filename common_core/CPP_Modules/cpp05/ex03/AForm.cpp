@@ -32,7 +32,7 @@ AForm &AForm::operator=(const AForm &other)
 std::ostream& operator<<(std::ostream& os, const AForm& other)
 {
 	os << other.getName() << ", Form grade to sign: " << other.getGradeToSign() \
-		<< ", grade to execute: " << other.getGradeToExecute() \
+		<< ", grade to execute: " << other.getGradeToExecute() << ", target: "<< other.getTarget()\
 		<< ". The form is " << (other.getStatus() ? "" : "not ") << "signed.\n";
 	return os;
 }

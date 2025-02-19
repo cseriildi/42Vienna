@@ -9,7 +9,7 @@ typedef AForm Form;
 
 int main()
 {
-	test_all_for_bureaucrat();
-	test_all_forms();
+	//test_all_for_bureaucrat();
+	//test_all_forms();
 	test_intern();
 }

@@ -1,11 +1,17 @@
+//NOLINTBEGIN(readability-implicit-bool-conversion, cppcoreguidelines-pro-bounds-pointer-arithmetic, cppcoreguidelines-pro-bounds-constant-array-index, cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+
 #include "Intern.hpp"
 #include "AForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "MyException.hpp"
+#include "../colors.hpp"
+#include <cstring>
 #include <string>
 #include <iostream>
-#include <sstream>
+#include <cstddef>
+#include <cctype>
 
 typedef AForm Form;
 
@@ -21,9 +27,58 @@ Intern &Intern::operator=(const Intern &other)
 	return *this;
 }
 
-Form* Intern::makeForm(const std::string& name, const std::string& target)
+bool case_ignorant_comp(const char *s1, const char *s2)
 {
-	(void)name;
-	//throw an exception and print if the name doesn't match any of the forms
-	return new RobotomyRequestForm(target);//based on the name return a pointer to the correct form
+	size_t i = 0;
+
+	while (s1[i] && s2[i] && std::tolower(s2[i]) == s1[i])
+		i++;
+	return i == strlen(s1);
 }
+
+size_t identify_form(const char* name)
+{
+	const char *forms[3][3] = {{"robotomy", "request", "form"},
+							{"presidential", "pardon", "form"},
+							{"shrubbery", "creation", "form"},};
+
+	const char *sep = " _";
+	size_t i = 0;
+	while (i < 3)
+	{
+		size_t j = 0;
+		size_t l = 0;
+		while (j < 3)
+		{
+			if (not case_ignorant_comp(forms[i][j], name + l))
+				break;
+			l += strlen(forms[i][j]);
+			if (name[l] == '\0')
+				return (j == 0) ? 3 : i;
+			if (strchr(sep, name[l]) != NULL)
+				l++;
+			j++;
+		}
+		i++;
+	}
+	return i;
+}
+
+Form* Intern::makeForm(const std::string& name, const std::string& target) //NOLINT
+{
+	switch (identify_form(name.c_str()))
+	{
+		case PRESIDENTIAL : return new PresidentialPardonForm(target);
+		case ROBOTOMY : return new RobotomyRequestForm(target);
+		case SHRUBBERY : return new ShrubberyCreationForm(target);
+		default :
+		{
+			std::cout << RED "Form name \"" << name << "\" unknown\n" RESET;
+			throw Intern::FormCreationFailed("Couldn't create form.\n");
+		}
+	}
+}
+
+Intern::FormCreationFailed::FormCreationFailed(const std::string& msg): MyException(msg) {}
+
+//NOLINTEND(readability-implicit-bool-conversion, cppcoreguidelines-pro-bounds-pointer-arithmetic, cppcoreguidelines-pro-bounds-constant-array-index, cppcoreguidelines-pro-bounds-array-to-pointer-decay)

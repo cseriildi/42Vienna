@@ -81,29 +81,67 @@ void test_form(AForm *form)
 
 void test_all_forms(void)
 {
-	std::cout << BOLD UNDERLINED "TEST: Presidential Pardon Form\n\n" RESET;
+	std::cout << BOLD UNDERLINED "\nTEST: Presidential Pardon Form\n\n" RESET;
 
 	PresidentialPardonForm ppf("Kamilla");
 	std::cout << ppf << "\n";
 	test_form(&ppf);
 
-	std::cout << BOLD UNDERLINED "TEST: Robotomy Request Form\n\n" RESET;
+	std::cout << BOLD UNDERLINED "\nTEST: Robotomy Request Form\n\n" RESET;
 
 	RobotomyRequestForm rrf("Lukas");
 	std::cout << rrf << "\n";
 	test_form(&rrf);
 
-	std::cout << BOLD UNDERLINED "TEST: Shrubbery Creation Form\n\n" RESET;
+	std::cout << BOLD UNDERLINED "\nTEST: Shrubbery Creation Form\n\n" RESET;
 
 	ShrubberyCreationForm scf("Lea");
 	std::cout << scf << "\n";
 	test_form(&scf);
 }
 
+void test_form_creation(const std::string& name, const std::string& target)
+{
+	try {
+		Intern me = Intern();
+		Form *form = me.makeForm(name, target); //NOLINT
+		std::cout << *form;
+		delete form;
+	
+	} catch (Intern::FormCreationFailed &e) {
+		std::cout << RED << e.what() << RESET;
+	}
+}
 
 void test_intern(void)
 {
-	Intern me = Intern();
-	Form* jksdf = me.makeForm("fdk", "jdfkf");
-	std::cout << *jksdf;
+	std::cout << BOLD UNDERLINED "\nTEST: Intern, Presidential Pardon Form\n\n" RESET;
+	test_form_creation("Presidential Pardon Form", "test1");
+	test_form_creation("Presidential Pardon Form form", "test2");
+	test_form_creation("presidential pardon", "test3");
+	test_form_creation("PreSidential_PardOn form", "test4");
+	test_form_creation("Presidential", "test5");
+
+	std::cout << BOLD UNDERLINED "\nTEST: Intern, Robotomy Request Form\n\n" RESET;
+	test_form_creation("Robotomy Request Form", "test1");
+	test_form_creation("robotomy request Form form", "test2");
+	test_form_creation("roboTomy requeSt", "test3");
+	test_form_creation("robotomy", "test4");
+
+	std::cout << BOLD UNDERLINED "\nTEST: Intern, Shrubbery Creation Form\n\n" RESET;
+	test_form_creation("Shrubbery Creation Form", "test1");
+	test_form_creation("shrubbery creation Form form", "test2");
+	test_form_creation("shrubberY_CREATION", "test3");
+	test_form_creation("shrubbery", "test4");
+
+	std::cout << BOLD UNDERLINED "\nTEST: Intern, random forms\n\n" RESET;
+	test_form_creation("", "test1");
+	test_form_creation(" ", "test2");
+	test_form_creation("hgfghfdg", "test3");
+	test_form_creation("form", "test4");
+	test_form_creation("pardon", "test5");
+	test_form_creation("creation", "test6");
+	test_form_creation("request", "test7");
+	test_form_creation("éáő őp", "test7");
+	test_form_creation("🦆", "test7");
 }
