@@ -107,8 +107,7 @@ void test_form_creation(const std::string& name, const std::string& target)
 		Form *form = me.makeForm(name, target); //NOLINT
 		std::cout << *form;
 		delete form;
-	
-	} catch (Intern::FormCreationFailed &e) {
+	} catch (std::exception &e) {
 		std::cout << RED << e.what() << RESET;
 	}
 }
