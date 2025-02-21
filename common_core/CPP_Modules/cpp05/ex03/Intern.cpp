@@ -15,7 +15,13 @@
 
 typedef AForm Form;
 
-Intern::Intern() {}
+Intern::Intern()
+{
+	_funcPointers[0] = &Intern::createRobotomyRequestForm;
+	_funcPointers[1] = &Intern::createPresidentialPardonForm;
+	_funcPointers[2] = &Intern::createShrubberyCreationForm;
+
+}
 
 Intern::~Intern() {}
 
@@ -57,19 +63,38 @@ size_t identify_form(const char* name)
 		}
 	}
 	return UNKNOWN;
+} 
+
+AForm* Intern::createRobotomyRequestForm(const std::string& target)
+{
+	return new RobotomyRequestForm(target);
+}
+
+AForm* Intern::createPresidentialPardonForm(const std::string& target)
+{
+	return new PresidentialPardonForm(target);
+}
+
+AForm* Intern::createShrubberyCreationForm(const std::string& target)
+{
+	return new ShrubberyCreationForm(target);
 }
 
 Form* Intern::makeForm(const std::string& name, const std::string& target) //NOLINT
 {
-	switch (identify_form(name.c_str()))
+	size_t form_type = identify_form(name.c_str());
+
+	switch (form_type)
 	{
-		case ROBOTOMY : return new RobotomyRequestForm(target);
-		case PRESIDENTIAL : return new PresidentialPardonForm(target);
-		case SHRUBBERY : return new ShrubberyCreationForm(target);
-		default :
+		case UNKNOWN:
 		{
 			std::cout << RED "Form name \"" << name << "\" unknown\n" RESET;
 			throw Intern::FormCreationFailed("Couldn't create form.\n");
+		}
+		default:
+		{
+			std::cout << "Intern creates " << name << "\n";
+			return (this->_funcPointers[form_type])(target);
 		}
 	}
 }
