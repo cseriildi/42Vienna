@@ -26,7 +26,15 @@ class Intern
 		Intern(const Intern &other);
 		Intern &operator=(const Intern &other);
 
-		static Form* makeForm(const std::string& name, const std::string& target);
+		Form* makeForm(const std::string& name, const std::string& target);
+
+	private:
+		AForm* (Intern::*_funcPointers[3])();
+
+		AForm* createRobotomyRequestForm(const std::string& target);
+		AForm* createPresidentialPardonForm(const std::string& target);
+		AForm* createShrubberyCreationForm(const std::string& target);
+
 };
 
 #endif
