@@ -16,8 +16,8 @@ class Form
 		class FormAlreadySigned: public MyException {public: FormAlreadySigned(const std::string& msg);};
 
 		//static consts
-		static const unsigned int	MAXGRADE = 1;
-		static const unsigned int	MINGRADE = 150;
+		static const unsigned int	MAXGRADE = Bureaucrat::MAXGRADE;
+		static const unsigned int	MINGRADE = Bureaucrat::MINGRADE;
 
 		//constructors
 		Form(const std::string& name, unsigned int gradeToSign, unsigned int gradeToExecute);

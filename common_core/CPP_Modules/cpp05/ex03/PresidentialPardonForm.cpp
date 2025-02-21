@@ -1,4 +1,5 @@
 #include "PresidentialPardonForm.hpp"
+#include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include <string>
 #include <iostream>
@@ -26,3 +27,4 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) const
 	AForm::execute(executor);
 	std::cout << getTarget() << " has been pardoned by Zaphod Beeblebrox\n";
 }
+

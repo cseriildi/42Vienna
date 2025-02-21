@@ -1,4 +1,5 @@
 #include "RobotomyRequestForm.hpp"
+#include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include <cstdlib>
 #include <string>
@@ -40,3 +41,4 @@ void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 		throw AForm::ExecutionFailed("Robotomization failed");
 	}
 }
+

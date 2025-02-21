@@ -1,4 +1,5 @@
 #include "ShrubberyCreationForm.hpp"
+#include "Bureaucrat.hpp"
 #include "AForm.hpp"
 #include <fstream>
 #include <string>
@@ -31,3 +32,4 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const
 	file << TREE;
 	file.close();
 }
+
