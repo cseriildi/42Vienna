@@ -4,8 +4,7 @@
 #include <string>
 #include <iostream>
 #include "MyException.hpp"
-
-class Bureaucrat;
+#include "Bureaucrat.hpp"
 
 class AForm
 {
@@ -16,8 +15,8 @@ class AForm
 		class FormAlreadySigned: public MyException {public: FormAlreadySigned(const std::string& msg);};
 		class ExecutionFailed: public MyException {public: ExecutionFailed(const std::string& msg);};
 
-		static const unsigned int	MAXGRADE = 1;
-		static const unsigned int	MINGRADE = 150;
+		static const unsigned int	MAXGRADE = Bureaucrat::MAXGRADE;
+		static const unsigned int	MINGRADE = Bureaucrat::MINGRADE;
 
 		virtual ~AForm();
 		AForm(const AForm &other);
