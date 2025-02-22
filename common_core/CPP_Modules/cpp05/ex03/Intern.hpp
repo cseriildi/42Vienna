@@ -29,12 +29,15 @@ class Intern
 		Form* makeForm(const std::string& name, const std::string& target);
 
 	private:
-		AForm* (Intern::*_funcPointers[3])();
 
-		AForm* createRobotomyRequestForm(const std::string& target);
-		AForm* createPresidentialPardonForm(const std::string& target);
-		AForm* createShrubberyCreationForm(const std::string& target);
+		static const std::string _forms[3][3];
 
+		size_t identifyForm(const std::string& name);
+
+		Form* (Intern::*_funcPointers[3])(const std::string& target);
+		Form* createRobotomyRequestForm(const std::string& target);
+		Form* createPresidentialPardonForm(const std::string& target);
+		Form* createShrubberyCreationForm(const std::string& target);
 };
 
 #endif
