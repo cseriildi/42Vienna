@@ -15,88 +15,77 @@
 
 typedef AForm Form;
 
-Intern::Intern()
-{
-	_funcPointers[0] = &Intern::createRobotomyRequestForm;
-	_funcPointers[1] = &Intern::createPresidentialPardonForm;
-	_funcPointers[2] = &Intern::createShrubberyCreationForm;
+const std::string Intern::_forms[3][3] = {
+    {"robotomy", "request", "form"},
+    {"presidential", "pardon", "form"},
+    {"shrubbery", "creation", "form"}
+};
 
-}
+Form* (*const Intern::_funcPointers[3])(const std::string&) = {
+	Intern::createRobotomyRequestForm,
+	Intern::createPresidentialPardonForm,
+	Intern::createShrubberyCreationForm
+};
+
+Intern::Intern() {}
 
 Intern::~Intern() {}
 
-Intern::Intern(const Intern &other) {(void)other;}
+Intern::Intern(const Intern &other) {(void)other;} //NOLINT
 
-Intern &Intern::operator=(const Intern &other)
+Intern &Intern::operator=(const Intern &other)  //NOLINT
 {
 	(void)other;
 	return *this;
 }
 
-bool case_ignorant_comp(const char *s1, const char *s2)
+bool case_ignorant_comp(const std::string& s1, const std::string& s2)
 {
-	size_t i = 0;
-
-	while (s1[i] && s2[i] && std::tolower(s2[i]) == s1[i])
-		i++;
-	return i == strlen(s1);
+	if (s1.size() != s2.size())
+		return false;
+	
+	for (size_t i = 0; i < s1.size(); ++i)
+	{
+		if (std::tolower(s1[i]) != std::tolower(s2[i]))
+            return false;
+    }
+    return true;
 }
 
-size_t identify_form(const char* name)
+size_t Intern::identifyForm(const std::string& name)
 {
-	const char *forms[3][3] = {{"robotomy", "request", "form"},
-							{"presidential", "pardon", "form"},
-							{"shrubbery", "creation", "form"},};
-
 	for (size_t i = 0; i < 3; i++)
 	{
 		size_t l = 0;
 		for (size_t j = 0; j < 3; j++)
 		{
-			if (not case_ignorant_comp(forms[i][j], name + l))
+			if (!case_ignorant_comp(_forms[i][j], name.substr(l, _forms[i][j].size())))
 				break;
-			l += strlen(forms[i][j]);
-			if (name[l] == '\0')
+			l += _forms[i][j].size();
+			if (l == name.size())
 				return (j == 0) ? UNKNOWN : i;
-			if (strchr(" _", name[l]) != NULL)
-				l++;
+			l += (name[l] == ' ' || name[l] == '_');
 		}
 	}
 	return UNKNOWN;
 } 
 
-AForm* Intern::createRobotomyRequestForm(const std::string& target)
-{
-	return new RobotomyRequestForm(target);
-}
+Form* Intern::createRobotomyRequestForm(const std::string& target) {return new RobotomyRequestForm(target);}
 
-AForm* Intern::createPresidentialPardonForm(const std::string& target)
-{
-	return new PresidentialPardonForm(target);
-}
+Form* Intern::createPresidentialPardonForm(const std::string& target) {return new PresidentialPardonForm(target);}
 
-AForm* Intern::createShrubberyCreationForm(const std::string& target)
-{
-	return new ShrubberyCreationForm(target);
-}
+Form* Intern::createShrubberyCreationForm(const std::string& target) {return new ShrubberyCreationForm(target);}
 
 Form* Intern::makeForm(const std::string& name, const std::string& target) //NOLINT
 {
-	size_t form_type = identify_form(name.c_str());
+	size_t form_id = identifyForm(name);
 
-	switch (form_type)
-	{
-		case UNKNOWN:
-		{
-			std::cout << RED "Form name \"" << name << "\" unknown\n" RESET;
-			throw Intern::FormCreationFailed("Couldn't create form.\n");
-		}
-		default:
-		{
-			std::cout << "Intern creates " << name << "\n";
-			return (this->_funcPointers[form_type])(target);
-		}
+	if (form_id == UNKNOWN) {
+		std::cout << RED "Form " << name << " is unknown\n" RESET;
+		throw Intern::FormCreationFailed("Couldn't create form.\n");
 	}
+	std::cout << "Intern creates " << name << "\n";
+	return (_funcPointers[identifyForm(name)])(target);;
 }
 
 Intern::FormCreationFailed::FormCreationFailed(const std::string& msg): MyException(msg) {}
