@@ -21,18 +21,19 @@ const std::string Intern::_forms[3][3] = {
     {"shrubbery", "creation", "form"}
 };
 
-Intern::Intern()
-{
-	_funcPointers[ROBOTOMY] = &Intern::createRobotomyRequestForm;
-	_funcPointers[PRESIDENTIAL] = &Intern::createPresidentialPardonForm;
-	_funcPointers[SHRUBBERY] = &Intern::createShrubberyCreationForm;
-}
+Form* (*const Intern::_funcPointers[3])(const std::string&) = {
+	Intern::createRobotomyRequestForm,
+	Intern::createPresidentialPardonForm,
+	Intern::createShrubberyCreationForm
+};
+
+Intern::Intern() {}
 
 Intern::~Intern() {}
 
-Intern::Intern(const Intern &other) {(void)other;}
+Intern::Intern(const Intern &other) {(void)other;} //NOLINT
 
-Intern &Intern::operator=(const Intern &other)
+Intern &Intern::operator=(const Intern &other)  //NOLINT
 {
 	(void)other;
 	return *this;
@@ -84,7 +85,7 @@ Form* Intern::makeForm(const std::string& name, const std::string& target) //NOL
 		throw Intern::FormCreationFailed("Couldn't create form.\n");
 	}
 	std::cout << "Intern creates " << name << "\n";
-	return (this->*_funcPointers[identifyForm(name)])(target);;
+	return (_funcPointers[identifyForm(name)])(target);;
 }
 
 Intern::FormCreationFailed::FormCreationFailed(const std::string& msg): MyException(msg) {}
