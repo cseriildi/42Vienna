@@ -55,26 +55,26 @@ void Bureaucrat::demote(void)
 	_grade++;
 }
 
-void Bureaucrat::signForm(AForm& form)
+void Bureaucrat::signForm(AForm& form) const
 {
 	try {
 		form.beSigned(*this);
 		std::cout << GREEN <<_name << " signed " << form.getName() << RESET "\n";
 	} catch (AForm::GradeTooLowException &e) {
-		std::cout << RED <<_name << " couldn’t sign " << form.getName() << " because " << e.what() << RESET "\n";
+		std::cout << RED <<_name << " couldn't sign " << form.getName() << " because " << e.what() << RESET "\n";
 	} catch (AForm::FormAlreadySigned &e) {
-		std::cout << RED << _name << " couldn’t sign " << form.getName() << " because " << e.what() << RESET "\n";
+		std::cout << RED << _name << " couldn't sign " << form.getName() << " because " << e.what() << RESET "\n";
 	}
 }
 
-void Bureaucrat::executeForm(const AForm& form)
+void Bureaucrat::executeForm(const AForm& form) const
 {
 	try {
 		form.execute(*this);
 		std::cout <<  GREEN << _name << " executed " << form.getName() << RESET "\n";
 	} catch (AForm::ExecutionFailed &e) {
-		std::cout <<  RED <<_name << " couldn’t execute " << form.getName() << " because " << e.what() << RESET "\n";
+		std::cout <<  RED <<_name << " couldn't execute " << form.getName() << " because " << e.what() << RESET "\n";
 	} catch (AForm::GradeTooLowException &e) { 
-		std::cout << RED << _name << " couldn’t execute " << form.getName() << " because " << e.what() << RESET "\n";
+		std::cout << RED << _name << " couldn't execute " << form.getName() << " because " << e.what() << RESET "\n";
 	}
 }
