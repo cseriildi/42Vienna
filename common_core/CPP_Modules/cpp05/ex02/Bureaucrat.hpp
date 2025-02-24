@@ -26,8 +26,8 @@ class Bureaucrat
 
 		void				promote(void);
 		void				demote(void);
-		void				signForm(AForm& form);
-		void				executeForm(const AForm& form);
+		void				signForm(AForm& form) const;
+		void				executeForm(const AForm& form) const;
 
 	private:
 		const std::string	_name; //NOLINT
