@@ -1,6 +1,6 @@
 NAME = serializer
 
 SRCS = main.cpp \
-		tests.cpp
+		Serializer.cpp
 
 include ../Makefile
