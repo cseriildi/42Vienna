@@ -1,6 +1,6 @@
 NAME = convert
 
 SRCS = main.cpp \
-		tests.cpp
+		ScalarConverter.cpp
 
 include ../Makefile
