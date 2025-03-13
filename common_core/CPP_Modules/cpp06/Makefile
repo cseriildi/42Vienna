@@ -1,43 +1,50 @@
 CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -g -std=c++98 -pedantic
+SAN_FLAGS = -fsanitize=address,undefined,bounds
 
 OBJ_DIR = obj
-$(shell mkdir -p $(OBJ_DIR))
+DEPS_DIR = $(OBJ_DIR)/.deps
 
-OBJS = $(SRCS:.cpp=.o)
+OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
+DEPS = $(addprefix $(DEPS_DIR)/, $(notdir $(SRCS:.cpp=.d)))
 
-OBJ_FILES = $(addprefix $(OBJ_DIR)/, $(notdir $(OBJS)))
-
+.PHONY: all
 all: $(NAME)
 
-$(OBJ_DIR)/%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-$(NAME): $(OBJ_FILES)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ_FILES)
+$(DEPS_DIR):
+	mkdir -p $(DEPS_DIR)
 
+$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR) $(DEPS_DIR)
+	$(CXX) $(CXXFLAGS) -MMD -MP -MF $(DEPS_DIR)/$(notdir $(<:.cpp=.d)) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+
+-include $(DEPS)
+
+.PHONY: clean
 clean:
 	rm -rf $(OBJ_DIR)
 
+.PHONY: fclean
 fclean: clean
 	rm -rf $(NAME)
 
+.PHONY: re
 re: fclean all
 
+.PHONY: run
 run: $(NAME)
 	./$(NAME) $(ARGS)
 
-deps: $(SRCS)
-	$(CXX) $(CXXFLAGS) -M $(SRCS) > Makefile.deps
-
--include Makefile.deps
-
-val: $(NAME)
+.PHONY: val
+val: re
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(ARGS)
 
-san: $(NAME)
-	$(CXX) $(CXXFLAGS) -fsanitize=address,undefined,bounds -o $(NAME) $(SRCS)
-	./$(NAME) $(ARGS)
-
-.PHONY: all clean fclean re run val san
+.PHONY: san
+san: CXXFLAGS += $(SAN_FLAGS)
+san: run
