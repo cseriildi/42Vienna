@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <math.h>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -40,16 +41,48 @@ void print_i(double d)
 
 void print_f(double d)
 {
+	float f = static_cast<float>(d);
 	std::cout << "float: ";
-	//maybe not let it overflow into infinity
-	std::cout << static_cast<float>(d) << "f\n";
+	if (d != INFINITY && d != -INFINITY && (f == INFINITY || f == -INFINITY))
+		std::cout << "impossible\n";
+	else
+		std::cout << f << "f\n";
 }
+
+bool is_numeric(const std::string& str)
+{
+	int dot_count = 0;
+	bool sign = (*str.begin() == '+' || *str.begin() == '-');
+	
+
+	std::string::const_iterator it;
+
+	for (it = str.begin() + sign; it != str.end(); it++)
+	{
+		if (!isdigit(*it))
+		{
+			if (*it == '.')
+			{
+				if (++dot_count > 1)
+					return false;
+				continue;
+			}
+			else if (*it == 'f' && it + 1 == str.end()
+				&& dot_count == 1
+				&& str.length() - sign - dot_count > 1)
+				return true;
+
+			return false;
+		}
+	}
+	return true;
+}
+
 void ScalarConverter::convert(const std::string& str)
 {
     std::stringstream ss(str);
 
     double d;
-	float f = 67.f;
 
 	if (str.length() == 1 && !isdigit(str[0])) {
 		d = static_cast<double>(str[0]);
@@ -64,15 +97,16 @@ void ScalarConverter::convert(const std::string& str)
 		d = -INFINITY;
 	}
 	else {
-		if (str.find('.') && str[str.length() - 1] == 'f') {
-			std::string tmp = str.substr(0, str.length() - 1);
-			ss.str(tmp);
-		}
-		//check if the format is like a number
-		//check if it fits into double
 		ss >> d;
+		if (ss.fail() || !is_numeric(ss.str()))
+		{
+			std::cout << "char: impossible\n";
+			std::cout << "int: impossible\n";
+			std::cout << "float: impossible\n";
+			std::cout << "double: impossible\n";
+			return;
+		}
 	} 
-
 
 	print_c(d);
 	print_i(d);
