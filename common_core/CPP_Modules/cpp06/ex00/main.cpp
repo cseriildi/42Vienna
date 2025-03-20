@@ -5,6 +5,7 @@ void test_chars(void);
 void test_ints(void);
 void test_floats(void);
 void test_doubles(void);
+void test_invalid(void);
 
 int main(int argc, char **argv)
 {
@@ -23,6 +24,7 @@ int main(int argc, char **argv)
 		test_ints();
 		test_floats();
 		test_doubles();
+		test_invalid();
 	}
 }
 

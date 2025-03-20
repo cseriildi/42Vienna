@@ -1,5 +1,6 @@
 #include "ScalarConverter.hpp"
 #include "../colors.hpp"
+#include <cmath>
 #include <iomanip>
 #include <iostream>
 #include <limits>
@@ -21,12 +22,18 @@ void test_convert(long double num)
 
 float epsilon(float num)
 {
-	return num * std::numeric_limits<float>::epsilon();
+	float prev = nextafterf(num, -INFINITY);
+	if (prev != -INFINITY)
+		return num - prev;
+	return nextafterf(num, INFINITY) - num;
 }
 
 double epsilon(double num)
 {
-	return num * std::numeric_limits<double>::epsilon();
+	double prev = nextafter(num, -INFINITY);
+	if (prev != -INFINITY)
+		return num - prev;
+	return nextafter(num, INFINITY) - num;
 }
 
 void test_chars(void)
@@ -65,10 +72,7 @@ void test_ints(void)
 void test_floats(void)
 {
 	std::cout << BOLD UNDERLINED "Float tests\n" RESET;
-	test_convert("999f");
-	test_convert("-999f");
 	test_convert("195.151f");
-	test_convert(".f");
 	test_convert(".5f");
 	test_convert("6.f");
 	test_convert("-.0f");
@@ -98,4 +102,18 @@ void test_doubles(void)
 							- epsilon(std::numeric_limits<double>::max()));
 	test_convert("-inf");
 	test_convert("nan");
+}
+
+void test_invalid(void)
+{
+	std::cout << BOLD UNDERLINED "Invalid input\n" RESET;
+	test_convert("");
+	test_convert("999f");
+	test_convert("-999f");
+	test_convert(".f");
+	test_convert("abc");
+	test_convert("54.5t");
+	test_convert("54.5ff");
+	test_convert("54..5f");
+	test_convert("54fngkd");
 }
