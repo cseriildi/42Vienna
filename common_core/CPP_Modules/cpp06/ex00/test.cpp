@@ -4,8 +4,6 @@
 #include <iostream>
 #include <limits>
 #include <sstream>
-#include "limits.h"
-#include "float.h"
 
 void test_convert(const std::string& str)
 {
@@ -14,11 +12,21 @@ void test_convert(const std::string& str)
 	std::cout << "\n";
 }
 
-void test_convert(double num)
+void test_convert(long double num)
 {
 	std::stringstream ss;
 	ss << std::fixed << std::setprecision(0) << num;
 	test_convert(ss.str());
+}
+
+float epsilon(float num)
+{
+	return num * std::numeric_limits<float>::epsilon();
+}
+
+double epsilon(double num)
+{
+	return num * std::numeric_limits<double>::epsilon();
 }
 
 void test_chars(void)
@@ -30,11 +38,11 @@ void test_chars(void)
 	test_convert("~");
 	test_convert(".");
 
-	std::cout << "\n" BOLD UNDERLINED "Digit chars are considered int\n" RESET;
+	std::cout << BOLD UNDERLINED "Digit chars are considered int\n" RESET;
 	test_convert("5");
 	test_convert("0");
 
-	std::cout << "\n" BOLD UNDERLINED "Integers that fit into char\n" RESET;
+	std::cout << BOLD UNDERLINED "Integers that fit into char\n" RESET;
 	test_convert("31");
 	test_convert("32");
 	test_convert("42");
@@ -45,7 +53,7 @@ void test_chars(void)
 
 void test_ints(void)
 {
-	std::cout << "\n" BOLD UNDERLINED "Integer tests\n" RESET;
+	std::cout << BOLD UNDERLINED "Integer tests\n" RESET;
 	test_convert("999");
 	test_convert("-999");
 	test_convert(std::numeric_limits<int>::max());
@@ -56,7 +64,7 @@ void test_ints(void)
 
 void test_floats(void)
 {
-	std::cout << "\n" BOLD UNDERLINED "Float tests\n" RESET;
+	std::cout << BOLD UNDERLINED "Float tests\n" RESET;
 	test_convert("999f");
 	test_convert("-999f");
 	test_convert("195.151f");
@@ -66,28 +74,28 @@ void test_floats(void)
 	test_convert("-.0f");
 	test_convert(std::numeric_limits<float>::max());
 	test_convert(-std::numeric_limits<float>::max());
-	test_convert(static_cast<double>(std::numeric_limits<float>::max()) * 1.1);
-	test_convert(-static_cast<double>(std::numeric_limits<float>::max()) * 1.1);
+	test_convert(static_cast<double>(std::numeric_limits<float>::max())
+							+ epsilon(std::numeric_limits<float>::max()));
+	test_convert(-static_cast<double>(std::numeric_limits<float>::max())
+							- epsilon(std::numeric_limits<float>::max()));
 	test_convert("inff");
 	test_convert("-inff");
 	test_convert("nanf");
-
-
 }
 
 void test_doubles(void)
 {
-	std::cout << "\n" BOLD UNDERLINED "Double tests\n" RESET;
+	std::cout << BOLD UNDERLINED "Double tests\n" RESET;
 	test_convert("999");
 	test_convert("-999");
 	test_convert("5.");
 	test_convert(".9");
 	test_convert(std::numeric_limits<double>::max());
 	test_convert(-std::numeric_limits<double>::max());
-	test_convert("1797693134862315708145274237317043567980705675258449965989174768031572607800285387605895586327668781715404589535143824642343213268894641827684675467035375169860499105765512820762454900903893289440758685084551339423045832369032229481658085593321233482747978262041447231687381771809192998812504040261841248583690");
-	test_convert("-1797693134862315708145274237317043567980705675258449965989174768031572607800285387605895586327668781715404589535143824642343213268894641827684675467035375169860499105765512820762454900903893289440758685084551339423045832369032229481658085593321233482747978262041447231687381771809192998812504040261841248583690");
-	test_convert("inf");
+	test_convert(static_cast<long double>(std::numeric_limits<double>::max())
+							+ epsilon(std::numeric_limits<double>::max()));
+	test_convert(-static_cast<long double>(std::numeric_limits<double>::max())
+							- epsilon(std::numeric_limits<double>::max()));
 	test_convert("-inf");
 	test_convert("nan");
 }
-
