@@ -1,6 +1,7 @@
 NAME = identify
 
 SRCS = main.cpp \
-		tests.cpp
+		Base.cpp \
+		utils.cpp
 
 include ../Makefile
