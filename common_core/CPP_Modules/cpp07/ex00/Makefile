@@ -1,6 +1,5 @@
 NAME = templates
 
-SRCS = main.cpp \
-		whatever.cpp 
+SRCS = main.cpp
 
 include ../Makefile
