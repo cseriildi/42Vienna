@@ -1,3 +1,15 @@
+define print_help
+	@echo "Available Makefile rules:"
+	@echo "  all        - Build the project"
+	@echo "  clean      - Remove object files and dependencies"
+	@echo "  fclean     - Remove object files, dependencies and the executable"
+	@echo "  re         - Clean and rebuild the project"
+	@echo "  run [ARGS] - Run the executable"
+	@echo "  val [ARGS] - Run the executable with valgrind"
+	@echo "  san [ARGS] - Run the executable with sanitizer"
+	@echo "  help       - Show this help message"
+endef
+
 ifdef NAME
 
 CXX = c++
@@ -41,7 +53,7 @@ fclean: clean
 re: fclean all
 
 .PHONY: run
-run: $(NAME)
+run: all
 	@./$(NAME) $(ARGS)
 
 .PHONY: val
@@ -54,25 +66,19 @@ san: run
 
 .PHONY: help
 help:
-	@echo "Available Makefile rules:"
-	@echo "  all        - Build the project"
-	@echo "  clean      - Remove object files and dependencies"
-	@echo "  fclean     - Remove object files, dependencies and the executable"
-	@echo "  re         - Clean and rebuild the project"
-	@echo "  run [ARGS] - Run the executable"
-	@echo "  val [ARGS] - Run the executable with valgrind"
-	@echo "  san [ARGS] - Run the executable with sanitizer"
-	@echo "  help       - Show this help message"
+	$(call print_help)
 
-%:
-	@$(MAKE) help
+$(DEPS):
+	@true
+
+.DEFAULT:
+	$(call print_help)
 
 else
 define run_make_in_subdirs
 	@for dir in $$(find . -mindepth 2 -type f -name 'Makefile' -exec dirname {} \; | sort -u); do \
-		echo "\033[1;34mRunning make$(1) in $$dir\033[0;3m"; \
+		echo "\033[1;34mRunning make$(1) in $$dir\033[0m"; \
 		$(MAKE) -C $$dir $(1); \
-		echo "\033[0m"; \
 	done
 endef
 
@@ -80,7 +86,11 @@ endef
 all:
 	$(call run_make_in_subdirs, all)
 
-%:
+.PHONY: help
+help:
+	$(call print_help)
+
+.DEFAULT:
 	$(call run_make_in_subdirs, $@)
 
 endif
