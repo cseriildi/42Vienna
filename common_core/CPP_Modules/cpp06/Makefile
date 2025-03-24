@@ -108,6 +108,6 @@ endef
 define run_make_in_subdirs
 	@for dir in $$(find . -mindepth 2 -type f -name 'Makefile' -exec dirname {} \; | sort -u); do \
 		echo "$(BOLD)$(BLUE)Running make$(1) in $$dir$(RESET)"; \
-		$(MAKE) -C $$dir $(1); \
+		$(MAKE) --no-print-directory -C $$dir $(1); \
 	done
 endef
