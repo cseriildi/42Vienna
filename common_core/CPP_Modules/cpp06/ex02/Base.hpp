@@ -1,6 +1,6 @@
 #pragma once
 
-class Base
+class Base //NOLINT
 {
 	public:
 	

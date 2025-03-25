@@ -1,5 +1,7 @@
+//NOLINTBEGIN(performance-avoid-endl)
 #include "whatever.hpp"
 #include <iostream>
+#include <string>
 
 int main(void)
 {
@@ -18,3 +20,4 @@ int main(void)
 	return 0;
 }
 
+//NOLINTEND(performance-avoid-endl)

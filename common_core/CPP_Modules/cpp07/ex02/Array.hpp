@@ -1,6 +1,8 @@
-#pragma once
+#ifndef ARRAY_HPP
+#define ARRAY_HPP
 
-#include <ostream>
+#include <cstddef>
+
 template <typename T>
 class Array
 {
@@ -18,7 +20,6 @@ class Array
 		size_t	_size;
 };
 
-#include "Array.tpp"
+#include "Array.tpp" // IWYU pragma: export
 
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const Array<T>& other);
+#endif

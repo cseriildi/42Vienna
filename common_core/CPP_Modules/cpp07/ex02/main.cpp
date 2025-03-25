@@ -1,3 +1,5 @@
+//NOLINTBEGIN(readability-magic-numbers)
+
 #include "Array.hpp"
 #include <iostream>
 
@@ -8,3 +10,4 @@ int main(void)
 	std::cout << arr << "\n";
 	std::cout << "Size: " << arr.size() << "\n";
 }
+//NOLINTEND(readability-magic-numbers)

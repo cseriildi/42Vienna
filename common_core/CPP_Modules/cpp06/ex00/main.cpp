@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 		{
 			if (i >= 2)
 				std::cout << "\n";
-			ScalarConverter::convert(argv[i]);
+			ScalarConverter::convert(argv[i]); //NOLINT
 		}
 	}
 	else

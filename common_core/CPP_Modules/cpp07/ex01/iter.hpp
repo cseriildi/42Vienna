@@ -1,5 +1,8 @@
+//NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+
 #pragma once
 
+#include <cstddef>
 #include <iostream>
 
 /* template <typename T, typename F>
@@ -35,3 +38,4 @@ void display(const T& t)
 	std::cout << t << "\n";
 }
 
+//NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)

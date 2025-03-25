@@ -5,6 +5,7 @@
 #include <iostream>
 #include <limits>
 #include <sstream>
+#include <string>
 
 void test_convert(const std::string& str)
 {
@@ -22,18 +23,18 @@ void test_convert(long double num)
 
 float epsilon(float num)
 {
-	float prev = nextafterf(num, -INFINITY);
-	if (prev != -INFINITY)
+	float prev = nextafterf(num, -std::numeric_limits<float>::infinity());
+	if (prev != -std::numeric_limits<float>::infinity())
 		return num - prev;
-	return nextafterf(num, INFINITY) - num;
+	return nextafterf(num, std::numeric_limits<float>::infinity()) - num;
 }
 
 double epsilon(double num)
 {
-	double prev = nextafter(num, -INFINITY);
-	if (prev != -INFINITY)
+	double prev = nextafter(num, -std::numeric_limits<double>::infinity());
+	if (prev != -std::numeric_limits<double>::infinity())
 		return num - prev;
-	return nextafter(num, INFINITY) - num;
+	return nextafter(num, std::numeric_limits<double>::infinity()) - num;
 }
 
 void test_chars(void)

@@ -1,7 +1,10 @@
+//NOLINTBEGIN(readability-magic-numbers, cppcoreguidelines-pro-bounds-array-to-pointer-decay)
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
+#include <cstddef>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 
@@ -9,7 +12,7 @@ unsigned int random_num(void);
 
 Base* generate(void)
 {
-	Base *p;
+	Base *p = NULL;
 
 	switch (random_num() % 3) {
 	case 0: 
@@ -67,7 +70,6 @@ void identify(Base& p)
 	}
 }
 
-
 unsigned int random_num(void)
 {
 	std::ifstream urandom("/dev/urandom", std::ios::in | std::ios::binary);
@@ -81,3 +83,4 @@ unsigned int random_num(void)
 		return clock();
 	return static_cast<unsigned int>(random_bytes[0]);
 }
+//NOLINTEND(readability-magic-numbers, cppcoreguidelines-pro-bounds-array-to-pointer-decay)

@@ -1,5 +1,13 @@
+//NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+
 #pragma once
+
+#ifndef ARRAY_HPP
 #include "Array.hpp"
+#endif
+
+#include <ostream>
+#include <stdexcept>
 
 template <typename T>
 Array<T>::Array(unsigned int n) : _arr(new T[n]), _size(n)
@@ -54,3 +62,5 @@ std::ostream& operator<<(std::ostream& os, const Array<T>& other)
 	os << "\n";
 	return os;
 }
+
+//NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)

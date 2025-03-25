@@ -1,5 +1,7 @@
+//NOLINTBEGIN(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
 #include "Serializer.hpp"
 #include "Data.hpp"
+#include <stdint.h>
 
 Serializer::Serializer() {}
 
@@ -18,3 +20,4 @@ Data *Serializer::deserialize(uintptr_t raw)
 {
 	return reinterpret_cast<Data *>(raw);
 }
+//NOLINTEND(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
