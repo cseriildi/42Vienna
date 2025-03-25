@@ -2,9 +2,11 @@
 !*/
 !*.c
 !*.cpp
+!*.tpp
 !*.h
 !*.hpp
 !README.md
 !docker/
 !.gitignore
+!.clangd
 !Makefile
