@@ -2,6 +2,7 @@
 !*/
 !*.cpp
 !*.hpp
+!*.tpp
 !*.h
 !*.c
 !Makefile
