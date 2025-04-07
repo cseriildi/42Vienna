@@ -3,6 +3,7 @@
 
 void test_chars(void);
 void test_ints(void);
+void test_specials(void);
 void test_floats(void);
 void test_doubles(void);
 void test_invalid(void);
@@ -22,6 +23,7 @@ int main(int argc, char **argv)
 	{
 		test_chars();
 		test_ints();
+		test_specials();
 		test_floats();
 		test_doubles();
 		test_invalid();
