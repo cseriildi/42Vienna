@@ -2,6 +2,7 @@ NAME = convert
 
 SRCS = main.cpp \
 		ScalarConverter.cpp \
-		test.cpp
+		utils.cpp \
+		test.cpp 
 
 include ../Makefile
