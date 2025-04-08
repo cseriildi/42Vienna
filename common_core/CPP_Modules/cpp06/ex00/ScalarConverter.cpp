@@ -66,5 +66,7 @@ void ScalarConverter::convert(const std::string& str)
 		}
 	} catch (const std::invalid_argument &e) {
 		std::cout << e.what();;
+	} catch (const std::bad_cast &) {
+		std::cout << "char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible\n";
 	}
 }
