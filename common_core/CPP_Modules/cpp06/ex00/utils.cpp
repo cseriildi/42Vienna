@@ -14,7 +14,7 @@ NumberType detect_type(const std::string& str)
 	if (str.empty()) {
 		return NaN;
 	}
-	if (str.length() == 1 && (isdigit(str[0]) == 0)) {
+	if (str.length() == 1 && isdigit(str[0]) == 0) {
 		return CHAR;
 	}
 	int dot_count = 0;

@@ -5,22 +5,22 @@
 
 enum NumberType {
 	CHAR,
-    INTEGER,
-    FLOAT,
-    DOUBLE,
-    NaN
+	INTEGER,
+	FLOAT,
+	DOUBLE,
+	NaN
 };
 
 NumberType detect_type(const std::string& str);
 
 template <typename T, typename F>
 struct is_same {
-    static const bool value = false;
+	static const bool value = false;
 };
 
 template <typename T>
 struct is_same<T, T> {
-    static const bool value = true;
+	static const bool value = true;
 };
 
 template<typename T>
