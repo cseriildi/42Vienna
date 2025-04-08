@@ -10,7 +10,7 @@
 #include <stdexcept>
 
 template <typename T>
-Array<T>::Array(unsigned int n) : _arr(new T[n]), _size(n)
+Array<T>::Array(unsigned int n) : _size(n), _arr(new T[n])
 {
 	for (unsigned int i = 0; i < n; ++i)
 		_arr[i] = T();

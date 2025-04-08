@@ -16,8 +16,8 @@ class Array
 		unsigned int size(void) const;
 
 	private:
-		T 		*_arr;
 		size_t	_size;
+		T 		*_arr;
 };
 
 #include "Array.tpp" // IWYU pragma: export
