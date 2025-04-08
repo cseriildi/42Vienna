@@ -11,8 +11,6 @@ enum NumberType {
 	NaN
 };
 
-NumberType detect_type(const std::string& str);
-
 template <typename T, typename F>
 struct is_same {
 	static const bool value = false;
