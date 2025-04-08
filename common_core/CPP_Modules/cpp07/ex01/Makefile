@@ -1,5 +1,6 @@
 NAME = iter
 
-SRCS = main.cpp
+SRCS = main.cpp \
+		test.cpp
 
 include ../Makefile
