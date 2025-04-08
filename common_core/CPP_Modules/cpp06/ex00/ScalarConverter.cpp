@@ -1,8 +1,8 @@
 #include "ScalarConverter.hpp"
 #include "utils.hpp"
+#include <stdexcept>
 #include <string>
 #include <iostream>
-#include <typeinfo>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -24,13 +24,9 @@ void ScalarConverter::convert(const std::string& str)
 			break;
 		case DOUBLE: print_all(sto<double>(str));
 			break;
-		default: throw std::bad_cast();
+		default: throw std::invalid_argument("char: impossible\nint: impossible\nfloat: impossible\ndouble: impossible\n");
 		}
-	} catch (std::bad_cast &e) {
-
-		std::cout << "char: impossible\n";
-		std::cout << "int: impossible\n";
-		std::cout << "float: impossible\n";
-		std::cout << "double: impossible\n";
+	} catch (const std::invalid_argument &e) {
+		std::cout << e.what();;
 	}
 }

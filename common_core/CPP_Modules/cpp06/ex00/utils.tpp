@@ -57,7 +57,7 @@ T try_cast(const F& from) {
 		return from;
 	}
 	if (is_overflow<T>(from))
-		throw std::bad_cast();
+		throw std::out_of_range("impossible");
 	if (is_same<T, char>::value && std::isprint(from) == 0)
 		throw std::out_of_range("Non displayable");
 
@@ -73,9 +73,7 @@ void print_cast(const F& from)
 		if (is_same<T, float>::value) {
 			std::cout << "f";
 		}
-	} catch (std::bad_cast &e) {
-		std::cout << "impossible";
-	} catch (std::out_of_range &e) {
+	} catch (const std::out_of_range &e) {
 		std::cout << e.what();
 	}
 	std::cout << "\n";
