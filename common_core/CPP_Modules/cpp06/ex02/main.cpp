@@ -13,7 +13,7 @@ int main(void)
 		identify(p);
 		identify(*p);
 		delete p;
-	} catch (std::bad_alloc&) {
+	} catch (const std::bad_alloc&) {
 		std::cerr << "New failed\n";
 		return 1;
 	}
