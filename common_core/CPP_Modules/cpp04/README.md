@@ -33,3 +33,53 @@ This project specifically focuses on `subtype polymorphism`, `abstract classes` 
 - Now make the `Animal` class abstract, the base class should not be instantiable
 
 ## Exercise 03
+- Create an abstract class `AMateria`:  
+	```
+	class AMateria
+	{
+		protected:
+			[...]
+		public:
+			AMateria(std::string const & type);
+			[...]
+			std::string const & getType() const; //Returns the materia type
+			virtual AMateria* clone() const = 0;
+			virtual void use(ICharacter& target);
+	};
+	```
+ 
+- Create the concrete `Ice` and `Cure` classes that inherit from `AMateria`:
+    - The `clone()` function returns a new instance of the same type (`Ice` or `Cure`).
+    - The `use()` function outputs:
+        - **Ice**: `* shoots an ice bolt at <name> *`
+        - **Cure**: `* heals <name>'s wounds *`
+- Create the interface `ICharacter`:  
+	```
+	class ICharacter
+	{
+		public:
+			virtual ~ICharacter() {}
+			virtual std::string const & getName() const = 0;
+			virtual void equip(AMateria* m) = 0;
+			virtual void unequip(int idx) = 0;
+			virtual void use(int idx, ICharacter& target) = 0;
+	};
+	```
+- Create the `Character` class implementing `ICharacter`:
+    - The character has an inventory of 4 Materia slots.
+    - Ensure deep copy of the inventory when copying a `Character`.
+    - Implement the `equip()`, `unequip()`, and `use()` methods.
+- Create the interface `IMateriaSource`:
+	```
+	class IMateriaSource
+	{
+		public:
+			virtual ~IMateriaSource() {}
+			virtual void learnMateria(AMateria*) = 0;
+			virtual AMateria* createMateria(std::string const & type) = 0;
+	};
+	```
+- Create the `MateriaSource` class implementing `IMateriaSource`:
+    - The `MateriaSource` can store up to 4 `Materia`s in the inventory.
+	- `learnMateria(AMateria*)` copies a `Materia` into the inventory.
+    - `createMateria(std::string const & type)` tries to find the `Materia` in the inventory based on the `type`, if found return a clone of it.
