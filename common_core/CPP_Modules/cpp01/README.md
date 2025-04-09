@@ -2,11 +2,17 @@
 
 ## Summary
 The goal of the CPP Module projects is to get familiar with C++ programming language quickly.
-- **Allowed functions**: Any function from the standard library, if there is a C++ version of the function, use that. The code must compile with c++98.
-- **Forbidden functions**: Any function from external libraries and `*printf()`, `*alloc()` and `free()`. Namespace and friend keyword. `Containers` (vector/list/map/...) and `Algorithms` (functions from the `algorithm` header).
+This project specifically focuses on `memory allocation`, `pointers to members`, `references` and `switch statements`.
+
+>**Allowed:** Any function from the standard library. If there is a C++ version of a function, use that. The code must compile with C++98.
+>
+>**Forbidden:** Any function from external libraries, as well as `*printf()`, `*alloc()` and `free()`. Containers (`vector`, `list`, `map`, ...) and algorithms (functions from the `algorithm` header).
 
 ## Useful Stuff
-
+- [Dynamic memory allocation with new and delete](https://www.learncpp.com/cpp-tutorial/dynamic-memory-allocation-with-new-and-delete/)
+- [Dynamically allocating arrays](https://www.learncpp.com/cpp-tutorial/dynamically-allocating-arrays/)
+- [Function Pointers](https://www.learncpp.com/cpp-tutorial/function-pointers/)
+- [Switch statement basics](https://www.learncpp.com/cpp-tutorial/switch-statement-basics/)
 
 ## Exercise 00
 The goal of this task is to decide when is it better to allocate on the stack and on the heap.
