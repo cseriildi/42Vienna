@@ -13,8 +13,16 @@ This project specifically focuses on `templates`.
 - [Template classes](https://www.learncpp.com/cpp-tutorial/template-classes/)
 
 ## Exercise 00
+- Implement a template function `swap(T &a, T &b)` that swaps two values.
+- Implement template functions `min(T const &a, T const &b)` and `max(T const &a, T const &b)`
 
 ## Exercise 01
+- Create a template function `iter` that takes these parameters:
+  - the address of an array
+  - the length of the array
+  - a function that will be called on each element of the array
 
 ## Exercise 02
-
+- Create a class template `Array<T>` that:
+  - Overloads `[]` operator, when indexing out of bound throw exception
+- Add `size()` member function
