@@ -1,6 +1,3 @@
-#include <cctype>
-#include <cmath>
-
 void int_arr_test(void);
 void char_arr_test(void);
 void struct_arr_test(void);
