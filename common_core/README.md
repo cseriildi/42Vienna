@@ -24,7 +24,7 @@
 | [CPP Module 03](./CPP_Modules/cpp03/) | [![icseri's 42 CPP Module 03 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4080576)](https://github.com/Nimon77/badge42) |
 | [CPP Module 04](./CPP_Modules/cpp04/)	| [![icseri's 42 CPP Module 04 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4092534)](https://github.com/Nimon77/badge42) |
 | [CPP Module 05](./CPP_Modules/cpp05/)	|[![icseri's 42 CPP Module 05 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4147776)](https://github.com/Nimon77/badge42)|
-| [CPP Module 06](./CPP_Modules/cpp06/)	|[![icseri's 42 CPP Module 05 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4147776)](https://github.com/Nimon77/badge42)|
+| [CPP Module 06](./CPP_Modules/cpp06/)	|[![icseri's 42 CPP Module 06 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4172422)](https://github.com/Nimon77/badge42)|
 | [CPP Module 07](./CPP_Modules/cpp07/) 	| In progress |
 | [CPP Module 08](./CPP_Modules/cpp08/) 	| In progress |
 | CPP Module 09 	| |
