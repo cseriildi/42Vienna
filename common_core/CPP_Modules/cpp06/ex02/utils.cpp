@@ -12,22 +12,16 @@ unsigned int random_num(void);
 
 Base* generate(void)
 {
-	Base *p = NULL;
-
 	switch (random_num() % 3) {
 	case 0: 
-		p = new A;
-		break;
+		return new A;
 	case 1:
-		p = new B;
-		break;
+		return new B;
 	case 2:
-		p = new C;
-		break;
+		return new C;
 	default:
 		return NULL;
 	}
-	return p;
 }
 
 void identify(Base* p)
