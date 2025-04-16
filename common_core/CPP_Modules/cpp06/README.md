@@ -18,7 +18,7 @@ This project specifically focuses on `casting`.
 - Idendify the type (`char`, `int`, `float`, and `double`) of the literal, convert the string to that type and from that type cast to all others
 - Handle:
   - Character literals like `'c'`
-  - Float pseudo-literals: `nanf`, `+inff`, ◊`-inff`
+  - Float pseudo-literals: `nanf`, `+inff`, `-inff`
   - Double pseudo-literals: `nan`, `+inf`, `-inf`
 - Print:
   ```
