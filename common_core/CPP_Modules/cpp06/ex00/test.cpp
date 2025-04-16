@@ -62,6 +62,8 @@ void test_specials(void)
 	std::cout << BOLD UNDERLINED "Special tests\n" RESET;
 	test_convert("inf");
 	test_convert("inff");
+	test_convert("+inf");
+	test_convert("+inff");
 	test_convert("-inf");
 	test_convert("-inff");
 	test_convert("nan");
