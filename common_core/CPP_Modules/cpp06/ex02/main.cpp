@@ -14,6 +14,22 @@ int main(void) try {
 	identify(p);
 	identify(*p);
 	delete p;
+
+	A* a = new A();
+	identify(a);
+	identify(*a);
+	delete a;
+
+	B* b = new B();
+	identify(b);
+	identify(*b);
+	delete b;
+
+	C* c = new C();
+	identify(c);
+	identify(*c);
+	delete c;
+
 	return 0;
 } catch (const std::bad_alloc &e) {
 	std::cerr << e.what() << "\n";
