@@ -32,15 +32,20 @@ void int_arr_test(void)
 {
 	std::cout << BOLD UNDERLINED "Int array test:\n" RESET;
 
-	int arr1[] = {42, 56, 71, 102};
+	int arr[] = {42, 56, 71, 102};
 	
-	::iter(arr1, 12, display<int>);
+	iter(arr, 12, display<int>);
 	std::cout << "\n";
-	::iter(arr1, 12, square);
-	::iter(arr1, 12, display<int>);
+	iter(arr, 12, square);
+	iter(arr, 12, display<int>);
 	std::cout << "\n";
-	::iter(arr1, 12, increment<int>);
-	::iter(arr1, 2, display<int>);
+	iter(arr, 12, increment<int>);
+	iter(arr, 2, display<int>);
+	std::cout << "\n";
+
+	std::cout << BOLD UNDERLINED "Const int array test:\n" RESET;
+	const int arr2[] = {42, 56, 71, 102};
+	iter(arr2, 12, display<const int>);
 	std::cout << "\n";
 }
 
@@ -48,15 +53,21 @@ void char_arr_test(void)
 {
 	std::cout << BOLD UNDERLINED "Char array test:\n" RESET;
 
-	char arr2[] = "Hello";
+	char arr[] = "Hello";
 
-	::iter(arr2, 5, display<char>);
+	iter(arr, 5, display<char>);
 	std::cout << "\n";
-	::iter(arr2, 15, upper);
-	::iter(arr2, 5, display<char>);
+	iter(arr, 15, upper);
+	iter(arr, 5, display<char>);
 	std::cout << "\n";
-	::iter(arr2, 10, increment<char>);
-	::iter(arr2, 2, display<char>);
+	iter(arr, 10, increment<char>);
+	iter(arr, 2, display<char>);
+	std::cout << "\n";
+
+	std::cout << BOLD UNDERLINED "Const char array test:\n" RESET;
+
+	const char arr2[] = "World";
+	iter(arr2, 5, display<const char>);
 	std::cout << "\n";
 }
 
@@ -64,11 +75,11 @@ void struct_arr_test(void)
 {
 	std::cout << BOLD UNDERLINED "Struct array test:\n" RESET;
 
-	TestStruct arr3[] = {TestStruct(1), TestStruct(2), TestStruct(3)};
+	TestStruct arr[] = {TestStruct(1), TestStruct(2), TestStruct(3)};
 
-	::iter(arr3, 3, display<TestStruct>);
+	iter(arr, 3, display<TestStruct>);
 	std::cout << "\n";
-	::iter(arr3, 13, increment<TestStruct>);
-	::iter(arr3, 2, display<TestStruct>);
+	iter(arr, 13, increment<TestStruct>);
+	iter(arr, 2, display<TestStruct>);
 }
 //NOLINTEND(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers, cppcoreguidelines-pro-bounds-array-to-pointer-decay)
