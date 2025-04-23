@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iterator>
-#include <stdexcept>
 #include <vector>
 
 class Span
