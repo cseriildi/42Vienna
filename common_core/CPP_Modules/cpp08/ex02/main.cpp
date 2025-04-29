@@ -1,10 +1,12 @@
 #include "MutantStack.hpp"
+#include "../colors.hpp"
 #include <stack>
 #include <iostream>
 
 int main(void)
 {
 	{
+		std::cout << UNDERLINED BOLD "Test from subject\n" RESET;
 		//NOLINTBEGIN
 		MutantStack<int> mstack;
 		mstack.push(5);
