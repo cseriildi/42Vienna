@@ -29,7 +29,7 @@ $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR) $(DEPS_DIR)
 $(NAME): $(OBJS)
 	@printf "$(ITALIC)"
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
-	@echo "$(GREEN)Executable: ./$(NAME)$(RESET)"
+	@echo "$(GREEN)Executable is called: $(NAME)$(RESET)"
 
 -include $(DEPS)
 
