@@ -1,3 +1,5 @@
+//NOLINTBEGIN(readability-magic-numbers)
+
 #include "MutantStack.hpp"
 #include "../colors.hpp"
 #include <stack>
@@ -29,7 +31,44 @@ int main(void)
 			++it;
 		}
 		std::stack<int> s(mstack);
-		return 0;
 		//NOLINTEND
 	}
+	{
+		std::cout << UNDERLINED BOLD "\nMore tests\n" RESET;
+		MutantStack<float> stack;
+		std::cout << stack << " Stack is " << (stack.empty() ? "" : "not ") << "empty\n";
+		stack.push(1.F);
+		stack.push(42);
+		stack.push(3.14F);
+		std::cout << stack << " Stack is " << (stack.empty() ? "" : "not ") << "empty\n";
+
+		
+		std::cout << "\nForward iteration:\n";
+		for (MutantStack<float>::iterator it = stack.begin(); it != stack.end(); ++it)
+			std::cout << *it << " ";
+		std::cout << "\n";
+
+		std::cout << "Reverse iteration:\n";
+		for (MutantStack<float>::reverse_iterator it = stack.rbegin(); it != stack.rend(); ++it)
+			std::cout << *it << " ";
+		std::cout << "\n";
+
+		std::cout << "Const forward iteration:\n";
+		const MutantStack<float> const_stack = static_cast<const MutantStack<float> >(stack);
+		for (MutantStack<float>::const_iterator it = const_stack.begin(); it != const_stack.end(); ++it)
+			std::cout << *it << " ";
+		std::cout << "\n";
+
+		std::cout << "Const reverse iteration:\n";
+		for (MutantStack<float>::const_reverse_iterator it = const_stack.rbegin(); it != const_stack.rend(); ++it)
+			std::cout << *it << " ";
+		std::cout << "\n";
+
+		std::cout << "Stack size: " << stack.size() << "\n";
+		std::cout << "Stack top: " << stack.top() << "\n";
+		stack.pop();
+		std::cout << "Stack top after popping: " << stack.top() << "\n";
+	}
 }
+
+//NOLINTEND(readability-magic-numbers)
