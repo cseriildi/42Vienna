@@ -1,22 +1,19 @@
-#include "Span.hpp"
-#include "../colors.hpp"
-#include <iostream>
+//NOLINTBEGIN(misc-use-internal-linkage)
+#include <cstdlib>
+#include <ctime>
+
+void test_from_subject(void);
+void test_addNumber(void);
+void test_addNumbers(void);
+void test_shortestLongestSpan(void);
 
 int main(void)
 {
-	{
-		std::cout << UNDERLINED BOLD "Test from subject\n" RESET;
-		//NOLINTBEGIN
+	std::srand(std::time(0));
 
-		Span sp = Span(5);
-		sp.addNumber(6);
-		sp.addNumber(3);
-		sp.addNumber(17);
-		sp.addNumber(9);
-		sp.addNumber(11);
-		std::cout << sp.shortestSpan() << std::endl;
-		std::cout << sp.longestSpan() << std::endl;
-		return 0;
-		//NOLINTEND
-	}
+	test_from_subject();
+	test_addNumber();
+	test_addNumbers();
+	test_shortestLongestSpan();
 }
+//NOLINTEND(misc-use-internal-linkage)
