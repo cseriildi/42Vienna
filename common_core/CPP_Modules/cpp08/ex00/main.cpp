@@ -35,7 +35,7 @@ namespace
 		std::cout << "Looking for " << n << " in: ";
 		print_cont(cont);
 		try {
-			const typename T::const_iterator it = easyfind(cont, n);
+			const typename T::const_iterator it = easyFind(cont, n);
 			std::cout << GREEN "Found: " << *it << " at index " << std::distance(cont.begin(), it) << RESET "\n";
 		} catch (std::exception &e) {
 			std::cerr << RED << e.what() << RESET "\n";
