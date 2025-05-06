@@ -25,6 +25,10 @@ unsigned int Span::count() const {return _array.size();}
 
 unsigned int Span::size() const {return _size;}
 
+std::vector<int> Span::array() const {return _array;}
+
+void Span::clear() {_array.clear();}
+
 void Span::addNumber(int n)
 {
 	if (count() == _size)

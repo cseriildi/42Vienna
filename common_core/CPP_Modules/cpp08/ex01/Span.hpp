@@ -22,6 +22,9 @@ class Span
 		
 		unsigned int	count() const;
 		unsigned int	size() const;
+		std::vector<int> array() const;
+
+		void			clear();
 		
 	private:
 		unsigned int		_size;
