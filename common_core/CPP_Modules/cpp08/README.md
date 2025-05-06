@@ -13,9 +13,18 @@ This project specifically focuses on `templated containers`, `iterators` and `al
 - [Introduction to iterators](https://www.learncpp.com/cpp-tutorial/introduction-to-iterators/)
 - [Introduction to standard library algorithms](https://www.learncpp.com/cpp-tutorial/introduction-to-standard-library-algorithms/)
 
-
 ## Exercise 00
+- Implement a templated function `easyfind` that takes a container and a value, and returns an iterator to the first occurrence of the value in the container.
+- If the value is not found, throw an exception.
 
 ## Exercise 01
+- Create a class `Span` that can store integers.
+- Implement the following member functions:
+  - `addNumber(int n)`: Adds a number to the container.
+  - Implement a funcitonto add a range of numbers in one call.
+  - `shortestSpan()`: Returns the shortest span (distance) between any two numbers.
+  - `longestSpan()`: Returns the longest span (distance) between any two numbers.
 
 ## Exercise 02
+- Create a class `MutantStack` that inherits from `std::stack`.
+- Make the class iterable.
