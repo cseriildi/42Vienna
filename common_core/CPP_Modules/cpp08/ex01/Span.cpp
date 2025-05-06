@@ -1,6 +1,7 @@
 #include "Span.hpp"
 #include <algorithm>
 #include <iterator>
+#include <ostream>
 #include <stdexcept>
 #include <vector>
 
@@ -74,3 +75,14 @@ std::vector<int> range(int start, int end, int step)
 }
 
 std::vector<int> range(int end) {return range(0, end);}
+
+std::ostream& operator<<(std::ostream& os, const Span& other)
+{
+	std::vector<int> arr = other.array();
+	os << "Span: [ ";
+	for (unsigned int i = 0; i < other.count(); ++i)
+		os << arr[i] << " ";
+
+	os << "]";
+	return os;
+}

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <vector>
 
 class Span
@@ -26,6 +27,8 @@ class Span
 		unsigned int		_size;
 		std::vector<int>	_array;
 };
+
+std::ostream& operator<<(std::ostream& os, const Span& other);
 
 std::vector<int> range(int start, int end, int step = 1);
 std::vector<int> range(int end);
