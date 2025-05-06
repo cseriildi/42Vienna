@@ -34,6 +34,8 @@ void Span::addNumber(int n)
 	if (count() == _size)
 		throw std::out_of_range("Span is full");
 	_array.push_back(n);
+
+	std::sort(_array.begin(), _array.end());
 }
 
 void Span::addNumbers(std::vector<int>& vec) {addNumbers(vec.begin(), vec.end());}
@@ -45,6 +47,8 @@ void Span::addNumbers(Iterator begin, Iterator end)
 	if (count() + size > _size)
 		throw std::out_of_range("Can't add all the numbers");
 	_array.insert(_array.end(), begin, end);
+
+	std::sort(_array.begin(), _array.end());
 }
 
 unsigned int Span::shortestSpan()
@@ -61,8 +65,6 @@ unsigned int Span::longestSpan()
 {
 	if (count() < 2)
 		throw std::logic_error("Not enough elements to find a span");
-
-	std::sort(_array.begin(), _array.end());
 
 	return (long)(_array.back()) - _array.front();
 }
