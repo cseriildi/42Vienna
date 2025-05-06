@@ -1,6 +1,7 @@
 #pragma once
 
 #include <deque>
+#include <ostream>
 #include <stack>
 
 template <typename T, typename Container = std::deque<T> >
@@ -36,3 +37,16 @@ class MutantStack : public std::stack<T, Container>
 
 };
 
+template <typename T, typename Container>
+std::ostream &operator<<(std::ostream &os, const MutantStack<T, Container> &ms)
+{
+	typename MutantStack<T, Container>::const_iterator it = ms.begin();
+	typename MutantStack<T, Container>::const_iterator ite = ms.end();
+
+	os << "[ ";
+	for (; it < ite; ++it)
+		os << *it << " ";
+
+	os << "]";
+	return os;
+}
