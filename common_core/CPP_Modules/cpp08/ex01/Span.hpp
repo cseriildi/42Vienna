@@ -12,7 +12,7 @@ class Span
 		Span &operator=(const Span &other);
 		
 		void			addNumber(int n);
-		void			addNumbers(std::vector<int>& vec);
+		void			addNumbers(const std::vector<int>& vec);
 		
 		template <typename Iterator>
 		void			addNumbers(Iterator begin, Iterator end);

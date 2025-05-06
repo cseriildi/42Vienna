@@ -38,8 +38,6 @@ void Span::addNumber(int n)
 	std::sort(_array.begin(), _array.end());
 }
 
-void Span::addNumbers(std::vector<int>& vec) {addNumbers(vec.begin(), vec.end());}
-
 template <typename Iterator>
 void Span::addNumbers(Iterator begin, Iterator end)
 {
@@ -50,6 +48,8 @@ void Span::addNumbers(Iterator begin, Iterator end)
 
 	std::sort(_array.begin(), _array.end());
 }
+
+void Span::addNumbers(const std::vector<int>& vec) {addNumbers(vec.begin(), vec.end());}
 
 unsigned int Span::shortestSpan()
 {
