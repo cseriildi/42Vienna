@@ -11,32 +11,35 @@
 #include <vector>
 #include <iostream>
 
-template <typename T>
-void print_cont(const T& cont)
+namespace
 {
-	std::cout << "[ ";
-	for (typename T::const_iterator it = cont.begin(); it != cont.end(); ++it)
-		std::cout << *it << " ";
-	std::cout << "]\n";
-}
-
-template <typename T>
-void fill_cont(T &cont)
-{
-	for (int i = 0; i < 5; ++i)
-		cont.push_back(std::rand() % 5);
-}
-
-template <typename T>
-void test(const T& cont, int n)
-{
-	std::cout << "Looking for " << n << " in: ";
-	print_cont(cont);
-	try {
-		typename T::const_iterator it = easyfind(cont, n);
-		std::cout << GREEN "Found: " << *it << " at index " << std::distance(cont.begin(), it) << RESET "\n";
-	} catch (std::exception &e) {
-		std::cerr << RED << e.what() << RESET "\n";
+	template <typename T>
+	void print_cont(const T& cont)
+	{
+		std::cout << "[ ";
+		for (typename T::const_iterator it = cont.begin(); it != cont.end(); ++it)
+			std::cout << *it << " ";
+		std::cout << "]\n";
+	}
+	
+	template <typename T>
+	void fill_cont(T &cont)
+	{
+		for (int i = 0; i < 5; ++i)
+			cont.push_back(std::rand() % 5);
+	}
+	
+	template <typename T>
+	void test(const T& cont, int n)
+	{
+		std::cout << "Looking for " << n << " in: ";
+		print_cont(cont);
+		try {
+			const typename T::const_iterator it = easyfind(cont, n);
+			std::cout << GREEN "Found: " << *it << " at index " << std::distance(cont.begin(), it) << RESET "\n";
+		} catch (std::exception &e) {
+			std::cerr << RED << e.what() << RESET "\n";
+		}
 	}
 }
 
