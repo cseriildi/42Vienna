@@ -27,7 +27,7 @@
 | [CPP Module 06](./CPP_Modules/cpp06/)	|[![icseri's 42 CPP Module 06 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4172422)](https://github.com/Nimon77/badge42)|
 | [CPP Module 07](./CPP_Modules/cpp07/) | [![icseri's 42 CPP Module 07 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4253981)](https://github.com/Nimon77/badge42) |
 | [CPP Module 08](./CPP_Modules/cpp08/) | [![icseri's 42 CPP Module 08 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4272132)](https://github.com/Nimon77/badge42) |
-| CPP Module 09 	| |
+| [CPP Module 09](./CPP_Modules/cpp09/) |[![icseri's 42 CPP Module 09 Score](https://badge.nimon.fr/api/v2/clwhwslon104101rz9ciwa3r4/project/4284021)](https://github.com/Nimon77/badge42)|
 | *Exam Rank 05* 	| |
 | Inception 		| |
 | ft_irc			| |
