@@ -1,5 +1,5 @@
 NAME = RPN
 
-SRCS = main.cpp
+SRCS = main.cpp RPN.cpp
 
 include ../Makefile
