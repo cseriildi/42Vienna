@@ -17,7 +17,7 @@ int main(int argc, char **argv) try
 	}
 	std::cout << RPN(argv[1]).solve() << "\n";
 
-	run_tests();
+	//run_tests();
 	return 0;
 	
 } catch (const std::exception &e) {
