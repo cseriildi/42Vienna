@@ -4,7 +4,6 @@
 #include "RPN.hpp"
 #include <cctype>
 #include <ostream>
-#include <stack>
 #include <stdexcept>
 #include <string>
 
