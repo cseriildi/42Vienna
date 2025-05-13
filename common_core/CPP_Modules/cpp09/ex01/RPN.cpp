@@ -1,63 +1,83 @@
 //NOLINTBEGIN(readability-implicit-bool-conversion, misc-use-anonymous-namespace)
+#include "RPN.hpp"
+#include "../colors.hpp"
 #include <cctype>
 #include <iostream>
 #include <stack>
 #include <stdexcept>
 #include <string>
 
-static double poptop(std::stack<double>& stack)
+const std::string	RPN::_operators = "+-*/";
+
+RPN::RPN(const char *expression) : _expression(expression) {}
+
+RPN::~RPN() {}
+
+double RPN::solve()
 {
-	if (stack.empty())
+	std::string::const_iterator it;
+	
+	for (it = _expression.begin(); it != _expression.end(); it++)
+	{
+		if (std::isdigit(*it))
+			storeNumber(it);
+		else if (isOperator(*it))
+			doOperation(*it);
+		else if (!std::isspace(*it))
+			throw std::logic_error("Invalid format");
+	}
+
+	if (_numbers.size() > 1)
+		throw std::logic_error("Too many operands");
+
+	return poptop();
+}
+
+double RPN::poptop()
+{
+	if (_numbers.empty())
 		throw std::logic_error("Not enough operands");
 
-	double top = stack.top();
-	stack.pop();
+	double top = _numbers.top();
+	_numbers.pop();
 
 	return top;
 }
 
-void rpn(const std::string &expression)
+void RPN::storeNumber(std::string::const_iterator it)
 {
-	std::string::const_iterator it;
-	std::stack<double> numbers;
-	std::string operators("+-*/");
+	if ((it + 1) != _expression.end() && std::isdigit(*(it + 1)))
+		throw std::logic_error("Numbers should be between 0 and 9");
 
-	for (it = expression.begin(); it != expression.end(); it++)
+	_numbers.push(*it - '0');
+}
+
+void RPN::doOperation(char op)
+{
+	double b = poptop();
+	double a = poptop();
+	
+	if (op == '+') 
+		_numbers.push(a + b);
+	else if (op == '-')
+		_numbers.push(a - b);
+	else if (op == '*')
+		_numbers.push(a * b);
+	else
 	{
-		if (std::isdigit(*it))
-		{
-			if ((it + 1) != expression.end() && std::isdigit(*(it + 1)) == 1)
-				throw std::logic_error("Numbers should be between 0 and 9");
-			
-			numbers.push(*it - '0');
-			continue;
-		}
-
-		if (std::isspace(*it))
-			continue;
-		
-		if (operators.find(*it) == std::string::npos)
-			throw std::logic_error("Not valid format");
-
-		double b = poptop(numbers);
-		double a = poptop(numbers);
-
-		if (*it == '+') 
-			numbers.push(a + b);
-		else if (*it == '-')
-			numbers.push(a - b);
-		else if (*it == '*')
-			numbers.push(a * b);
-		else
-		{
-			if (b == 0)
-				throw std::runtime_error("Division by 0");
-			numbers.push(a / b);
-		}
+		if (b == 0)
+			throw std::runtime_error("Division by 0");
+		_numbers.push(a / b);
 	}
-	if (numbers.size() != 1)
-		throw std::logic_error("Too many operands");
-	std::cout << "Result: " << poptop(numbers) << "\n";
+}
+
+bool RPN::isOperator(char op) {return _operators.find(op) != std::string::npos;}
+
+std::string	RPN::expression() const {return _expression;}
+
+std::ostream& operator<<(std::ostream& os, const RPN& other)
+{
+	return os << BLUE "\"" << other.expression() << "\"\n" RESET;
 }
 
 //NOLINTEND(readability-implicit-bool-conversion, misc-use-anonymous-namespace)
