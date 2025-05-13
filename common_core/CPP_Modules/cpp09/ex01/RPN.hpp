@@ -25,9 +25,9 @@ class RPN
 		static bool	isOperator(char op);
 	
 		
-		std::stack<double>	_numbers;
-		std::string			_expression;
-		static const std::string	_operators; //NOLINT
+		std::stack<double>			_numbers;
+		std::string					_expression;
+		static const std::string	_operators;
 };
 
 std::ostream& operator<<(std::ostream& os, const RPN& other);

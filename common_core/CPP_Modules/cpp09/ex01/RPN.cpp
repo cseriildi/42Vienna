@@ -1,8 +1,9 @@
-//NOLINTBEGIN(readability-implicit-bool-conversion, misc-use-anonymous-namespace)
-#include "RPN.hpp"
+//NOLINTBEGIN(readability-implicit-bool-conversion)
 #include "../colors.hpp"
+
+#include "RPN.hpp"
 #include <cctype>
-#include <iostream>
+#include <ostream>
 #include <stack>
 #include <stdexcept>
 #include <string>
@@ -80,4 +81,4 @@ std::ostream& operator<<(std::ostream& os, const RPN& other)
 	return os << BLUE "\"" << other.expression() << "\"\n" RESET;
 }
 
-//NOLINTEND(readability-implicit-bool-conversion, misc-use-anonymous-namespace)
+//NOLINTEND(readability-implicit-bool-conversion)
