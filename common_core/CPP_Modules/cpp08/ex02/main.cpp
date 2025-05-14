@@ -4,6 +4,7 @@
 #include "../colors.hpp"
 #include <stack>
 #include <iostream>
+#include <vector>
 
 int main(void)
 {
@@ -68,6 +69,14 @@ int main(void)
 		std::cout << "Stack top: " << stack.top() << "\n";
 		stack.pop();
 		std::cout << "Stack top after popping: " << stack.top() << "\n";
+
+		std::cout << "\nPassing container to constructor:"<< "\n";
+		std::vector<double> container;
+		container.push_back(1.0);
+		container.push_back(2.0);
+
+		MutantStack<double, std::vector<double> > stack2(container);
+		std::cout << stack2 << "\n";
 	}
 }
 

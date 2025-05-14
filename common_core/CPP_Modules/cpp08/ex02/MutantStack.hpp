@@ -9,6 +9,7 @@ class MutantStack : public std::stack<T, Container>
 {
 	public:
 		MutantStack() : std::stack<T, Container>() {};
+		MutantStack(const Container &cont) : std::stack<T, Container>(cont) {};
 		~MutantStack() {};
 		MutantStack(const MutantStack &other) : std::stack<T, Container>(other) {};
 		MutantStack &operator=(const MutantStack &other)
