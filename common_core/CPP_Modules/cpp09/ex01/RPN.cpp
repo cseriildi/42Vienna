@@ -13,6 +13,18 @@ RPN::RPN(const char *expression) : _expression(expression) {}
 
 RPN::~RPN() {}
 
+RPN::RPN(const RPN &other) : _numbers(other._numbers), _expression(other._expression) {}
+
+RPN &RPN::operator=(const RPN &other)
+{
+	if (this != &other)
+	{
+		_expression = other._expression;
+		_numbers = other._numbers;
+	}
+	return *this;
+}
+
 double RPN::solve()
 {
 	std::string::const_iterator it;
