@@ -37,10 +37,16 @@ Database BitcoinExchange::parseDatabase()
 	}
 
 	std::string line;
-	for (int i = 0; std::getline(file, line) != 0; i++) {
+	bool header_checked = false;
 
-		if (i == 0 && line == "date,exchange_rate")	
-			continue;	
+	while (std::getline(file, line) != 0)
+	{
+		if (!header_checked) {
+			header_checked = true;
+			if (line == "date,exchange_rate")
+				continue;
+		}
+
 		std::istringstream iss(line);
 		std::string date;
 		std::string rateStr;

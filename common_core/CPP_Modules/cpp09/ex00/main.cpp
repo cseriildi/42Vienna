@@ -16,11 +16,15 @@ void parseInput(const char *filename)
 		
 	std::string line;
 
-	for (int i = 0; std::getline(file, line) != 0; i++)
+	bool header_checked = false;
+	while (std::getline(file, line) != 0)
 	{
-		if (i == 0 && line == "date | value") 
-			continue;
-		
+		if (!header_checked){
+			header_checked = true;
+			if (line == "date | value")
+				continue;
+		}
+
 		try {
 			BitcoinExchange::buy(line);
 		} catch (const std::exception &e) {
