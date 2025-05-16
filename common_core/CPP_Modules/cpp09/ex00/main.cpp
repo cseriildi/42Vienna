@@ -1,53 +1,51 @@
 //NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
+#include "BitcoinExchange.hpp"
+#include <exception>
 #include <fstream>
-#include <iostream>
-#include <map>
+#include <stdexcept>
 #include <string>
+#include <iostream>
 
-#define DATABASE "data.csv"
 
-typedef std::string Date;
-typedef std::string Value;
-typedef std::map<Date, Value> BitcoinExchange;
-
-int main(int argc, char **argv)
+void parseInput(const char *filename)
 {
+	std::ifstream file(filename);
+	if (!file)
+		throw std::runtime_error("Could not open file");
+		
+	std::string line;
+
+	for (int i = 0; std::getline(file, line) != 0; i++)
+	{
+		if (i == 0 && line == "date | value") 
+			continue;
+		
+		try {
+			BitcoinExchange::buy(line);
+		} catch (const std::exception &e) {
+			std::cout << "Error: " << e.what() << "\n";
+		}
+	}
+	file.close();
+}
+
+int main(int argc, char **argv) try {
 	if (argc != 2)
 	{
 		std::cout << "Usage: ./btc <filename>\n";
 		return 1;
 	}
-	//TODO: move this to a function
-	std::ifstream csv(DATABASE);
-	if (!csv)
-	{
-		std::cout << "Error: Could not open " DATABASE "\n";
-		return 1;
-	}
-	BitcoinExchange data;
-	std::string line;
-	while (std::getline(csv, line) != 0)
-	{
-		//TODO: read it into the map
-	}
 	
-	
-	
-	std::ifstream file(argv[1]);
-	if (!file)
-	{
-		std::cout << "Error: Could not open file " << argv[1] << "\n";
-		return 1;
-	}
-	while (std::getline(file, line) != 0)
-	{
-		//TODO: parse line, check date format and value (<= 1000)
-		//TODO: use std::lower_bound() to find the corresponding value in map
-		//TODO: print the date and value or error message
-	}
-	file.close();
-}
+	parseInput(argv[1]);
+	return 0;
 
+} catch (const std::exception &e) {
+	std::cerr << "Error: " << e.what() << "\n";
+	return 1;
+} catch (...) {
+	std::cerr << "Unknown error\n";
+	return 1;
+}
 
 //NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
