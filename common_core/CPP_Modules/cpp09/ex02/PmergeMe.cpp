@@ -49,13 +49,13 @@ void PmergeMe::sortDeq(void)
 
 }
 
-const Deq2D PmergeMe::deq(void) const {return _deq;} //NOLINT
-const Vec2D PmergeMe::vec(void) const {return _vec;} //NOLINT
+const Deq2D& PmergeMe::deq(void) const {return _deq;} //NOLINT
+const Vec2D& PmergeMe::vec(void) const {return _vec;} //NOLINT
 void PmergeMe::empty_cache(void) {_jacobstahl.reset();}
 
 std::ostream& operator<<(std::ostream& os, const PmergeMe& other)
 {
-	const Vec2D vec = other.vec();
+	const Vec2D& vec = other.vec();
 	for (Vec2D::const_iterator it = vec.begin(); it != vec.end(); it++)
 	{
 		if (it != vec.begin())

@@ -22,8 +22,8 @@ class PmergeMe
 		void sortVec();
 		void sortDeq();
 
-		const Deq2D deq(void) const;
-		const Vec2D vec(void) const;
+		const Deq2D& deq(void) const;
+		const Vec2D& vec(void) const;
 
 		void empty_cache(void);
 
