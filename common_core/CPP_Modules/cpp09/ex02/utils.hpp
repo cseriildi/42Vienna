@@ -23,7 +23,7 @@ T sto(const std::string& str) {
 	std::stringstream ss(str);
 	T result;
 	ss >> result;
-	if (ss.fail()) {
+	if (ss.fail() || !ss.eof()) {
 		throw std::bad_cast();
 	}
 	return result;
