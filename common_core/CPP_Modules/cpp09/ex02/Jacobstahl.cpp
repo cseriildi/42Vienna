@@ -42,3 +42,12 @@ unsigned int &Jacobstahl::operator[](unsigned int index)
 
 	return _sequence[index];
 }
+
+void Jacobstahl::reset(void)
+{
+	_numbers.clear();
+	_sequence.clear();
+	_numbers.push_back(0);
+	_numbers.push_back(1);
+	_sequence.push_back(1);
+}

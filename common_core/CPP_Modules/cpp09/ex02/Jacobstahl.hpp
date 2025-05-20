@@ -11,6 +11,8 @@ class  Jacobstahl
 		Jacobstahl &operator=(const Jacobstahl& other);
 		unsigned int &operator[](unsigned int index);
 
+		void reset(void);
+
 	private:
 
 		std::vector<unsigned int> _sequence;
