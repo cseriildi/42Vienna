@@ -42,7 +42,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 
 void PmergeMe::sortVec(void)
 {
-	Vec2D unmached;
+	Vec2D unmatched;
 	//TODO: conditional compilation to print the number of comparisons
 	//unsigned int comparisons = 0;
 
