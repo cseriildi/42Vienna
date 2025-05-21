@@ -55,7 +55,7 @@ void PmergeMe::sortVec(void)
 
 			if (next == _vec.end())
 			{
-				unmached.push_back(curr_vec);
+				unmatched.push_back(curr_vec);
 				_vec.erase(current);
 				break;
 			}
