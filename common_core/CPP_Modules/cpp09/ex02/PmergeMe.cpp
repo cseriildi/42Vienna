@@ -5,6 +5,7 @@
 #include "utils.hpp"
 #include <cstddef>
 #include <deque>
+#include <iostream>
 #include <ostream>
 #include <vector>
 
@@ -41,7 +42,36 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 
 void PmergeMe::sortVec(void)
 {
+	Vec2D unmached;
+	//TODO: conditional compilation to print the number of comparisons
+	//unsigned int comparisons = 0;
 
+	while (_vec.size() > 1)
+	{
+		for (Vec2D::iterator current = _vec.begin(); current != _vec.end(); current++)
+		{
+			Vec2D::iterator next = current + 1;
+			std::vector<unsigned int> &curr_vec = *current;
+
+			if (next == _vec.end())
+			{
+				unmached.push_back(curr_vec);
+				_vec.erase(current);
+				break;
+			}
+			std::vector<unsigned int> &next_vec = *next;
+
+
+			std::vector<unsigned int>::iterator where_to = (next_vec.back() > curr_vec.back() ? curr_vec.end() : curr_vec.begin());
+			//comparisons++;
+			curr_vec.insert(where_to, next_vec.begin(), next_vec.end());
+			_vec.erase(next);
+		}
+	}
+
+	//TODO: while (_vec.back().size() > 1) {}
+
+	//std::cout << "Number of comparisons: " << comparisons << "\n";
 }
 
 void PmergeMe::sortDeq(void)
@@ -58,9 +88,12 @@ std::ostream& operator<<(std::ostream& os, const PmergeMe& other)
 	const Vec2D& vec = other.vec();
 	for (Vec2D::const_iterator it = vec.begin(); it != vec.end(); it++)
 	{
-		if (it != vec.begin())
-			os << ", ";
-		os << it->back();
+		for (std::vector<unsigned int>::const_iterator itt = (*it).begin(); itt != (*it).end(); itt++)
+		{
+			if (it != vec.begin() || itt != (*it).begin())
+				os << ", ";
+			os << *itt;
+		}
 	}
 	return os << "\n";
 }
