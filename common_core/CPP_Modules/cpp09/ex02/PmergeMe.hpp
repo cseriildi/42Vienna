@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Jacobstahl.hpp"
+#include <cstddef>
 #include <deque>
 #include <ostream>
 #include <vector>
@@ -32,6 +33,7 @@ class PmergeMe
 		Jacobstahl		_jacobstahl;
 		Vec2D			_vec;
 		Deq2D			_deq;
+		size_t			_comparisons;
 };
 
 std::ostream& operator<<(std::ostream& os, const PmergeMe& other);

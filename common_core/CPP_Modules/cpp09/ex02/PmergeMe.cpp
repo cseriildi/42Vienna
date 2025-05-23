@@ -9,10 +9,10 @@
 #include <ostream>
 #include <vector>
 
-PmergeMe::PmergeMe() {}
+PmergeMe::PmergeMe() : _comparisons(0) {}
 PmergeMe::~PmergeMe() {}
 
-PmergeMe::PmergeMe( char *nums[])
+PmergeMe::PmergeMe( char *nums[])  : _comparisons(0) 
 {
 	for (int i = 1; nums[i] != NULL; i++)
 	{
@@ -28,7 +28,11 @@ PmergeMe::PmergeMe( char *nums[])
 	}
 }
 
-PmergeMe::PmergeMe(const PmergeMe &other): _jacobstahl(other._jacobstahl), _vec(other._vec), _deq(other._deq) {}
+PmergeMe::PmergeMe(const PmergeMe &other): _jacobstahl(other._jacobstahl),
+											_vec(other._vec),
+											_deq(other._deq),
+											_comparisons(other._comparisons) {}
+
 PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
 	if (&other != this)
@@ -36,6 +40,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 		_jacobstahl = other._jacobstahl;
 		_vec = other._vec;
 		_deq = other._deq;
+		_comparisons = other._comparisons;
 	}
 	return *this;
 }
@@ -44,7 +49,6 @@ void PmergeMe::sortVec(void)
 {
 	Vec2D unmatched;
 	//TODO: conditional compilation to print the number of comparisons
-	//unsigned int comparisons = 0;
 
 	while (_vec.size() > 1)
 	{
@@ -63,15 +67,12 @@ void PmergeMe::sortVec(void)
 
 
 			std::vector<unsigned int>::iterator where_to = (next_vec.back() > curr_vec.back() ? curr_vec.end() : curr_vec.begin());
-			//comparisons++;
+			_comparisons++;
 			curr_vec.insert(where_to, next_vec.begin(), next_vec.end());
 			_vec.erase(next);
 		}
 	}
-
-	//TODO: while (_vec.back().size() > 1) {}
-
-	//std::cout << "Number of comparisons: " << comparisons << "\n";
+	std::cout << "Number of comparisons: " << _comparisons << "\n";
 }
 
 void PmergeMe::sortDeq(void)
