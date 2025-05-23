@@ -90,6 +90,49 @@ void PmergeMe::sortVec(void)
 			_vec.erase(next);
 		}
 	}
+	size_t size = _vec.back().size();
+	while (size > 1)
+	{
+		size /= 2;
+		Vec2D &a = _vec;
+		Vec2D b;
+		std::vector<size_t> indexes;
+
+		for (Vec2D::iterator current = _vec.begin(); current != _vec.end(); current++)
+		{
+			std::vector<unsigned int> tmp;
+			
+			tmp.insert(tmp.begin(), (*current).begin(), (*current).begin() + size); //NOLINT
+			b.push_back(tmp);
+			(*current).erase((*current).begin(), (*current).begin() + size); //NOLINT
+
+			if (indexes.empty())
+				indexes.push_back(0);
+			else
+			 	indexes.push_back(indexes.back() + 1);
+		}
+		if (!unmatched.empty() && unmatched.back().size() == size)
+		{
+			b.push_back(unmatched.back());
+			unmatched.pop_back();
+			//TODO: think about unmatched
+		}
+
+		for (size_t i = 0; i < size; i++)
+		{
+			size_t j = _jacobstahl[i] - 1;
+			if (j >= size)
+				continue;
+			std::vector<unsigned int> curr = b[j];
+			size_t where_to = binary_search(a, curr.back(), indexes[j]);
+			for (size_t k = 0; k < size; k++)
+			{
+				if (where_to <= indexes[k])
+					indexes[k]++;
+			}
+			a.insert(a.begin() + where_to, curr); //NOLINT
+		}
+	}
 	std::cout << "Number of comparisons: " << _comparisons << "\n";
 }
 
