@@ -28,6 +28,9 @@ class PmergeMe
 
 		void empty_cache(void);
 
+		template <typename T>
+		size_t binary_search(T &container, unsigned int value, size_t end);
+
 	private:
 	
 		Jacobstahl		_jacobstahl;

@@ -45,6 +45,24 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 	return *this;
 }
 
+template <typename T>
+size_t PmergeMe::binary_search(T &container, unsigned int value, size_t end) //NOLINT
+{
+	size_t start = 0;
+	while (start < end)
+	{
+		size_t mid = start + (end - start) / 2;
+		_comparisons++;
+		if (container[mid].back() == value)
+			return mid;
+		if (container[mid].back() < value)
+			start = mid + 1;
+		else
+			end = mid;
+	}
+	return start;
+}
+
 void PmergeMe::sortVec(void)
 {
 	Vec2D unmatched;
