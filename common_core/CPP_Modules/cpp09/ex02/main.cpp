@@ -24,13 +24,13 @@ int main(int argc, char **argv) try {
 
 	long start = now_in_microseconds();
 	FJ.sortVec();
-	unsigned int vec_sort_time = now_in_microseconds() - start;
+	long vec_sort_time = now_in_microseconds() - start;
 
 	FJ.empty_cache();
 
 	start = now_in_microseconds();
 	FJ.sortDeq();
-	unsigned int deq_sort_time = now_in_microseconds() - start;
+	long deq_sort_time = now_in_microseconds() - start;
 
 	std::cout << "After: " << FJ;
 	std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector : " << vec_sort_time << " us\n";
