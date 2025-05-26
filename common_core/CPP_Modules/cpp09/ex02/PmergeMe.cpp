@@ -7,6 +7,8 @@
 #include <deque>
 #include <iostream>
 #include <ostream>
+#include <stdexcept>
+#include <typeinfo>
 #include <vector>
 
 PmergeMe::PmergeMe() : _comparisons(0) {}
@@ -14,17 +16,24 @@ PmergeMe::~PmergeMe() {}
 
 PmergeMe::PmergeMe( char *nums[])  : _comparisons(0) 
 {
-	for (int i = 1; nums[i] != NULL; i++)
-	{
-		unsigned int num = sto<unsigned int>(nums[i]);
+	try {
+		for (int i = 1; nums[i] != NULL; i++)
+		{
+			int num = sto<int>(nums[i]);
 
-		std::vector<unsigned> tmp_vec;
-		tmp_vec.push_back(num);
-		_vec.push_back(tmp_vec);
+			if (num < 0)
+				throw std::invalid_argument("Usage: ./PmergeMe <positive integers>");
+			
+			std::vector<unsigned> tmp_vec;
+			tmp_vec.push_back(num);
+			_vec.push_back(tmp_vec);
 
-		std::deque<unsigned int> tmp_deq;
-		tmp_deq.push_back(num);
-		_deq.push_back(tmp_deq);
+			std::deque<unsigned int> tmp_deq;
+			tmp_deq.push_back(num);
+			_deq.push_back(tmp_deq);
+		}
+	} catch (const std::bad_cast &) {
+		throw std::invalid_argument("Usage: ./PmergeMe <positive integers>");
 	}
 }
 
