@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #include <vector>
 
 class  Jacobstahl
@@ -9,14 +10,14 @@ class  Jacobstahl
 		~Jacobstahl();
 		Jacobstahl(const Jacobstahl& other);
 		Jacobstahl &operator=(const Jacobstahl& other);
-		unsigned int &operator[](unsigned int index);
+		size_t &operator[](size_t index);
 
 		void reset(void);
 
 	private:
 
-		std::vector<unsigned int> _sequence;
-		std::vector<unsigned int> _numbers;
+		std::vector<size_t> _sequence;
+		std::vector<size_t> _numbers;
 
 		void generate_next(void);
 };

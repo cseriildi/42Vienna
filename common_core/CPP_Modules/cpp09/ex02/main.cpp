@@ -1,9 +1,18 @@
 
 #include "PmergeMe.hpp"
+#include <bits/types/struct_timeval.h>
 #include <exception>
 #include <iostream>
 #include <stdexcept>
 #include <ctime>
+#include <sys/time.h>
+
+long now_in_microseconds()
+{
+    timeval tv; //NOLINT
+    gettimeofday(&tv, 0);
+    return tv.tv_sec * 1000000L + tv.tv_usec; //NOLINT
+}
 
 int main(int argc, char **argv) try {
 	if (argc < 2)
@@ -13,15 +22,15 @@ int main(int argc, char **argv) try {
 
 	std::cout << "Before: " << FJ;
 
-	std::time_t start = std::time(0);
+	long start = now_in_microseconds();
 	FJ.sortVec();
-	unsigned int vec_sort_time = std::time(0) - start;
+	long vec_sort_time = now_in_microseconds() - start;
 
 	FJ.empty_cache();
 
-	start = std::time(0);
+	start = now_in_microseconds();
 	FJ.sortDeq();
-	unsigned int deq_sort_time = std::time(0) - start;
+	long deq_sort_time = now_in_microseconds() - start;
 
 	std::cout << "After: " << FJ;
 	std::cout << "Time to process a range of " << argc - 1 << " elements with std::vector : " << vec_sort_time << " us\n";

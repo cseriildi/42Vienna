@@ -1,4 +1,5 @@
 #include "Jacobstahl.hpp"
+#include <cstddef>
 
 Jacobstahl::Jacobstahl()
 {
@@ -23,20 +24,20 @@ Jacobstahl &Jacobstahl::operator=(const Jacobstahl& other)
 
 void Jacobstahl::generate_next(void)
 {
-	unsigned int n = _numbers.size();
+	size_t n = _numbers.size();
 
 	_numbers.push_back(_numbers[n - 1] + 2 * _numbers[n - 2]);
 }
 
-unsigned int &Jacobstahl::operator[](unsigned int index)
+size_t &Jacobstahl::operator[](size_t index)
 {
 	while (index >= _sequence.size())
 	{
-		unsigned int prev = _numbers.back();
+		size_t prev = _numbers.back();
 
 		generate_next();
 		
-		for (unsigned int num = _numbers.back(); num > prev; num--)
+		for (size_t num = _numbers.back(); num > prev; num--)
 			_sequence.push_back(num);
 	}
 
