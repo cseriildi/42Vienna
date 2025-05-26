@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Jacobstahl.hpp"
+#include "Jacobsthal.hpp"
 #include <cstddef>
 #include <deque>
 #include <ostream>
@@ -33,7 +33,7 @@ class PmergeMe
 
 	private:
 	
-		Jacobstahl		_jacobstahl;
+		Jacobsthal		_jacobsthal;
 		Vec2D			_vec;
 		Deq2D			_deq;
 		size_t			_comparisons;

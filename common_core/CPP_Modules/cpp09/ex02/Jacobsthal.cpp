@@ -1,17 +1,17 @@
-#include "Jacobstahl.hpp"
+#include "Jacobsthal.hpp"
 #include <cstddef>
 
-Jacobstahl::Jacobstahl()
+Jacobsthal::Jacobsthal()
 {
 	_numbers.push_back(0);
 	_numbers.push_back(1);
 	_sequence.push_back(1);
 }
 
-Jacobstahl::~Jacobstahl() {}
-Jacobstahl::Jacobstahl(const Jacobstahl& other): _sequence(other._sequence), _numbers(other._numbers) {}
+Jacobsthal::~Jacobsthal() {}
+Jacobsthal::Jacobsthal(const Jacobsthal& other): _sequence(other._sequence), _numbers(other._numbers) {}
 
-Jacobstahl &Jacobstahl::operator=(const Jacobstahl& other)
+Jacobsthal &Jacobsthal::operator=(const Jacobsthal& other)
 {
 	if (&other != this)
 	{
@@ -22,14 +22,14 @@ Jacobstahl &Jacobstahl::operator=(const Jacobstahl& other)
 	return *this;
 }
 
-void Jacobstahl::generate_next(void)
+void Jacobsthal::generate_next(void)
 {
 	size_t n = _numbers.size();
 
 	_numbers.push_back(_numbers[n - 1] + 2 * _numbers[n - 2]);
 }
 
-size_t &Jacobstahl::operator[](size_t index)
+size_t &Jacobsthal::operator[](size_t index)
 {
 	while (index >= _sequence.size())
 	{
@@ -44,7 +44,7 @@ size_t &Jacobstahl::operator[](size_t index)
 	return _sequence[index];
 }
 
-void Jacobstahl::reset(void)
+void Jacobsthal::reset(void)
 {
 	_numbers.clear();
 	_sequence.clear();

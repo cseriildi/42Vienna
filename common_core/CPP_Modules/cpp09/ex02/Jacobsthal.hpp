@@ -2,14 +2,14 @@
 #include <cstddef>
 #include <vector>
 
-class  Jacobstahl
+class  Jacobsthal
 {
 	public:
 
-		Jacobstahl();
-		~Jacobstahl();
-		Jacobstahl(const Jacobstahl& other);
-		Jacobstahl &operator=(const Jacobstahl& other);
+		Jacobsthal();
+		~Jacobsthal();
+		Jacobsthal(const Jacobsthal& other);
+		Jacobsthal &operator=(const Jacobsthal& other);
 		size_t &operator[](size_t index);
 
 		void reset(void);

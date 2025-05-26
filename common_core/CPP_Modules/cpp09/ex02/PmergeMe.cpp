@@ -1,6 +1,6 @@
 //NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
-#include "Jacobstahl.hpp"
+#include "Jacobsthal.hpp"
 #include "PmergeMe.hpp"
 #include "utils.hpp"
 #include <cstddef>
@@ -37,7 +37,7 @@ PmergeMe::PmergeMe( char *nums[])  : _comparisons(0)
 	}
 }
 
-PmergeMe::PmergeMe(const PmergeMe &other): _jacobstahl(other._jacobstahl),
+PmergeMe::PmergeMe(const PmergeMe &other): _jacobsthal(other._jacobsthal),
 											_vec(other._vec),
 											_deq(other._deq),
 											_comparisons(other._comparisons) {}
@@ -46,7 +46,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
 	if (&other != this)
 	{
-		_jacobstahl = other._jacobstahl;
+		_jacobsthal = other._jacobsthal;
 		_vec = other._vec;
 		_deq = other._deq;
 		_comparisons = other._comparisons;
@@ -133,11 +133,11 @@ void PmergeMe::sortVec(void)
 		size_t skip = 0;
 		for (size_t i = 0; i < b.size(); i++)
 		{
-			size_t j = _jacobstahl[i + skip] - 1;
+			size_t j = _jacobsthal[i + skip] - 1;
 			while (j >= b.size())
 			{
 				skip++;
-				j = _jacobstahl[i + skip] - 1;
+				j = _jacobsthal[i + skip] - 1;
 			}	
 			std::vector<unsigned int> &curr = b[j];
 	/* 		std::cout << CYAN "Jacobstahl number: " << j + 1 << ", Inserting: [ ";
@@ -219,11 +219,11 @@ void PmergeMe::sortDeq(void)
 		size_t skip = 0;
 		for (size_t i = 0; i < b.size(); i++)
 		{
-			size_t j = _jacobstahl[i + skip] - 1;
+			size_t j = _jacobsthal[i + skip] - 1;
 			while (j >= b.size())
 			{
 				skip++;
-				j = _jacobstahl[i + skip] - 1;
+				j = _jacobsthal[i + skip] - 1;
 			}	
 			std::deque<unsigned int> &curr = b[j];
 	/* 		std::cout << CYAN "Jacobstahl number: " << j + 1 << ", Inserting: [ ";
@@ -247,7 +247,7 @@ void PmergeMe::sortDeq(void)
 
 const Deq2D& PmergeMe::deq(void) const {return _deq;} //NOLINT
 const Vec2D& PmergeMe::vec(void) const {return _vec;} //NOLINT
-void PmergeMe::empty_cache(void) {_jacobstahl.reset();}
+void PmergeMe::empty_cache(void) {_jacobsthal.reset();}
 
 std::ostream& operator<<(std::ostream& os, const PmergeMe& other)
 {
