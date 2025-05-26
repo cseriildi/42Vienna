@@ -160,17 +160,18 @@ void PmergeMe::empty_cache(void) {_jacobstahl.reset();}
 
 std::ostream& operator<<(std::ostream& os, const PmergeMe& other)
 {
-	const Vec2D& vec = other.vec();
-	for (Vec2D::const_iterator it = vec.begin(); it != vec.end(); it++)
+	Vec2D vec = other.vec();
+	typedef Vec2D::const_iterator OuterIt;
+	typedef Vec2D::value_type InnerContainer;
+	typedef InnerContainer::const_iterator InnerIt;
+
+	for (OuterIt it = vec.begin(); it != vec.end(); it++)
 	{
-		for (std::vector<unsigned int>::const_iterator itt = (*it).begin(); itt != (*it).end(); itt++)
-		{
-			if (it != vec.begin() || itt != (*it).begin())
-				os << ", ";
-			os << *itt;
-		}
+		for (InnerIt itt = (*it).begin(); itt != (*it).end(); itt++)
+			os << " " << *itt;
 	}
-	return os << "\n";
+	os << "\n";
+	return os;
 }
 
 //NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
