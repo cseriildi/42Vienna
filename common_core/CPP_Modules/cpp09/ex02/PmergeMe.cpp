@@ -62,6 +62,7 @@ size_t PmergeMe::binary_search(T &container, unsigned int value, size_t end) //N
 	{
 		size_t mid = start + (end - start) / 2;
 		_comparisons++;
+		//std::cout << PURPLE << "Comparing " << value << " with " << container[mid].back() << RESET << "\n";
 		if (container[mid].back() == value)
 			return mid;
 		if (container[mid].back() < value)
@@ -156,12 +157,92 @@ void PmergeMe::sortVec(void)
 		//debug(_vec, unmatched);
 		//std::cout << "Number of comparisons: " << _comparisons << "\n";
 	}
-	std::cout << "Number of comparisons: " << _comparisons << "\n";
 }
 
 void PmergeMe::sortDeq(void)
 {
+	Deq2D unmatched;
+	//TODO: conditional compilation to print the number of comparisons
+	//debug(_vec, unmatched);
+	while (_deq.size() > 1)
+	{
+		for (Deq2D::iterator current = _deq.begin(); current != _deq.end(); current++)
+		{
+			Deq2D::iterator next = current + 1;
+			std::deque<unsigned int> &curr_deq = *current;
 
+			if (next == _deq.end())
+			{
+				unmatched.push_back(*current);
+				_deq.erase(current);
+				break;
+			}
+			std::deque<unsigned int> &next_deq = *next;
+
+
+			std::deque<unsigned int>::iterator where_to = (next_deq.back() > curr_deq.back() ? curr_deq.end() : curr_deq.begin());
+			_comparisons++;
+			curr_deq.insert(where_to, next_deq.begin(), next_deq.end());
+			_deq.erase(next);
+		}
+		/* debug(_deq, unmatched);
+		std::cout << "Number of comparisons: " << _comparisons << "\n"; */
+	}
+	size_t size = _deq.back().size();
+	while (size > 1)
+	{
+		size /= 2;
+		Deq2D &a = _deq;
+		Deq2D b;
+		std::deque<size_t> indexes;
+
+		for (Deq2D::iterator current = _deq.begin(); current != _deq.end(); current++)
+		{
+			std::deque<unsigned int> tmp;
+			
+			tmp.insert(tmp.begin(), (*current).begin(), (*current).begin() + size); //NOLINT
+			b.push_back(tmp);
+			(*current).erase((*current).begin(), (*current).begin() + size); //NOLINT
+
+			if (indexes.empty())
+				indexes.push_back(0);
+			else
+			 	indexes.push_back(indexes.back() + 1);
+		}
+		if (!unmatched.empty() && unmatched.back().size() == size)
+		{
+			b.push_back(unmatched.back());
+			unmatched.pop_back();
+			indexes.push_back(indexes.back() + 1);
+		}
+		//debug(a, b, unmatched);
+		size_t skip = 0;
+		for (size_t i = 0; i < b.size(); i++)
+		{
+			size_t j = _jacobstahl[i + skip] - 1;
+			while (j >= b.size())
+			{
+				skip++;
+				j = _jacobstahl[i + skip] - 1;
+			}	
+			std::deque<unsigned int> &curr = b[j];
+	/* 		std::cout << CYAN "Jacobstahl number: " << j + 1 << ", Inserting: [ ";
+			for (size_t k = 0; k < curr.size(); k++)
+				std::cout << curr[k] << " ";
+			std::cout << "], Binary search before index " << indexes[j] << "\n" RESET; */
+			size_t where_to = binary_search(a, curr.back(), indexes[j]);
+			for (size_t k = 0; k < indexes.size(); k++)
+			{
+				if (where_to <= indexes[k])
+					indexes[k]++;
+			}
+			a.insert(a.begin() + where_to, curr); //NOLINT
+			curr.clear();
+			//debug(a, b, unmatched);
+		}
+		//debug(_deq, unmatched);
+		//std::cout << "Number of comparisons: " << _comparisons << "\n";
+	}
 }
 
 const Deq2D& PmergeMe::deq(void) const {return _deq;} //NOLINT
