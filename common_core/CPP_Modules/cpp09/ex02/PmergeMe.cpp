@@ -251,7 +251,7 @@ void PmergeMe::empty_cache(void) {_jacobstahl.reset();}
 
 std::ostream& operator<<(std::ostream& os, const PmergeMe& other)
 {
-	Vec2D vec = other.vec();
+	const Vec2D &vec = other.vec();
 	typedef Vec2D::const_iterator OuterIt;
 	typedef Vec2D::value_type InnerContainer;
 	typedef InnerContainer::const_iterator InnerIt;
