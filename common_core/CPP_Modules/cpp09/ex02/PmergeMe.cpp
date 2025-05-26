@@ -76,7 +76,7 @@ void PmergeMe::sortVec(void)
 {
 	Vec2D unmatched;
 	//TODO: conditional compilation to print the number of comparisons
-
+	//debug(_vec, unmatched);
 	while (_vec.size() > 1)
 	{
 		for (Vec2D::iterator current = _vec.begin(); current != _vec.end(); current++)
@@ -98,6 +98,8 @@ void PmergeMe::sortVec(void)
 			curr_vec.insert(where_to, next_vec.begin(), next_vec.end());
 			_vec.erase(next);
 		}
+		/* debug(_vec, unmatched);
+		std::cout << "Number of comparisons: " << _comparisons << "\n"; */
 	}
 	size_t size = _vec.back().size();
 	while (size > 1)
@@ -126,7 +128,7 @@ void PmergeMe::sortVec(void)
 			unmatched.pop_back();
 			indexes.push_back(indexes.back() + 1);
 		}
-		//debug(a, b, unmatched
+		//debug(a, b, unmatched);
 		size_t skip = 0;
 		for (size_t i = 0; i < b.size(); i++)
 		{
@@ -136,7 +138,11 @@ void PmergeMe::sortVec(void)
 				skip++;
 				j = _jacobstahl[i + skip] - 1;
 			}	
-			std::vector<unsigned int> curr = b[j];
+			std::vector<unsigned int> &curr = b[j];
+	/* 		std::cout << CYAN "Jacobstahl number: " << j + 1 << ", Inserting: [ ";
+			for (size_t k = 0; k < curr.size(); k++)
+				std::cout << curr[k] << " ";
+			std::cout << "], Binary search before index " << indexes[j] << "\n" RESET; */
 			size_t where_to = binary_search(a, curr.back(), indexes[j]);
 			for (size_t k = 0; k < indexes.size(); k++)
 			{
@@ -144,7 +150,11 @@ void PmergeMe::sortVec(void)
 					indexes[k]++;
 			}
 			a.insert(a.begin() + where_to, curr); //NOLINT
+			curr.clear();
+			//debug(a, b, unmatched);
 		}
+		//debug(_vec, unmatched);
+		//std::cout << "Number of comparisons: " << _comparisons << "\n";
 	}
 	std::cout << "Number of comparisons: " << _comparisons << "\n";
 }
