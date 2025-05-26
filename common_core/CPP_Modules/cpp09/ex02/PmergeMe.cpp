@@ -115,17 +115,21 @@ void PmergeMe::sortVec(void)
 		{
 			b.push_back(unmatched.back());
 			unmatched.pop_back();
-			//TODO: think about unmatched
+			indexes.push_back(indexes.back() + 1);
 		}
-
-		for (size_t i = 0; i < size; i++)
+		//debug(a, b, unmatched
+		size_t skip = 0;
+		for (size_t i = 0; i < b.size(); i++)
 		{
-			size_t j = _jacobstahl[i] - 1;
-			if (j >= size)
-				continue;
+			size_t j = _jacobstahl[i + skip] - 1;
+			while (j >= b.size())
+			{
+				skip++;
+				j = _jacobstahl[i + skip] - 1;
+			}	
 			std::vector<unsigned int> curr = b[j];
 			size_t where_to = binary_search(a, curr.back(), indexes[j]);
-			for (size_t k = 0; k < size; k++)
+			for (size_t k = 0; k < indexes.size(); k++)
 			{
 				if (where_to <= indexes[k])
 					indexes[k]++;
