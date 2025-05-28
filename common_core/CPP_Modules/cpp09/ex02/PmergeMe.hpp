@@ -6,8 +6,10 @@
 #include <ostream>
 #include <vector>
 
-typedef std::vector<std::vector<unsigned int> > Vec2D;
-typedef std::deque<std::deque<unsigned int> > Deq2D;
+typedef std::vector<unsigned int> Vec;
+typedef std::deque<unsigned int>  Deq;
+typedef std::vector<Vec> Vec2D;
+typedef std::deque<Deq> Deq2D;
 
 class PmergeMe
 {
@@ -15,7 +17,7 @@ class PmergeMe
 
 
 		PmergeMe();
-		PmergeMe(char *nums[]);
+		PmergeMe(int argc, char *nums[]);
 		~PmergeMe();
 		PmergeMe(const PmergeMe &other);
 		PmergeMe &operator=(const PmergeMe &other);

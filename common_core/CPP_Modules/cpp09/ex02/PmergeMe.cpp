@@ -14,23 +14,19 @@
 PmergeMe::PmergeMe() : _comparisons(0) {}
 PmergeMe::~PmergeMe() {}
 
-PmergeMe::PmergeMe( char *nums[])  : _comparisons(0) 
+PmergeMe::PmergeMe(int argc, char *nums[])  : _comparisons(0) 
 {
 	try {
-		for (int i = 1; nums[i] != NULL; i++)
+		_vec.reserve(argc - 1);
+		for (int i = 1; i < argc; i++)
 		{
 			int num = sto<int>(nums[i]);
 
 			if (num < 0)
 				throw std::invalid_argument("Usage: ./PmergeMe <positive integers>");
-			
-			std::vector<unsigned> tmp_vec;
-			tmp_vec.push_back(num);
-			_vec.push_back(tmp_vec);
 
-			std::deque<unsigned int> tmp_deq;
-			tmp_deq.push_back(num);
-			_deq.push_back(tmp_deq);
+			_vec.push_back(Vec(1, num));
+			_deq.push_back(Deq(1, num));
 		}
 	} catch (const std::bad_cast &) {
 		throw std::invalid_argument("Usage: ./PmergeMe <positive integers>");
