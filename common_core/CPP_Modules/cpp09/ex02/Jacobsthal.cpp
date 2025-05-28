@@ -29,7 +29,7 @@ void Jacobsthal::generate_next(void)
 	_numbers.push_back(_numbers[n - 1] + 2 * _numbers[n - 2]);
 }
 
-size_t &Jacobsthal::operator[](size_t index)
+size_t Jacobsthal::operator[](size_t index)
 {
 	while (index >= _sequence.size())
 	{
@@ -41,7 +41,7 @@ size_t &Jacobsthal::operator[](size_t index)
 			_sequence.push_back(num);
 	}
 
-	return _sequence[index];
+	return _sequence[index] - 1;
 }
 
 void Jacobsthal::reset(void)
@@ -52,3 +52,15 @@ void Jacobsthal::reset(void)
 	_numbers.push_back(1);
 	_sequence.push_back(1);
 }
+
+Jacobsthal::Iterator::Iterator(Jacobsthal& parent, size_t index) : _parent(&parent), _index(index) {}
+
+size_t Jacobsthal::Iterator::operator*() {return (*_parent)[_index];}
+
+Jacobsthal::Iterator& Jacobsthal::Iterator::operator++() {_index++; return *this;}
+
+bool Jacobsthal::Iterator::operator!=(const Iterator& other) const {return _index != other._index;}
+
+Jacobsthal::Iterator Jacobsthal::begin(void) {return Iterator(*this, 0);}
+
+Jacobsthal::Iterator Jacobsthal::end(void) {return Iterator(*this, _sequence.size());}
