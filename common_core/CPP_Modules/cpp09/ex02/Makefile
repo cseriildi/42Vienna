@@ -1,5 +1,5 @@
 NAME = PmergeMe
 
-SRCS = main.cpp PmergeMe.cpp Jacobstahl.cpp
+SRCS = main.cpp PmergeMe.cpp Jacobsthal.cpp
 
 include ../Makefile

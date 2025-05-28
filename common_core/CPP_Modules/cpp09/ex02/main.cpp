@@ -4,7 +4,6 @@
 #include <exception>
 #include <iostream>
 #include <stdexcept>
-#include <ctime>
 #include <sys/time.h>
 
 long now_in_microseconds()
@@ -18,7 +17,7 @@ int main(int argc, char **argv) try {
 	if (argc < 2)
 		throw std::invalid_argument("Usage: ./PmergeMe <positive integers>");
 
-	PmergeMe FJ(argv);
+	PmergeMe FJ(argc, argv);
 
 	std::cout << "Before: " << FJ;
 
