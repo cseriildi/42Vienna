@@ -56,19 +56,3 @@ void  print2D(const Container &cont, const std::string& color = RESET)
 	std::cout << "}" RESET;
 }
 
-template<typename Container>
-void  debug(const Container &cont, const Container &unmatched)
-{
-	print2D(cont, GREEN);
-	print2D(unmatched, BLUE);
-	std::cout << "\n";
-}
-
-template<typename Container>
-void  debug(const Container &cont, const Container &cont2, const Container &unmatched)
-{
-	print2D(cont, GREEN);
-	print2D(cont2, YELLOW);
-	print2D(unmatched, BLUE);
-	std::cout << "\n";
-}

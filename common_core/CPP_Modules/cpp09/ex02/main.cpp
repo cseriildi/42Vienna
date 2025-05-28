@@ -4,7 +4,6 @@
 #include <exception>
 #include <iostream>
 #include <stdexcept>
-#include <ctime>
 #include <sys/time.h>
 
 long now_in_microseconds()
