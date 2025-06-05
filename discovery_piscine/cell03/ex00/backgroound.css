@@ -1,0 +1,7 @@
+#button {
+  transition: font-size 0.5s ease, padding 0.5s ease;
+}
+
+body {
+  transition: background-color 0.5s ease;
+}
