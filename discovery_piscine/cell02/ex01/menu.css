@@ -1,0 +1,111 @@
+body {
+  background-color: lightgray;
+}
+
+.navbar {
+  display: flex;
+  background-color: gray;
+  padding: 5px;
+  justify-content: flex-end;
+}
+
+.menu {
+  display: flex;
+  gap: 5px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  border: none;
+  gap: 5px;
+  background-color: dimgray;
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.button:hover {
+  background-color: lightgray;
+  color: dimgray;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown .button {
+  width: 100%;
+}
+
+.dropdown .button::after {
+  content: "▼";
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  white-space: nowrap;
+  width: max-content;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 15px;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: black;
+  color: white;
+}
+
+/* for smaller screens */
+.menu-toggle {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    display: inline-block;
+  }
+  
+  .hamburger {
+    display: block;
+    font-size: 30px;
+    color: white;
+    padding: 5px 10px;
+  }
+  
+  .menu {
+    display: none;
+  }
+
+  .menu-toggle:checked + .hamburger + .menu {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dropdown-content {
+    top: 0;
+    left: 100%;
+  }
+}

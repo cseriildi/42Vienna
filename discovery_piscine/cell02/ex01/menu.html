@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Menu</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="menu.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+      <label for="menu-toggle" class="hamburger">&#9776;</label>
+
+      <div class="menu" id="menu">
+        <a class="button" href="#">Home</a>
+
+        <div class="dropdown">
+          <button class="button">Food</button>
+          <div class="dropdown-content">
+            <a href="#">🥯 Bagels</a>
+            <a href="#">🍔 Burgers</a>
+            <a href="#">🌯 Wraps</a>
+            <a href="#">🥪 Sandwiches</a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <button class="button">Drinks</button>
+          <div class="dropdown-content">
+            <a href="#">🥤 Soda</a>
+            <a href="#">🍵 Tea</a>
+            <a href="#">☕ Coffee</a>
+            <a href="#">🥛 Milkshakes</a>
+          </div>
+        </div>
+
+        <a class="button" href="#">About</a>
+
+        <a class="button" href="#">Contact</a>
+      </div>
+    </nav>
+  </body>
+</html>
