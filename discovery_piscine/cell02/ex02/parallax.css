@@ -2,7 +2,7 @@ body {
   background: black;
   color: white;
   font-family: Arial, sans-serif;
-  font-size: xx-large;
+  font-size: 2rem;
   text-align: center;
   margin: 0;
 }
@@ -16,17 +16,30 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
 }
 
-.content {
+.split {
   height: 50vh;
   display: flex;
+  align-items: center;
+}
+
+.message {
   padding: 2rem;
   align-items: center;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .parallax {
     background-attachment: scroll;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 1.2rem;
   }
 }
