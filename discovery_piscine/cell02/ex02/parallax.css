@@ -1,0 +1,32 @@
+body {
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: xx-large;
+  text-align: center;
+  margin: 0;
+}
+
+.parallax {
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  height: 50vh;
+  display: flex;
+  padding: 2rem;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax {
+    background-attachment: scroll;
+  }
+}
