@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: radial-gradient(circle at center, #492d82, #140a28);
+        font-family: "Segoe UI", sans-serif;
+      }
+      .calculator {
+        display: block;
+        background-color: #ccbbed;
+        padding: 24px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+        border-radius: 18px;
+        justify-items: center;
+      }
+      .calculator h1 {
+        margin: 0px;
+        font-size: 30px;
+        color: #140a28;
+      }
+
+      .calculator p {
+        margin: 20px;
+        font-size: 15px;
+        color: #492d82;
+      }
+
+      form {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+      input.error {
+        border-color: red !important;
+      }
+
+      input[type="text"],
+      select {
+        padding: 10px;
+        border: 1.5px solid #c4b5fd;
+        border-radius: 10px;
+        font-size: 17px;
+        background: #f5f3ff;
+        color: #492d82;
+        transition: border-color 0.2s;
+      }
+      input[type="text"]:hover,
+      select:hover {
+        border-color: #492d82;
+      }
+
+      input[type="text"]:focus,
+      select:focus {
+        border-color: #492d82;
+        outline: none;
+      }
+
+      input[type="submit"] {
+        padding: 10px;
+        background-color: #8a60dd;
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      input[type="submit"]:disabled {
+        background-color: #ddd6fe;
+        color: #a78bfa;
+        cursor: not-allowed;
+      }
+
+      input[type="submit"]:hover:not(:disabled) {
+        background-color: #492d82;
+        color: #fff;
+      }
+    </style>
+
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div class="calculator">
+      <h1>Calculator</h1>
+      <p>Enter two numbers and select an operator to perform a calculation.</p>
+      <form>
+        <input type="text" name="left" id="left" placeholder="Left operand" />
+
+        <select name="operators" id="operators">
+          <option value="" disabled selected>Please select an operator</option>
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="*">*</option>
+          <option value="/">/</option>
+          <option value="%">%</option>
+        </select>
+
+        <input
+          type="text"
+          name="right"
+          id="right"
+          placeholder="Right operand"
+        />
+        
+        <input type="submit" value="Try me!" id="submit" disabled />
+      </form>
+    </div>
+    <script>
+      setInterval(() => {
+        alert("Please, use me...");
+      }, 30000);
+
+      function calculate(left, operator, right) {
+        if (/^\d+$/.test(left) === false || /^\d+$/.test(right) === false) {
+          return "Error :(";
+        }
+        left = parseInt(left);
+        right = parseInt(right);
+        switch (operator) {
+          case "+":
+            return left + right;
+          case "-":
+            return left - right;
+          case "*":
+            return left * right;
+          case "/":
+            return right !== 0 ? left / right : "It’s over 9000!";
+          case "%":
+            return right !== 0 ? left % right : "It’s over 9000!";
+          default:
+            return "Invalid operator";
+        }
+      }
+
+      const left = document.getElementById("left");
+      const right = document.getElementById("right");
+      const operator = document.getElementById("operators");
+      const submit = document.getElementById("submit");
+
+      function checkInputs() {
+        let leftValue = left.value.trim();
+        let rightValue = right.value.trim();
+        submit.disabled = !leftValue || !rightValue || !operator.value;
+        if (leftValue && /^\d+$/.test(leftValue) === false)
+          left.classList.add("error");
+        else left.classList.remove("error");
+        if (rightValue && /^\d+$/.test(rightValue) === false)
+          right.classList.add("error");
+        else right.classList.remove("error");
+      }
+
+      left.addEventListener("input", checkInputs);
+      right.addEventListener("input", checkInputs);
+      operator.addEventListener("change", checkInputs);
+      submit.addEventListener("click", () => {
+        event.preventDefault();
+        const res = calculate(
+          left.value.trim(),
+          operator.value,
+          right.value.trim()
+        );
+        console.log(res);
+        alert(res);
+      });
+    </script>
+  </body>
+</html>
