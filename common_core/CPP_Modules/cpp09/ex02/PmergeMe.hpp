@@ -6,10 +6,6 @@
 #include <ostream>
 #include <vector>
 
-#ifndef DEBUG
-#define DEBUG 0
-#endif
-
 typedef std::vector<unsigned int> Vec;
 typedef std::deque<unsigned int> Deq;
 typedef std::vector<Vec> Vec2D;

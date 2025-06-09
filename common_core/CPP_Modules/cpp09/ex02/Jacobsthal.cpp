@@ -1,4 +1,5 @@
 #include "Jacobsthal.hpp"
+
 #include <cstddef>
 
 Jacobsthal::Jacobsthal() {
@@ -21,14 +22,14 @@ Jacobsthal &Jacobsthal::operator=(const Jacobsthal &other) {
 }
 
 void Jacobsthal::generate_next(void) {
-  size_t n = _numbers.size();
+  const size_t n = _numbers.size();
 
-  _numbers.push_back(_numbers[n - 1] + 2 * _numbers[n - 2]);
+  _numbers.push_back(_numbers[n - 1] + (2 * _numbers[n - 2]));
 }
 
 size_t Jacobsthal::operator[](size_t index) {
   while (index >= _sequence.size()) {
-    size_t prev = _numbers.back();
+    const size_t prev = _numbers.back();
 
     generate_next();
 

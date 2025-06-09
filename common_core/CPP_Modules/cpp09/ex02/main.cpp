@@ -6,7 +6,7 @@
 #include <sys/_types/_timeval.h>
 #include <sys/time.h>
 
-long now_in_microseconds() {
+static long now_in_microseconds() {
   timeval tv; // NOLINT
   gettimeofday(&tv, 0);
   return tv.tv_sec * 1000000L + tv.tv_usec; // NOLINT
@@ -22,13 +22,13 @@ int main(int argc, char **argv) try {
 
   long start = now_in_microseconds();
   FJ.sortVec();
-  long vec_sort_time = now_in_microseconds() - start;
+  const long vec_sort_time = now_in_microseconds() - start;
 
   FJ.empty_cache();
 
   start = now_in_microseconds();
   FJ.sortDeq();
-  long deq_sort_time = now_in_microseconds() - start;
+  const long deq_sort_time = now_in_microseconds() - start;
 
   std::cout << "After: " << FJ;
   std::cout << "Time to process a range of " << argc - 1

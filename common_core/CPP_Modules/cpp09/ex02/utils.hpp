@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../colors.hpp"
+
 #include <iostream>
 #include <limits>
-#include <ostream>
 #include <sstream>
 #include <string>
 #include <typeinfo>

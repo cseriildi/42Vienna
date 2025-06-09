@@ -1,8 +1,8 @@
-// NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 #include "PmergeMe.hpp"
 #include "../colors.hpp"
 #include "Jacobsthal.hpp"
 #include "utils.hpp"
+
 #include <cstddef>
 #include <deque>
 #include <iostream>
@@ -19,7 +19,7 @@ PmergeMe::PmergeMe(int argc, char *nums[]) : _comparisons(0) {
   try {
     _vec.reserve(argc - 1);
     for (int i = 1; i < argc; i++) {
-      int num = sto<int>(nums[i]);
+      const int num = sto<int>(nums[i]);
 
       if (num < 0)
         throw std::invalid_argument("Usage: ./PmergeMe <positive integers>");
@@ -52,11 +52,14 @@ size_t PmergeMe::binary_search(Container &container, unsigned int value,
 {
   size_t start = 0;
   while (start < end) {
-    size_t mid = start + (end - start) / 2;
+    const size_t mid = start + ((end - start) / 2);
     _comparisons++;
-    if (DEBUG)
-      std::cout << PURPLE "Comparing " << value << " with "
-                << container[mid].back() << RESET "\n";
+
+#ifdef DEBUG
+    std::cout << PURPLE "Comparing " << value << " with "
+              << container[mid].back() << RESET "\n";
+#endif
+
     if (container[mid].back() == value)
       return mid;
     if (container[mid].back() < value)
@@ -75,23 +78,20 @@ void PmergeMe::merge(Vec2D &unmatched) {
     Vec &curr_vec = *it;
     // IF IT HAS NO PAIR, MOVE IT TO UNMATCHED
     if (it + 1 == _vec.end()) {
-      // this is better than: unmatched.push_back(curr_vec); because it avoids
-      // copying
+      // this is better than unmatched.push_back(curr_vec); to avoid copying
       unmatched.push_back(Vec());
       unmatched.back().swap(curr_vec);
     } else {
       Vec &next_vec = *(it + 1);
 
-      // MERGE ITS PAIR TO THE BEGINNING OR END OF THE CURRENT VECTOR BASED ON
-      // THE LAST ELEMENTS
+      // MERGE ITS PAIR AT BEGIN OR END BASED ON THE LAST ELEMENTS
       Vec *smaller = &curr_vec;
       Vec *bigger = &next_vec;
 
       ++_comparisons;
       if (next_vec.back() < curr_vec.back())
         std::swap(smaller, bigger);
-      // insert at end is better (O(1)) than at begin (O(n)) because it calls
-      // .push_back() internally
+      // insert at begin: (O(n)), at end: (O(1)) because it calls .push_back()
       smaller->insert(smaller->end(), bigger->begin(), bigger->end());
       tmp.push_back(Vec());
       tmp.back().swap((*smaller));
@@ -99,7 +99,9 @@ void PmergeMe::merge(Vec2D &unmatched) {
     it += 2;
   }
   _vec = tmp;
+#ifdef DEBUG
   debug(_vec, unmatched);
+#endif
 }
 
 void PmergeMe::merge(Deq2D &unmatched) {
@@ -112,7 +114,7 @@ void PmergeMe::merge(Deq2D &unmatched) {
        ++tmp_it, it += 2) {
     Deq &curr_deq = *it;
     Deq &next_deq = *(it + 1);
-    Deq::iterator where_to =
+    const Deq::iterator where_to =
         (next_deq.back() > curr_deq.back() ? curr_deq.end() : curr_deq.begin());
     ++_comparisons;
     // insert at begin or end of deque is O(1)
@@ -127,8 +129,8 @@ void PmergeMe::merge(Deq2D &unmatched) {
 }
 
 Vec2D PmergeMe::split(Vec2D &unmatched) {
-  size_t size = _vec.back().size() / 2;
-  bool unmatched_found =
+  const size_t size = _vec.back().size() / 2;
+  const bool unmatched_found =
       (!unmatched.empty() && unmatched.back().size() == size);
 
   Vec2D small;
@@ -148,13 +150,15 @@ Vec2D PmergeMe::split(Vec2D &unmatched) {
     small.push_back(Vec());
     small.back().swap(unmatched.back());
     unmatched.pop_back();
+#ifdef DEBUG
     debug(_vec, small, unmatched);
+#endif
   }
   return small;
 }
 Deq2D PmergeMe::split(Deq2D &unmatched) {
-  size_t size = _deq.back().size() / 2;
-  bool unmatched_found =
+  const size_t size = _deq.back().size() / 2;
+  const bool unmatched_found =
       (!unmatched.empty() && unmatched.back().size() == size);
 
   Deq2D small;
@@ -165,8 +169,7 @@ Deq2D PmergeMe::split(Deq2D &unmatched) {
        current++, ++small_it) {
     Deq &big = *current;
     *small_it = Deq(big.begin(), big.begin() + size); // NOLINT
-    // erasing in the beginning does not create shifts or copies (unlike in
-    // vectors)
+    // erase at begin doesn't shift or copy (unlike in vectors)
     big.erase(big.begin(), big.begin() + size); // NOLINT
   }
   if (unmatched_found) {
@@ -190,14 +193,18 @@ void PmergeMe::insert(Vec2D &unmatched) {
     // GET JACOBSTHAL NUMBER
     while (*j_it >= small.size())
       ++j_it;
-    size_t jacobsthal = *j_it;
+    const size_t jacobsthal = *j_it;
 
     // THE CONTAINER TO INSERT BASED ON JACOBSTHAL NUMBER
     Vec &curr = small[jacobsthal];
+
+#ifdef DEBUG
     debug(curr, jacobsthal, indexes);
+#endif
 
     // BINARY SEARCH WHERE TO INSERT
-    size_t where_to = binary_search(big, curr.back(), indexes[jacobsthal]);
+    const size_t where_to =
+        binary_search(big, curr.back(), indexes[jacobsthal]);
 
     // ADJUST INDEXES THAT ARE AFTER THE INSERTION POINT
     for (size_t k = where_to; k < indexes.size(); k++)
@@ -206,9 +213,14 @@ void PmergeMe::insert(Vec2D &unmatched) {
     // INSERT
     big.insert(big.begin() + where_to, Vec()); // NOLINT
     curr.swap(big[where_to]);
+
+#ifdef DEBUG
     debug(big, small, unmatched);
+#endif
   }
+#ifdef DEBUG
   debug(big, unmatched);
+#endif
 }
 
 void PmergeMe::insert(Deq2D &unmatched) {
@@ -224,11 +236,12 @@ void PmergeMe::insert(Deq2D &unmatched) {
   for (size_t i = 0; i < small.size(); i++, ++j_it) {
     while (*j_it >= small.size())
       ++j_it;
-    size_t jacobsthal = *j_it;
+    const size_t jacobsthal = *j_it;
 
     Deq &curr = small[jacobsthal];
 
-    size_t where_to = binary_search(big, curr.back(), indexes[jacobsthal]);
+    const size_t where_to =
+        binary_search(big, curr.back(), indexes[jacobsthal]);
 
     for (size_t k = where_to; k < indexes.size(); k++)
       ++indexes[k];
@@ -238,7 +251,7 @@ void PmergeMe::insert(Deq2D &unmatched) {
   }
 }
 
-size_t count_unmatched(size_t size) {
+static size_t count_unmatched(size_t size) {
   size_t bits = 0;
   while (size > 0) {
     bits += size & 1;
@@ -292,32 +305,24 @@ template <typename Container>
 void PmergeMe::debug(const Container &cont,
                      const Container &unmatched) // NOLINT
 {
-  if (DEBUG) {
-    print2D(cont, GREEN);
-    print2D(unmatched, BLUE);
-    std::cout << "\nNumber of comparisons: " << _comparisons << "\n";
-  }
+  print2D(cont, GREEN);
+  print2D(unmatched, BLUE);
+  std::cout << "\nNumber of comparisons: " << _comparisons << "\n";
 }
 
 template <typename Container>
 void PmergeMe::debug(const Container &cont, const Container &cont2,
-                     const Container &unmatched) // NOLINT
-{
-  if (DEBUG) {
-    print2D(cont, GREEN);
-    print2D(cont2, YELLOW);
-    print2D(unmatched, BLUE);
-    std::cout << "\n";
-  }
+                     const Container &unmatched) {
+  print2D(cont, GREEN);
+  print2D(cont2, YELLOW);
+  print2D(unmatched, BLUE);
+  std::cout << "\n";
 }
 template <typename Container, typename Indexes>
 void PmergeMe::debug(const Container &curr, size_t j, const Indexes &indexes) {
-  if (DEBUG) {
-    std::cout << CYAN "Jacobstahl number: " << j + 1 << ", Inserting: [ ";
-    for (typename Container::const_iterator it = curr.begin(); it != curr.end();
-         it++)
-      std::cout << *it << " ";
-    std::cout << "], Binary search before index " << indexes[j] << "\n" RESET;
-  }
+  std::cout << CYAN "Jacobstahl number: " << j + 1 << ", Inserting: [ ";
+  for (typename Container::const_iterator it = curr.begin(); it != curr.end();
+       it++)
+    std::cout << *it << " ";
+  std::cout << "], Binary search before index " << indexes[j] << "\n" RESET;
 }
-// NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)
