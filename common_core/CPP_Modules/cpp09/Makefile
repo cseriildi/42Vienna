@@ -53,6 +53,10 @@ run: all
 	@echo
 	@./$(NAME) $(ARGS)
 
+.PHONY: debug
+debug: CXXFLAGS += -DDEBUG
+debug: re run
+
 .PHONY: val
 val: re
 	@echo
@@ -95,14 +99,15 @@ BLUE=\033[34m
 
 define print_help
 	@echo "Available Makefile rules:"
-	@echo "  all        - Build the project"
-	@echo "  clean      - Remove object files and dependencies"
-	@echo "  fclean     - Remove object files, dependencies and the executable"
-	@echo "  re         - Clean and rebuild the project"
-	@echo "  run [ARGS] - Run the executable"
-	@echo "  val [ARGS] - Run the executable with valgrind"
-	@echo "  san [ARGS] - Run the executable with sanitizer"
-	@echo "  help       - Show this help message"
+	@echo "  all          - Build the project"
+	@echo "  clean        - Remove object files and dependencies"
+	@echo "  fclean       - Remove object files, dependencies and the executable"
+	@echo "  re           - Clean and rebuild the project"
+	@echo "  run [ARGS]   - Run the executable"
+	@echo "  debug [ARGS] - Run the executable with debug flags"
+	@echo "  val [ARGS]   - Run the executable with valgrind"
+	@echo "  san [ARGS]   - Run the executable with sanitizer"
+	@echo "  help         - Show this help message"
 endef
 
 define run_make_in_subdirs

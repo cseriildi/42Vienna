@@ -7,8 +7,10 @@
 #include <string>
 
 int main(int argc, char **argv) try {
-void parseInput(const char *filename) {
-  std::ifstream file(filename);
+#ifdef DEBUG
+  test();
+  return 0;
+#endif
 
   if (argc != 2) {
     std::cout << "Usage: ./btc <filename>\n";

@@ -21,3 +21,5 @@ private:
   static const char *_databaseFilename;
   static const Database _database;
 };
+
+void test(void);
