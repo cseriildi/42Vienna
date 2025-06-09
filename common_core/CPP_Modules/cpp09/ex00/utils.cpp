@@ -69,16 +69,20 @@ void trim_values(std::string &date, std::string &value) {
 void shorten_value(std::string &value) {
   const int is_negative = (int)(*value.begin() == '-');
 
-  while (value != "0" && *(value.begin() + is_negative) == '0')
+  while (*(value.begin() + is_negative) == '0' &&
+         value.begin() + is_negative + 1 != value.end() &&
+         *(value.begin() + is_negative + 1) != '.')
     value.erase(is_negative, 1);
 
   if (value.find('.') != std::string::npos) {
     while (*(value.end() - 1) == '0')
       value.erase(value.size() - 1);
 
-    if (*(value.end() - 1) == '.')
+    if (value.find('.') == value.size() - 1)
       value.erase(value.size() - 1);
   }
+  if (value == "-0")
+    value = "0";
 }
 
 bool is_less_than_1000(const std::string &value) {
