@@ -9,6 +9,7 @@
 bool is_valid_date(const std::string &date);
 bool is_valid_value(const std::string &value);
 void trim_values(std::string &date, std::string &value);
+void shorten_value(std::string &value);
 bool is_less_than_1000(const std::string &value);
 
 template <typename T> T sto(const std::string &str) {

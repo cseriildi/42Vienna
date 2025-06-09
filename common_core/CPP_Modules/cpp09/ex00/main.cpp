@@ -1,14 +1,21 @@
-// NOLINTBEGIN(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-
 #include "BitcoinExchange.hpp"
+
 #include <exception>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>
 
+int main(int argc, char **argv) try {
 void parseInput(const char *filename) {
   std::ifstream file(filename);
+
+  if (argc != 2) {
+    std::cout << "Usage: ./btc <filename>\n";
+    return 1;
+  }
+
+  std::ifstream file(argv[1]);
   if (!file)
     throw std::runtime_error("Could not open file");
 
@@ -21,23 +28,9 @@ void parseInput(const char *filename) {
       if (line == "date | value")
         continue;
     }
-
-    try {
-      BitcoinExchange::buy(line);
-    } catch (const std::exception &e) {
-      std::cout << "Error: " << e.what() << "\n";
-    }
+    BitcoinExchange::buy(line);
   }
   file.close();
-}
-
-int main(int argc, char **argv) try {
-  if (argc != 2) {
-    std::cout << "Usage: ./btc <filename>\n";
-    return 1;
-  }
-
-  parseInput(argv[1]);
   return 0;
 
 } catch (const std::exception &e) {
@@ -47,5 +40,3 @@ int main(int argc, char **argv) try {
   std::cerr << "Unknown error\n";
   return 1;
 }
-
-// NOLINTEND(cppcoreguidelines-pro-bounds-pointer-arithmetic)

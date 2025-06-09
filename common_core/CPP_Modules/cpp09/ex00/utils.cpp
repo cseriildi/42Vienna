@@ -1,5 +1,4 @@
 // NOLINTBEGIN(readability-magic-numbers)
-
 #include "utils.hpp"
 
 #include <cctype>
@@ -7,7 +6,7 @@
 #include <string>
 #include <typeinfo>
 
-bool is_only_digit(const std::string &num) {
+static bool is_only_digit(const std::string &num) {
   for (std::string::const_iterator it = num.begin(); it != num.end(); it++) {
     if (std::isdigit(*it) == 0)
       return false;
@@ -19,18 +18,18 @@ bool is_valid_date(const std::string &date) {
   if (date.length() != 10 || date[4] != '-' || date[7] != '-')
     return false;
 
-  std::string yearStr = date.substr(0, 4);
-  std::string monthStr = date.substr(5, 2);
-  std::string dayStr = date.substr(8, 2);
+  const std::string yearStr = date.substr(0, 4);
+  const std::string monthStr = date.substr(5, 2);
+  const std::string dayStr = date.substr(8, 2);
 
   if (!is_only_digit(yearStr) || !is_only_digit(monthStr) ||
       !is_only_digit(dayStr))
     return false;
 
   try {
-    int year = sto<int>(yearStr);
-    int month = sto<int>(monthStr);
-    int day = sto<int>(dayStr);
+    const int year = sto<int>(yearStr);
+    const int month = sto<int>(monthStr);
+    const int day = sto<int>(dayStr);
 
     if (month < 1 || month > 12 || day < 1 || day > 31)
       return false;
@@ -48,7 +47,7 @@ bool is_valid_date(const std::string &date) {
 }
 
 bool is_valid_value(const std::string &value) {
-  int is_negative = (int)(*value.begin() == '-');
+  const int is_negative = (int)(*value.begin() == '-');
   std::string::const_iterator it = value.begin() + is_negative;
   int dot_count = 0;
 
@@ -65,7 +64,10 @@ bool is_valid_value(const std::string &value) {
 void trim_values(std::string &date, std::string &value) {
   date.erase(date.size() - 1); // trim space at the end
   value.erase(0, 1);           // trim space in the beginning
-  int is_negative = (int)(*value.begin() == '-');
+}
+
+void shorten_value(std::string &value) {
+  const int is_negative = (int)(*value.begin() == '-');
 
   while (value != "0" && *(value.begin() + is_negative) == '0')
     value.erase(is_negative, 1);
@@ -80,7 +82,7 @@ void trim_values(std::string &date, std::string &value) {
 }
 
 bool is_less_than_1000(const std::string &value) {
-  size_t dot_pos = value.find('.');
+  const size_t dot_pos = value.find('.');
 
   return (dot_pos == std::string::npos &&
           (value.length() <= 3 || value == "1000")) ||

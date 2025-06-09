@@ -1,8 +1,8 @@
-#include "../colors.hpp"
-
 #include "BitcoinExchange.hpp"
+#include "../colors.hpp"
 #include "utils.hpp"
 
+#include <exception>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -58,7 +58,7 @@ Database BitcoinExchange::parseDatabase() {
       continue;
     }
     try {
-      float rate = sto<float>(rateStr);
+      const float rate = sto<float>(rateStr);
       if (rate < 0) {
         std::cerr << RED "Error during database parsing:\n"
                          "Rate can't be negative, this line is ignored: " +
@@ -88,7 +88,7 @@ float BitcoinExchange::getExchangeRate(const std::string &date) {
   return (--it)->second;
 }
 
-void BitcoinExchange::buy(const std::string &line) {
+void BitcoinExchange::buy(const std::string &line) try {
   std::istringstream iss(line);
   std::string date;
   std::string valueStr;
@@ -97,17 +97,22 @@ void BitcoinExchange::buy(const std::string &line) {
 
   if (date.empty() || *(date.end() - 1) != ' ' || *valueStr.begin() != ' ')
     throw std::runtime_error("Use \"date | value\" format");
+
   trim_values(date, valueStr);
+  const std::string og_date = date;
+  const std::string og_value = valueStr;
+  shorten_value(valueStr);
+
   if (!is_valid_date(date))
-    throw std::runtime_error("bad input => " + date);
+    throw std::runtime_error("bad input => \"" + og_date + "\"");
   if (!is_valid_value(valueStr))
-    throw std::runtime_error("bad input => " + valueStr);
+    throw std::runtime_error("bad input => \"" + og_value + "\"");
 
   if (!is_less_than_1000(valueStr))
     throw std::runtime_error("too large a number => " + valueStr);
 
   try {
-    float rate = sto<float>(valueStr);
+    const float rate = sto<float>(valueStr);
     if (rate < 0)
       throw std::runtime_error("not a positive number => " + valueStr);
 
@@ -116,4 +121,6 @@ void BitcoinExchange::buy(const std::string &line) {
   } catch (const std::bad_cast &e) {
     throw std::runtime_error("invalid rate => " + valueStr);
   }
+} catch (const std::exception &e) {
+  std::cerr << RED "Error: " << e.what() << RESET "\n";
 }
