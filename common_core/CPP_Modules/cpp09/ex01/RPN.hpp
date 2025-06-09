@@ -27,3 +27,4 @@ private:
 };
 
 std::ostream &operator<<(std::ostream &os, const RPN &other);
+void run_tests(void);

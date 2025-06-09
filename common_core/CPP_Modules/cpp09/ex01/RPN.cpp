@@ -1,7 +1,7 @@
 // NOLINTBEGIN(readability-implicit-bool-conversion)
+#include "RPN.hpp"
 #include "../colors.hpp"
 
-#include "RPN.hpp"
 #include <cctype>
 #include <ostream>
 #include <stdexcept>
@@ -46,7 +46,7 @@ double RPN::poptop() {
   if (_numbers.empty())
     throw std::logic_error("Not enough operands");
 
-  double top = _numbers.top();
+  const double top = _numbers.top();
   _numbers.pop();
 
   return top;
@@ -60,8 +60,8 @@ void RPN::storeNumber(std::string::const_iterator it) {
 }
 
 void RPN::doOperation(char op) {
-  double b = poptop();
-  double a = poptop();
+  const double b = poptop();
+  const double a = poptop();
 
   if (op == '+')
     _numbers.push(a + b);

@@ -1,7 +1,6 @@
-// NOLINTBEGIN(misc-use-anonymous-namespace)
 #include "../colors.hpp"
-
 #include "RPN.hpp"
+
 #include <exception>
 #include <iostream>
 
@@ -45,5 +44,3 @@ void run_tests(void) {
   test("0 4 /");
   test("4 0 /");
 }
-
-// NOLINTEND(misc-use-anonymous-namespace)
