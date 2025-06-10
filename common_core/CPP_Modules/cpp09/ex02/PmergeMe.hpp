@@ -1,59 +1,57 @@
 #pragma once
 
 #include "Jacobsthal.hpp"
+
 #include <cstddef>
 #include <deque>
-#include <ostream>
 #include <vector>
+
+#define USAGE "Usage: ./PmergeMe <positive integers>"
 
 typedef std::vector<unsigned int> Vec;
 typedef std::deque<unsigned int> Deq;
 typedef std::vector<Vec> Vec2D;
 typedef std::deque<Deq> Deq2D;
+typedef std::vector<std::size_t> VecIndexes;
+typedef std::deque<std::size_t> DeqIndexes;
+
+template <typename Container, typename Indexes> struct Data {
+  Container container;
+  Container unmatched;
+  Jacobsthal<Indexes> jacobsthal;
+  Indexes indexes;
+  std::size_t comparisons;
+};
 
 class PmergeMe {
 public:
+  static Vec mergeInsertionSort(const Vec &numbers);
+  static Deq mergeInsertionSort(const Deq &numbers);
+
+private:
   PmergeMe();
-  PmergeMe(int argc, char *nums[]);
   ~PmergeMe();
   PmergeMe(const PmergeMe &other);
   PmergeMe &operator=(const PmergeMe &other);
 
-  void sortVec();
-  void sortDeq();
+  static void merge(Data<Vec2D, VecIndexes> &data);
+  static void merge(Data<Deq2D, DeqIndexes> &data);
 
-  const Deq2D &deq(void) const;
-  const Vec2D &vec(void) const;
+  static Vec2D split(Data<Vec2D, VecIndexes> &data);
+  static Deq2D split(Data<Deq2D, DeqIndexes> &data);
 
-  void empty_cache(void);
-
-private:
-  Jacobsthal _jacobsthal;
-  Vec2D _vec;
-  Deq2D _deq;
-  size_t _comparisons;
-
-  template <typename Container>
-  void debug(const Container &cont, const Container &unmatched);
-
-  template <typename Container>
-  void debug(const Container &cont, const Container &cont2,
-             const Container &unmatched);
+  static void insert(Data<Vec2D, VecIndexes> &data);
+  static void insert(Data<Deq2D, DeqIndexes> &data);
 
   template <typename Container, typename Indexes>
-  void debug(const Container &curr, size_t j, const Indexes &indexes);
+  static std::size_t binary_search(Data<Container, Indexes> &data,
+                                   unsigned int value, std::size_t end);
+
+  template <typename Container, typename Indexes>
+  static void debug(const Data<Container, Indexes> &data,
+                    const Container *small = NULL);
 
   template <typename Container>
-  size_t binary_search(Container &container, unsigned int value, size_t end);
-
-  void merge(Vec2D &unmatched);
-  void merge(Deq2D &unmatched);
-
-  Vec2D split(Vec2D &unmatched);
-  Deq2D split(Deq2D &unmatched);
-
-  void insert(Vec2D &unmatched);
-  void insert(Deq2D &unmatched);
+  static void debug(const Container &container,
+                    typename Container::value_type value);
 };
-
-std::ostream &operator<<(std::ostream &os, const PmergeMe &other);

@@ -9,4 +9,5 @@
 !docker/
 !.gitignore
 !.clangd
+!.clangformat
 !Makefile

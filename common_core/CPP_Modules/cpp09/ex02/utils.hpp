@@ -1,12 +1,21 @@
 #pragma once
 
-#include "../colors.hpp"
+#include "PmergeMe.hpp"
 
-#include <iostream>
+#include <cstddef>
 #include <limits>
+#include <ostream>
 #include <sstream>
 #include <string>
 #include <typeinfo>
+
+long now_in_microseconds();
+Vec parse_input(int argc, char **argv);
+std::size_t count_unmatched(std::size_t size);
+std::ostream &operator<<(std::ostream &os, const Vec &other);
+std::ostream &operator<<(std::ostream &os, const Deq &other);
+std::ostream &operator<<(std::ostream &os, const Vec2D &other);
+std::ostream &operator<<(std::ostream &os, const Deq2D &other);
 
 template <typename T> T sto(const std::string &str) {
   if (str == "nan" || str == "nanf") {
@@ -31,23 +40,4 @@ template <typename T> T sto(const std::string &str) {
     throw std::bad_cast();
   }
   return result;
-}
-
-template <typename Container>
-void print2D(const Container &cont, const std::string &color = RESET) {
-  typedef typename Container::const_iterator OuterIt;
-  typedef typename Container::value_type InnerContainer;
-  typedef typename InnerContainer::const_iterator InnerIt;
-
-  std::cout << color << "{";
-  for (OuterIt it = cont.begin(); it != cont.end(); it++) {
-    std::cout << "[";
-    for (InnerIt itt = (*it).begin(); itt != (*it).end(); itt++) {
-      if (itt != (*it).begin())
-        std::cout << " ";
-      std::cout << *itt;
-    }
-    std::cout << "]";
-  }
-  std::cout << "}" RESET;
 }
