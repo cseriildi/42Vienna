@@ -82,7 +82,7 @@ void PmergeMe::merge(Data<Vec2D, VecIndexes> &data) {
     } else {
       Vec &next_vec = *(it + 1);
 
-      // MERGE ITS PAIR TO BEGINN OR END BASED ON THE LAST ELEMENTS
+      // MERGE ITS PAIR TO BEGIN OR END BASED ON THE LAST ELEMENTS
       Vec *smaller = &curr_vec;
       Vec *bigger = &next_vec;
 
