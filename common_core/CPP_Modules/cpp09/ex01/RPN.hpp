@@ -1,8 +1,11 @@
 #pragma once
 
+#include <list>
 #include <ostream>
 #include <stack>
 #include <string>
+
+typedef std::list<double> Container;
 
 class RPN {
 public:
@@ -21,7 +24,7 @@ private:
   double poptop();
   static bool isOperator(char op);
 
-  std::stack<double> _numbers;
+  std::stack<double, Container> _numbers;
   std::string _expression;
   static const std::string _operators;
 };
