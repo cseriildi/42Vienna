@@ -5,8 +5,6 @@
 #include <exception>
 #include <iostream>
 #include <stdexcept>
-#include <sys/_types/_timeval.h>
-#include <sys/time.h>
 
 int main(int argc, char **argv) try {
   if (argc < 2)

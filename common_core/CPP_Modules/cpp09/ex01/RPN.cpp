@@ -80,7 +80,7 @@ bool RPN::isOperator(char op) {
   return _operators.find(op) != std::string::npos;
 }
 
-std::string RPN::expression() const { return _expression; }
+const std::string &RPN::expression() const { return _expression; }
 
 std::ostream &operator<<(std::ostream &os, const RPN &other) {
   return os << BLUE "\"" << other.expression() << "\"\n" RESET;

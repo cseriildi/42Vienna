@@ -11,7 +11,7 @@ public:
   RPN(const RPN &other);
   RPN &operator=(const RPN &other);
 
-  std::string expression() const;
+  const std::string &expression() const;
   double solve();
 
 private:

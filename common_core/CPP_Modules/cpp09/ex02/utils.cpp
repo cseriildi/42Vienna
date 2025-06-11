@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <ostream>
 #include <stdexcept>
-#include <sys/_types/_timeval.h>
 #include <sys/select.h>
 #include <sys/time.h>
 #include <typeinfo>
