@@ -1,4 +1,4 @@
-# About the ft_transcendence project
+# About the inception project
 
 ## Summary
 
