@@ -34,7 +34,7 @@ C 225,30,0
 11110111 1110101 101111010001
 11111111 1111111 111111111111
 ```
-- where 
+- where
 	- `NO`, `SO`, `WE`, `EA` are containing the path to the textures of the walls according to the direction
 	- `F` and `C` is the floor and ceiling color in RGB
 	- the map containing ones and zeros, where `1` is wall `0` is empty space and one `W`, `N`, `S` or `E` meaning the starting direction of the player.
