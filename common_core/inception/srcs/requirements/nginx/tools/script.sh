@@ -2,14 +2,16 @@
 
 mkdir -p /etc/nginx/ssl
 
-if [ ! -f /etc/nginx/ssl/localhost.crt ] || [ ! -f /etc/nginx/ssl/localhost.key ]; then
+if [ ! -f ${CERTS_CRT} ] || [ ! -f ${CERTS_KEY} ]; then
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-        -keyout /etc/nginx/ssl/localhost.key \
-        -out /etc/nginx/ssl/localhost.crt \
-        -subj "/C=AT/ST=Vienna/L=Vienna/O=42Vienna/OU=Student/CN=localhost"
+        -keyout ${CERTS_KEY} \
+        -out ${CERTS_CRT} \
+        -subj "/C=AT/ST=Vienna/L=Vienna/O=42Vienna/CN=${DOMAIN_NAME}"
+    
+    chmod 600 ${CERTS_KEY}
+    chmod 644 ${CERTS_CRT}
 fi
 
-chmod 600 /etc/nginx/ssl/localhost.key
-chmod 644 /etc/nginx/ssl/localhost.crt
+envsubst < /nginx.conf > /etc/nginx/nginx.conf
 
 nginx -g "daemon off;"
