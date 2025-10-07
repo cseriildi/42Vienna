@@ -6,7 +6,6 @@ RUN apk update && apk upgrade && apk add --no-cache \
     gettext
 
 RUN mkdir -p /var/lib/mysql /var/log/mysql /run/mysqld
-
 RUN chown -R mysql:mysql /var/lib/mysql /var/log/mysql /run/mysqld
 
 COPY /conf/mariadb.conf /etc/my.cnf.d/mariadb-server.cnf

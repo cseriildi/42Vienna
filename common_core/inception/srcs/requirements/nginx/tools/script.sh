@@ -14,4 +14,4 @@ fi
 
 envsubst '$DOMAIN_NAME $CERTS_CRT $CERTS_KEY $PHP_HOST $PHP_PORT' < /nginx.conf > /etc/nginx/nginx.conf
 
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"

@@ -7,4 +7,4 @@ fi
 envsubst < /init.sql > /var/lib/mysql/init.sql
 chmod +x /var/lib/mysql/init.sql
 
-exec mariadbd-safe --datadir='/var/lib/mysql'
+exec mariadbd --datadir='/var/lib/mysql'
