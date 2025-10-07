@@ -29,10 +29,11 @@ RUN apk update && apk add --no-cache \
 
 COPY /conf/wordpress.conf /etc/php83/php-fpm.d/www.conf
 COPY /conf/php.ini /etc/php83/conf.d/99-wordpress.ini
+COPY tools/script.sh /script.sh
+RUN chmod +x /script.sh
+
 WORKDIR /var/www/html
 
-COPY tools/script.sh /script.sh
-
-RUN chmod +x /script.sh
+EXPOSE 9000
 
 CMD ["/script.sh"]

@@ -5,7 +5,7 @@ services:
                 container_name: mariadb
                 env_file: .env
                 volumes:
-                        - /home/icseri/data/mariadb:/var/lib/mysql
+                        - mariadb_data:/var/lib/mysql
                 networks:
                         - inception
                 restart: unless-stopped
@@ -17,7 +17,7 @@ services:
                         - mariadb
                 env_file: .env
                 volumes:
-                        - /home/icseri/data/wordpress:/var/www/html
+                        - wordpress_data:/var/www/html
                 networks:
                         - inception
                 restart: unless-stopped
@@ -31,10 +31,24 @@ services:
                 ports:
                         - "443:443"
                 volumes:
-                        - /home/icseri/data/wordpress:/var/www/html
+                        - wordpress_data:/var/www/html
                 networks:
                         - inception
                 restart: unless-stopped
+
+volumes:
+        mariadb_data:
+                driver: local
+                driver_opts:
+                        type: none
+                        device: ${HOME}/data/mariadb
+                        o: bind
+        wordpress_data:
+                driver: local
+                driver_opts:
+                        type: none
+                        device: ${HOME}/data/wordpress
+                        o: bind
 
 networks:
         inception:
