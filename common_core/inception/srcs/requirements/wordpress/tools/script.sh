@@ -11,7 +11,7 @@ if [ ! -f wp-config.php ]; then
       --allow-root
 
     php83 /wp core install \
-      --url="$DOMAIN_NAME" \
+      --url="https://${DOMAIN_NAME}" \
       --title="$WORDPRESS_TITLE" \
       --admin_user="$WORDPRESS_ADMIN_USER" \
       --admin_password="$WORDPRESS_ADMIN_PASSWORD" \
@@ -23,6 +23,10 @@ if [ ! -f wp-config.php ]; then
       --user_pass="$WORDPRESS_USER_PASSWORD" \
       --display_name="$WORDPRESS_USER" \
       --allow-root
+
+  php83 /wp option update siteurl "https://${DOMAIN_NAME}" --allow-root
+  php83 /wp option update home "https://${DOMAIN_NAME}" --allow-root
+
 fi
 
 exec php-fpm83 -F
