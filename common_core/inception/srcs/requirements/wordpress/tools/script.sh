@@ -24,8 +24,8 @@ if [ ! -f wp-config.php ]; then
       --display_name="$WORDPRESS_USER" \
       --allow-root
 
-  php83 /wp option update siteurl "https://${DOMAIN_NAME}" --allow-root
-  php83 /wp option update home "https://${DOMAIN_NAME}" --allow-root
+    php83 /wp option update siteurl "https://${DOMAIN_NAME}" --allow-root
+    php83 /wp option update home "https://${DOMAIN_NAME}" --allow-root
 
 fi
 
