@@ -10,7 +10,7 @@ services:
                         - inception
                 restart: unless-stopped
                 healthcheck:
-                        test: ["CMD", "mysql -h \"$MYSQL_HOST\" -u\"$MYSQL_USER\" -p\"$MYSQL_PASSWORD\" -D \"$MYSQL_DB\" -e 'SELECT 1' >/dev/null 2>&1 || exit 1"]
+                        test: ["CMD", "sh", "-c", "mysql -h mariadb -u\"$$MYSQL_USER\" -p\"$$MYSQL_PASSWORD\" -D \"$$MYSQL_DATABASE\" -e 'SELECT 1' >/dev/null 2>&1 || exit 1"]
                         interval: 5s
                         timeout: 3s
                         retries: 12
