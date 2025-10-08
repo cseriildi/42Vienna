@@ -11,7 +11,7 @@ RUN chown -R mysql:mysql /var/lib/mysql /var/log/mysql /run/mysqld
 COPY /conf/mariadb.conf /etc/my.cnf.d/mariadb-server.cnf
 COPY tools/ /
 
-RUN chmod +x /init.sql /script.sh \
+RUN chmod +x /script.sh \
     && chown mysql:mysql /init.sql /script.sh
 
 EXPOSE 3306
